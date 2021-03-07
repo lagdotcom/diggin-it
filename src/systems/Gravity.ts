@@ -1,5 +1,5 @@
-import Actor from '../Actor';
-import Game from '../Game';
+import Actor from "../Actor";
+import Game from "../Game";
 
 export default class Gravity {
   constructor(public g: Game) {}

@@ -1,4 +1,4 @@
-import Cmd from '../Cmd';
+import Cmd from "../Cmd";
 
 type Context = {
   handle(cmd: Cmd): void;

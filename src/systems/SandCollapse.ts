@@ -1,6 +1,6 @@
-import Game from '../Game';
-import LinearGrid from '../LinearGrid';
-import { empty } from '../Tile';
+import Game from "../Game";
+import LinearGrid from "../LinearGrid";
+import { empty } from "../Tile";
 
 export default class SandCollapse {
   constructor(public g: Game) {

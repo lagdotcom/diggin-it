@@ -1,5 +1,5 @@
-import Thing from './interfaces/Thing';
-import Tile from './Tile';
+import Thing from "./interfaces/Thing";
+import Tile from "./Tile";
 
 export interface EventMap {
   collapsed: { x: number; y: number };

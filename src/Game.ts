@@ -1,21 +1,20 @@
-import { Display } from 'rot-js';
+import { Display } from "rot-js";
 
-import { KeyInputHandler } from '@lagdotcom/simple-inputs';
+import { KeyInputHandler } from "@lagdotcom/simple-inputs";
 
-import Actor from './Actor';
-import ArrayStack from './ArrayStack';
-import Cmd from './Cmd';
-import Dungeon from './contexts/Dungeon';
-import EventHandler from './EventHandler';
-import Context from './interfaces/Context';
-import Grid from './interfaces/Grid';
-import Stack from './interfaces/Stack';
-import Thing from './interfaces/Thing';
-import Item from './Item';
-import LinearGrid from './LinearGrid';
-import { loadMap, testMap } from './maps';
-import MessageLog from './MessageLog';
-import Tile, { unset } from './Tile';
+import Actor from "./Actor";
+import ArrayStack from "./ArrayStack";
+import Dungeon from "./contexts/Dungeon";
+import EventHandler from "./EventHandler";
+import Context from "./interfaces/Context";
+import Grid from "./interfaces/Grid";
+import Stack from "./interfaces/Stack";
+import Thing from "./interfaces/Thing";
+import Item from "./Item";
+import LinearGrid from "./LinearGrid";
+import { loadMap, testMap } from "./maps";
+import MessageLog from "./MessageLog";
+import Tile, { unset } from "./Tile";
 
 export default class Game extends EventHandler {
   actors: Grid<Actor>;

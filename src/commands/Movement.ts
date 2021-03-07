@@ -1,5 +1,5 @@
-import Cmd from '../Cmd';
-import Game from '../Game';
+import Cmd from "../Cmd";
+import Game from "../Game";
 
 export default class Movement {
   constructor(public g: Game) {}

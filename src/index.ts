@@ -1,4 +1,4 @@
-import Game from './Game';
+import Game from "./Game";
 
 window.addEventListener("load", async () => {
   const g = new Game();

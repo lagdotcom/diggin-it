@@ -1,13 +1,13 @@
-import DiscreteShadowcasting from 'rot-js/lib/fov/discrete-shadowcasting';
+import DiscreteShadowcasting from "rot-js/lib/fov/discrete-shadowcasting";
 
-import Cmd, { ClimbCmd, DigCmd, MoveCmd, PushCmd } from '../Cmd';
-import Movement from '../commands/Movement';
-import Pushing from '../commands/Pushing';
-import Game from '../Game';
-import Context from '../interfaces/Context';
-import Gravity from '../systems/Gravity';
-import SandCollapse from '../systems/SandCollapse';
-import { empty } from '../Tile';
+import Cmd, { ClimbCmd, DigCmd, MoveCmd, PushCmd } from "../Cmd";
+import Movement from "../commands/Movement";
+import Pushing from "../commands/Pushing";
+import Game from "../Game";
+import Context from "../interfaces/Context";
+import Gravity from "../systems/Gravity";
+import SandCollapse from "../systems/SandCollapse";
+import { empty } from "../Tile";
 
 export default class Dungeon implements Context {
   gravity: Gravity;

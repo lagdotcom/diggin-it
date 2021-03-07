@@ -1,4 +1,4 @@
-import Stack from './interfaces/Stack';
+import Stack from "./interfaces/Stack";
 
 export default class ArrayStack<T> implements Stack<T> {
   private items: T[];

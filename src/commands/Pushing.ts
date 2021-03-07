@@ -1,6 +1,6 @@
-import Cmd from '../Cmd';
-import Game from '../Game';
-import Thing from '../interfaces/Thing';
+import Cmd from "../Cmd";
+import Game from "../Game";
+import Thing from "../interfaces/Thing";
 
 export default class Pushing {
   constructor(public g: Game) {}

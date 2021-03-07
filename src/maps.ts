@@ -1,8 +1,18 @@
-import Actor, { ActorOptions } from './Actor';
-import Game from './Game';
-import Item, { ItemOptions } from './Item';
-import LinearGrid from './LinearGrid';
-import Tile, { air, border, dirt, empty, entrance, exit, ladder, sand, unset, water } from './Tile';
+import Actor, { ActorOptions } from "./Actor";
+import Game from "./Game";
+import Item, { ItemOptions } from "./Item";
+import Tile, {
+  air,
+  border,
+  dirt,
+  empty,
+  entrance,
+  exit,
+  ladder,
+  sand,
+  unset,
+  water,
+} from "./Tile";
 
 export const testMap = [
   "!!!!!!!!!!!!!!!!",
