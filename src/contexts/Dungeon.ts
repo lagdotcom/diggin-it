@@ -4,11 +4,14 @@ import Cmd from '../Cmd';
 import Movement from '../commands/Movement';
 import Game from '../Game';
 import Context from '../interfaces/Context';
+import MessageLog from '../MessageLog';
 
 export default class Dungeon implements Context {
+  log: MessageLog;
   movement: Movement;
 
   constructor(public g: Game) {
+    this.log = new MessageLog();
     this.movement = new Movement(g);
   }
 
@@ -29,18 +32,20 @@ export default class Dungeon implements Context {
     switch (cmd.type) {
       case "move":
         const { x, y } = cmd;
-        if (this.movement.possible(x, y)) {
-          this.movement.apply(x, y);
-          return this.render();
-        }
-        break;
+        const err = this.movement.possible(x, y);
+        if (err) this.log.add(err);
+        else this.movement.apply(x, y);
+        return this.render();
     }
   }
 
   render(): void {
-    const { map, player, tiles } = this.g;
+    const { chars, map, player, tiles } = this.g;
 
     tiles.clear();
+
+    const xmod = tiles._options.width / 2 - player.x;
+    const ymod = tiles._options.height / 2 - player.y;
 
     const fov = new DiscreteShadowcasting((x, y) => !map.get(x, y).opaque);
     fov.compute(player.x, player.y, player.vision, (x, y, r) => {
@@ -49,7 +54,13 @@ export default class Dungeon implements Context {
       if (actor) glyph = actor.glyph;
       else if (items.length) glyph = items[0].glyph;
 
-      tiles.draw(x, y, glyph, "white", "black");
+      tiles.draw(xmod + x, ymod + y, glyph, "white", "black");
+    });
+
+    let y = chars._options.height - 1;
+    this.log.messages.forEach((msg) => {
+      chars.drawText(0, y, msg);
+      y--;
     });
   }
 }

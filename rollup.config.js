@@ -1,4 +1,5 @@
 import commonjs from "@rollup/plugin-commonjs";
+import nodePolyfills from "rollup-plugin-node-polyfills";
 import pkg from "./package.json";
 import resolve from "@rollup/plugin-node-resolve";
 import serve from "rollup-plugin-serve";
@@ -14,6 +15,7 @@ export default {
     format: "iife",
   },
   plugins: [
+    nodePolyfills(),
     url({ limit: Infinity }),
     sourcemaps(),
     commonjs(),

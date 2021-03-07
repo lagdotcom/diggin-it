@@ -6,6 +6,7 @@ import Actor from './Actor';
 import ArrayStack from './ArrayStack';
 import Cmd from './Cmd';
 import Dungeon from './contexts/Dungeon';
+import EventHandler from './EventHandler';
 import Context from './interfaces/Context';
 import Grid from './interfaces/Grid';
 import Stack from './interfaces/Stack';
@@ -14,7 +15,7 @@ import LinearGrid from './LinearGrid';
 import { loadMap, testMap } from './maps';
 import Tile, { unset } from './Tile';
 
-export default class Game {
+export default class Game extends EventHandler {
   actors: Grid<Actor>;
   chars: Display;
   contexts: Stack<Context>;
@@ -24,6 +25,7 @@ export default class Game {
   tiles: Display;
 
   constructor() {
+    super();
     (window as any).g = this;
 
     this.tiles = new Display({
