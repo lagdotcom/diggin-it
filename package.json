@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -cw",
-    "start": "rollup -cw"
+    "start": "rollup -cw",
+    "publish": "butler push dist lagdotcom/diggin-it:web"
   },
   "author": "Lag.Com <lagdotcom@gmail.com>",
   "license": "ISC",
