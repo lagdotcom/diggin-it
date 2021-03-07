@@ -18,12 +18,16 @@ export default class Dungeon implements Context {
   onKey(e: KeyboardEvent): Cmd {
     switch (e.key) {
       case "ArrowLeft":
+        e.preventDefault();
         return { type: "move", x: -1, y: 0 };
       case "ArrowUp":
+        e.preventDefault();
         return { type: "move", x: 0, y: -1 };
       case "ArrowRight":
+        e.preventDefault();
         return { type: "move", x: 1, y: 0 };
       case "ArrowDown":
+        e.preventDefault();
         return { type: "move", x: 0, y: 1 };
     }
   }
