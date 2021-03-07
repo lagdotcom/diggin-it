@@ -26,31 +26,38 @@ export default class Game extends EventHandler {
   player: Actor;
   tiles: Display;
 
-  constructor() {
+  constructor(
+    public container: HTMLElement = document.body,
+    public width = 20,
+    public height = 14,
+    public tileSize = 16
+  ) {
     super();
     (window as any).g = this;
 
     this.tiles = new Display({
       layout: "rect",
-      width: 20,
-      height: 14,
-      fontSize: 16,
+      width,
+      height,
+      fontSize: tileSize,
       forceSquareRatio: true,
     });
     const canvas = this.tiles.getContainer() as HTMLCanvasElement;
+    canvas.className = "game";
+
     const context = canvas.getContext("2d");
     if (!context) throw Error("Could not get context");
 
     this.chars = new Display({
       layout: "rect",
-      width: 40,
-      height: 28,
-      fontSize: 8,
+      width: width * 2,
+      height: height * 2,
+      fontSize: tileSize / 2,
       forceSquareRatio: true,
       context,
     });
 
-    document.body.append(canvas);
+    container.append(canvas);
     this.contexts = new ArrayStack();
     this.log = new MessageLog();
 
@@ -59,6 +66,24 @@ export default class Game extends EventHandler {
       (cmd) => this.contexts.top.handle(cmd),
       { events: ["keydown"] }
     );
+
+    window.addEventListener("resize", this.resized.bind(this));
+    this.resized();
+  }
+
+  resized(): void {
+    const ww = window.innerWidth;
+    const wh = window.innerHeight;
+
+    const uw = this.width * this.tileSize;
+    const uh = this.height * this.tileSize;
+
+    const zw = ww / uw;
+    const zh = wh / uh;
+    const zz = Math.max(1, Math.min(Math.floor(zw), Math.floor(zh)));
+
+    this.container.style.width = `${uw * zz}px`;
+    this.container.style.height = `${uh * zz}px`;
   }
 
   async init() {}

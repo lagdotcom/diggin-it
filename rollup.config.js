@@ -4,23 +4,33 @@ import pkg from "./package.json";
 import resolve from "@rollup/plugin-node-resolve";
 import serve from "rollup-plugin-serve";
 import sourcemaps from "rollup-plugin-sourcemaps";
+import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 import url from "@rollup/plugin-url";
 
-export default {
-  input: pkg.main,
-  output: {
+const output = [];
+const plugins = [
+  nodePolyfills(),
+  url({ limit: Infinity }),
+  sourcemaps(),
+  resolve(),
+  commonjs(),
+  typescript({ tsconfigDefaults: { sourceMap: true } }),
+];
+if (process.env.ROLLUP_WATCH) {
+  output.push({
     sourcemap: true,
-    file: "dist/bundle.js",
+    file: "demo/bundle.js",
     format: "iife",
-  },
-  plugins: [
-    nodePolyfills(),
-    url({ limit: Infinity }),
-    sourcemaps(),
-    commonjs(),
-    resolve(),
-    typescript({ tsconfigDefaults: { sourceMap: true } }),
-    serve({ contentBase: "dist", open: true }),
-  ],
-};
+  });
+  plugins.push(serve({ contentBase: "demo", open: true }));
+} else {
+  output.push({
+    file: "dist/bundle.min.js",
+    format: "iife",
+    plugins: [terser()],
+  });
+}
+
+const rollupConfig = { input: pkg.main, output, plugins };
+export default rollupConfig;
