@@ -1,4 +1,5 @@
 export interface ActorOptions {
+  colour: string;
   digResistance: number;
   digStrength: number;
   glyph: string;
@@ -10,6 +11,7 @@ export interface ActorOptions {
 
 export default class Actor {
   type: "actor";
+  colour: string;
   digResistance: number;
   digStrength: number;
   glyph: string;
@@ -22,6 +24,7 @@ export default class Actor {
     public x: number,
     public y: number,
     {
+      colour = "silver",
       digResistance = Infinity,
       digStrength = 0,
       glyph = "?",
@@ -32,6 +35,7 @@ export default class Actor {
     }: Partial<ActorOptions> = {}
   ) {
     this.type = "actor";
+    this.colour = colour;
     this.digResistance = digResistance;
     this.digStrength = digStrength;
     this.glyph = glyph;

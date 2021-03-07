@@ -35,15 +35,21 @@ const tileTypes: Partial<Record<string, Tile>> = {
 };
 
 const actorTypes: Partial<Record<string, Partial<ActorOptions>>> = {
-  "1": { glyph: "1", name: "enemy" },
-  O: { glyph: "O", name: "boulder", digResistance: 20, pushable: true },
-  M: { glyph: "M", name: "metal block", pushable: true },
+  "1": { glyph: "1", name: "enemy", colour: "red" },
+  O: {
+    glyph: "O",
+    name: "boulder",
+    colour: "grey",
+    digResistance: 20,
+    pushable: true,
+  },
+  M: { glyph: "M", name: "metal block", colour: "cyan", pushable: true },
 };
 
 const itemTypes: Partial<Record<string, Partial<ItemOptions>>> = {
   B: { glyph: "B", name: "bomb" },
-  g: { glyph: "g", name: "gem" },
-  $: { glyph: "$", name: "cash" },
+  g: { glyph: "g", name: "gem", colour: "blue" },
+  $: { glyph: "$", name: "cash", colour: "white" },
 };
 
 export function loadMap(g: Game, map: string[]): void {

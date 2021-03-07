@@ -1,6 +1,7 @@
 export interface TileOptions {
   canClimb: boolean;
   canStandOn: boolean;
+  colour: string;
   destroyIncomingPushes: boolean;
   digResistance: number;
   name: string;
@@ -12,6 +13,7 @@ export default class Tile {
   type: "tile";
   canClimb: boolean;
   canStandOn: boolean;
+  colour: string;
   destroyIncomingPushes: boolean;
   digResistance: number;
   name: string;
@@ -24,6 +26,7 @@ export default class Tile {
       solid = false,
       canClimb = false,
       canStandOn = solid,
+      colour = "white",
       destroyIncomingPushes = false,
       digResistance = Infinity,
       name = glyph,
@@ -33,6 +36,7 @@ export default class Tile {
     this.type = "tile";
     this.canClimb = canClimb;
     this.canStandOn = canStandOn;
+    this.colour = colour;
     this.destroyIncomingPushes = destroyIncomingPushes;
     this.digResistance = digResistance;
     this.name = name;
@@ -43,20 +47,22 @@ export default class Tile {
 
 export const border = new Tile("!", { solid: true });
 export const dirt = new Tile("#", {
+  colour: "brown",
   name: "dirt",
   solid: true,
   digResistance: 10,
 });
 export const sand = new Tile("s", {
+  colour: "yellow",
   name: "sand",
   solid: true,
   digResistance: 1,
 });
 
 export const unset = new Tile("?");
-export const air = new Tile("A");
+export const air = new Tile("A", { colour: "pink" });
 export const empty = new Tile(" ");
 export const entrance = new Tile("<");
 export const exit = new Tile(">", { destroyIncomingPushes: true });
 export const ladder = new Tile("H", { canClimb: true, canStandOn: true });
-export const water = new Tile("~");
+export const water = new Tile("~", { colour: "blue" });
