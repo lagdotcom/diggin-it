@@ -10,9 +10,11 @@ import EventHandler from './EventHandler';
 import Context from './interfaces/Context';
 import Grid from './interfaces/Grid';
 import Stack from './interfaces/Stack';
+import Thing from './interfaces/Thing';
 import Item from './Item';
 import LinearGrid from './LinearGrid';
 import { loadMap, testMap } from './maps';
+import MessageLog from './MessageLog';
 import Tile, { unset } from './Tile';
 
 export default class Game extends EventHandler {
@@ -20,6 +22,7 @@ export default class Game extends EventHandler {
   chars: Display;
   contexts: Stack<Context>;
   items: Grid<Item[]>;
+  log: MessageLog;
   map: Grid<Tile>;
   player: Actor;
   tiles: Display;
@@ -50,6 +53,7 @@ export default class Game extends EventHandler {
 
     document.body.append(canvas);
     this.contexts = new ArrayStack();
+    this.log = new MessageLog();
 
     new KeyInputHandler(
       (e) => this.contexts.top.onKey(e),
@@ -81,7 +85,7 @@ export default class Game extends EventHandler {
     return { actor, items, tile };
   }
 
-  add(thing: Actor | Item) {
+  add(thing: Thing) {
     switch (thing.type) {
       case "actor":
         return this.actors.set(thing.x, thing.y, thing);
@@ -93,7 +97,7 @@ export default class Game extends EventHandler {
     }
   }
 
-  move(thing: Actor | Item, x: number, y: number) {
+  move(thing: Thing, x: number, y: number) {
     switch (thing.type) {
       case "actor":
         this.actors.set(thing.x, thing.y, undefined);

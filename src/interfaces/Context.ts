@@ -1,7 +1,8 @@
 import Cmd from '../Cmd';
 
-export default interface Context {
-  onKey(e: KeyboardEvent): Cmd;
+type Context = {
   handle(cmd: Cmd): void;
+  onKey(e: KeyboardEvent): Cmd;
   render(): void;
-}
+};
+export default Context;

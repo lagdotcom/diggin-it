@@ -1,18 +1,19 @@
 import DiscreteShadowcasting from 'rot-js/lib/fov/discrete-shadowcasting';
 
-import Cmd from '../Cmd';
+import Cmd, { DigCmd, MoveCmd, PushCmd } from '../Cmd';
 import Movement from '../commands/Movement';
+import Pushing from '../commands/Pushing';
 import Game from '../Game';
 import Context from '../interfaces/Context';
-import MessageLog from '../MessageLog';
+import { empty } from '../Tile';
 
 export default class Dungeon implements Context {
-  log: MessageLog;
   movement: Movement;
+  pushing: Pushing;
 
   constructor(public g: Game) {
-    this.log = new MessageLog();
     this.movement = new Movement(g);
+    this.pushing = new Pushing(g);
   }
 
   onKey(e: KeyboardEvent): Cmd {
@@ -34,17 +35,41 @@ export default class Dungeon implements Context {
 
   handle(cmd: Cmd): void {
     switch (cmd.type) {
+      case "dig":
+        return this.handleDig(cmd);
       case "move":
-        const { x, y } = cmd;
-        const err = this.movement.possible(x, y);
-        if (err) this.log.add(err);
-        else this.movement.apply(x, y);
-        return this.render();
+        return this.handleMove(cmd);
+      case "push":
+        return this.handlePush(cmd);
     }
   }
 
+  handleDig({ x, y }: DigCmd): void {
+    this.g.map.set(x, y, empty);
+    return this.render();
+  }
+
+  handleMove({ x, y }: MoveCmd): void {
+    const poss = this.movement.possible(x, y);
+    if (typeof poss === "object") return this.handle(poss);
+
+    if (poss) this.g.log.add(poss);
+    else this.movement.apply(x, y);
+    return this.render();
+  }
+
+  handlePush({ x, y, mx, my }: PushCmd): void {
+    const actor = this.g.actors.get(x, y);
+    const poss = this.pushing.possible(actor, mx, my);
+    if (typeof poss === "object") return this.handle(poss);
+
+    if (poss) this.g.log.add(poss);
+    else this.pushing.apply(actor, mx, my);
+    return this.render();
+  }
+
   render(): void {
-    const { chars, map, player, tiles } = this.g;
+    const { chars, log, map, player, tiles } = this.g;
 
     tiles.clear();
 
@@ -62,7 +87,7 @@ export default class Dungeon implements Context {
     });
 
     let y = chars._options.height - 1;
-    this.log.messages.forEach((msg) => {
+    log.messages.forEach((msg) => {
       chars.drawText(0, y, msg);
       y--;
     });

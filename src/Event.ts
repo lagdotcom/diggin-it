@@ -1,7 +1,4 @@
-import Actor from './Actor';
-import Item from './Item';
-
-type Thing = Actor | Item;
+import Thing from './interfaces/Thing';
 
 export interface EventMap {
   moved: { thing: Thing; mx: number; my: number; forced?: Thing };
