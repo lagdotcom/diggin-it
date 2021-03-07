@@ -57,6 +57,7 @@ export default class Gravity {
     // TODO: damage, etc.
 
     this.g.move(victim, x, y);
+    this.g.emit("fell", { thing: victim, distance });
     return true;
   }
 }

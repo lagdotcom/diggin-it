@@ -21,8 +21,20 @@ export default class Movement {
       return "It's occupied.";
     }
 
-    // TODO: dig?
     if (tile.solid) {
+      if (my === 0) {
+        const thru = this.g.contents(player.x, player.y - 1);
+        const above = this.g.contents(x, y - 1);
+
+        if (
+          !thru.actor &&
+          !thru.tile.solid &&
+          !above.actor &&
+          !above.tile.solid
+        )
+          return { type: "climb", x, y: y - 1 };
+      }
+
       if (tile.digResistance <= player.digStrength)
         return { type: "dig", x, y };
 

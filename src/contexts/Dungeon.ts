@@ -1,6 +1,6 @@
 import DiscreteShadowcasting from 'rot-js/lib/fov/discrete-shadowcasting';
 
-import Cmd, { DigCmd, MoveCmd, PushCmd } from '../Cmd';
+import Cmd, { ClimbCmd, DigCmd, MoveCmd, PushCmd } from '../Cmd';
 import Movement from '../commands/Movement';
 import Pushing from '../commands/Pushing';
 import Game from '../Game';
@@ -41,6 +41,8 @@ export default class Dungeon implements Context {
 
   handle(cmd: Cmd): void {
     switch (cmd.type) {
+      case "climb":
+        return this.handleClimb(cmd);
       case "dig":
         return this.handleDig(cmd);
       case "move":
@@ -48,6 +50,12 @@ export default class Dungeon implements Context {
       case "push":
         return this.handlePush(cmd);
     }
+  }
+
+  handleClimb({ x, y }: ClimbCmd): void {
+    this.g.move(this.g.player, x, y);
+    this.g.log.add("You climb up.");
+    return this.render();
   }
 
   handleDig({ x, y }: DigCmd): void {

@@ -1,3 +1,9 @@
+export interface ClimbCmd {
+  type: "climb";
+  x: number;
+  y: number;
+}
+
 export interface DigCmd {
   type: "dig";
   x: number;
@@ -18,5 +24,5 @@ export interface PushCmd {
   my: number;
 }
 
-type Cmd = DigCmd | MoveCmd | PushCmd;
+type Cmd = ClimbCmd | DigCmd | MoveCmd | PushCmd;
 export default Cmd;
