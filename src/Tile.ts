@@ -1,4 +1,5 @@
 export interface TileOptions {
+  canClimb: boolean;
   canStandOn: boolean;
   destroyIncomingPushes: boolean;
   digResistance: number;
@@ -9,6 +10,7 @@ export interface TileOptions {
 
 export default class Tile {
   type: "tile";
+  canClimb: boolean;
   canStandOn: boolean;
   destroyIncomingPushes: boolean;
   digResistance: number;
@@ -20,6 +22,7 @@ export default class Tile {
     public glyph: string,
     {
       solid = false,
+      canClimb = false,
       canStandOn = solid,
       destroyIncomingPushes = false,
       digResistance = Infinity,
@@ -28,6 +31,7 @@ export default class Tile {
     }: Partial<TileOptions> = {}
   ) {
     this.type = "tile";
+    this.canClimb = canClimb;
     this.canStandOn = canStandOn;
     this.destroyIncomingPushes = destroyIncomingPushes;
     this.digResistance = digResistance;
@@ -54,5 +58,5 @@ export const air = new Tile("A");
 export const empty = new Tile(" ");
 export const entrance = new Tile("<");
 export const exit = new Tile(">", { destroyIncomingPushes: true });
-export const ladder = new Tile("H", { canStandOn: true });
+export const ladder = new Tile("H", { canClimb: true, canStandOn: true });
 export const water = new Tile("~");

@@ -1,11 +1,16 @@
 import DiscreteShadowcasting from 'rot-js/lib/fov/discrete-shadowcasting';
 
 import Cmd from '../Cmd';
+import Movement from '../commands/Movement';
 import Game from '../Game';
 import Context from '../interfaces/Context';
 
 export default class Dungeon implements Context {
-  constructor(public g: Game) {}
+  movement: Movement;
+
+  constructor(public g: Game) {
+    this.movement = new Movement(g);
+  }
 
   onKey(e: KeyboardEvent): Cmd {
     switch (e.key) {
@@ -21,12 +26,14 @@ export default class Dungeon implements Context {
   }
 
   handle(cmd: Cmd): void {
-    const { player } = this.g;
-
     switch (cmd.type) {
       case "move":
-        this.g.move(player, player.x + cmd.x, player.y + cmd.y);
-        return this.render();
+        const { x, y } = cmd;
+        if (this.movement.possible(x, y)) {
+          this.movement.apply(x, y);
+          return this.render();
+        }
+        break;
     }
   }
 
