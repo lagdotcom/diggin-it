@@ -5,13 +5,16 @@ import Movement from '../commands/Movement';
 import Pushing from '../commands/Pushing';
 import Game from '../Game';
 import Context from '../interfaces/Context';
+import Gravity from '../systems/Gravity';
 import { empty } from '../Tile';
 
 export default class Dungeon implements Context {
+  gravity: Gravity;
   movement: Movement;
   pushing: Pushing;
 
   constructor(public g: Game) {
+    this.gravity = new Gravity(g);
     this.movement = new Movement(g);
     this.pushing = new Pushing(g);
   }
@@ -45,7 +48,9 @@ export default class Dungeon implements Context {
   }
 
   handleDig({ x, y }: DigCmd): void {
+    const tile = this.g.map.get(x, y);
     this.g.map.set(x, y, empty);
+    this.g.log.add(`You dig into the ${tile.name}.`);
     return this.render();
   }
 
@@ -68,9 +73,15 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
+  systems(): void {
+    this.gravity.run();
+  }
+
   render(): void {
     const { chars, log, map, player, tiles } = this.g;
 
+    // TODO: this is dumb lol
+    this.systems();
     tiles.clear();
 
     const xmod = tiles._options.width / 2 - player.x;
