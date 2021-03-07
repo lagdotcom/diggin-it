@@ -1,6 +1,9 @@
 import Thing from './interfaces/Thing';
+import Tile from './Tile';
 
 export interface EventMap {
+  collapsed: { x: number; y: number };
+  digged: { tile: Tile; x: number; y: number };
   moved: { thing: Thing; mx: number; my: number; forced?: Thing };
 }
 

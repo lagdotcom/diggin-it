@@ -6,17 +6,20 @@ import Pushing from '../commands/Pushing';
 import Game from '../Game';
 import Context from '../interfaces/Context';
 import Gravity from '../systems/Gravity';
+import SandCollapse from '../systems/SandCollapse';
 import { empty } from '../Tile';
 
 export default class Dungeon implements Context {
   gravity: Gravity;
   movement: Movement;
   pushing: Pushing;
+  sand: SandCollapse;
 
   constructor(public g: Game) {
     this.gravity = new Gravity(g);
     this.movement = new Movement(g);
     this.pushing = new Pushing(g);
+    this.sand = new SandCollapse(g);
   }
 
   onKey(e: KeyboardEvent): Cmd {
@@ -51,6 +54,7 @@ export default class Dungeon implements Context {
     const tile = this.g.map.get(x, y);
     this.g.map.set(x, y, empty);
     this.g.log.add(`You dig into the ${tile.name}.`);
+    this.g.emit("digged", { tile, x, y });
     return this.render();
   }
 
