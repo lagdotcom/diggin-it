@@ -1,6 +1,7 @@
 export interface TileOptions {
   canClimb: boolean;
   canStandOn: boolean;
+  canSwimIn: boolean;
   colour: string;
   destroyIncomingPushes: boolean;
   digResistance: number;
@@ -13,6 +14,7 @@ export default class Tile {
   type: "tile";
   canClimb: boolean;
   canStandOn: boolean;
+  canSwimIn: boolean;
   colour: string;
   destroyIncomingPushes: boolean;
   digResistance: number;
@@ -26,6 +28,7 @@ export default class Tile {
       solid = false,
       canClimb = false,
       canStandOn = solid,
+      canSwimIn = false,
       colour = "white",
       destroyIncomingPushes = false,
       digResistance = Infinity,
@@ -36,6 +39,7 @@ export default class Tile {
     this.type = "tile";
     this.canClimb = canClimb;
     this.canStandOn = canStandOn;
+    this.canSwimIn = canSwimIn;
     this.colour = colour;
     this.destroyIncomingPushes = destroyIncomingPushes;
     this.digResistance = digResistance;
@@ -65,4 +69,4 @@ export const empty = new Tile(" ");
 export const entrance = new Tile("<");
 export const exit = new Tile(">", { destroyIncomingPushes: true });
 export const ladder = new Tile("H", { canClimb: true, canStandOn: true });
-export const water = new Tile("~", { colour: "blue" });
+export const water = new Tile("~", { colour: "blue", canSwimIn: true });

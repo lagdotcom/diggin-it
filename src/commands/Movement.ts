@@ -42,8 +42,10 @@ export default class Movement {
     }
 
     const current = this.g.contents(player.x, player.y);
-    if (my === -1 && !current.tile.canClimb) return "Nothing to climb.";
-    if (my === 1 && !tile.canClimb) return "Nothing to climb.";
+    if (my === -1 && !current.tile.canClimb && !tile.canSwimIn)
+      return "Nothing to climb.";
+    if (my === 1 && !tile.canClimb && !tile.canSwimIn)
+      return "Nothing to climb.";
   }
 
   apply(mx: number, my: number) {

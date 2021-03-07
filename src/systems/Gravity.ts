@@ -18,6 +18,9 @@ export default class Gravity {
         if (!victim) continue;
         if (!victim.obeysGravity) continue;
 
+        const current = this.g.map.get(x, y);
+        if (current.canSwimIn) continue;
+
         const { actor, items, tile } = this.g.contents(x, y + 1);
 
         // TODO: can things sit on other things?
@@ -49,6 +52,8 @@ export default class Gravity {
       y++;
       distance++;
       contents = this.g.contents(x, y + 1);
+
+      if (tile.canSwimIn) break;
     }
 
     // ???
