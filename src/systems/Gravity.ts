@@ -89,15 +89,12 @@ export default class Gravity {
 
     // TODO: move victim out of the way!
 
-    this.g.move(thing, x, y);
-    this.g.emit("fell", { thing, distance });
-    this.g.emit("moved", { thing, mx: 0, my: distance });
-
     // TODO: damage, etc.
     if (distance > 1 && !hitFluid) {
       const amount = (distance - 1) * distance;
       if (victim?.type === "actor" && victim.alive) {
-        const share = thing.alive ? Math.floor(amount / 2) : 0;
+        // TODO: super mean damage share? :D
+        const share = 0; //thing.alive ? Math.floor(amount / 2) : 0;
         if (share > 0) {
           thing.hp -= share;
           if (thing.glyph === "@") log.add("You fall and get hurt!");
@@ -127,6 +124,10 @@ export default class Gravity {
 
     if (hitFluid && thing.glyph === "@")
       log.add(`You fall into ${name(victim)}!`);
+
+    this.g.move(thing, x, y);
+    this.g.emit("fell", { thing, distance });
+    this.g.emit("moved", { thing, mx: 0, my: distance });
 
     return true;
   }
