@@ -1,6 +1,7 @@
 import DiscreteShadowcasting from "rot-js/lib/fov/discrete-shadowcasting";
 
 import Cmd, { ClimbCmd, DigCmd, MoveCmd, PushCmd } from "../Cmd";
+import Inventory from "../commands/Inventory";
 import Movement from "../commands/Movement";
 import Pushing from "../commands/Pushing";
 import { drawPanel } from "../drawing";
@@ -13,6 +14,7 @@ import { empty } from "../Tile";
 
 export default class Dungeon implements Context {
   gravity: Gravity;
+  inventory: Inventory;
   movement: Movement;
   pushing: Pushing;
   sand: SandCollapse;
@@ -20,6 +22,7 @@ export default class Dungeon implements Context {
 
   constructor(public g: Game) {
     this.gravity = new Gravity(g);
+    this.inventory = new Inventory(g);
     this.movement = new Movement(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
@@ -40,6 +43,10 @@ export default class Dungeon implements Context {
       case "ArrowDown":
         e.preventDefault();
         return { type: "move", x: 0, y: 1 };
+      case "g":
+      case ",":
+        e.preventDefault();
+        return { type: "get" };
     }
   }
 
@@ -49,6 +56,8 @@ export default class Dungeon implements Context {
         return this.handleClimb(cmd);
       case "dig":
         return this.handleDig(cmd);
+      case "get":
+        return this.handleGet();
       case "move":
         return this.handleMove(cmd);
       case "push":
@@ -72,6 +81,14 @@ export default class Dungeon implements Context {
     this.g.map.set(x, y, empty);
     this.g.log.add(`You dig into the ${tile.name}.`);
     this.g.emit("digged", { tile, x, y });
+    return this.render();
+  }
+
+  handleGet(): void {
+    const poss = this.inventory.getItems();
+    if (typeof poss === "object") return this.handle(poss);
+
+    if (poss) this.g.log.add(poss);
     return this.render();
   }
 
@@ -141,7 +158,7 @@ export default class Dungeon implements Context {
 
   // TODO: inventory
   renderInventory() {
-    const { chars, player } = this.g;
+    const { chars, ctx, player, tiles } = this.g;
 
     drawPanel(chars, 28, 10, 12, 12);
 
@@ -153,13 +170,28 @@ export default class Dungeon implements Context {
       if (!item) {
         // TODO: this sucks
         drawPanel(chars, x, y, 2, 2);
-        x += 2;
-        if (i % 5 === 4) {
-          y += 2;
-          x = 29;
-        }
       } else {
-        // TODO: show item
+        // TODO: show item (neither of these work because of drawing order)
+        // tiles.draw(x / 2, y / 2, item.glyph, "transparent", "black");
+        // const tile = tiles._options.tileMap[item.glyph];
+        // if (tile)
+        //   ctx.drawImage(
+        //     tiles._options.tileSet,
+        //     tile[0],
+        //     tile[1],
+        //     16,
+        //     16,
+        //     x * 8,
+        //     y * 8,
+        //     16,
+        //     16
+        //   );
+      }
+
+      x += 2;
+      if (i % 5 === 4) {
+        y += 2;
+        x = 29;
       }
     }
   }

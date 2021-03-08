@@ -19,8 +19,10 @@ import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./tiles";
 
 export default class Game extends EventHandler {
   actors: Grid<Actor>;
+  canvas: HTMLCanvasElement;
   chars: Display;
   contexts: Stack<Context>;
+  ctx: CanvasRenderingContext2D;
   displayHeight: number;
   displayWidth: number;
   items: Grid<Item[]>;
@@ -70,15 +72,16 @@ export default class Game extends EventHandler {
     const [tilesConfig, charsConfig] = await this.getDisplayConfigs();
 
     this.tiles = new Display(tilesConfig);
-    const canvas = this.tiles.getContainer() as HTMLCanvasElement;
-    canvas.className = "game";
+    this.canvas = this.tiles.getContainer() as HTMLCanvasElement;
+    this.canvas.className = "game";
 
-    const context = canvas.getContext("2d");
+    const context = this.canvas.getContext("2d");
     if (!context) throw Error("Could not get context");
+    this.ctx = context;
 
     this.chars = new Display({ ...charsConfig, context });
 
-    this.container.append(canvas);
+    this.container.append(this.canvas);
     window.addEventListener("resize", this.resized.bind(this));
     this.resized();
   }
