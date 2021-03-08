@@ -10,23 +10,29 @@ import Context from "../interfaces/Context";
 import Gravity from "../systems/Gravity";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
+import Vision from "../systems/Vision";
+import { theName } from "../text";
 import { empty } from "../Tile";
 
 export default class Dungeon implements Context {
   gravity: Gravity;
+  info: string;
   inventory: Inventory;
   movement: Movement;
   pushing: Pushing;
   sand: SandCollapse;
   treasure: TreasureGrabbing;
+  vision: Vision;
 
   constructor(public g: Game) {
     this.gravity = new Gravity(g);
+    this.info = "";
     this.inventory = new Inventory(g);
     this.movement = new Movement(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
     this.treasure = new TreasureGrabbing(g);
+    this.vision = new Vision(g);
   }
 
   onKey(e: KeyboardEvent): Cmd {
@@ -79,7 +85,7 @@ export default class Dungeon implements Context {
   handleDig({ x, y }: DigCmd): void {
     const tile = this.g.map.get(x, y);
     this.g.map.set(x, y, empty);
-    this.g.log.add(`You dig into the ${tile.name}.`);
+    this.g.log.add(`You dig through ${theName(tile)}.`);
     this.g.emit("digged", { tile, x, y });
     return this.render();
   }
@@ -124,9 +130,7 @@ export default class Dungeon implements Context {
 
     const xmod = Math.floor(displayWidth / 2 - player.x);
     const ymod = Math.floor(displayHeight / 2 - player.y);
-
-    const fov = new DiscreteShadowcasting((x, y) => !map.get(x, y).opaque);
-    fov.compute(player.x, player.y, player.vision, (x, y, r) => {
+    this.vision.get().forEach(([x, y]) => {
       const { actor, items, tile } = this.g.contents(x, y);
 
       const glyphs: string[] = [tile.glyph];
@@ -139,9 +143,9 @@ export default class Dungeon implements Context {
     log.draw();
     this.renderStats();
     this.renderInventory();
+    if (this.info) this.renderInfo();
   }
 
-  // TODO: stats
   renderStats() {
     const { chars, player } = this.g;
 
@@ -156,7 +160,6 @@ export default class Dungeon implements Context {
     chars.drawText(31, 8, this.pad(player.experience, 6, "0"));
   }
 
-  // TODO: inventory
   renderInventory() {
     const { chars, ctx, player, tiles } = this.g;
 
@@ -194,6 +197,13 @@ export default class Dungeon implements Context {
         x = 29;
       }
     }
+  }
+
+  renderInfo() {
+    const { chars } = this.g;
+
+    drawPanel(chars, 0, 0, 28, 10);
+    chars.drawText(1, 1, this.info, chars._options.width - 2);
   }
 
   pad(number: number, length: number, ch = " ") {

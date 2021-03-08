@@ -1,5 +1,6 @@
 import Actor from "../Actor";
 import Game from "../Game";
+import { name } from "../text";
 
 export default class Inventory {
   constructor(public g: Game) {}
@@ -18,7 +19,7 @@ export default class Inventory {
       this.g.remove(item);
       player.inventory[i] = item;
       this.g.emit("got", { actor: player, item });
-      this.g.log.add(`You get the ${item.name}.`);
+      this.g.log.add(`You get ${name(item)}.`);
     }
   }
 

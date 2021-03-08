@@ -2,6 +2,7 @@ import Item from "./Item";
 
 export interface ActorOptions {
   alive: boolean;
+  article: string;
   canClimb: boolean;
   colour: string;
   digResistance: number;
@@ -24,6 +25,7 @@ export interface ActorOptions {
 export default class Actor {
   type: "actor";
   alive: boolean;
+  article: string;
   canClimb: boolean;
   colour: string;
   digResistance: number;
@@ -46,6 +48,7 @@ export default class Actor {
     public x: number,
     public y: number,
     {
+      article = "a",
       canClimb = false,
       colour = "silver",
       digResistance = Infinity,
@@ -67,6 +70,7 @@ export default class Actor {
     }: Partial<ActorOptions> = {}
   ) {
     this.type = "actor";
+    this.article = article;
     this.canClimb = canClimb;
     this.colour = colour;
     this.digResistance = digResistance;

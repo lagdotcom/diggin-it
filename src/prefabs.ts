@@ -3,6 +3,8 @@ import { ItemOptions } from "./Item";
 
 export const player: Partial<ActorOptions> = {
   glyph: "@",
+  name: "you",
+  article: "",
   digStrength: 10,
   canClimb: true,
   hp: 30,

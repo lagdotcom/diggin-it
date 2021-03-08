@@ -1,6 +1,7 @@
 import Cmd from "../Cmd";
 import Game from "../Game";
 import Thing from "../interfaces/Thing";
+import { theName } from "../text";
 
 export default class Pushing {
   constructor(public g: Game) {}
@@ -25,6 +26,6 @@ export default class Pushing {
 
     this.g.move(thing, x, y);
     this.g.emit("moved", { thing, mx, my, forced: this.g.player });
-    this.g.log.add(`You push the ${thing.name}.`);
+    this.g.log.add(`You push ${theName(thing)}.`);
   }
 }
