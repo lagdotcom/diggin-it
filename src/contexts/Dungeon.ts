@@ -8,6 +8,7 @@ import Game from "../Game";
 import Context from "../interfaces/Context";
 import Gravity from "../systems/Gravity";
 import SandCollapse from "../systems/SandCollapse";
+import TreasureGrabbing from "../systems/TreasureGrabbing";
 import { empty } from "../Tile";
 
 export default class Dungeon implements Context {
@@ -15,12 +16,14 @@ export default class Dungeon implements Context {
   movement: Movement;
   pushing: Pushing;
   sand: SandCollapse;
+  treasure: TreasureGrabbing;
 
   constructor(public g: Game) {
     this.gravity = new Gravity(g);
     this.movement = new Movement(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
+    this.treasure = new TreasureGrabbing(g);
   }
 
   onKey(e: KeyboardEvent): Cmd {
@@ -54,8 +57,13 @@ export default class Dungeon implements Context {
   }
 
   handleClimb({ x, y }: ClimbCmd): void {
-    this.g.move(this.g.player, x, y);
+    const { player } = this.g;
+    const mx = x - player.x,
+      my = y - player.y;
+
     this.g.log.add("You climb up.");
+    this.g.move(player, x, y);
+    this.g.emit("moved", { thing: player, mx, my });
     return this.render();
   }
 
@@ -136,6 +144,24 @@ export default class Dungeon implements Context {
     const { chars, player } = this.g;
 
     drawPanel(chars, 28, 10, 12, 12);
+
+    var x = 29,
+      y = 13;
+    for (var i = 0; i < player.inventorySize; i++) {
+      const item = player.inventory[i];
+
+      if (!item) {
+        // TODO: this sucks
+        drawPanel(chars, x, y, 2, 2);
+        x += 2;
+        if (i % 5 === 4) {
+          y += 2;
+          x = 29;
+        }
+      } else {
+        // TODO: show item
+      }
+    }
   }
 
   pad(number: number, length: number, ch = " ") {

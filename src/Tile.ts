@@ -68,5 +68,5 @@ export const air = new Tile("A", { colour: "pink" });
 export const empty = new Tile(" ");
 export const entrance = new Tile("<");
 export const exit = new Tile(">", { destroyIncomingPushes: true });
-export const ladder = new Tile("H", { canClimb: true, canStandOn: true });
+export const ladderTile = new Tile("H", { canClimb: true, canStandOn: true });
 export const water = new Tile("~", { colour: "blue", canSwimIn: true });

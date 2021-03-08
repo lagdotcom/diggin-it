@@ -40,12 +40,12 @@ export async function loadTiles(
     tileSet,
     tileMap: makeTileMap(16, [
       "@ 1234567890",
-      "<>", // TODO
-      "A", // TODO
+      "  PD",
+      "  .:;",
       "  BRLRCFT",
-      "  $cbgG",
+      "  $cbgdatf",
       "",
-      "",
+      "A<>", // TODO
       "           s",
       "                 ~",
       "               O",

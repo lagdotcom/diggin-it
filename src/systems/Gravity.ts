@@ -35,8 +35,8 @@ export default class Gravity {
     return affected > 0;
   }
 
-  fall(victim: Actor): boolean {
-    var { x, y } = victim;
+  fall(thing: Actor): boolean {
+    var { x, y } = thing;
     var contents = this.g.contents(x, y + 1);
     var distance = 0;
 
@@ -47,7 +47,7 @@ export default class Gravity {
       if (actor) break;
 
       // landed
-      if (tile.solid || (victim.canClimb && tile.canStandOn)) break;
+      if (tile.solid || (thing.canClimb && tile.canStandOn)) break;
 
       y++;
       distance++;
@@ -61,8 +61,9 @@ export default class Gravity {
 
     // TODO: damage, etc.
 
-    this.g.move(victim, x, y);
-    this.g.emit("fell", { thing: victim, distance });
+    this.g.move(thing, x, y);
+    this.g.emit("fell", { thing, distance });
+    this.g.emit("moved", { thing, mx: 0, my: distance });
     return true;
   }
 }

@@ -1,3 +1,5 @@
+import Item from "./Item";
+
 export interface ActorOptions {
   alive: boolean;
   canClimb: boolean;
@@ -5,6 +7,8 @@ export interface ActorOptions {
   digResistance: number;
   digStrength: number;
   glyph: string;
+  inventory: Item[];
+  inventorySize: number;
   name: string;
   obeysGravity: boolean;
   pushable: boolean;
@@ -25,6 +29,8 @@ export default class Actor {
   digResistance: number;
   digStrength: number;
   glyph: string;
+  inventory: Item[];
+  inventorySize: number;
   name: string;
   obeysGravity: boolean;
   pushable: boolean;
@@ -56,6 +62,8 @@ export default class Actor {
       dp = 0,
       alive = hp > 0,
       experience = 0,
+      inventorySize = 0,
+      inventory = new Array(inventorySize),
     }: Partial<ActorOptions> = {}
   ) {
     this.type = "actor";
@@ -75,5 +83,7 @@ export default class Actor {
     this.sp = sp;
     this.dp = dp;
     this.experience = experience;
+    this.inventory = inventory;
+    this.inventorySize = inventorySize;
   }
 }

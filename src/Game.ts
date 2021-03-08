@@ -130,6 +130,18 @@ export default class Game extends EventHandler {
     }
   }
 
+  remove(thing: Thing) {
+    switch (thing.type) {
+      case "actor":
+        return this.actors.set(thing.x, thing.y, undefined);
+
+      case "item":
+        return this.items.update(thing.x, thing.y, (items) =>
+          items.filter((i) => i !== thing)
+        );
+    }
+  }
+
   move(thing: Thing, x: number, y: number) {
     switch (thing.type) {
       case "actor":

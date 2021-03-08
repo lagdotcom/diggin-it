@@ -2,9 +2,9 @@ import Actor, { ActorOptions } from "./Actor";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import {
-  bagOfCash,
   bomb,
   boulder,
+  coinBag,
   metal,
   player,
   smallGem,
@@ -17,7 +17,7 @@ import Tile, {
   empty,
   entrance,
   exit,
-  ladder,
+  ladderTile,
   sand,
   unset,
   water,
@@ -48,7 +48,7 @@ const tileTypes: Record<string, Tile> = {
   ">": exit,
   "#": dirt,
   s: sand,
-  H: ladder,
+  H: ladderTile,
   "~": water,
   A: air,
 };
@@ -62,7 +62,7 @@ const actorTypes: Record<string, Partial<ActorOptions>> = {
 const itemTypes: Record<string, Partial<ItemOptions>> = {
   B: bomb,
   g: smallGem,
-  $: bagOfCash,
+  $: coinBag,
 };
 
 export function loadMap(g: Game, map: string[]): void {
