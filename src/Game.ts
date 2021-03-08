@@ -1,6 +1,6 @@
 import { Display } from "rot-js";
 
-import { KeyInputHandler } from "@lagdotcom/simple-inputs";
+import { KeyInputHandler, MouseInputHandler } from "@lagdotcom/simple-inputs";
 
 import Actor from "./Actor";
 import ArrayStack from "./ArrayStack";
@@ -43,12 +43,6 @@ export default class Game extends EventHandler {
     this.contexts = new ArrayStack();
     this.log = new MessageLog(this);
 
-    new KeyInputHandler(
-      (e) => this.contexts.top.onKey(e),
-      (cmd) => this.contexts.top.handle(cmd),
-      { events: ["keydown"] }
-    );
-
     this.displayHeight = height - 3;
     this.displayWidth = width - 6;
   }
@@ -84,6 +78,18 @@ export default class Game extends EventHandler {
     this.container.append(this.canvas);
     window.addEventListener("resize", this.resized.bind(this));
     this.resized();
+
+    new KeyInputHandler(
+      (e) => this.contexts.top.onKey(e),
+      (cmd) => this.contexts.top.handle(cmd),
+      { events: ["keydown"] }
+    );
+
+    new MouseInputHandler(
+      (e) => this.contexts.top.onMouse(e),
+      (cmd) => this.contexts.top.handle(cmd),
+      { events: ["click", "mousemove"] }
+    );
   }
 
   async getDisplayConfigs() {

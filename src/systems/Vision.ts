@@ -27,4 +27,9 @@ export default class Vision {
 
     return this.vision;
   }
+
+  visible(x: number, y: number) {
+    for (var i = 0; i < this.vision.length; i++)
+      if (this.vision[i][0] === x && this.vision[i][1] === y) return true;
+  }
 }

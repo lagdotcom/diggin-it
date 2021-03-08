@@ -1,38 +1,47 @@
-import DiscreteShadowcasting from "rot-js/lib/fov/discrete-shadowcasting";
-
 import Cmd, { ClimbCmd, DigCmd, MoveCmd, PushCmd } from "../Cmd";
 import Inventory from "../commands/Inventory";
 import Movement from "../commands/Movement";
 import Pushing from "../commands/Pushing";
 import { drawPanel } from "../drawing";
 import Game from "../Game";
+import Hotspots from "../Hotspots";
 import Context from "../interfaces/Context";
+import XY from "../interfaces/XY";
 import Gravity from "../systems/Gravity";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
-import { theName } from "../text";
+import { name, theName } from "../text";
 import { empty } from "../Tile";
 
 export default class Dungeon implements Context {
   gravity: Gravity;
+  hotspots: Hotspots;
   info: string;
   inventory: Inventory;
+  mouse: XY;
   movement: Movement;
   pushing: Pushing;
+  rerender: number;
   sand: SandCollapse;
   treasure: TreasureGrabbing;
   vision: Vision;
 
   constructor(public g: Game) {
     this.gravity = new Gravity(g);
-    this.info = "";
     this.inventory = new Inventory(g);
     this.movement = new Movement(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
     this.treasure = new TreasureGrabbing(g);
     this.vision = new Vision(g);
+
+    const { width, height } = g.chars._options;
+    this.info = "";
+    this.hotspots = new Hotspots();
+    this.hotspots.register("display", 0, 0, width - 12, height - 6);
+    this.hotspots.register("inventory", 29, 13, 10, 8);
+    this.mouse = [-1, -1];
   }
 
   onKey(e: KeyboardEvent): Cmd {
@@ -54,6 +63,19 @@ export default class Dungeon implements Context {
         e.preventDefault();
         return { type: "get" };
     }
+  }
+
+  scheduleRender() {
+    if (!this.rerender)
+      this.rerender = requestAnimationFrame(() => this.render());
+  }
+
+  onMouse(e: MouseEvent): Cmd {
+    this.scheduleRender();
+    this.mouse = this.g.chars.eventToPosition(e);
+    if (e.type !== "click") return undefined;
+
+    // TODO
   }
 
   handle(cmd: Cmd): void {
@@ -121,15 +143,70 @@ export default class Dungeon implements Context {
     this.gravity.run();
   }
 
+  getDisplayOffset(): XY {
+    const { displayHeight, displayWidth, player } = this.g;
+
+    const xmod = Math.floor(displayWidth / 2 - player.x);
+    const ymod = Math.floor(displayHeight / 2 - player.y);
+    return [xmod, ymod];
+  }
+
+  updateInfo(): void {
+    const [ex, ey] = this.mouse;
+    // not even on the canvas
+    if (ex === -1) {
+      this.info = "";
+      return;
+    }
+
+    const spot = this.hotspots.resolve(ex, ey);
+    if (spot) {
+      const [area, ox, oy] = spot;
+      switch (area) {
+        case "display":
+          const [xmod, ymod] = this.getDisplayOffset();
+          const x = ox - xmod,
+            y = oy - ymod;
+          if (!this.vision.visible(x, y)) {
+            this.info = "";
+            return;
+          }
+
+          const { actor, items, tile } = this.g.contents(x, y);
+          if (actor) {
+            this.info = name(actor);
+          } else if (items.length) {
+            this.info = name(items[0]);
+          } else {
+            this.info = name(tile);
+          }
+          break;
+
+        case "inventory":
+          const index = oy * 5 + ox;
+          const item = this.g.player.inventory[index];
+          if (item) {
+            this.info = name(item);
+          } else {
+            this.info = "";
+          }
+
+          break;
+      }
+    } else this.info = "";
+  }
+
   render(): void {
-    const { displayHeight, displayWidth, log, map, player, tiles } = this.g;
+    const { log, tiles } = this.g;
+
+    this.rerender = 0;
+    this.updateInfo();
 
     // TODO: this is dumb lol
     this.systems();
     tiles.clear();
 
-    const xmod = Math.floor(displayWidth / 2 - player.x);
-    const ymod = Math.floor(displayHeight / 2 - player.y);
+    const [xmod, ymod] = this.getDisplayOffset();
     this.vision.get().forEach(([x, y]) => {
       const { actor, items, tile } = this.g.contents(x, y);
 
@@ -161,7 +238,7 @@ export default class Dungeon implements Context {
   }
 
   renderInventory() {
-    const { chars, ctx, player, tiles } = this.g;
+    const { chars, player } = this.g;
 
     drawPanel(chars, 28, 10, 12, 12);
 
