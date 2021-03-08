@@ -1,3 +1,9 @@
+export interface AttackCmd {
+  type: "attack";
+  x: number;
+  y: number;
+}
+
 export interface ClimbCmd {
   type: "climb";
   x: number;
@@ -32,5 +38,5 @@ export interface WaitCmd {
   type: "wait";
 }
 
-type Cmd = ClimbCmd | DigCmd | GetCmd | MoveCmd | PushCmd | WaitCmd;
+type Cmd = AttackCmd | ClimbCmd | DigCmd | GetCmd | MoveCmd | PushCmd | WaitCmd;
 export default Cmd;

@@ -9,7 +9,9 @@ export default class MessageLog {
   }
 
   add(message: string): void {
-    const length = this.messages.unshift(message);
+    const msg = message[0].toUpperCase() + message.slice(1);
+
+    const length = this.messages.unshift(msg);
     if (length > this.capacity) this.messages.pop();
   }
 

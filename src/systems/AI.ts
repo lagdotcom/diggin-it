@@ -2,11 +2,13 @@ import Actor from "../Actor";
 import Game from "../Game";
 import XY from "../interfaces/XY";
 import { pick } from "../random";
+import { manhattan } from "../utils";
+import Combat from "./Combat";
 
 export default class AI {
   functions: Record<string, (actor: Actor) => void>;
 
-  constructor(public g: Game) {
+  constructor(public g: Game, public combat: Combat) {
     this.functions = {
       wander: this.wanderAi.bind(this),
     };
@@ -24,6 +26,11 @@ export default class AI {
   wanderAi(actor: Actor) {
     let { dir } = actor.aiData;
     if (!dir) dir = pick(-1, 1);
+
+    const { player } = this.g;
+    if (manhattan(player.x, player.y, actor.x, actor.y) < 2) {
+      return this.combat.attack(actor, player);
+    }
 
     var success = false;
     const move = this.canMoveDir(actor, dir);

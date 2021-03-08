@@ -10,6 +10,7 @@ export const player: Partial<ActorOptions> = {
   hp: 30,
   ap: 100,
   inventorySize: 20,
+  attack: 5,
 };
 
 export const squimpy: Partial<ActorOptions> = {
@@ -18,6 +19,7 @@ export const squimpy: Partial<ActorOptions> = {
   colour: "red",
   hp: 10,
   ai: "wander",
+  attack: 2,
 };
 
 export const boulder: Partial<ActorOptions> = {

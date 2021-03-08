@@ -1,4 +1,4 @@
-import Cmd, { ClimbCmd, DigCmd, MoveCmd, PushCmd } from "../Cmd";
+import Cmd, { AttackCmd, ClimbCmd, DigCmd, MoveCmd, PushCmd } from "../Cmd";
 import Inventory from "../commands/Inventory";
 import Movement from "../commands/Movement";
 import Pushing from "../commands/Pushing";
@@ -8,6 +8,7 @@ import Hotspots from "../Hotspots";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
 import AI from "../systems/AI";
+import Combat from "../systems/Combat";
 import Gravity from "../systems/Gravity";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
@@ -17,6 +18,7 @@ import { empty } from "../Tile";
 
 export default class Dungeon implements Context {
   ai: AI;
+  combat: Combat;
   gravity: Gravity;
   hotspots: Hotspots;
   info: string;
@@ -30,7 +32,8 @@ export default class Dungeon implements Context {
   vision: Vision;
 
   constructor(public g: Game) {
-    this.ai = new AI(g);
+    this.combat = new Combat(g);
+    this.ai = new AI(g, this.combat);
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
     this.movement = new Movement(g);
@@ -91,6 +94,8 @@ export default class Dungeon implements Context {
 
   handle(cmd: Cmd): void {
     switch (cmd.type) {
+      case "attack":
+        return this.handleAttack(cmd);
       case "climb":
         return this.handleClimb(cmd);
       case "dig":
@@ -106,6 +111,14 @@ export default class Dungeon implements Context {
     }
   }
 
+  handleAttack({ x, y }: AttackCmd): void {
+    const { actors, player } = this.g;
+    const actor = actors.get(x, y);
+    this.combat.attack(player, actor);
+    this.g.spent++;
+    return this.render();
+  }
+
   handleClimb({ x, y }: ClimbCmd): void {
     const { player } = this.g;
     const mx = x - player.x,
@@ -114,6 +127,7 @@ export default class Dungeon implements Context {
     this.g.log.add("You climb up.");
     this.g.move(player, x, y);
     this.g.emit("moved", { thing: player, mx, my });
+    this.g.spent++;
     return this.render();
   }
 

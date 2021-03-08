@@ -17,23 +17,15 @@ export default class Movement {
       if (actor.digResistance <= player.digStrength)
         return { type: "dig", x, y };
 
+      if (actor.alive) return { type: "attack", x, y };
+
       // TODO: attack?
       return "It's occupied.";
     }
 
     if (tile.solid) {
-      if (my === 0) {
-        const thru = this.g.contents(player.x, player.y - 1);
-        const above = this.g.contents(x, y - 1);
-
-        if (
-          !thru.actor &&
-          !thru.tile.solid &&
-          !above.actor &&
-          !above.tile.solid
-        )
-          return { type: "climb", x, y: y - 1 };
-      }
+      if (my === 0 && this.canClimb(player.x, player.y, mx))
+        return { type: "climb", x, y: y - 1 };
 
       if (tile.digResistance <= player.digStrength)
         return { type: "dig", x, y };
@@ -46,6 +38,13 @@ export default class Movement {
       return "Nothing to climb.";
     if (my === 1 && !tile.canClimb && !tile.canSwimIn)
       return "Nothing to climb.";
+  }
+
+  canClimb(sx: number, sy: number, mx: number) {
+    const thru = this.g.contents(sx, sy - 1);
+    const above = this.g.contents(sx + mx, sy - 1);
+
+    return !thru.actor && !thru.tile.solid && !above.actor && !above.tile.solid;
   }
 
   apply(mx: number, my: number) {

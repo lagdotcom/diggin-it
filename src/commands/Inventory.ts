@@ -11,6 +11,7 @@ export default class Inventory {
     const { items } = this.g.contents(player.x, player.y);
     if (!items.length) return "There's nothing here.";
 
+    var spent = false;
     for (var i = 0; i < items.length; i++) {
       const slot = this.getFreeSlot(player);
       if (typeof slot === "undefined") return "You can't carry any more.";
@@ -20,6 +21,11 @@ export default class Inventory {
       player.inventory[i] = item;
       this.g.emit("got", { actor: player, item });
       this.g.log.add(`You get ${name(item)}.`);
+
+      if (!spent) {
+        spent = true;
+        this.g.spent++;
+      }
     }
   }
 

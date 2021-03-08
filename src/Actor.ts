@@ -5,8 +5,10 @@ export interface ActorOptions {
   aiData: Record<string, any>;
   alive: boolean;
   article: string;
+  attack: number;
   canClimb: boolean;
   colour: string;
+  defense: number;
   digResistance: number;
   digStrength: number;
   glyph: string;
@@ -30,8 +32,10 @@ export default class Actor {
   aiData: Record<string, any>;
   alive: boolean;
   article: string;
+  attack: number;
   canClimb: boolean;
   colour: string;
+  defense: number;
   digResistance: number;
   digStrength: number;
   glyph: string;
@@ -55,8 +59,10 @@ export default class Actor {
       ai = "",
       aiData = {},
       article = "a",
+      attack = 0,
       canClimb = false,
       colour = "silver",
+      defense = 0,
       digResistance = Infinity,
       digStrength = 0,
       glyph = "?",
@@ -79,8 +85,10 @@ export default class Actor {
     this.ai = ai;
     this.aiData = aiData;
     this.article = article;
+    this.attack = attack;
     this.canClimb = canClimb;
     this.colour = colour;
+    this.defense = defense;
     this.digResistance = digResistance;
     this.digStrength = digStrength;
     this.glyph = glyph;
