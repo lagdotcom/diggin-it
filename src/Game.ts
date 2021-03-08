@@ -15,6 +15,7 @@ import LinearGrid from "./LinearGrid";
 import { loadMap, testMap } from "./maps";
 import MessageLog from "./MessageLog";
 import Tile, { unset } from "./Tile";
+import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./tiles";
 
 export default class Game extends EventHandler {
   actors: Grid<Actor>;
@@ -30,34 +31,11 @@ export default class Game extends EventHandler {
     public container: HTMLElement = document.body,
     public width = 20,
     public height = 14,
-    public tileSize = 16
+    public tileSize = 16,
+    public ascii = false
   ) {
     super();
     (window as any).g = this;
-
-    this.tiles = new Display({
-      layout: "rect",
-      width,
-      height,
-      fontSize: tileSize,
-      forceSquareRatio: true,
-    });
-    const canvas = this.tiles.getContainer() as HTMLCanvasElement;
-    canvas.className = "game";
-
-    const context = canvas.getContext("2d");
-    if (!context) throw Error("Could not get context");
-
-    this.chars = new Display({
-      layout: "rect",
-      width: width * 2,
-      height: height * 2,
-      fontSize: tileSize / 2,
-      forceSquareRatio: true,
-      context,
-    });
-
-    container.append(canvas);
     this.contexts = new ArrayStack();
     this.log = new MessageLog();
 
@@ -66,9 +44,6 @@ export default class Game extends EventHandler {
       (cmd) => this.contexts.top.handle(cmd),
       { events: ["keydown"] }
     );
-
-    window.addEventListener("resize", this.resized.bind(this));
-    this.resized();
   }
 
   resized(): void {
@@ -86,7 +61,36 @@ export default class Game extends EventHandler {
     this.container.style.height = `${uh * zz}px`;
   }
 
-  async init() {}
+  async init() {
+    const [tilesConfig, charsConfig] = await this.getDisplayConfigs();
+
+    this.tiles = new Display(tilesConfig);
+    const canvas = this.tiles.getContainer() as HTMLCanvasElement;
+    canvas.className = "game";
+
+    const context = canvas.getContext("2d");
+    if (!context) throw Error("Could not get context");
+
+    this.chars = new Display({ ...charsConfig, context });
+
+    this.container.append(canvas);
+    window.addEventListener("resize", this.resized.bind(this));
+    this.resized();
+  }
+
+  async getDisplayConfigs() {
+    const { width, height, tileSize } = this;
+    if (this.ascii) {
+      return [
+        loadTilesAscii(width, height, tileSize),
+        loadCharsAscii(width, height, tileSize),
+      ];
+    }
+    return await Promise.all([
+      loadTiles(width, height),
+      loadChars(width, height),
+    ]);
+  }
 
   start() {
     loadMap(this, testMap);

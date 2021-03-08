@@ -32,5 +32,4 @@ if (process.env.ROLLUP_WATCH) {
   });
 }
 
-const rollupConfig = { input: pkg.main, output, plugins };
-export default rollupConfig;
+export default { input: pkg.main, output, plugins };
