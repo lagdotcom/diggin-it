@@ -1,4 +1,5 @@
 export interface ActorOptions {
+  canClimb: boolean;
   colour: string;
   digResistance: number;
   digStrength: number;
@@ -11,6 +12,7 @@ export interface ActorOptions {
 
 export default class Actor {
   type: "actor";
+  canClimb: boolean;
   colour: string;
   digResistance: number;
   digStrength: number;
@@ -24,6 +26,7 @@ export default class Actor {
     public x: number,
     public y: number,
     {
+      canClimb = false,
       colour = "silver",
       digResistance = Infinity,
       digStrength = 0,
@@ -35,6 +38,7 @@ export default class Actor {
     }: Partial<ActorOptions> = {}
   ) {
     this.type = "actor";
+    this.canClimb = canClimb;
     this.colour = colour;
     this.digResistance = digResistance;
     this.digStrength = digStrength;

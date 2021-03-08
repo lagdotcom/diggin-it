@@ -25,7 +25,7 @@ export default class Gravity {
 
         // TODO: can things sit on other things?
         if (actor) continue;
-        if (tile.solid || tile.canStandOn) continue;
+        if (tile.solid || (victim.canClimb && tile.canStandOn)) continue;
 
         // we got a match!
         if (this.fall(victim)) affected++;
@@ -47,7 +47,7 @@ export default class Gravity {
       if (actor) break;
 
       // landed
-      if (tile.solid || tile.canStandOn) break;
+      if (tile.solid || (victim.canClimb && tile.canStandOn)) break;
 
       y++;
       distance++;

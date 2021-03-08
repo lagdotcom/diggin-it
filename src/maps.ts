@@ -91,6 +91,6 @@ export function loadMap(g: Game, map: string[]): void {
     }
   }
 
-  g.player = new Actor(px, py, { glyph: "@", digStrength: 10 });
+  g.player = new Actor(px, py, { glyph: "@", digStrength: 10, canClimb: true });
   g.add(g.player);
 }
