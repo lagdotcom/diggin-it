@@ -9,6 +9,7 @@ import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
 import AI from "../systems/AI";
 import Combat from "../systems/Combat";
+import Death from "../systems/Death";
 import Gravity from "../systems/Gravity";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
@@ -19,6 +20,7 @@ import { empty } from "../Tile";
 export default class Dungeon implements Context {
   ai: AI;
   combat: Combat;
+  death: Death;
   gravity: Gravity;
   hotspots: Hotspots;
   info: string;
@@ -34,6 +36,7 @@ export default class Dungeon implements Context {
   constructor(public g: Game) {
     this.combat = new Combat(g);
     this.ai = new AI(g, this.combat);
+    this.death = new Death(g);
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
     this.movement = new Movement(g);

@@ -6,22 +6,19 @@ export default class Combat {
   constructor(public g: Game) {}
 
   attack(attacker: Actor, victim: Actor) {
-    const damage = attacker.attack - victim.defense;
+    const amount = attacker.attack - victim.defense;
     const aname = theName(attacker);
     const vname = theName(victim);
     const s = aname === "you" ? "" : "s";
 
-    if (damage < 1) {
+    this.g.emit("attacked", { attacker, victim });
+    if (amount < 1) {
       this.g.log.add(`${aname} hit${s} ${vname} but does no damage.`);
       return;
     }
 
-    this.g.log.add(`${aname} hit${s} ${vname} for ${damage} damage.`);
-    victim.hp -= damage;
-
-    if (victim.hp < 1) {
-      this.g.log.add(`${vname} dies!`);
-      this.g.remove(victim);
-    }
+    this.g.log.add(`${aname} hit${s} ${vname} for ${amount} damage.`);
+    victim.hp -= amount;
+    this.g.emit("damaged", { attacker, victim, amount });
   }
 }

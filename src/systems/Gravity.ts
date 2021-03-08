@@ -2,6 +2,7 @@ import Actor from "../Actor";
 import Game from "../Game";
 import Thing from "../interfaces/Thing";
 import Item from "../Item";
+import Tile from "../Tile";
 
 export default class Gravity {
   constructor(public g: Game) {}
@@ -50,15 +51,24 @@ export default class Gravity {
     var { x, y } = thing;
     var contents = this.g.contents(x, y + 1);
     var distance = 0;
+    var victim: Actor | Tile = undefined;
 
     while (y < this.g.map.height) {
       const { actor, items, tile } = contents;
 
       // hit something
-      if (actor) break;
+      if (actor) {
+        victim = actor;
+        y++;
+        distance++;
+        break;
+      }
 
       // landed
-      if (tile.solid || (thing.canClimb && tile.canStandOn)) break;
+      if (tile.solid || (thing.canClimb && tile.canStandOn)) {
+        victim = tile;
+        break;
+      }
 
       y++;
       distance++;
@@ -70,11 +80,37 @@ export default class Gravity {
     // ???
     if (distance === 0) return false;
 
-    // TODO: damage, etc.
+    // TODO: move victim out of the way!
 
     this.g.move(thing, x, y);
     this.g.emit("fell", { thing, distance });
     this.g.emit("moved", { thing, mx: 0, my: distance });
+
+    // TODO: damage, etc.
+    if (distance > 1) {
+      const amount = (distance - 1) * distance;
+      if (victim?.type === "actor" && victim.alive) {
+        const share = thing.alive ? Math.floor(amount / 2) : 0;
+        if (share > 0) {
+          thing.hp -= share;
+          this.g.emit("damaged", {
+            attacker: thing,
+            victim: thing,
+            amount: share,
+          });
+        }
+
+        const rest = amount - share;
+        if (rest > 0) {
+          victim.hp -= rest;
+          this.g.emit("damaged", { attacker: thing, victim, amount: rest });
+        }
+      } else if (thing.alive) {
+        thing.hp -= amount;
+        this.g.emit("damaged", { attacker: thing, victim: thing, amount });
+      }
+    }
+
     return true;
   }
 
