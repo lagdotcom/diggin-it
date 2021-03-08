@@ -1,6 +1,15 @@
 import Actor, { ActorOptions } from "./Actor";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
+import {
+  bagOfCash,
+  bomb,
+  boulder,
+  metal,
+  player,
+  smallGem,
+  squimpy,
+} from "./prefabs";
 import Tile, {
   air,
   border,
@@ -32,7 +41,7 @@ export const testMap = [
   "!!!!!!!!!!!!!!!!",
 ];
 
-const tileTypes: Partial<Record<string, Tile>> = {
+const tileTypes: Record<string, Tile> = {
   "?": unset,
   "!": border,
   "<": entrance,
@@ -44,22 +53,16 @@ const tileTypes: Partial<Record<string, Tile>> = {
   A: air,
 };
 
-const actorTypes: Partial<Record<string, Partial<ActorOptions>>> = {
-  "1": { glyph: "1", name: "enemy", colour: "red" },
-  O: {
-    glyph: "O",
-    name: "boulder",
-    colour: "grey",
-    digResistance: 20,
-    pushable: true,
-  },
-  M: { glyph: "M", name: "metal block", colour: "cyan", pushable: true },
+const actorTypes: Record<string, Partial<ActorOptions>> = {
+  "1": squimpy,
+  O: boulder,
+  M: metal,
 };
 
-const itemTypes: Partial<Record<string, Partial<ItemOptions>>> = {
-  B: { glyph: "B", name: "bomb" },
-  g: { glyph: "g", name: "gem", colour: "blue" },
-  $: { glyph: "$", name: "cash", colour: "white" },
+const itemTypes: Record<string, Partial<ItemOptions>> = {
+  B: bomb,
+  g: smallGem,
+  $: bagOfCash,
 };
 
 export function loadMap(g: Game, map: string[]): void {
@@ -91,6 +94,6 @@ export function loadMap(g: Game, map: string[]): void {
     }
   }
 
-  g.player = new Actor(px, py, { glyph: "@", digStrength: 10, canClimb: true });
+  g.player = new Actor(px, py, player);
   g.add(g.player);
 }
