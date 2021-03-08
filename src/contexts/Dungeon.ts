@@ -3,6 +3,7 @@ import DiscreteShadowcasting from "rot-js/lib/fov/discrete-shadowcasting";
 import Cmd, { ClimbCmd, DigCmd, MoveCmd, PushCmd } from "../Cmd";
 import Movement from "../commands/Movement";
 import Pushing from "../commands/Pushing";
+import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Context from "../interfaces/Context";
 import Gravity from "../systems/Gravity";
@@ -111,5 +112,35 @@ export default class Dungeon implements Context {
     });
 
     log.draw();
+    this.renderStats();
+    this.renderInventory();
+  }
+
+  // TODO: stats
+  renderStats() {
+    const { chars, player } = this.g;
+
+    drawPanel(chars, 28, 0, 12, 10);
+    chars.drawText(31, 1, "HP:" + this.pad(0, 3));
+    chars.drawText(31, 2, "FP:" + this.pad(0, 3));
+    chars.drawText(31, 3, "AP:" + this.pad(0, 3));
+    chars.drawText(31, 4, "SP:" + this.pad(0, 3));
+    chars.drawText(31, 5, "DP:" + this.pad(0, 3));
+
+    chars.drawText(29, 7, "Experience");
+    chars.drawText(31, 8, this.pad(0, 6));
+  }
+
+  // TODO: inventory
+  renderInventory() {
+    const { chars, player } = this.g;
+
+    drawPanel(chars, 28, 10, 12, 12);
+  }
+
+  pad(number: number, length: number) {
+    var string = number.toString();
+    while (string.length < length) string = "0" + string;
+    return string;
   }
 }
