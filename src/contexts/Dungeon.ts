@@ -121,14 +121,14 @@ export default class Dungeon implements Context {
     const { chars, player } = this.g;
 
     drawPanel(chars, 28, 0, 12, 10);
-    chars.drawText(31, 1, "HP:" + this.pad(0, 3));
-    chars.drawText(31, 2, "FP:" + this.pad(0, 3));
-    chars.drawText(31, 3, "AP:" + this.pad(0, 3));
-    chars.drawText(31, 4, "SP:" + this.pad(0, 3));
-    chars.drawText(31, 5, "DP:" + this.pad(0, 3));
+    chars.drawText(31, 1, "HP:" + this.pad(player.hp, 3));
+    chars.drawText(31, 2, "FP:" + this.pad(player.fp, 3));
+    chars.drawText(31, 3, "AP:" + this.pad(player.ap, 3));
+    chars.drawText(31, 4, "SP:" + this.pad(player.sp, 3));
+    chars.drawText(31, 5, "DP:" + this.pad(player.dp, 3));
 
     chars.drawText(29, 7, "Experience");
-    chars.drawText(31, 8, this.pad(0, 6));
+    chars.drawText(31, 8, this.pad(player.experience, 6, "0"));
   }
 
   // TODO: inventory
@@ -138,9 +138,9 @@ export default class Dungeon implements Context {
     drawPanel(chars, 28, 10, 12, 12);
   }
 
-  pad(number: number, length: number) {
+  pad(number: number, length: number, ch = " ") {
     var string = number.toString();
-    while (string.length < length) string = "0" + string;
+    while (string.length < length) string = ch + string;
     return string;
   }
 }

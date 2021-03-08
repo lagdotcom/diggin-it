@@ -1,6 +1,12 @@
-export const player = { glyph: "@", digStrength: 10, canClimb: true };
+export const player = {
+  glyph: "@",
+  digStrength: 10,
+  canClimb: true,
+  hp: 30,
+  ap: 100,
+};
 
-export const squimpy = { glyph: "1", name: "squimpy", colour: "red" };
+export const squimpy = { glyph: "1", name: "squimpy", colour: "red", hp: 10 };
 export const boulder = {
   glyph: "O",
   name: "boulder",

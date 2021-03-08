@@ -1,4 +1,5 @@
 export interface ActorOptions {
+  alive: boolean;
   canClimb: boolean;
   colour: string;
   digResistance: number;
@@ -8,10 +9,17 @@ export interface ActorOptions {
   obeysGravity: boolean;
   pushable: boolean;
   vision: number;
+  hp: number;
+  fp: number;
+  ap: number;
+  sp: number;
+  dp: number;
+  experience: number;
 }
 
 export default class Actor {
   type: "actor";
+  alive: boolean;
   canClimb: boolean;
   colour: string;
   digResistance: number;
@@ -21,6 +29,12 @@ export default class Actor {
   obeysGravity: boolean;
   pushable: boolean;
   vision: number;
+  hp: number;
+  fp: number;
+  ap: number;
+  sp: number;
+  dp: number;
+  experience: number;
 
   constructor(
     public x: number,
@@ -35,6 +49,13 @@ export default class Actor {
       obeysGravity = true,
       pushable = false,
       vision = 5,
+      hp = 0,
+      fp = 0,
+      ap = 0,
+      sp = 0,
+      dp = 0,
+      alive = hp > 0,
+      experience = 0,
     }: Partial<ActorOptions> = {}
   ) {
     this.type = "actor";
@@ -47,5 +68,12 @@ export default class Actor {
     this.obeysGravity = obeysGravity;
     this.pushable = pushable;
     this.vision = vision;
+    this.alive = alive;
+    this.hp = hp;
+    this.fp = fp;
+    this.ap = ap;
+    this.sp = sp;
+    this.dp = dp;
+    this.experience = experience;
   }
 }
