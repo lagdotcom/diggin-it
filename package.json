@@ -8,6 +8,7 @@
     "watch": "rollup -cw",
     "start": "rollup -cw",
     "butler": "butler push dist lagdotcom/diggin-it:web",
+    "status": "butler status lagdotcom/diggin-it:web",
     "publish": "npm run build && npm run butler"
   },
   "author": "Lag.Com <lagdotcom@gmail.com>",
