@@ -27,5 +27,6 @@ export default class Pushing {
     this.g.move(thing, x, y);
     this.g.emit("moved", { thing, mx, my, forced: this.g.player });
     this.g.log.add(`You push ${theName(thing)}.`);
+    this.g.spent++;
   }
 }

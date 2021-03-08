@@ -28,5 +28,9 @@ export interface PushCmd {
   my: number;
 }
 
-type Cmd = ClimbCmd | DigCmd | GetCmd | MoveCmd | PushCmd;
+export interface WaitCmd {
+  type: "wait";
+}
+
+type Cmd = ClimbCmd | DigCmd | GetCmd | MoveCmd | PushCmd | WaitCmd;
 export default Cmd;

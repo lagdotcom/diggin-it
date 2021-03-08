@@ -55,5 +55,6 @@ export default class Movement {
 
     this.g.move(player, x, y);
     this.g.emit("moved", { thing: player, mx, my });
+    this.g.spent++;
   }
 }

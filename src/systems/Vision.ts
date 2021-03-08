@@ -10,6 +10,7 @@ export default class Vision {
   constructor(public g: Game) {
     this.dirty = true;
     this.vision = [];
+    g.on("digged", () => (this.dirty = true));
     g.on("moved", () => (this.dirty = true));
   }
 

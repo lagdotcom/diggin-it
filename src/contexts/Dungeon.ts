@@ -7,6 +7,7 @@ import Game from "../Game";
 import Hotspots from "../Hotspots";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
+import AI from "../systems/AI";
 import Gravity from "../systems/Gravity";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
@@ -15,6 +16,7 @@ import { name, theName } from "../text";
 import { empty } from "../Tile";
 
 export default class Dungeon implements Context {
+  ai: AI;
   gravity: Gravity;
   hotspots: Hotspots;
   info: string;
@@ -28,6 +30,7 @@ export default class Dungeon implements Context {
   vision: Vision;
 
   constructor(public g: Game) {
+    this.ai = new AI(g);
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
     this.movement = new Movement(g);
@@ -45,6 +48,8 @@ export default class Dungeon implements Context {
   }
 
   onKey(e: KeyboardEvent): Cmd {
+    if (this.g.spent > 0) return;
+
     switch (e.key) {
       case "ArrowLeft":
         e.preventDefault();
@@ -62,6 +67,10 @@ export default class Dungeon implements Context {
       case ",":
         e.preventDefault();
         return { type: "get" };
+      case ".":
+      case "Clear":
+        e.preventDefault();
+        return { type: "wait" };
     }
   }
 
@@ -73,6 +82,8 @@ export default class Dungeon implements Context {
   onMouse(e: MouseEvent): Cmd {
     this.scheduleRender();
     this.mouse = this.g.chars.eventToPosition(e);
+    if (this.g.spent > 0) return;
+
     if (e.type !== "click") return undefined;
 
     // TODO
@@ -90,6 +101,8 @@ export default class Dungeon implements Context {
         return this.handleMove(cmd);
       case "push":
         return this.handlePush(cmd);
+      case "wait":
+        return this.handleWait();
     }
   }
 
@@ -109,6 +122,7 @@ export default class Dungeon implements Context {
     this.g.map.set(x, y, empty);
     this.g.log.add(`You dig through ${theName(tile)}.`);
     this.g.emit("digged", { tile, x, y });
+    this.g.spent++;
     return this.render();
   }
 
@@ -139,8 +153,19 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
+  handleWait() {
+    this.g.spent++;
+    this.scheduleRender();
+  }
+
   systems(): void {
     this.gravity.run();
+
+    while (this.g.spent > 0) {
+      this.ai.run();
+      this.gravity.run();
+      this.g.spent--;
+    }
   }
 
   getDisplayOffset(): XY {

@@ -17,6 +17,7 @@ export const squimpy: Partial<ActorOptions> = {
   name: "squimpy",
   colour: "red",
   hp: 10,
+  ai: "wander",
 };
 
 export const boulder: Partial<ActorOptions> = {

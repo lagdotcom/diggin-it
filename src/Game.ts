@@ -19,6 +19,7 @@ import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./tiles";
 
 export default class Game extends EventHandler {
   actors: Grid<Actor>;
+  allActors: Actor[];
   canvas: HTMLCanvasElement;
   chars: Display;
   contexts: Stack<Context>;
@@ -29,6 +30,7 @@ export default class Game extends EventHandler {
   log: MessageLog;
   map: Grid<Tile>;
   player: Actor;
+  spent: number;
   tiles: Display;
 
   constructor(
@@ -110,6 +112,7 @@ export default class Game extends EventHandler {
     loadMap(this, testMap);
     this.contexts.clear();
     this.contexts.push(new Dungeon(this));
+    this.spent = 0;
 
     this.contexts.top.render();
   }
@@ -117,6 +120,7 @@ export default class Game extends EventHandler {
   initMap(width: number, height: number) {
     this.map = new LinearGrid(width, height, () => unset);
     this.actors = new LinearGrid(width, height, () => undefined);
+    this.allActors = [];
     this.items = new LinearGrid(width, height, () => []);
   }
 
@@ -130,6 +134,7 @@ export default class Game extends EventHandler {
   add(thing: Thing) {
     switch (thing.type) {
       case "actor":
+        this.allActors.push(thing);
         return this.actors.set(thing.x, thing.y, thing);
 
       case "item":
@@ -142,6 +147,7 @@ export default class Game extends EventHandler {
   remove(thing: Thing) {
     switch (thing.type) {
       case "actor":
+        this.allActors = this.allActors.filter((actor) => actor !== thing);
         return this.actors.set(thing.x, thing.y, undefined);
 
       case "item":

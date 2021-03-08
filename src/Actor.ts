@@ -1,6 +1,8 @@
 import Item from "./Item";
 
 export interface ActorOptions {
+  ai: string;
+  aiData: Record<string, any>;
   alive: boolean;
   article: string;
   canClimb: boolean;
@@ -24,6 +26,8 @@ export interface ActorOptions {
 
 export default class Actor {
   type: "actor";
+  ai: string;
+  aiData: Record<string, any>;
   alive: boolean;
   article: string;
   canClimb: boolean;
@@ -48,6 +52,8 @@ export default class Actor {
     public x: number,
     public y: number,
     {
+      ai = "",
+      aiData = {},
       article = "a",
       canClimb = false,
       colour = "silver",
@@ -70,6 +76,8 @@ export default class Actor {
     }: Partial<ActorOptions> = {}
   ) {
     this.type = "actor";
+    this.ai = ai;
+    this.aiData = aiData;
     this.article = article;
     this.canClimb = canClimb;
     this.colour = colour;
