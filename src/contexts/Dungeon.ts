@@ -109,10 +109,6 @@ export default class Dungeon implements Context {
       tiles.draw(xmod + x, ymod + y, thingy.glyph, thingy.colour, "black");
     });
 
-    let y = chars._options.height - 1;
-    log.messages.forEach((msg) => {
-      chars.drawText(0, y, msg);
-      y--;
-    });
+    log.draw();
   }
 }

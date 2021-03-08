@@ -37,7 +37,7 @@ export default class Game extends EventHandler {
     super();
     (window as any).g = this;
     this.contexts = new ArrayStack();
-    this.log = new MessageLog();
+    this.log = new MessageLog(this);
 
     new KeyInputHandler(
       (e) => this.contexts.top.onKey(e),

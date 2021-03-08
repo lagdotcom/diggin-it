@@ -14,11 +14,13 @@ function fetchImage(url: string): Promise<HTMLImageElement> {
   });
 }
 
-function makeTileMap(size: number, rows: string[]): TileMap {
+function makeTileMap(size: number, rows: (string | string[])[]): TileMap {
   const map: TileMap = {};
 
   rows.forEach((row, r) =>
-    row.split("").forEach((ch, c) => (map[ch] = [c * size, r * size]))
+    (typeof row === "string" ? row.split("") : row).forEach(
+      (ch, c) => (map[ch] = [c * size, r * size])
+    )
   );
 
   return map;
@@ -50,8 +52,8 @@ export async function loadTiles(
       "",
       "               M",
       "",
-      "                 |   H",
       "",
+      "                 |   H",
       "           #",
       "",
       "           !",
@@ -86,9 +88,9 @@ export async function loadChars(
     tileHeight: 8,
     tileSet,
     tileMap: makeTileMap(8, [
-      ' !"#$%&`()*+,-./┌─┐',
-      "0123456789:;<=>?│",
-      "@ABCDEFGHIJKLMNO└─┘",
+      ' !"#$%&`()*+,-./'.split("").concat("b7", "b8", "b9"),
+      "0123456789:;<=>?".split("").concat("b4", "b5", "b6"),
+      "@ABCDEFGHIJKLMNO".split("").concat("b1", "b2", "b3"),
       "PQRSTUVWXYZ[\\]^_",
       "'abcdefghijklmno",
       "pqrstuvwxyz{|}~",
