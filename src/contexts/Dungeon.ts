@@ -90,23 +90,24 @@ export default class Dungeon implements Context {
   }
 
   render(): void {
-    const { chars, log, map, player, tiles } = this.g;
+    const { displayHeight, displayWidth, log, map, player, tiles } = this.g;
 
     // TODO: this is dumb lol
     this.systems();
     tiles.clear();
 
-    const xmod = tiles._options.width / 2 - player.x;
-    const ymod = tiles._options.height / 2 - player.y;
+    const xmod = Math.floor(displayWidth / 2 - player.x);
+    const ymod = Math.floor(displayHeight / 2 - player.y);
 
     const fov = new DiscreteShadowcasting((x, y) => !map.get(x, y).opaque);
     fov.compute(player.x, player.y, player.vision, (x, y, r) => {
       const { actor, items, tile } = this.g.contents(x, y);
-      var thingy: { colour: string; glyph: string } = tile;
-      if (actor) thingy = actor;
-      else if (items.length) thingy = items[0];
 
-      tiles.draw(xmod + x, ymod + y, thingy.glyph, thingy.colour, "black");
+      const glyphs: string[] = [tile.glyph];
+      glyphs.push(...items.map((i) => i.glyph));
+      if (actor) glyphs.push(actor.glyph);
+
+      tiles.draw(xmod + x, ymod + y, glyphs, "transparent", "black");
     });
 
     log.draw();

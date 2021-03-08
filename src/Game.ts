@@ -21,6 +21,8 @@ export default class Game extends EventHandler {
   actors: Grid<Actor>;
   chars: Display;
   contexts: Stack<Context>;
+  displayHeight: number;
+  displayWidth: number;
   items: Grid<Item[]>;
   log: MessageLog;
   map: Grid<Tile>;
@@ -44,6 +46,9 @@ export default class Game extends EventHandler {
       (cmd) => this.contexts.top.handle(cmd),
       { events: ["keydown"] }
     );
+
+    this.displayHeight = height - 3;
+    this.displayWidth = width - 6;
   }
 
   resized(): void {
