@@ -11,6 +11,7 @@ export default class Death {
     const vname = theName(victim);
 
     if (victim.hp < 1) {
+      victim.alive = false;
       this.g.log.add(`${vname} dies!`);
       this.g.remove(victim);
       this.g.emit("died", { attacker, victim });

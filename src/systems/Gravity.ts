@@ -1,6 +1,7 @@
 import Actor from "../Actor";
 import Game from "../Game";
 import Thing from "../interfaces/Thing";
+import XY from "../interfaces/XY";
 import Item from "../Item";
 import { name, theName } from "../text";
 import Tile from "../Tile";
@@ -85,7 +86,9 @@ export default class Gravity {
     // ???
     if (distance === 0) return false;
 
-    // TODO: move victim out of the way!
+    var push: false | undefined | XY = false;
+    if (victim?.type === "actor" && victim.alive)
+      push = this.findPushTile(victim);
 
     // TODO: damage, etc.
     if (distance > 1 && !hitFluid) {
@@ -104,7 +107,8 @@ export default class Gravity {
           });
         }
 
-        const rest = amount - share;
+        // squish if nowhere to go!
+        const rest = typeof push === "undefined" ? victim.hp : amount - share;
         if (rest > 0) {
           if (thing.glyph === "@") log.add(`You land on ${theName(victim)}!`);
           else if (victim.glyph === "@")
@@ -118,6 +122,15 @@ export default class Gravity {
         if (thing.glyph === "@") log.add("You fall and get hurt!");
         this.g.emit("damaged", { attacker: thing, victim: thing, amount });
       }
+    }
+
+    if (victim.type === "actor" && victim.alive && typeof push === "object") {
+      const mx = push[0] - victim.x,
+        my = push[1] - victim.y;
+      this.g.move(victim, push[0], push[1]);
+      this.g.emit("moved", { thing: victim, mx, my, forced: thing });
+
+      if (thing.glyph === "@") log.add(`You push ${theName(victim)} aside!`);
     }
 
     if (hitFluid && thing.glyph === "@")
@@ -158,5 +171,18 @@ export default class Gravity {
     this.g.emit("fell", { thing, distance });
     this.g.emit("moved", { thing, mx: 0, my: distance });
     return true;
+  }
+
+  findPushTile(actor: Actor): XY {
+    const offsets = [-1, 1];
+    for (var i = 0; i < offsets.length; i++) {
+      const x = actor.x + offsets[i];
+      const y = actor.y;
+
+      const contents = this.g.contents(x, y);
+      if (contents.actor) continue;
+      if (contents.tile.solid) continue;
+      return [x, y];
+    }
   }
 }
