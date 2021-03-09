@@ -19,6 +19,6 @@ export default class Combat {
 
     this.g.log.add(`${aname} hit${s} ${vname} for ${amount} damage.`);
     victim.hp -= amount;
-    this.g.emit("damaged", { attacker, victim, amount });
+    this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
   }
 }

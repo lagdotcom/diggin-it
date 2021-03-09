@@ -104,6 +104,7 @@ export default class Gravity {
             attacker: thing,
             victim: thing,
             amount: share,
+            type: "fall",
           });
         }
 
@@ -115,12 +116,22 @@ export default class Gravity {
             log.add(`${name(thing)} lands on you!`);
 
           victim.hp -= rest;
-          this.g.emit("damaged", { attacker: thing, victim, amount: rest });
+          this.g.emit("damaged", {
+            attacker: thing,
+            victim,
+            amount: rest,
+            type: "squash",
+          });
         }
       } else if (thing.alive) {
         thing.hp -= amount;
         if (thing.glyph === "@") log.add("You fall and get hurt!");
-        this.g.emit("damaged", { attacker: thing, victim: thing, amount });
+        this.g.emit("damaged", {
+          attacker: thing,
+          victim: thing,
+          amount,
+          type: "fall",
+        });
       }
     }
 

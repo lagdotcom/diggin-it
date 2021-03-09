@@ -6,7 +6,7 @@ import Tile from "./Tile";
 export interface EventMap {
   attacked: { attacker: Actor; victim: Actor };
   collapsed: { x: number; y: number };
-  damaged: { attacker: Actor; victim: Actor; amount: number };
+  damaged: { attacker: Actor; victim: Actor; amount: number; type: string };
   died: { attacker: Actor; victim: Actor };
   digged: { tile: Tile; x: number; y: number };
   fell: { thing: Thing; distance: number };
