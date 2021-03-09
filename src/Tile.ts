@@ -71,15 +71,29 @@ export const exit = new Tile("Exit", {
   name: "exit",
   destroyIncomingPushes: true,
 });
+export const ladderTileTop = new Tile("LadderTileT", {
+  name: "ladder",
+  canClimb: true,
+  canStandOn: true,
+});
 export const ladderTile = new Tile("LadderTile", {
   name: "ladder",
   canClimb: true,
   canStandOn: true,
 });
-export const ropeTile = new Tile("RopeTile", {
-  name: "rope",
+export const ladderTileBottom = new Tile("LadderTileB", {
+  name: "ladder",
   canClimb: true,
   canStandOn: true,
+});
+export const ropeTileTop = new Tile("RopeTileT", {
+  name: "rope",
+  canClimb: true,
+});
+export const ropeTile = new Tile("RopeTile", { name: "rope", canClimb: true });
+export const ropeTileBottom = new Tile("RopeTileB", {
+  name: "rope",
+  canClimb: true,
 });
 export const water = new Tile("Water", {
   name: "water",

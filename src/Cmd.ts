@@ -1,3 +1,5 @@
+import XY from "./interfaces/XY";
+
 export interface AttackCmd {
   type: "attack";
   x: number;
@@ -34,9 +36,15 @@ export interface PushCmd {
   my: number;
 }
 
+export interface TargetCmd {
+  type: "target";
+  possibilities: XY[];
+}
+
 export interface UseCmd {
   type: "use";
   index: number;
+  at?: XY;
 }
 
 export interface WaitCmd {
@@ -50,6 +58,7 @@ type Cmd =
   | GetCmd
   | MoveCmd
   | PushCmd
+  | TargetCmd
   | UseCmd
   | WaitCmd;
 export default Cmd;

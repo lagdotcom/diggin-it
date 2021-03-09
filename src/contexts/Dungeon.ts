@@ -115,6 +115,7 @@ export default class Dungeon implements Context {
     }
   }
 
+  // TODO: targeting
   handle(cmd: Cmd): void {
     switch (cmd.type) {
       case "attack":
@@ -192,9 +193,9 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
-  handleUse({ index }: UseCmd) {
+  handleUse({ index, at }: UseCmd) {
     const item = this.g.player.inventory[index];
-    const poss = this.use.use(index, item);
+    const poss = this.use.use(index, item, at);
     if (typeof poss === "object") return this.handle(poss);
 
     if (poss) this.g.log.add(poss);

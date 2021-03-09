@@ -29,7 +29,7 @@ import Tile, {
 export const testMap = [
   "!!!!!!!!!!!!!!!!",
   "!#             !",
-  "!#<  L     O   !",
+  "!#< RL     O   !",
   "!###sssH####  $!",
   "! B   sH Mg#1 #!",
   "!###  sH#######!",

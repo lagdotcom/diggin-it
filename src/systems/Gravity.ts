@@ -38,6 +38,7 @@ export default class Gravity {
 
     const current = this.g.map.get(victim.x, victim.y);
     if (current.canSwimIn) return;
+    if (victim.canClimb && current.canClimb) return;
 
     const { actor, items, tile } = this.g.contents(victim.x, victim.y + 1);
 
@@ -81,6 +82,8 @@ export default class Gravity {
         victim = tile;
         break;
       }
+
+      if (thing.canClimb && tile.canClimb) break;
     }
 
     // ???
@@ -135,7 +138,7 @@ export default class Gravity {
       }
     }
 
-    if (victim.type === "actor" && victim.alive && typeof push === "object") {
+    if (victim?.type === "actor" && victim.alive && typeof push === "object") {
       const mx = push[0] - victim.x,
         my = push[1] - victim.y;
       this.g.move(victim, push[0], push[1]);
