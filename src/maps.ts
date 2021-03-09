@@ -5,8 +5,10 @@ import {
   bomb,
   boulder,
   coinBag,
+  ladder,
   metal,
   player,
+  rope,
   smallGem,
   squimpy,
 } from "./prefabs";
@@ -18,6 +20,7 @@ import Tile, {
   entrance,
   exit,
   ladderTile,
+  ropeTile,
   sand,
   unset,
   water,
@@ -26,7 +29,7 @@ import Tile, {
 export const testMap = [
   "!!!!!!!!!!!!!!!!",
   "!#             !",
-  "!#<        O   !",
+  "!#<  L     O   !",
   "!###sssH####  $!",
   "! B   sH Mg#1 #!",
   "!###  sH#######!",
@@ -49,6 +52,7 @@ const tileTypes: Record<string, Tile> = {
   "#": dirt,
   s: sand,
   H: ladderTile,
+  "|": ropeTile,
   "~": water,
   A: air,
 };
@@ -63,6 +67,8 @@ const itemTypes: Record<string, Partial<ItemOptions>> = {
   B: bomb,
   g: smallGem,
   $: coinBag,
+  L: ladder,
+  R: rope,
 };
 
 export function loadMap(g: Game, map: string[]): void {

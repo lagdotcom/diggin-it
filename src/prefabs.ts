@@ -37,10 +37,19 @@ export const metal: Partial<ActorOptions> = {
 };
 
 export const bomb: Partial<ItemOptions> = { glyph: "Bomb", name: "bomb" };
-export const rope: Partial<ItemOptions> = { glyph: "RopeItem", name: "rope" };
+export const rope: Partial<ItemOptions> = {
+  glyph: "Rope",
+  name: "rope",
+  use: "rope",
+  charges: 1,
+  useArgs: [4],
+};
 export const ladder: Partial<ItemOptions> = {
-  glyph: "LadderItem",
+  glyph: "Ladder",
   name: "ladder",
+  use: "ladder",
+  charges: 1,
+  useArgs: [4],
 };
 export const rations: Partial<ItemOptions> = {
   glyph: "Rations",

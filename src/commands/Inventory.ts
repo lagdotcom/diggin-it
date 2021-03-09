@@ -18,7 +18,7 @@ export default class Inventory {
 
       const item = items[i];
       this.g.remove(item);
-      player.inventory[i] = item;
+      player.inventory[slot] = item;
       this.g.emit("got", { actor: player, item });
       this.g.log.add(`You get ${name(item)}.`);
 

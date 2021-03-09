@@ -1,7 +1,15 @@
-import Cmd, { AttackCmd, ClimbCmd, DigCmd, MoveCmd, PushCmd } from "../Cmd";
+import Cmd, {
+  AttackCmd,
+  ClimbCmd,
+  DigCmd,
+  MoveCmd,
+  PushCmd,
+  UseCmd,
+} from "../Cmd";
 import Inventory from "../commands/Inventory";
 import Movement from "../commands/Movement";
 import Pushing from "../commands/Pushing";
+import UsableItems from "../commands/UsableItems";
 import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
@@ -31,6 +39,7 @@ export default class Dungeon implements Context {
   rerender: number;
   sand: SandCollapse;
   treasure: TreasureGrabbing;
+  use: UsableItems;
   vision: Vision;
 
   constructor(public g: Game) {
@@ -43,6 +52,7 @@ export default class Dungeon implements Context {
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
     this.treasure = new TreasureGrabbing(g);
+    this.use = new UsableItems(g);
     this.vision = new Vision(g);
 
     const { width, height } = g.chars._options;
@@ -93,6 +103,16 @@ export default class Dungeon implements Context {
     if (e.type !== "click") return undefined;
 
     // TODO
+    if (e.button === 0) {
+      const spot = this.getMouseSpot();
+      if (spot) {
+        if (spot[0] === "inventory") {
+          const index = spot[1] + spot[2] * 5;
+          const item = this.g.player.inventory[index];
+          if (item) return { type: "use", index };
+        }
+      }
+    }
   }
 
   handle(cmd: Cmd): void {
@@ -109,6 +129,8 @@ export default class Dungeon implements Context {
         return this.handleMove(cmd);
       case "push":
         return this.handlePush(cmd);
+      case "use":
+        return this.handleUse(cmd);
       case "wait":
         return this.handleWait();
     }
@@ -170,6 +192,15 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
+  handleUse({ index }: UseCmd) {
+    const item = this.g.player.inventory[index];
+    const poss = this.use.use(index, item);
+    if (typeof poss === "object") return this.handle(poss);
+
+    if (poss) this.g.log.add(poss);
+    return this.render();
+  }
+
   handleWait() {
     this.g.spent++;
     this.scheduleRender();
@@ -193,6 +224,11 @@ export default class Dungeon implements Context {
     return [xmod, ymod];
   }
 
+  getMouseSpot() {
+    const [ex, ey] = this.mouse;
+    return this.hotspots.resolve(ex, ey);
+  }
+
   updateInfo(): void {
     const [ex, ey] = this.mouse;
     // not even on the canvas
@@ -201,7 +237,7 @@ export default class Dungeon implements Context {
       return;
     }
 
-    const spot = this.hotspots.resolve(ex, ey);
+    const spot = this.getMouseSpot();
     if (spot) {
       const [area, ox, oy] = spot;
       switch (area) {

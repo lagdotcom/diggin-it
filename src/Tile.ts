@@ -71,8 +71,13 @@ export const exit = new Tile("Exit", {
   name: "exit",
   destroyIncomingPushes: true,
 });
-export const ladderTile = new Tile("Ladder", {
+export const ladderTile = new Tile("LadderTile", {
   name: "ladder",
+  canClimb: true,
+  canStandOn: true,
+});
+export const ropeTile = new Tile("RopeTile", {
+  name: "rope",
   canClimb: true,
   canStandOn: true,
 });
