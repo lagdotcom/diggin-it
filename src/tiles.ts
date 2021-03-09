@@ -1,7 +1,9 @@
 import { DisplayOptions } from "rot-js/lib/display/types";
 
-import tilesUrl from "../res/16x16_sprites_sheet.png";
-import charsUrl from "../res/8x8_sheet.png";
+import tilesUrl from "../res/16x16.png";
+import tilesSheet from "../res/16x16.sheet.json";
+import charsUrl from "../res/8x8.png";
+import charsSheet from "../res/8x8.sheet.json";
 
 type TileMap = DisplayOptions["tileMap"];
 
@@ -14,14 +16,43 @@ function fetchImage(url: string): Promise<HTMLImageElement> {
   });
 }
 
-function makeTileMap(size: number, rows: (string | string[])[]): TileMap {
+type Sheet = {
+  size: number;
+  tiles: Record<string, { row: number; col: number; size?: number }>;
+};
+function parseSheet(sheet: Sheet): TileMap {
   const map: TileMap = {};
 
-  rows.forEach((row, r) =>
-    (typeof row === "string" ? row.split("") : row).forEach(
-      (ch, c) => (map[ch] = [c * size, r * size])
-    )
-  );
+  const add = (row: number, col: number, ch: string) =>
+    (map[ch] = [col * sheet.size, row * sheet.size]);
+
+  for (var ch in sheet.tiles) {
+    const { row, col, size } = sheet.tiles[ch];
+
+    switch (size) {
+      case 4:
+        add(row, col, ch + "1");
+        add(row, col + 1, ch + "2");
+        add(row + 1, col, ch + "3");
+        add(row + 1, col + 1, ch + "4");
+        break;
+
+      case 9:
+        add(row, col, ch + "7");
+        add(row, col + 1, ch + "8");
+        add(row, col + 2, ch + "9");
+        add(row + 1, col, ch + "4");
+        add(row + 1, col + 1, ch + "5");
+        add(row + 1, col + 2, ch + "6");
+        add(row + 2, col, ch + "1");
+        add(row + 2, col + 1, ch + "2");
+        add(row + 2, col + 2, ch + "3");
+        break;
+
+      default:
+        add(row, col, ch);
+    }
+  }
 
   return map;
 }
@@ -31,6 +62,7 @@ export async function loadTiles(
   height: number
 ): Promise<Partial<DisplayOptions>> {
   const tileSet = await fetchImage(tilesUrl);
+  const tileMap = parseSheet(tilesSheet);
   return {
     layout: "tile",
     width,
@@ -38,26 +70,7 @@ export async function loadTiles(
     tileWidth: 16,
     tileHeight: 16,
     tileSet,
-    tileMap: makeTileMap(16, [
-      "@ 1234567890",
-      "  PD",
-      "  .:;",
-      "  BRLRCFT",
-      "  $cbgdatf",
-      "",
-      "A<>", // TODO
-      "           s",
-      "                 ~",
-      "               O",
-      "",
-      "               M",
-      "",
-      "",
-      "                 |   H",
-      "           #",
-      "",
-      "           !",
-    ]),
+    tileMap,
   };
 }
 
@@ -80,6 +93,8 @@ export async function loadChars(
   height: number
 ): Promise<Partial<DisplayOptions>> {
   const tileSet = await fetchImage(charsUrl);
+  const tileMap = parseSheet(charsSheet);
+
   return {
     layout: "tile",
     width: width * 2,
@@ -87,14 +102,7 @@ export async function loadChars(
     tileWidth: 8,
     tileHeight: 8,
     tileSet,
-    tileMap: makeTileMap(8, [
-      ' !"#$%&`()*+,-./'.split("").concat("b7", "b8", "b9"),
-      "0123456789:;<=>?".split("").concat("b4", "b5", "b6"),
-      "@ABCDEFGHIJKLMNO".split("").concat("b1", "b2", "b3"),
-      "PQRSTUVWXYZ[\\]^_",
-      "'abcdefghijklmno",
-      "pqrstuvwxyz{|}~",
-    ]),
+    tileMap,
   };
 }
 

@@ -49,14 +49,14 @@ export default class Tile {
   }
 }
 
-export const border = new Tile("!", { name: "", solid: true });
-export const dirt = new Tile("#", {
+export const border = new Tile("Bedrock", { name: "", solid: true });
+export const dirt = new Tile("Dirt", {
   colour: "brown",
   name: "dirt",
   solid: true,
   digResistance: 10,
 });
-export const sand = new Tile("s", {
+export const sand = new Tile("Sand", {
   colour: "yellow",
   name: "sand",
   solid: true,
@@ -64,19 +64,19 @@ export const sand = new Tile("s", {
 });
 
 export const unset = new Tile("?", { name: "" });
-export const air = new Tile("A", { colour: "pink" });
+export const air = new Tile("Air", { colour: "pink" });
 export const empty = new Tile(" ", { name: "" });
-export const entrance = new Tile("<", { name: "how you got here" });
-export const exit = new Tile(">", {
+export const entrance = new Tile("Entrance", { name: "how you got here" });
+export const exit = new Tile("Exit", {
   name: "exit",
   destroyIncomingPushes: true,
 });
-export const ladderTile = new Tile("H", {
+export const ladderTile = new Tile("Ladder", {
   name: "ladder",
   canClimb: true,
   canStandOn: true,
 });
-export const water = new Tile("~", {
+export const water = new Tile("Water", {
   name: "water",
   colour: "blue",
   canSwimIn: true,

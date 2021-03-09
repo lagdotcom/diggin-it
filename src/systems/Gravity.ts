@@ -40,8 +40,6 @@ export default class Gravity {
 
     const { actor, items, tile } = this.g.contents(victim.x, victim.y + 1);
 
-    // TODO: can things sit on other things?
-    if (actor && victim.type === "actor") return;
     if (tile.solid || (victim.canClimb && tile.canStandOn)) return;
 
     // we got a match!

@@ -1,4 +1,5 @@
 import commonjs from "@rollup/plugin-commonjs";
+import json from "@rollup/plugin-json";
 import nodePolyfills from "rollup-plugin-node-polyfills";
 import pkg from "./package.json";
 import resolve from "@rollup/plugin-node-resolve";
@@ -11,6 +12,7 @@ import url from "@rollup/plugin-url";
 const output = [];
 const plugins = [
   nodePolyfills(),
+  json(),
   url({ limit: Infinity }),
   sourcemaps(),
   resolve(),

@@ -14,7 +14,7 @@ export const player: Partial<ActorOptions> = {
 };
 
 export const squimpy: Partial<ActorOptions> = {
-  glyph: "1",
+  glyph: "Squimpy",
   name: "squimpy",
   colour: "red",
   hp: 10,
@@ -23,74 +23,83 @@ export const squimpy: Partial<ActorOptions> = {
 };
 
 export const boulder: Partial<ActorOptions> = {
-  glyph: "O",
+  glyph: "Boulder",
   name: "boulder",
   colour: "grey",
   digResistance: 20,
   pushable: true,
 };
 export const metal: Partial<ActorOptions> = {
-  glyph: "M",
+  glyph: "MetalBlock",
   name: "metal block",
   colour: "cyan",
   pushable: true,
 };
 
-export const bomb: Partial<ItemOptions> = { glyph: "B", name: "bomb" };
-export const rope: Partial<ItemOptions> = { glyph: "R", name: "rope" };
-export const ladder: Partial<ItemOptions> = { glyph: "L", name: "ladder" };
+export const bomb: Partial<ItemOptions> = { glyph: "Bomb", name: "bomb" };
+export const rope: Partial<ItemOptions> = { glyph: "RopeItem", name: "rope" };
+export const ladder: Partial<ItemOptions> = {
+  glyph: "LadderItem",
+  name: "ladder",
+};
 export const rations: Partial<ItemOptions> = {
-  glyph: "R",
+  glyph: "Rations",
   name: "Lessonus ration",
 };
-export const necklace: Partial<ItemOptions> = { glyph: "C", name: "necklace" };
-export const flask: Partial<ItemOptions> = { glyph: "F", name: "flask" };
-export const airTank: Partial<ItemOptions> = { glyph: "T", name: "air tank" };
+export const bracelet: Partial<ItemOptions> = {
+  glyph: "Bracelet",
+  name: "Mellogrinian bracelet",
+};
+export const vial: Partial<ItemOptions> = { glyph: "Vial", name: "empty vial" };
+export const airTank: Partial<ItemOptions> = {
+  glyph: "Tank",
+  name: "air tank",
+};
 
 export const coin: Partial<ItemOptions> = {
-  glyph: "c",
+  glyph: "Coin",
   name: "coin",
   colour: "yellow",
   treasure: 50,
 };
 export const goldBar: Partial<ItemOptions> = {
-  glyph: "b",
+  glyph: "GoldBar",
   name: "gold bar",
   colour: "yellow",
   treasure: 100,
 };
 export const smallGem: Partial<ItemOptions> = {
-  glyph: "g",
+  glyph: "Gem",
   name: "small gem",
   colour: "blue",
   treasure: 200,
 };
 export const coinBag: Partial<ItemOptions> = {
-  glyph: "$",
+  glyph: "CoinBag",
   name: "coin bag",
   colour: "yellow",
   treasure: 300,
 };
-export const relic: Partial<ItemOptions> = {
-  glyph: "a",
-  name: "ancient relic",
+export const artifact: Partial<ItemOptions> = {
+  glyph: "Artifact",
+  name: "artifact",
   colour: "red",
   treasure: 500,
 };
 export const treasureBox: Partial<ItemOptions> = {
-  glyph: "t",
+  glyph: "TreasureBox",
   name: "treasure box",
   colour: "brown",
   treasure: 800,
 };
 export const diamond: Partial<ItemOptions> = {
-  glyph: "d",
+  glyph: "Diamond",
   name: "diamond",
   colour: "pink",
   treasure: 1000,
 };
 export const fragment: Partial<ItemOptions> = {
-  glyph: "f",
+  glyph: "Fragment",
   name: "wisher's fragment",
   colour: "green",
   treasure: 5000,

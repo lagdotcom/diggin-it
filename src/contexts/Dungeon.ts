@@ -293,21 +293,10 @@ export default class Dungeon implements Context {
         // TODO: this sucks
         drawPanel(chars, x, y, 2, 2);
       } else {
-        // TODO: show item (neither of these work because of drawing order)
-        // tiles.draw(x / 2, y / 2, item.glyph, "transparent", "black");
-        // const tile = tiles._options.tileMap[item.glyph];
-        // if (tile)
-        //   ctx.drawImage(
-        //     tiles._options.tileSet,
-        //     tile[0],
-        //     tile[1],
-        //     16,
-        //     16,
-        //     x * 8,
-        //     y * 8,
-        //     16,
-        //     16
-        //   );
+        chars.draw(x, y, item.glyph + "1", "transparent", "black");
+        chars.draw(x + 1, y, item.glyph + "2", "transparent", "black");
+        chars.draw(x, y + 1, item.glyph + "3", "transparent", "black");
+        chars.draw(x + 1, y + 1, item.glyph + "4", "transparent", "black");
       }
 
       x += 2;
