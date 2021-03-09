@@ -12,6 +12,11 @@ export interface ClimbCmd {
   y: number;
 }
 
+export interface DropCmd {
+  type: "drop";
+  index: number;
+}
+
 export interface GetCmd {
   type: "get";
 }
@@ -55,6 +60,7 @@ type Cmd =
   | AttackCmd
   | ClimbCmd
   | DigCmd
+  | DropCmd
   | GetCmd
   | MoveCmd
   | PushCmd

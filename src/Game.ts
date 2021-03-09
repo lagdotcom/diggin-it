@@ -90,7 +90,7 @@ export default class Game extends EventHandler {
     new MouseInputHandler(
       (e) => this.contexts.top.onMouse(e),
       (cmd) => this.contexts.top.handle(cmd),
-      { events: ["click", "mousemove"] }
+      { events: ["click", "contextmenu", "mousemove"] }
     );
   }
 

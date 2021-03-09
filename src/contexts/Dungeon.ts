@@ -2,6 +2,7 @@ import Cmd, {
   AttackCmd,
   ClimbCmd,
   DigCmd,
+  DropCmd,
   MoveCmd,
   PushCmd,
   UseCmd,
@@ -99,17 +100,19 @@ export default class Dungeon implements Context {
     this.scheduleRender();
     this.mouse = this.g.chars.eventToPosition(e);
     if (this.g.spent > 0) return;
-
-    if (e.type !== "click") return undefined;
+    if (e.type === "mousemove") return;
 
     // TODO
-    if (e.button === 0) {
-      const spot = this.getMouseSpot();
-      if (spot) {
-        if (spot[0] === "inventory") {
-          const index = spot[1] + spot[2] * 5;
-          const item = this.g.player.inventory[index];
-          if (item) return { type: "use", index };
+    const spot = this.getMouseSpot();
+    if (spot) {
+      if (spot[0] === "inventory") {
+        const index = spot[1] + spot[2] * 5;
+        const item = this.g.player.inventory[index];
+
+        if (item) {
+          e.preventDefault();
+          if (e.button === 0) return { type: "use", index };
+          if (e.button === 2) return { type: "drop", index };
         }
       }
     }
@@ -124,6 +127,8 @@ export default class Dungeon implements Context {
         return this.handleClimb(cmd);
       case "dig":
         return this.handleDig(cmd);
+      case "drop":
+        return this.handleDrop(cmd);
       case "get":
         return this.handleGet();
       case "move":
@@ -162,6 +167,20 @@ export default class Dungeon implements Context {
     this.g.map.set(x, y, empty);
     this.g.log.add(`You dig through ${theName(tile)}.`);
     this.g.emit("digged", { tile, x, y });
+    this.g.spent++;
+    return this.render();
+  }
+
+  handleDrop({ index }: DropCmd): void {
+    const { log, player } = this.g;
+
+    const item = player.inventory[index];
+    delete player.inventory[index];
+    log.add(`You drop ${theName(item)}.`);
+
+    item.x = player.x;
+    item.y = player.y;
+    this.g.add(item);
     this.g.spent++;
     return this.render();
   }
