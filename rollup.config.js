@@ -12,7 +12,7 @@ import url from "@rollup/plugin-url";
 const output = [];
 const plugins = [
   nodePolyfills(),
-  json(),
+  json({ preferConst: true }),
   url({ limit: Infinity }),
   sourcemaps(),
   resolve(),
