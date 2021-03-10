@@ -5,6 +5,7 @@ import Cmd, {
   DropCmd,
   MoveCmd,
   PushCmd,
+  TargetCmd,
   UseCmd,
 } from "../Cmd";
 import Inventory from "../commands/Inventory";
@@ -16,6 +17,7 @@ import Game from "../Game";
 import Hotspots from "../Hotspots";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
+import Soon from "../Soon";
 import AI from "../systems/AI";
 import Combat from "../systems/Combat";
 import Death from "../systems/Death";
@@ -25,6 +27,7 @@ import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { name, theName } from "../text";
 import { empty } from "../Tile";
+import Targeting from "./Targeting";
 
 export default class Dungeon implements Context {
   ai: AI;
@@ -37,7 +40,7 @@ export default class Dungeon implements Context {
   mouse: XY;
   movement: Movement;
   pushing: Pushing;
-  rerender: number;
+  rerender: Soon;
   sand: SandCollapse;
   treasure: TreasureGrabbing;
   use: UsableItems;
@@ -62,6 +65,7 @@ export default class Dungeon implements Context {
     this.hotspots.register("display", 0, 0, width - 12, height - 6);
     this.hotspots.register("inventory", 29, 13, 10, 8);
     this.mouse = [-1, -1];
+    this.rerender = new Soon(() => this.render());
   }
 
   onKey(e: KeyboardEvent): Cmd {
@@ -91,13 +95,8 @@ export default class Dungeon implements Context {
     }
   }
 
-  scheduleRender() {
-    if (!this.rerender)
-      this.rerender = requestAnimationFrame(() => this.render());
-  }
-
   onMouse(e: MouseEvent): Cmd {
-    this.scheduleRender();
+    this.rerender.start();
     this.mouse = this.g.chars.eventToPosition(e);
     if (this.g.spent > 0) return;
     if (e.type === "mousemove") return;
@@ -135,6 +134,8 @@ export default class Dungeon implements Context {
         return this.handleMove(cmd);
       case "push":
         return this.handlePush(cmd);
+      case "target":
+        return this.handleTarget(cmd);
       case "use":
         return this.handleUse(cmd);
       case "wait":
@@ -209,6 +210,10 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
+  handleTarget(cmd: TargetCmd) {
+    this.g.contexts.push(new Targeting(this.g, this, cmd));
+  }
+
   handleUse({ index, at }: UseCmd) {
     const item = this.g.player.inventory[index];
     const poss = this.use.use(index, item, at);
@@ -220,7 +225,7 @@ export default class Dungeon implements Context {
 
   handleWait() {
     this.g.spent++;
-    this.scheduleRender();
+    this.rerender.start();
   }
 
   systems(): void {
@@ -294,7 +299,6 @@ export default class Dungeon implements Context {
   render(): void {
     const { log, tiles } = this.g;
 
-    this.rerender = 0;
     this.updateInfo();
 
     // TODO: this is dumb lol

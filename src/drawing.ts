@@ -26,7 +26,7 @@ export function drawPanel(
     for (var x = 0; x < width; x++) {
       const col = x === 0 ? 0 : x === width - 1 ? 2 : 1;
       const tile = tiles[row][col];
-      chars.draw(sx + x, sy + y, tile, "transparent", "black");
+      chars.draw(sx + x, sy + y, tile, "transparent", "transparent");
     }
   }
 }

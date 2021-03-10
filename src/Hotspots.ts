@@ -1,20 +1,20 @@
-export interface Hotspot {
-  name: string;
+export interface Hotspot<T> {
+  name: T;
   left: number;
   top: number;
   right: number;
   bottom: number;
 }
 
-export default class Hotspots {
-  spots: Hotspot[];
+export default class Hotspots<T = string> {
+  spots: Hotspot<T>[];
 
   constructor() {
     this.spots = [];
   }
 
-  register(name: string, x: number, y: number, w: number, h: number) {
-    const spot: Hotspot = {
+  register(name: T, x: number, y: number, w: number, h: number) {
+    const spot: Hotspot<T> = {
       name,
       left: x,
       top: y,
@@ -26,7 +26,7 @@ export default class Hotspots {
     return spot;
   }
 
-  resolve(x: number, y: number): [name: string, ox: number, oy: number] {
+  resolve(x: number, y: number): [name: T, ox: number, oy: number] {
     for (var i = 0; i < this.spots.length; i++) {
       const spot = this.spots[i];
       if (

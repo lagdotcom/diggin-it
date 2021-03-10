@@ -44,6 +44,7 @@ export interface PushCmd {
 export interface TargetCmd {
   type: "target";
   possibilities: XY[];
+  callback: (pos: XY) => Cmd;
 }
 
 export interface UseCmd {

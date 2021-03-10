@@ -27,7 +27,11 @@ export default class UsableItems {
           const targets = this.getRopeTargets();
           if (targets.length === 0) return "No room.";
           if (targets.length > 1)
-            return { type: "target", possibilities: targets };
+            return {
+              type: "target",
+              possibilities: targets,
+              callback: (at: XY) => ({ type: "use", index, at }),
+            };
           at = targets[0];
         }
         result = this.useRope(item, at);
