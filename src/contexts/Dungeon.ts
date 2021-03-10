@@ -320,16 +320,16 @@ export default class Dungeon implements Context {
         const tx = x - xmod,
           ty = y - ymod;
 
-        var colour = "";
-        if (vision.get(tx, ty)) colour = "transparent";
-        else if (memory.get(tx, ty)) colour = "rgba(0,0,0,0.5)";
-        if (!colour) continue;
+        const inFov = vision.get(tx, ty);
+        const inMemory = memory.get(tx, ty);
+        if (!inFov || !inMemory) continue;
 
+        const colour = inFov ? "transparent" : "rgba(0,0,0,0.5)";
         const { actor, items, tile } = this.g.contents(tx, ty);
 
         const glyphs: string[] = [tile.glyph];
         glyphs.push(...items.map((i) => i.glyph));
-        if (actor) glyphs.push(actor.glyph);
+        if (actor && inFov) glyphs.push(actor.glyph);
 
         // TODO: fix library
         const fgs = new Array<string>(glyphs.length).fill(colour);
