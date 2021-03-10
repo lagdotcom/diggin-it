@@ -12,6 +12,7 @@ export interface ActorOptions {
   digResistance: number;
   digStrength: number;
   glyph: string;
+  heavy: boolean;
   inventory: Item[];
   inventorySize: number;
   name: string;
@@ -39,6 +40,7 @@ export default class Actor {
   digResistance: number;
   digStrength: number;
   glyph: string;
+  heavy: boolean;
   inventory: Item[];
   inventorySize: number;
   name: string;
@@ -66,6 +68,7 @@ export default class Actor {
       digResistance = Infinity,
       digStrength = 0,
       glyph = "?",
+      heavy = false,
       name = glyph,
       obeysGravity = true,
       pushable = false,
@@ -92,6 +95,7 @@ export default class Actor {
     this.digResistance = digResistance;
     this.digStrength = digStrength;
     this.glyph = glyph;
+    this.heavy = heavy;
     this.name = name;
     this.obeysGravity = obeysGravity;
     this.pushable = pushable;

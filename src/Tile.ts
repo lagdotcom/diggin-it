@@ -1,6 +1,6 @@
 export interface TileOptions {
+  article: string;
   canClimb: boolean;
-  canStandOn: boolean;
   canSwimIn: boolean;
   colour: string;
   destroyIncomingPushes: boolean;
@@ -12,8 +12,8 @@ export interface TileOptions {
 
 export default class Tile {
   type: "tile";
+  article: string;
   canClimb: boolean;
-  canStandOn: boolean;
   canSwimIn: boolean;
   colour: string;
   destroyIncomingPushes: boolean;
@@ -25,9 +25,9 @@ export default class Tile {
   constructor(
     public glyph: string,
     {
+      article = "",
       solid = false,
       canClimb = false,
-      canStandOn = solid,
       canSwimIn = false,
       colour = "white",
       destroyIncomingPushes = false,
@@ -37,8 +37,8 @@ export default class Tile {
     }: Partial<TileOptions> = {}
   ) {
     this.type = "tile";
+    this.article = article;
     this.canClimb = canClimb;
-    this.canStandOn = canStandOn;
     this.canSwimIn = canSwimIn;
     this.colour = colour;
     this.destroyIncomingPushes = destroyIncomingPushes;
@@ -73,26 +73,32 @@ export const exit = new Tile("Exit", {
 });
 export const ladderTileTop = new Tile("LadderTileT", {
   name: "ladder",
+  article: "a",
   canClimb: true,
-  canStandOn: true,
 });
 export const ladderTile = new Tile("LadderTile", {
   name: "ladder",
+  article: "a",
   canClimb: true,
-  canStandOn: true,
 });
 export const ladderTileBottom = new Tile("LadderTileB", {
   name: "ladder",
+  article: "a",
   canClimb: true,
-  canStandOn: true,
 });
 export const ropeTileTop = new Tile("RopeTileT", {
   name: "rope",
+  article: "a",
   canClimb: true,
 });
-export const ropeTile = new Tile("RopeTile", { name: "rope", canClimb: true });
+export const ropeTile = new Tile("RopeTile", {
+  name: "rope",
+  article: "a",
+  canClimb: true,
+});
 export const ropeTileBottom = new Tile("RopeTileB", {
   name: "rope",
+  article: "a",
   canClimb: true,
 });
 export const water = new Tile("Water", {

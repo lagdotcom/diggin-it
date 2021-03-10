@@ -152,12 +152,9 @@ export default class Dungeon implements Context {
 
   handleClimb({ x, y }: ClimbCmd): void {
     const { player } = this.g;
-    const mx = x - player.x,
-      my = y - player.y;
 
     this.g.log.add("You climb up.");
     this.g.move(player, x, y);
-    this.g.emit("moved", { thing: player, mx, my });
     this.g.spent++;
     return this.render();
   }

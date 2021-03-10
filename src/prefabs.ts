@@ -28,12 +28,14 @@ export const boulder: Partial<ActorOptions> = {
   colour: "grey",
   digResistance: 20,
   pushable: true,
+  heavy: true,
 };
 export const metal: Partial<ActorOptions> = {
   glyph: "MetalBlock",
   name: "metal block",
   colour: "cyan",
   pushable: true,
+  heavy: true,
 };
 
 export const bomb: Partial<ItemOptions> = { glyph: "Bomb", name: "bomb" };

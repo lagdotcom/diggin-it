@@ -33,8 +33,7 @@ export default class Movement {
       return "It's blocked.";
     }
 
-    const current = this.g.contents(player.x, player.y);
-    if (my === -1 && !current.tile.canClimb && !tile.canSwimIn)
+    if (my === -1 && !tile.canClimb && !tile.canSwimIn)
       return "Nothing to climb.";
     if (my === 1 && !tile.canClimb && !tile.canSwimIn)
       return "Nothing to climb.";
@@ -53,7 +52,6 @@ export default class Movement {
     const y = player.y + my;
 
     this.g.move(player, x, y);
-    this.g.emit("moved", { thing: player, mx, my });
     this.g.spent++;
   }
 }

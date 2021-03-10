@@ -32,129 +32,59 @@ export default class Gravity {
     return affected > 0;
   }
 
-  check(victim: Thing) {
-    if (!victim) return;
-    if (!victim.obeysGravity) return;
+  check(thing: Thing) {
+    if (!thing) return;
+    if (!thing.obeysGravity) return;
 
-    const current = this.g.map.get(victim.x, victim.y);
+    const current = this.g.map.get(thing.x, thing.y);
     if (current.canSwimIn) return;
-    if (victim.canClimb && current.canClimb) return;
+    if (thing.canClimb && current.canClimb) return;
 
-    const { actor, items, tile } = this.g.contents(victim.x, victim.y + 1);
+    const { actor, items, tile } = this.g.contents(thing.x, thing.y + 1);
 
-    if (tile.solid || (victim.canClimb && tile.canStandOn)) return;
+    if (actor && thing.type === "actor") return;
+    if (tile.solid) return;
 
     // we got a match!
-    return victim.type === "actor" ? this.fall(victim) : this.itemFall(victim);
+    return thing.type === "actor" ? this.fall(thing) : this.itemFall(thing);
   }
 
   fall(thing: Actor): boolean {
-    const { log, map } = this.g;
+    const { map } = this.g;
     var { x, y } = thing;
-    var contents = this.g.contents(x, y + 1);
     var distance = 0;
     var victim: Actor | Tile = undefined;
-    var hitFluid = false;
 
     while (y < map.height) {
-      const { actor, items, tile } = contents;
+      const { actor, items, tile } = this.g.contents(x, y + 1);
 
       // hit something
       if (actor) {
         victim = actor;
-        y++;
-        distance++;
         break;
       }
 
       // landed
-      if (tile.solid || (thing.canClimb && tile.canStandOn)) {
+      if (tile.solid) {
         victim = tile;
         break;
       }
 
       y++;
       distance++;
-      contents = this.g.contents(x, y + 1);
 
-      if (tile.canSwimIn) {
-        hitFluid = true;
+      if ((thing.canClimb && tile.canClimb) || tile.canSwimIn) {
         victim = tile;
         break;
       }
-
-      if (thing.canClimb && tile.canClimb) break;
     }
 
     // ???
     if (distance === 0) return false;
 
-    var push: false | undefined | XY = false;
-    if (victim?.type === "actor" && victim.alive)
-      push = this.findPushTile(victim);
-
-    // TODO: damage, etc.
-    if (distance > 1 && !hitFluid) {
-      const amount = (distance - 1) * distance;
-      if (victim?.type === "actor" && victim.alive) {
-        // TODO: super mean damage share? :D
-        const share = 0; //thing.alive ? Math.floor(amount / 2) : 0;
-        if (share > 0) {
-          thing.hp -= share;
-          if (thing.glyph === "@") log.add("You fall and get hurt!");
-
-          this.g.emit("damaged", {
-            attacker: thing,
-            victim: thing,
-            amount: share,
-            type: "fall",
-          });
-        }
-
-        // squish if nowhere to go!
-        const rest = typeof push === "undefined" ? victim.hp : amount - share;
-        if (rest > 0) {
-          if (thing.glyph === "@") log.add(`You land on ${theName(victim)}!`);
-          else if (victim.glyph === "@")
-            log.add(`${name(thing)} lands on you!`);
-
-          victim.hp -= rest;
-          this.g.emit("damaged", {
-            attacker: thing,
-            victim,
-            amount: rest,
-            type: "squash",
-          });
-        }
-      } else if (thing.alive) {
-        thing.hp -= amount;
-        if (thing.glyph === "@") log.add("You fall and get hurt!");
-        this.g.emit("damaged", {
-          attacker: thing,
-          victim: thing,
-          amount,
-          type: "fall",
-        });
-      }
-    }
-
-    if (victim?.type === "actor" && victim.alive && typeof push === "object") {
-      const mx = push[0] - victim.x,
-        my = push[1] - victim.y;
-      this.g.move(victim, push[0], push[1]);
-      this.g.emit("moved", { thing: victim, mx, my, forced: thing });
-
-      if (thing.glyph === "@") log.add(`You push ${theName(victim)} aside!`);
-    }
-
-    if (hitFluid && thing.glyph === "@")
-      log.add(`You fall into ${name(victim)}!`);
-
-    this.g.move(thing, x, y);
-    this.g.emit("fell", { thing, distance });
-    this.g.emit("moved", { thing, mx: 0, my: distance });
-
-    return true;
+    if (victim.type === "tile")
+      return this.fallOntoTile(thing, victim, distance, x, y);
+    else return this.fallOntoActor(thing, victim, distance);
   }
 
   itemFall(thing: Item): boolean {
@@ -163,7 +93,7 @@ export default class Gravity {
     var distance = 0;
 
     while (y < this.g.map.height) {
-      const { actor, items, tile } = contents;
+      const { actor, items, tile } = this.g.contents(x, y + 1);
 
       // landed
       if (tile.solid) break;
@@ -183,7 +113,6 @@ export default class Gravity {
 
     this.g.move(thing, x, y);
     this.g.emit("fell", { thing, distance });
-    this.g.emit("moved", { thing, mx: 0, my: distance });
     return true;
   }
 
@@ -198,5 +127,82 @@ export default class Gravity {
       if (contents.tile.solid) continue;
       return [x, y];
     }
+  }
+
+  fallOntoTile(
+    victim: Actor,
+    tile: Tile,
+    distance: number,
+    x: number,
+    y: number
+  ) {
+    this.g.move(victim, x, y);
+    this.g.emit("fell", { thing: victim, distance });
+
+    if (victim.alive) {
+      if (tile.canSwimIn) {
+        if (victim.glyph === "@")
+          this.g.log.add(`You fall into ${name(tile)}!`);
+      } else if (tile.canClimb) {
+        if (victim.glyph === "@")
+          this.g.log.add(`You grab onto ${name(tile)}.`);
+      } else if (distance > 2 && !tile.canSwimIn) {
+        const amount = distance * 5;
+        victim.hp -= amount;
+        if (victim.glyph === "@") this.g.log.add("You fall and get hurt!");
+        this.g.emit("damaged", {
+          attacker: victim,
+          victim,
+          amount,
+          type: "fall",
+        });
+      }
+    }
+
+    return true;
+  }
+
+  fallOntoActor(attacker: Actor, victim: Actor, distance: number) {
+    var escape = undefined;
+    var amount = 0;
+
+    var x = victim.x,
+      y = victim.y;
+    if (!victim.alive)
+      return this.fallOntoTile(
+        attacker,
+        this.g.map.get(x, y - 1),
+        distance - 1,
+        x,
+        y - 1
+      );
+
+    if (attacker.heavy) {
+      escape = this.findPushTile(victim);
+      amount = escape ? distance * 5 : victim.hp;
+    } else if (distance > 1) {
+      amount = distance * 5;
+    }
+
+    if (amount) {
+      victim.hp -= amount;
+      if (attacker.glyph === "@")
+        this.g.log.add(`You fall onto ${name(victim)}!`);
+      else if (victim.glyph === "@")
+        this.g.log.add(`${name(attacker)} falls onto you!`);
+      else this.g.log.add(`${name(victim)} is crushed!`);
+
+      this.g.emit("damaged", { attacker, victim, amount, type: "fall" });
+
+      if (victim.alive) {
+        y--;
+        distance--;
+        if (escape) this.g.move(victim, escape[0], escape[1], attacker);
+      }
+    }
+
+    this.g.move(attacker, x, y);
+    this.g.emit("fell", { thing: attacker, distance });
+    return true;
   }
 }

@@ -157,13 +157,14 @@ export default class Game extends EventHandler {
     }
   }
 
-  move(thing: Thing, x: number, y: number) {
+  move(thing: Thing, x: number, y: number, forced?: Thing) {
     switch (thing.type) {
       case "actor":
         this.actors.set(thing.x, thing.y, undefined);
         thing.x = x;
         thing.y = y;
-        return this.actors.set(x, y, thing);
+        this.actors.set(x, y, thing);
+        break;
 
       case "item":
         this.items.update(thing.x, thing.y, (items) =>
@@ -171,7 +172,12 @@ export default class Game extends EventHandler {
         );
         thing.x = x;
         thing.y = y;
-        return this.items.update(x, y, (items) => items.concat(thing));
+        this.items.update(x, y, (items) => items.concat(thing));
+        break;
     }
+
+    const mx = x - thing.x,
+      my = y - thing.y;
+    return this.emit("moved", { thing, mx, my, forced });
   }
 }
