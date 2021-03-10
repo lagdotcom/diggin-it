@@ -301,21 +301,48 @@ export default class Dungeon implements Context {
     this.systems();
     tiles.clear();
 
-    const [xmod, ymod] = this.getDisplayOffset();
-    this.vision.get().forEach(([x, y]) => {
-      const { actor, items, tile } = this.g.contents(x, y);
-
-      const glyphs: string[] = [tile.glyph];
-      glyphs.push(...items.map((i) => i.glyph));
-      if (actor) glyphs.push(actor.glyph);
-
-      tiles.draw(xmod + x, ymod + y, glyphs, "transparent", "black");
-    });
-
+    this.renderDisplay();
     log.draw();
     this.renderStats();
     this.renderInventory();
     if (this.info) this.renderInfo();
+  }
+
+  renderDisplay() {
+    const { memory, tiles } = this.g;
+    const vision = this.vision.get();
+    const [xmod, ymod] = this.getDisplayOffset();
+    const width = 15,
+      height = 11;
+
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        const tx = x - xmod,
+          ty = y - ymod;
+
+        var colour = "";
+        if (vision.get(tx, ty)) colour = "transparent";
+        else if (memory.get(tx, ty)) colour = "rgba(0,0,0,0.5)";
+        if (!colour) continue;
+
+        const { actor, items, tile } = this.g.contents(tx, ty);
+
+        const glyphs: string[] = [tile.glyph];
+        glyphs.push(...items.map((i) => i.glyph));
+        if (actor) glyphs.push(actor.glyph);
+
+        // TODO: fix library
+        const fgs = new Array<string>(glyphs.length).fill(colour);
+        const bgs = new Array<string>(glyphs.length).fill("transparent");
+        tiles.draw(
+          x,
+          y,
+          glyphs,
+          (fgs as unknown) as string,
+          (bgs as unknown) as string
+        );
+      }
+    }
   }
 
   renderStats() {

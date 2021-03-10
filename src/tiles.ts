@@ -71,6 +71,7 @@ export async function loadTiles(
     tileHeight: 16,
     tileSet,
     tileMap,
+    tileColorize: true,
   };
 }
 

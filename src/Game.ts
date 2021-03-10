@@ -29,6 +29,7 @@ export default class Game extends EventHandler {
   items: Grid<Item[]>;
   log: MessageLog;
   map: Grid<Tile>;
+  memory: Grid<boolean>;
   player: Actor;
   spent: number;
   tiles: Display;
@@ -119,6 +120,7 @@ export default class Game extends EventHandler {
 
   initMap(width: number, height: number) {
     this.map = new LinearGrid(width, height, () => unset);
+    this.memory = new LinearGrid(width, height, () => false);
     this.actors = new LinearGrid(width, height, () => undefined);
     this.allActors = [];
     this.items = new LinearGrid(width, height, () => []);

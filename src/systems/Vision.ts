@@ -1,36 +1,44 @@
 import DiscreteShadowcasting from "rot-js/lib/fov/discrete-shadowcasting";
 
 import Game from "../Game";
-import XY from "../interfaces/XY";
+import Grid from "../interfaces/Grid";
+import LinearGrid from "../LinearGrid";
 
 export default class Vision {
   dirty: boolean;
-  vision: XY[];
+  vision: Grid<boolean>;
 
   constructor(public g: Game) {
-    this.dirty = true;
-    this.vision = [];
-    g.on("digged", () => (this.dirty = true));
-    g.on("moved", () => (this.dirty = true));
+    this.remake();
+
+    const dirty = () => (this.dirty = true);
+    g.on("digged", dirty);
+    g.on("moved", dirty);
   }
 
-  get(): XY[] {
+  remake() {
+    const { map } = this.g;
+    this.dirty = true;
+    this.vision = new LinearGrid(map.width, map.height, () => false);
+  }
+
+  get() {
     if (this.dirty) {
       this.dirty = false;
       const { map, player } = this.g;
 
       const fov = new DiscreteShadowcasting((x, y) => !map.get(x, y).opaque);
-      this.vision = [];
-      fov.compute(player.x, player.y, player.vision, (x, y) =>
-        this.vision.push([x, y])
-      );
+      this.vision.fill(false);
+      fov.compute(player.x, player.y, player.vision, (x, y) => {
+        this.vision.set(x, y, true);
+        this.g.memory.set(x, y, true);
+      });
     }
 
     return this.vision;
   }
 
   visible(x: number, y: number) {
-    for (var i = 0; i < this.vision.length; i++)
-      if (this.vision[i][0] === x && this.vision[i][1] === y) return true;
+    return this.vision.get(x, y);
   }
 }
