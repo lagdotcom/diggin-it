@@ -313,14 +313,12 @@ export default class Dungeon implements Context {
   }
 
   renderDisplay() {
-    const { memory, tiles } = this.g;
+    const { displayHeight, displayWidth, memory, tiles } = this.g;
     const vision = this.vision.get();
     const [xmod, ymod] = this.getDisplayOffset();
-    const width = 15,
-      height = 11;
 
-    for (var y = 0; y < height; y++) {
-      for (var x = 0; x < width; x++) {
+    for (var y = 0; y < displayHeight; y++) {
+      for (var x = 0; x < displayWidth; x++) {
         const tx = x - xmod,
           ty = y - ymod;
 
