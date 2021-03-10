@@ -1,21 +1,36 @@
 import { EventMap } from "../Event";
 import Game from "../Game";
-import { theName } from "../text";
+import { name } from "../text";
+
+type DamagedData = EventMap["damaged"];
 
 export default class Death {
   constructor(public g: Game) {
     g.on("damaged", this.damaged.bind(this));
   }
 
-  damaged({ attacker, victim }: EventMap["attacked"]) {
-    const vname = theName(victim);
+  damaged(data: DamagedData) {
+    const { attacker, victim } = data;
 
     if (victim.hp < 1) {
-      const s = vname === "you" ? "" : "s";
       victim.alive = false;
-      this.g.log.add(`${vname} die${s}!`);
+      this.g.log.add(this.getDeathString(data));
       this.g.remove(victim);
       this.g.emit("died", { attacker, victim });
+    }
+  }
+
+  getDeathString({ victim, type }: DamagedData) {
+    const vname = name(victim);
+    const s = victim.glyph === "@" ? "" : "s";
+    const is = victim.glyph === "@" ? "are" : "is";
+
+    switch (type) {
+      case "crush":
+        return `${vname} ${is} flattened like a pancake!`;
+
+      default:
+        return `${vname} die${s}!`;
     }
   }
 }

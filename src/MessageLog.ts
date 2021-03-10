@@ -1,3 +1,5 @@
+import { Text } from "rot-js";
+
 import { drawPanel } from "./drawing";
 import Game from "./Game";
 
@@ -18,13 +20,17 @@ export default class MessageLog {
   draw(): void {
     const { chars } = this.g;
     const { width, height } = chars._options;
+    const maxWidth = width - 2;
+    const minY = height - 5;
 
     drawPanel(chars, 0, height - 6, width, 6);
 
-    let y = height - 2;
-    this.messages.forEach((msg) => {
-      chars.drawText(1, y, msg, width - 2);
-      y--;
-    });
+    let y = height - 1;
+    for (var i = 0; i < this.messages.length && y > minY; i++) {
+      const msg = this.messages[i];
+      const size = Text.measure(msg, maxWidth);
+      y -= size.height;
+      chars.drawText(1, y, msg, maxWidth);
+    }
   }
 }
