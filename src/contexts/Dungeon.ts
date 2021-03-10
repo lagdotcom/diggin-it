@@ -322,7 +322,7 @@ export default class Dungeon implements Context {
 
         const inFov = vision.get(tx, ty);
         const inMemory = memory.get(tx, ty);
-        if (!inFov || !inMemory) continue;
+        if (!inFov && !inMemory) continue;
 
         const colour = inFov ? "transparent" : "rgba(0,0,0,0.5)";
         const { actor, items, tile } = this.g.contents(tx, ty);
@@ -331,16 +331,9 @@ export default class Dungeon implements Context {
         glyphs.push(...items.map((i) => i.glyph));
         if (actor && inFov) glyphs.push(actor.glyph);
 
-        // TODO: fix library
         const fgs = new Array<string>(glyphs.length).fill(colour);
         const bgs = new Array<string>(glyphs.length).fill("transparent");
-        tiles.draw(
-          x,
-          y,
-          glyphs,
-          (fgs as unknown) as string,
-          (bgs as unknown) as string
-        );
+        tiles.draw(x, y, glyphs, fgs, bgs);
       }
     }
   }
