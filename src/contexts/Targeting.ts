@@ -22,10 +22,13 @@ export default class Targeting implements Context {
 
     this.mouse = [-1, -1];
     parent.rerender.stop();
+    g.log.add("Targeting... (ESC/r-click to cancel)");
     this.rerender.start();
   }
 
   onKey(e: KeyboardEvent): Cmd {
+    // TODO: keyboard selection
+
     switch (e.key) {
       case "Escape":
       case "Backspace":
@@ -62,6 +65,7 @@ export default class Targeting implements Context {
   }
 
   cancel() {
+    this.g.log.add("Cancelled.");
     this.g.contexts.pop();
     this.parent.rerender.start();
   }
@@ -76,7 +80,7 @@ export default class Targeting implements Context {
 
     this.parent.render();
     this.cmd.possibilities.forEach(([x, y]) => {
-      const tx = x - xmod,
+      const tx = x + xmod,
         ty = y + ymod;
 
       drawPanel(chars, tx * 2, ty * 2, 2, 2);
