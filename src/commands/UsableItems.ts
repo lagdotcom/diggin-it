@@ -50,8 +50,10 @@ export default class UsableItems {
     var [size] = item.useArgs;
 
     var x = player.x,
-      y = player.y;
+      y = player.y + 1;
     while (size) {
+      y--;
+
       const tile = map.get(x, y);
       if (tile.glyph !== " ") {
         y++;
@@ -59,7 +61,6 @@ export default class UsableItems {
       }
 
       size--;
-      y--;
     }
 
     const length = player.y - y;
