@@ -158,6 +158,9 @@ export default class Game extends EventHandler {
   }
 
   move(thing: Thing, x: number, y: number, forced?: Thing) {
+    const mx = x - thing.x,
+      my = y - thing.y;
+
     switch (thing.type) {
       case "actor":
         this.actors.set(thing.x, thing.y, undefined);
@@ -176,8 +179,6 @@ export default class Game extends EventHandler {
         break;
     }
 
-    const mx = x - thing.x,
-      my = y - thing.y;
     return this.emit("moved", { thing, mx, my, forced });
   }
 }

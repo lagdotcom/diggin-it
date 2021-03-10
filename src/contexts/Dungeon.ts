@@ -201,7 +201,7 @@ export default class Dungeon implements Context {
 
   handlePush({ x, y, mx, my }: PushCmd): void {
     const actor = this.g.actors.get(x, y);
-    const poss = this.pushing.possible(actor, mx, my);
+    const poss = this.pushing.possible(this.g.player, actor, mx, my);
     if (typeof poss === "object") return this.handle(poss);
 
     if (poss) this.g.log.add(poss);

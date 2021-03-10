@@ -1,4 +1,5 @@
 import Actor from "../Actor";
+import Movement from "../commands/Movement";
 import Game from "../Game";
 import XY from "../interfaces/XY";
 import { pick } from "../random";
@@ -61,14 +62,18 @@ export default class AI {
     var my = 0;
 
     const side = this.g.contents(actor.x + mx, actor.y);
-    if (side.actor) return;
+    if (side.actor) {
+      if (
+        side.actor.pushable &&
+        Movement.canClimb(this.g, actor.x, actor.y, mx)
+      )
+        return [mx, my - 1];
+
+      return;
+    }
 
     if (side.tile.solid) {
-      const thru = this.g.contents(actor.x, actor.y - 1);
-      const above = this.g.contents(actor.x + mx, actor.y - 1);
-
-      if (!thru.actor && !thru.tile.solid && !above.actor && !above.tile.solid)
-        my--;
+      if (Movement.canClimb(this.g, actor.x, actor.y, mx)) return [mx, my - 1];
       else return;
     }
 
