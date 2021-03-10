@@ -28,7 +28,7 @@ export default class AI {
     if (!dir) dir = pick(-1, 1);
 
     const { player } = this.g;
-    if (manhattan(player.x, player.y, actor.x, actor.y) < 2) {
+    if (player.alive && manhattan(player.x, player.y, actor.x, actor.y) < 2) {
       return this.combat.attack(actor, player);
     }
 

@@ -193,12 +193,11 @@ export default class Gravity {
       else this.g.log.add(`${name(victim)} is crushed!`);
 
       this.g.emit("damaged", { attacker, victim, amount, type: "fall" });
-
-      if (victim.alive) {
-        y--;
-        distance--;
-        if (escape) this.g.move(victim, escape[0], escape[1], attacker);
-      }
+    }
+    if (victim.alive) {
+      y--;
+      distance--;
+      if (escape) this.g.move(victim, escape[0], escape[1], attacker);
     }
 
     this.g.move(attacker, x, y);
