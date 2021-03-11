@@ -1,30 +1,26 @@
 import Actor, { ActorOptions } from "./Actor";
+import { boulder, metal, player, squimpy } from "./actors";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
+import { bomb, coinBag, ladder, rope, smallGem } from "./items";
+import Tile from "./Tile";
 import {
-  bomb,
-  boulder,
-  coinBag,
-  ladder,
-  metal,
-  player,
-  rope,
-  smallGem,
-  squimpy,
-} from "./prefabs";
-import Tile, {
   air,
   border,
-  dirt,
+  dirtDeep,
+  dirtMiddle,
+  dirtShallow,
   empty,
   entrance,
   exit,
   ladderTile,
   ropeTile,
-  sand,
+  sandDeep,
+  sandMiddle,
+  sandShallow,
   unset,
   water,
-} from "./Tile";
+} from "./tiles";
 
 export const testMap = [
   "!!!!!!!!!!!!!!!!",
@@ -44,13 +40,13 @@ export const testMap = [
   "!!!!!!!!!!!!!!!!",
 ];
 
-const tileTypes: Record<string, Tile> = {
+const tileTypes: Record<string, Tile | Tile[]> = {
   "?": unset,
   "!": border,
   "<": entrance,
   ">": exit,
-  "#": dirt,
-  s: sand,
+  "#": [dirtShallow, dirtMiddle, dirtDeep],
+  s: [sandShallow, sandMiddle, sandDeep],
   H: ladderTile,
   "|": ropeTile,
   "~": water,
@@ -71,12 +67,19 @@ const itemTypes: Record<string, Partial<ItemOptions>> = {
   R: rope,
 };
 
+function getZone(depth: number) {
+  if (depth < 4) return 0;
+  if (depth < 7) return 1;
+  return 2;
+}
+
 export function loadMap(g: Game, map: string[]): void {
   let px = 0,
     py = 0;
 
   const height = map.length;
   const width = map[0].length;
+  const zone = getZone(g.depth);
   g.initMap(width, height);
 
   for (let y = 0; y < height; y++) {
@@ -84,7 +87,8 @@ export function loadMap(g: Game, map: string[]): void {
       const glyph = map[y][x];
       const actor = actorTypes[glyph];
       const item = itemTypes[glyph];
-      const tile = tileTypes[glyph];
+      const tiles = tileTypes[glyph];
+      const tile = Array.isArray(tiles) ? tiles[zone] : tiles;
 
       g.map.set(x, y, tile || empty);
       if (item) {

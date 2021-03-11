@@ -9,7 +9,7 @@ import {
   ropeTile,
   ropeTileBottom,
   ropeTileTop,
-} from "../Tile";
+} from "../tiles";
 
 export default class UsableItems {
   constructor(public g: Game) {}

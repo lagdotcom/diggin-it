@@ -26,7 +26,7 @@ import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { name, theName } from "../text";
-import { empty } from "../Tile";
+import { empty } from "../tiles";
 import Targeting from "./Targeting";
 
 export default class Dungeon implements Context {

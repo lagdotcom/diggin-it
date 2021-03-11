@@ -14,8 +14,9 @@ import Item from "./Item";
 import LinearGrid from "./LinearGrid";
 import { loadMap, testMap } from "./maps";
 import MessageLog from "./MessageLog";
-import Tile, { unset } from "./Tile";
-import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./tiles";
+import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./sheets";
+import Tile from "./Tile";
+import { unset } from "./tiles";
 
 export default class Game extends EventHandler {
   actors: Grid<Actor>;
@@ -24,6 +25,7 @@ export default class Game extends EventHandler {
   chars: Display;
   contexts: Stack<Context>;
   ctx: CanvasRenderingContext2D;
+  depth: number;
   displayHeight: number;
   displayWidth: number;
   items: Grid<Item[]>;
@@ -110,6 +112,7 @@ export default class Game extends EventHandler {
   }
 
   start() {
+    this.depth = 1;
     loadMap(this, testMap);
     this.contexts.clear();
     this.contexts.push(new Dungeon(this));

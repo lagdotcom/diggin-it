@@ -122,6 +122,8 @@
     "Helmet": { "row": 6, "col": 35, "size": 4 },
     "Jetpack": { "row": 6, "col": 37, "size": 4 },
     "Rock": { "row": 6, "col": 39, "size": 4 },
-    "Bolas": { "row": 6, "col": 41, "size": 4 }
+    "Bolas": { "row": 6, "col": 41, "size": 4 },
+    "Stopwatch": { "row": 7, "col": 19, "size": 4 },
+    "BrokenStopwatch": { "row": 7, "col": 19, "size": 4 }
   }
 }
