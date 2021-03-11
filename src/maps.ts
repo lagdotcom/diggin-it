@@ -3,18 +3,23 @@ import { boulder, metal, player, squimpy } from "./actors";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import {
+  artifact,
   bomb,
   clothes,
+  coin,
   coinBag,
+  diamond,
+  fragment,
+  goldBar,
   ladder,
   pocketknife,
   pocketwatch,
   rope,
   smallGem,
+  treasureBox,
 } from "./items";
 import Tile from "./Tile";
 import {
-  air,
   border,
   dirtDeep,
   dirtMiddle,
@@ -35,14 +40,14 @@ export const testMap = [
   "!!!!!!!!!!!!!!!!",
   "!#             !",
   "!#< RL     O   !",
-  "!###sssH####  $!",
-  "! B   sH Mg#1 #!",
-  "!###  sH#######!",
-  "!###1 sH       !",
-  "!######H1      !",
+  "!###:::^####  $!",
+  "! B   :^ Mg#1 #!",
+  "!###  :^#######!",
+  "!###1 :^       !",
+  "!######^1      !",
   "!########      !",
-  "!A      ##   ss!",
-  "!#~~~~~~##sssss!",
+  "!c      ##   ::!",
+  "!#~~~~~~##:::::!",
   "!#~###~~#      !",
   "!~~~~~~~#    > !",
   "!~~~~~~~#~~#~!#!",
@@ -55,11 +60,10 @@ const tileTypes: Record<string, Tile | Tile[]> = {
   "<": entrance,
   ">": exit,
   "#": [dirtShallow, dirtMiddle, dirtDeep],
-  s: [sandShallow, sandMiddle, sandDeep],
-  H: ladderTile,
+  ":": [sandShallow, sandMiddle, sandDeep],
+  "^": ladderTile,
   "|": ropeTile,
   "~": water,
-  A: air,
 };
 
 const actorTypes: Record<string, Partial<ActorOptions>> = {
@@ -69,9 +73,16 @@ const actorTypes: Record<string, Partial<ActorOptions>> = {
 };
 
 const itemTypes: Record<string, Partial<ItemOptions>> = {
-  B: bomb,
+  c: coin,
+  b: goldBar,
   g: smallGem,
   $: coinBag,
+  a: artifact,
+  x: treasureBox,
+  d: diamond,
+  f: fragment,
+
+  B: bomb,
   L: ladder,
   R: rope,
 };

@@ -42,7 +42,6 @@ export const sandDeep = new Tile("SandD", {
 });
 
 export const unset = new Tile("?", { name: "" });
-export const air = new Tile("Air", { colour: "pink" });
 export const empty = new Tile(" ", { name: "" });
 export const entrance = new Tile("Entrance", { name: "how you got here" });
 export const exit = new Tile("Exit", {
