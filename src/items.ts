@@ -9,6 +9,30 @@ export const brokenPocketwatch: Partial<ItemOptions> = {
   name: "broken pocketwatch",
 };
 
+export const pocketknife: Partial<ItemOptions> = {
+  glyph: "PocketKnife",
+  name: "pocket knife",
+  slot: "weapon",
+  durability: 15,
+  bonus: { sp: 5 },
+};
+export const pickaxe: Partial<ItemOptions> = {
+  glyph: "Pickaxe",
+  name: "pickaxe",
+  slot: "weapon",
+  durability: 10,
+  bonus: { sp: 6 },
+};
+
+export const clothes: Partial<ItemOptions> = {
+  glyph: "ArmourA",
+  name: "common clothes",
+  article: "some",
+  plural: true,
+  slot: "armour",
+  bonus: { maxhp: 5, dp: 2 },
+};
+
 export const bomb: Partial<ItemOptions> = { glyph: "Bomb", name: "bomb" };
 export const rope: Partial<ItemOptions> = {
   glyph: "Rope",

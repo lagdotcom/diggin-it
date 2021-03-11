@@ -100,6 +100,7 @@
     "~": { "row": 5, "col": 14 },
 
     "bo": { "row": 0, "col": 16, "size": 9 },
+
     "Slingshot": { "row": 2, "col": 23, "size": 4 },
     "PocketKnife": { "row": 2, "col": 25, "size": 4 },
     "Shovel": { "row": 2, "col": 27, "size": 4 },
@@ -110,7 +111,18 @@
     "PowerDrill": { "row": 2, "col": 37, "size": 4 },
     "Jackhammer": { "row": 2, "col": 39, "size": 4 },
     "LaserCutter": { "row": 2, "col": 41, "size": 4 },
+
     "ArmourA": { "row": 4, "col": 23, "size": 4 },
+    "ArmourB": { "row": 4, "col": 25, "size": 4 },
+    "ArmourC": { "row": 4, "col": 27, "size": 4 },
+    "ArmourD": { "row": 4, "col": 29, "size": 4 },
+    "ArmourE": { "row": 4, "col": 31, "size": 4 },
+    "ArmourF": { "row": 4, "col": 33, "size": 4 },
+    "ArmourG": { "row": 4, "col": 35, "size": 4 },
+    "ArmourH": { "row": 4, "col": 37, "size": 4 },
+    "ArmourI": { "row": 4, "col": 39, "size": 4 },
+    "ArmourJ": { "row": 4, "col": 41, "size": 4 },
+
     "Bomb": { "row": 6, "col": 19, "size": 4 },
     "Rope": { "row": 6, "col": 21, "size": 4 },
     "Ladder": { "row": 6, "col": 23, "size": 4 },
@@ -123,6 +135,7 @@
     "Jetpack": { "row": 6, "col": 37, "size": 4 },
     "Rock": { "row": 6, "col": 39, "size": 4 },
     "Bolas": { "row": 6, "col": 41, "size": 4 },
+
     "Pocketwatch": { "row": 8, "col": 19, "size": 4 },
     "BrokenPocketwatch": { "row": 8, "col": 21, "size": 4 }
   }

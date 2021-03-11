@@ -6,19 +6,21 @@ export const player: Partial<ActorOptions> = {
   article: "",
   digStrength: 10,
   canClimb: true,
-  hp: 30,
-  ap: 100,
+  maxhp: 20,
+  maxap: 100,
+  sp: 8,
+  dp: 8,
   inventorySize: 20,
-  attack: 5,
 };
 
 export const squimpy: Partial<ActorOptions> = {
   glyph: "Squimpy",
   name: "squimpy",
   colour: "red",
-  hp: 10,
+  maxhp: 12,
   ai: "wander",
-  attack: 2,
+  sp: 4,
+  dp: 2,
 };
 
 export const crate: Partial<ActorOptions> = {

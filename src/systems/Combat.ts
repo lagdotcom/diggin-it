@@ -6,7 +6,7 @@ export default class Combat {
   constructor(public g: Game) {}
 
   attack(attacker: Actor, victim: Actor) {
-    const amount = attacker.attack - victim.defense;
+    const amount = attacker.get("sp") - victim.get("dp");
     const aname = theName(attacker);
     const vname = theName(victim);
     const s = aname === "you" ? "" : "s";

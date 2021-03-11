@@ -3,6 +3,7 @@ import Cmd, {
   ClimbCmd,
   DigCmd,
   DropCmd,
+  EquipCmd,
   MoveCmd,
   PushCmd,
   TargetCmd,
@@ -25,7 +26,7 @@ import Gravity from "../systems/Gravity";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
-import { name, theName } from "../text";
+import { it, name, theName } from "../text";
 import { empty } from "../tiles";
 import Targeting from "./Targeting";
 
@@ -110,7 +111,10 @@ export default class Dungeon implements Context {
 
         if (item) {
           e.preventDefault();
-          if (e.button === 0) return { type: "use", index };
+          if (e.button === 0) {
+            if (item.slot) return { type: "equip", index };
+            else return { type: "use", index };
+          }
           if (e.button === 2) return { type: "drop", index };
         }
       }
@@ -128,6 +132,8 @@ export default class Dungeon implements Context {
         return this.handleDig(cmd);
       case "drop":
         return this.handleDrop(cmd);
+      case "equip":
+        return this.handleEquip(cmd);
       case "get":
         return this.handleGet();
       case "move":
@@ -174,12 +180,40 @@ export default class Dungeon implements Context {
 
     const item = player.inventory[index];
     delete player.inventory[index];
-    log.add(`You drop ${theName(item)}.`);
+
+    if (item.slot && player.equipment[item.slot] === item) {
+      delete player.equipment[item.slot];
+      log.add(`You remove ${theName(item)} and drop ${it(item)}.`);
+    } else log.add(`You drop ${theName(item)}.`);
 
     item.x = player.x;
     item.y = player.y;
     this.g.add(item);
     this.g.spent++;
+    return this.render();
+  }
+
+  handleEquip({ index }: EquipCmd): void {
+    const { log, player } = this.g;
+
+    const item = player.inventory[index];
+    if (!item.slot) log.add("You can't equip that.");
+    else {
+      const current = player.equipment[item.slot];
+      if (current === item) {
+        delete player.equipment[item.slot];
+        log.add(`You remove ${theName(item)}.`);
+      } else if (current) {
+        player.equipment[item.slot] = item;
+        log.add(`You replace ${theName(current)} with ${theName(item)}.`);
+        this.g.spent++;
+      } else {
+        player.equipment[item.slot] = item;
+        log.add(`You equip ${theName(item)}.`);
+        this.g.spent++;
+      }
+    }
+
     return this.render();
   }
 
@@ -259,6 +293,7 @@ export default class Dungeon implements Context {
       return;
     }
 
+    const { player } = this.g;
     const spot = this.getMouseSpot();
     if (spot) {
       const [area, ox, oy] = spot;
@@ -284,9 +319,11 @@ export default class Dungeon implements Context {
 
         case "inventory":
           const index = oy * 5 + ox;
-          const item = this.g.player.inventory[index];
+          const item = player.inventory[index];
           if (item) {
-            this.info = name(item);
+            const equipped =
+              item.slot && player.equipment[item.slot] === item ? " (eq)" : "";
+            this.info = name(item) + equipped;
           } else {
             this.info = "";
           }
@@ -347,8 +384,8 @@ export default class Dungeon implements Context {
     chars.drawText(31, 1, "HP:" + this.pad(player.hp, 3));
     chars.drawText(31, 2, "FP:" + this.pad(player.fp, 3));
     chars.drawText(31, 3, "AP:" + this.pad(player.ap, 3));
-    chars.drawText(31, 4, "SP:" + this.pad(player.sp, 3));
-    chars.drawText(31, 5, "DP:" + this.pad(player.dp, 3));
+    chars.drawText(31, 4, "SP:" + this.pad(player.get("sp"), 3));
+    chars.drawText(31, 5, "DP:" + this.pad(player.get("dp"), 3));
 
     chars.drawText(29, 7, "Experience");
     chars.drawText(31, 8, this.pad(player.experience, 6, "0"));
