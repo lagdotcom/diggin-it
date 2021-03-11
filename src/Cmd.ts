@@ -6,6 +6,10 @@ export interface AttackCmd {
   y: number;
 }
 
+export interface CancelCmd {
+  type: "cancel";
+}
+
 export interface ClimbCmd {
   type: "climb";
   x: number;
@@ -20,6 +24,10 @@ export interface DropCmd {
 export interface EquipCmd {
   type: "equip";
   index: number;
+}
+
+export interface ExpandLogCmd {
+  type: "expandlog";
 }
 
 export interface GetCmd {
@@ -64,10 +72,12 @@ export interface WaitCmd {
 
 type Cmd =
   | AttackCmd
+  | CancelCmd
   | ClimbCmd
   | DigCmd
   | DropCmd
   | EquipCmd
+  | ExpandLogCmd
   | GetCmd
   | MoveCmd
   | PushCmd

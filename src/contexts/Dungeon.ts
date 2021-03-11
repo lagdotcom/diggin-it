@@ -29,6 +29,7 @@ import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { it, name, theName } from "../text";
 import { empty } from "../tiles";
+import ExpandedLog from "./ExpandedLog";
 import Targeting from "./Targeting";
 
 export default class Dungeon implements Context {
@@ -68,6 +69,7 @@ export default class Dungeon implements Context {
     this.hotspots = new Hotspots();
     this.hotspots.register("display", 0, 0, width - 12, height - 6);
     this.hotspots.register("inventory", 29, 13, 10, 8);
+    this.hotspots.register("log", 0, height - 6, width, 6);
     this.mouse = [-1, -1];
     this.rerender = new Soon(() => this.render());
   }
@@ -100,6 +102,11 @@ export default class Dungeon implements Context {
       case "Clear":
         e.preventDefault();
         return { type: "wait" };
+
+      case "p":
+      case "P":
+        if (e.shiftKey) return { type: "expandlog" };
+        break;
     }
   }
 
@@ -125,6 +132,8 @@ export default class Dungeon implements Context {
           if (e.button === 2) return { type: "drop", index };
         }
       }
+
+      if (spot[0] === "log") return { type: "expandlog" };
     }
   }
 
@@ -141,6 +150,8 @@ export default class Dungeon implements Context {
         return this.handleDrop(cmd);
       case "equip":
         return this.handleEquip(cmd);
+      case "expandlog":
+        return this.handleExpandLog();
       case "get":
         return this.handleGet();
       case "move":
@@ -222,6 +233,11 @@ export default class Dungeon implements Context {
     }
 
     return this.render();
+  }
+
+  handleExpandLog() {
+    this.g.contexts.push(new ExpandedLog(this.g));
+    this.rerender.stop();
   }
 
   handleGet(): void {
@@ -351,10 +367,10 @@ export default class Dungeon implements Context {
     tiles.clear();
 
     this.renderDisplay();
-    log.draw();
     this.renderStats();
     this.renderInventory();
     if (this.info) this.renderInfo();
+    log.draw();
   }
 
   renderDisplay() {
@@ -430,7 +446,7 @@ export default class Dungeon implements Context {
   renderInfo() {
     const { chars } = this.g;
 
-    drawPanel(chars, 0, 0, 28, 10);
+    drawPanel(chars, 0, 0, 28, 10, true);
     chars.drawText(1, 1, this.info, chars._options.width - 2);
   }
 

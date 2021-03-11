@@ -33,8 +33,7 @@ export default class Targeting implements Context {
       case "Escape":
       case "Backspace":
       case "n":
-        this.cancel();
-        return;
+        return { type: "cancel" };
     }
   }
 
@@ -44,8 +43,7 @@ export default class Targeting implements Context {
 
     if (e.type === "contextmenu") {
       e.preventDefault();
-      this.cancel();
-      return;
+      return { type: "cancel" };
     }
 
     if (e.type === "click") {
@@ -64,14 +62,12 @@ export default class Targeting implements Context {
     this.rerender.start();
   }
 
-  cancel() {
-    this.g.log.add("Cancelled.");
-    this.g.contexts.pop();
-    this.parent.rerender.start();
-  }
-
   handle(cmd: Cmd): void {
-    console.log(cmd);
+    if (cmd.type === "cancel") {
+      this.g.log.add("Cancelled.");
+      this.g.contexts.pop();
+      this.parent.rerender.start();
+    }
   }
 
   render(): void {

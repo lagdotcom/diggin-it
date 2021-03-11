@@ -18,6 +18,7 @@ export function drawPanel(
   sy: number,
   width: number,
   height: number,
+  fill = false,
   tiles = panelTiles
 ) {
   for (var y = 0; y < height; y++) {
@@ -26,6 +27,8 @@ export function drawPanel(
     for (var x = 0; x < width; x++) {
       const col = x === 0 ? 0 : x === width - 1 ? 2 : 1;
       const tile = tiles[row][col];
+      if (tile === "bo5" && !fill) continue;
+
       chars.draw(sx + x, sy + y, tile, "transparent", "transparent");
     }
   }
