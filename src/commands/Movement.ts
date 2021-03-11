@@ -35,8 +35,6 @@ export default class Movement {
 
     if (my === -1 && !tile.canClimb && !tile.canSwimIn)
       return "Nothing to climb.";
-    if (my === 1 && !tile.canClimb && !tile.canSwimIn)
-      return "Nothing to climb.";
   }
 
   static canClimb(g: Game, sx: number, sy: number, mx: number) {
