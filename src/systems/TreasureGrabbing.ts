@@ -3,7 +3,7 @@ import Game from "../Game";
 export default class TreasureGrabbing {
   constructor(public g: Game) {
     g.on("moved", ({ thing }) => {
-      if (thing.glyph === "@") this.getTreasure();
+      if (thing === g.player) this.getTreasure();
     });
   }
 

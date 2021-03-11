@@ -1,6 +1,7 @@
 import { ActorOptions } from "./Actor";
 
 export const player: Partial<ActorOptions> = {
+  player: true,
   glyph: "@",
   name: "you",
   article: "",

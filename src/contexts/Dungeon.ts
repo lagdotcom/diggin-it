@@ -20,6 +20,7 @@ import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
 import Soon from "../Soon";
 import AI from "../systems/AI";
+import Air from "../systems/Air";
 import Combat from "../systems/Combat";
 import Death from "../systems/Death";
 import Gravity from "../systems/Gravity";
@@ -32,6 +33,7 @@ import Targeting from "./Targeting";
 
 export default class Dungeon implements Context {
   ai: AI;
+  air: Air;
   combat: Combat;
   death: Death;
   gravity: Gravity;
@@ -50,6 +52,7 @@ export default class Dungeon implements Context {
   constructor(public g: Game) {
     this.combat = new Combat(g);
     this.ai = new AI(g, this.combat);
+    this.air = new Air(g);
     this.death = new Death(g);
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
@@ -69,8 +72,12 @@ export default class Dungeon implements Context {
     this.rerender = new Soon(() => this.render());
   }
 
+  get canMove() {
+    return this.g.spent === 0 && this.g.player.alive;
+  }
+
   onKey(e: KeyboardEvent): Cmd {
-    if (this.g.spent > 0) return;
+    if (!this.canMove) return;
 
     switch (e.key) {
       case "ArrowLeft":
@@ -99,7 +106,7 @@ export default class Dungeon implements Context {
   onMouse(e: MouseEvent): Cmd {
     this.rerender.start();
     this.mouse = this.g.chars.eventToPosition(e);
-    if (this.g.spent > 0) return;
+    if (!this.canMove) return;
     if (e.type === "mousemove") return;
 
     // TODO
@@ -266,6 +273,7 @@ export default class Dungeon implements Context {
     this.gravity.run();
 
     while (this.g.spent > 0) {
+      this.air.run();
       this.ai.run();
       this.gravity.run();
       this.g.spent--;

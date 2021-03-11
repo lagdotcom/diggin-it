@@ -29,6 +29,7 @@ export interface ActorOptions {
   sp: number;
   dp: number;
   experience: number;
+  player: boolean;
 }
 
 export default class Actor {
@@ -59,6 +60,7 @@ export default class Actor {
   sp: number;
   dp: number;
   experience: number;
+  player: boolean;
 
   constructor(
     public x: number,
@@ -90,6 +92,7 @@ export default class Actor {
       experience = 0,
       inventorySize = 0,
       inventory = new Array(inventorySize),
+      player = false,
     }: Partial<ActorOptions> = {}
   ) {
     this.type = "actor";
@@ -119,6 +122,7 @@ export default class Actor {
     this.experience = experience;
     this.inventory = inventory;
     this.inventorySize = inventorySize;
+    this.player = player;
   }
 
   get(st: Stat) {

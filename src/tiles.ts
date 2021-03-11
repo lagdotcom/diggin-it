@@ -82,4 +82,5 @@ export const water = new Tile("Water", {
   name: "water",
   colour: "blue",
   canSwimIn: true,
+  airCost: 3,
 });

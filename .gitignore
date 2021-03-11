@@ -1,3 +1,5 @@
+/demo/*.png
 /demo/bundle.*
+/dist/*.png
 /dist/bundle.*
 /node_modules

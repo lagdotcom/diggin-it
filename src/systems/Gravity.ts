@@ -141,15 +141,13 @@ export default class Gravity {
 
     if (victim.alive) {
       if (tile.canSwimIn) {
-        if (victim.glyph === "@")
-          this.g.log.add(`You fall into ${name(tile)}!`);
+        if (victim.player) this.g.log.add(`You fall into ${name(tile)}!`);
       } else if (tile.canClimb) {
-        if (victim.glyph === "@")
-          this.g.log.add(`You grab onto ${name(tile)}.`);
+        if (victim.player) this.g.log.add(`You grab onto ${name(tile)}.`);
       } else if (distance > 2 && !tile.canSwimIn) {
         const amount = distance * 5;
         victim.hp -= amount;
-        if (victim.glyph === "@") this.g.log.add("You fall and get hurt!");
+        if (victim.player) this.g.log.add("You fall and get hurt!");
         this.g.emit("damaged", {
           attacker: victim,
           victim,
@@ -186,9 +184,8 @@ export default class Gravity {
 
     if (amount) {
       victim.hp -= amount;
-      if (attacker.glyph === "@")
-        this.g.log.add(`You fall onto ${name(victim)}!`);
-      else if (victim.glyph === "@")
+      if (attacker.player) this.g.log.add(`You fall onto ${name(victim)}!`);
+      else if (victim.player)
         this.g.log.add(`${name(attacker)} falls onto you!`);
       else this.g.log.add(`${name(victim)} is crushed!`);
 

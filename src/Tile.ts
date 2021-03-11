@@ -1,4 +1,5 @@
 export interface TileOptions {
+  airCost: number;
   article: string;
   canClimb: boolean;
   canSwimIn: boolean;
@@ -13,6 +14,7 @@ export interface TileOptions {
 
 export default class Tile {
   type: "tile";
+  airCost: number;
   article: string;
   canClimb: boolean;
   canSwimIn: boolean;
@@ -27,6 +29,7 @@ export default class Tile {
   constructor(
     public glyph: string,
     {
+      airCost = 1,
       article = "",
       solid = false,
       canClimb = false,
@@ -40,6 +43,7 @@ export default class Tile {
     }: Partial<TileOptions> = {}
   ) {
     this.type = "tile";
+    this.airCost = airCost;
     this.article = article;
     this.canClimb = canClimb;
     this.canSwimIn = canSwimIn;

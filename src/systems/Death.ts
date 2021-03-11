@@ -22,12 +22,15 @@ export default class Death {
 
   getDeathString({ victim, type }: DamagedData) {
     const vname = name(victim);
-    const s = victim.glyph === "@" ? "" : "s";
-    const is = victim.glyph === "@" ? "are" : "is";
+    const s = victim.player ? "" : "s";
+    const is = victim.player ? "are" : "is";
 
     switch (type) {
       case "crush":
         return `${vname} ${is} flattened like a pancake!`;
+
+      case "suffocation":
+        return `${vname} ran out of air.`;
 
       default:
         return `${vname} die${s}!`;
