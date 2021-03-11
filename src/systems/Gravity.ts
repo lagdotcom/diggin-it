@@ -178,7 +178,7 @@ export default class Gravity {
     if (attacker.heavy) {
       escape = this.findPushTile(victim);
       amount = escape ? distance * 5 : victim.hp;
-    } else if (distance > 1) {
+    } else {
       amount = distance * 5;
     }
 
