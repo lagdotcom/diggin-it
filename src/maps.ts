@@ -3,6 +3,7 @@ import { boulder, metal, player, squimpy } from "./actors";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import {
+  airTank,
   artifact,
   bomb,
   clothes,
@@ -46,7 +47,7 @@ export const testMap = [
   "!###1 :^       !",
   "!######^1      !",
   "!########      !",
-  "!c      ##   ::!",
+  "!A      ##   ::!",
   "!#~~~~~~##:::::!",
   "!#~###~~#      !",
   "!~~~~~~~#    > !",
@@ -85,6 +86,7 @@ const itemTypes: Record<string, Partial<ItemOptions>> = {
   B: bomb,
   L: ladder,
   R: rope,
+  A: airTank,
 };
 
 function getZone(depth: number) {

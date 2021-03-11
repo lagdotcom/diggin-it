@@ -22,6 +22,10 @@ export default class UsableItems {
         result = this.useLadder(item);
         break;
 
+      case "air":
+        result = this.useAirTank(item);
+        break;
+
       case "rope":
         if (!at) {
           const targets = this.getRopeTargets();
@@ -127,6 +131,16 @@ export default class UsableItems {
     map.set(x, y, ropeTileBottom);
 
     log.add("You set up a rope.");
+    item.charges--;
+    this.g.spent++;
+    return undefined;
+  }
+
+  useAirTank(item: Item): undefined {
+    const { log, player } = this.g;
+
+    player.ap = player.maxap;
+    log.add("You breathe deeply.");
     item.charges--;
     this.g.spent++;
     return undefined;

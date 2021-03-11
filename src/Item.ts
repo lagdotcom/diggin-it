@@ -1,7 +1,7 @@
 import Slot from "./Slot";
 import Stat from "./Stat";
 
-type ItemUse = "" | "ladder" | "rope";
+type ItemUse = "air" | "ladder" | "rope";
 
 export interface ItemOptions {
   article: string;
@@ -14,7 +14,7 @@ export interface ItemOptions {
   name: string;
   obeysGravity: boolean;
   plural: boolean;
-  slot: Slot | undefined;
+  slot: Slot;
   treasure: number;
   use: ItemUse;
   useArgs: any[];
@@ -32,9 +32,9 @@ export default class Item {
   name: string;
   obeysGravity: boolean;
   plural: boolean;
-  slot: Slot | undefined;
+  slot?: Slot;
   treasure: number;
-  use: ItemUse;
+  use?: ItemUse;
   useArgs: any[];
 
   constructor(
@@ -53,7 +53,7 @@ export default class Item {
       plural = false,
       slot = undefined,
       treasure = 0,
-      use = "",
+      use = undefined,
       useArgs = [],
     }: Partial<ItemOptions> = {}
   ) {

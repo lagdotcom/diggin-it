@@ -60,6 +60,7 @@ export const vial: Partial<ItemOptions> = { glyph: "Vial", name: "empty vial" };
 export const airTank: Partial<ItemOptions> = {
   glyph: "Tank",
   name: "air tank",
+  use: "air",
 };
 
 export const coin: Partial<ItemOptions> = {
