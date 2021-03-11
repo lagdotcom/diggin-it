@@ -136,53 +136,48 @@ export default class Game extends EventHandler {
     return { actor, items, tile };
   }
 
-  add(thing: Thing) {
-    switch (thing.type) {
-      case "actor":
-        this.allActors.push(thing);
-        return this.actors.set(thing.x, thing.y, thing);
-
-      case "item":
-        return this.items.update(thing.x, thing.y, (items) =>
-          items.concat(thing)
-        );
-    }
+  add(actor: Actor) {
+    this.allActors.push(actor);
+    return this.actors.set(actor.x, actor.y, actor);
   }
 
-  remove(thing: Thing) {
-    switch (thing.type) {
-      case "actor":
-        this.allActors = this.allActors.filter((actor) => actor !== thing);
-        return this.actors.set(thing.x, thing.y, undefined);
-
-      case "item":
-        return this.items.update(thing.x, thing.y, (items) =>
-          items.filter((i) => i !== thing)
-        );
-    }
+  addItem(item: Item) {
+    return this.items.update(item.x, item.y, (items) => items.concat(item));
   }
 
-  move(thing: Thing, x: number, y: number, forced?: Thing) {
+  remove(actor: Actor) {
+    this.allActors = this.allActors.filter((actor) => actor !== actor);
+    return this.actors.set(actor.x, actor.y, undefined);
+  }
+
+  removeItem(item: Item) {
+    return this.items.update(item.x, item.y, (items) =>
+      items.filter((i) => i !== item)
+    );
+  }
+
+  move(thing: Actor, x: number, y: number, forced?: Thing) {
     const mx = x - thing.x,
       my = y - thing.y;
 
-    switch (thing.type) {
-      case "actor":
-        this.actors.set(thing.x, thing.y, undefined);
-        thing.x = x;
-        thing.y = y;
-        this.actors.set(x, y, thing);
-        break;
+    this.actors.set(thing.x, thing.y, undefined);
+    thing.x = x;
+    thing.y = y;
+    this.actors.set(x, y, thing);
 
-      case "item":
-        this.items.update(thing.x, thing.y, (items) =>
-          items.filter((i) => i !== thing)
-        );
-        thing.x = x;
-        thing.y = y;
-        this.items.update(x, y, (items) => items.concat(thing));
-        break;
-    }
+    return this.emit("moved", { thing, mx, my, forced });
+  }
+
+  moveItem(thing: Item, x: number, y: number, forced?: Thing) {
+    const mx = x - thing.x,
+      my = y - thing.y;
+
+    this.items.update(thing.x, thing.y, (items) =>
+      items.filter((i) => i !== thing)
+    );
+    thing.x = x;
+    thing.y = y;
+    this.items.update(x, y, (items) => items.concat(thing));
 
     return this.emit("moved", { thing, mx, my, forced });
   }

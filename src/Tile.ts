@@ -13,7 +13,6 @@ export interface TileOptions {
 }
 
 export default class Tile {
-  type: "tile";
   airCost: number;
   article: string;
   canClimb: boolean;
@@ -42,7 +41,6 @@ export default class Tile {
       opaque = solid,
     }: Partial<TileOptions> = {}
   ) {
-    this.type = "tile";
     this.airCost = airCost;
     this.article = article;
     this.canClimb = canClimb;

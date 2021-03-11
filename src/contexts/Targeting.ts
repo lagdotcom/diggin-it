@@ -1,7 +1,7 @@
-import Cmd, { TargetCmd } from "../Cmd";
 import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
+import Cmd, { TargetCmd } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
 import Soon from "../Soon";

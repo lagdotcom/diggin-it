@@ -1,4 +1,4 @@
-import XY from "./interfaces/XY";
+import XY from "./XY";
 
 export interface AttackCmd {
   type: "attack";

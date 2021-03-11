@@ -1,6 +1,6 @@
 import Actor from "../Actor";
-import Cmd from "../Cmd";
 import Game from "../Game";
+import Cmd from "../interfaces/Cmd";
 import { theName } from "../text";
 import Movement from "./Movement";
 

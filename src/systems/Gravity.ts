@@ -3,7 +3,7 @@ import Game from "../Game";
 import Thing from "../interfaces/Thing";
 import XY from "../interfaces/XY";
 import Item from "../Item";
-import { name, theName } from "../text";
+import { name } from "../text";
 import Tile from "../Tile";
 
 export default class Gravity {
@@ -42,11 +42,11 @@ export default class Gravity {
 
     const { actor, items, tile } = this.g.contents(thing.x, thing.y + 1);
 
-    if (actor && thing.type === "actor") return;
+    if (actor && thing instanceof Actor) return;
     if (tile.solid) return;
 
     // we got a match!
-    return thing.type === "actor" ? this.fall(thing) : this.itemFall(thing);
+    return thing instanceof Actor ? this.fall(thing) : this.itemFall(thing);
   }
 
   fall(thing: Actor): boolean {
@@ -82,7 +82,7 @@ export default class Gravity {
     // ???
     if (distance === 0) return false;
 
-    if (victim.type === "tile")
+    if (victim instanceof Tile)
       return this.fallOntoTile(thing, victim, distance, x, y);
     else return this.fallOntoActor(thing, victim, distance);
   }
@@ -111,7 +111,7 @@ export default class Gravity {
 
     // TODO: damage, etc.
 
-    this.g.move(thing, x, y);
+    this.g.moveItem(thing, x, y);
     this.g.emit("fell", { thing, distance });
     return true;
   }

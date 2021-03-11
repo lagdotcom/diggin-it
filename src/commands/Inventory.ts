@@ -17,7 +17,7 @@ export default class Inventory {
       if (typeof slot === "undefined") return "You can't carry any more.";
 
       const item = items[i];
-      this.g.remove(item);
+      this.g.removeItem(item);
       player.inventory[slot] = item;
       this.g.emit("got", { actor: player, item });
       this.g.log.add(`You get ${name(item)}.`);

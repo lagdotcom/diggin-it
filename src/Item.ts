@@ -1,5 +1,5 @@
-import Slot from "./Slot";
-import Stat from "./Stat";
+import Slot from "./interfaces/Slot";
+import Stat from "./interfaces/Stat";
 
 type ItemUse = "air" | "ladder" | "rope";
 
@@ -21,7 +21,6 @@ export interface ItemOptions {
 }
 
 export default class Item {
-  type: "item";
   article: string;
   bonus: Partial<Record<string, number>>;
   canClimb: boolean;
@@ -57,7 +56,6 @@ export default class Item {
       useArgs = [],
     }: Partial<ItemOptions> = {}
   ) {
-    this.type = "item";
     this.article = article;
     this.bonus = bonus;
     this.canClimb = canClimb;

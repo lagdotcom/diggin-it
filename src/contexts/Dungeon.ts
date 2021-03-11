@@ -1,3 +1,10 @@
+import Inventory from "../commands/Inventory";
+import Movement from "../commands/Movement";
+import Pushing from "../commands/Pushing";
+import UsableItems from "../commands/UsableItems";
+import { drawPanel } from "../drawing";
+import Game from "../Game";
+import Hotspots from "../Hotspots";
 import Cmd, {
   AttackCmd,
   ClimbCmd,
@@ -8,14 +15,7 @@ import Cmd, {
   PushCmd,
   TargetCmd,
   UseCmd,
-} from "../Cmd";
-import Inventory from "../commands/Inventory";
-import Movement from "../commands/Movement";
-import Pushing from "../commands/Pushing";
-import UsableItems from "../commands/UsableItems";
-import { drawPanel } from "../drawing";
-import Game from "../Game";
-import Hotspots from "../Hotspots";
+} from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
 import Soon from "../Soon";
@@ -206,7 +206,7 @@ export default class Dungeon implements Context {
 
     item.x = player.x;
     item.y = player.y;
-    this.g.add(item);
+    this.g.addItem(item);
     this.g.spent++;
     return this.render();
   }

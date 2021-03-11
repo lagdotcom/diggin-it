@@ -1,6 +1,6 @@
+import Slot from "./interfaces/Slot";
+import Stat from "./interfaces/Stat";
 import Item from "./Item";
-import Slot from "./Slot";
-import Stat from "./Stat";
 
 export interface ActorOptions {
   ai: string;
@@ -33,7 +33,6 @@ export interface ActorOptions {
 }
 
 export default class Actor {
-  type: "actor";
   ai: string;
   aiData: Record<string, any>;
   alive: boolean;
@@ -95,7 +94,6 @@ export default class Actor {
       player = false,
     }: Partial<ActorOptions> = {}
   ) {
-    this.type = "actor";
     this.ai = ai;
     this.aiData = aiData;
     this.article = article;

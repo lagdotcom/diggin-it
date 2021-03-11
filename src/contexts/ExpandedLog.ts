@@ -1,5 +1,5 @@
-import Cmd from "../Cmd";
 import Game from "../Game";
+import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import Soon from "../Soon";
 

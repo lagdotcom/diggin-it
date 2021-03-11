@@ -1,5 +1,5 @@
-import Cmd from "../Cmd";
 import Game from "../Game";
+import Cmd from "../interfaces/Cmd";
 import XY from "../interfaces/XY";
 import Item from "../Item";
 import {

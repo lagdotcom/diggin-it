@@ -14,7 +14,7 @@ export default class TreasureGrabbing {
       .get(player.x, player.y)
       .filter((i) => i.treasure)
       .forEach((i) => {
-        this.g.remove(i);
+        this.g.removeItem(i);
         this.g.log.add(`You grab the ${i.name}.`);
         player.experience += i.treasure;
       });

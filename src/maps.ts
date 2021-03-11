@@ -114,7 +114,7 @@ export function loadMap(g: Game, map: string[]): void {
 
       g.map.set(x, y, tile || empty);
       if (item) {
-        g.add(new Item(x, y, item));
+        g.addItem(new Item(x, y, item));
       } else if (actor) {
         g.add(new Actor(x, y, actor));
       }
