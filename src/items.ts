@@ -1,5 +1,14 @@
 import { ItemOptions } from "./Item";
 
+export const pocketwatch: Partial<ItemOptions> = {
+  glyph: "Pocketwatch",
+  name: "pocketwatch",
+};
+export const brokenPocketwatch: Partial<ItemOptions> = {
+  glyph: "BrokenPocketwatch",
+  name: "broken pocketwatch",
+};
+
 export const bomb: Partial<ItemOptions> = { glyph: "Bomb", name: "bomb" };
 export const rope: Partial<ItemOptions> = {
   glyph: "Rope",

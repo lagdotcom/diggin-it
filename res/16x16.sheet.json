@@ -14,6 +14,8 @@
     "Canandra": { "row": 0, "col": 10 },
     "Glova": { "row": 0, "col": 11 },
 
+    "Explosion": { "row": 1, "col": 0 },
+
     "Slingshot": { "row": 1, "col": 2 },
     "PocketKnife": { "row": 1, "col": 3 },
     "Shovel": { "row": 1, "col": 4 },
@@ -40,6 +42,8 @@
     "Rock": { "row": 3, "col": 10 },
     "Bolas": { "row": 3, "col": 11 },
 
+    "Pocketwatch": { "row": 4, "col": 0 },
+    "BrokenPocketwatch": { "row": 4, "col": 1 },
     "CoinBag": { "row": 4, "col": 2 },
     "Coin": { "row": 4, "col": 3 },
     "GoldBar": { "row": 4, "col": 4 },

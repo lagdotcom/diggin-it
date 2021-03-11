@@ -2,7 +2,7 @@ import Actor, { ActorOptions } from "./Actor";
 import { boulder, metal, player, squimpy } from "./actors";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
-import { bomb, coinBag, ladder, rope, smallGem } from "./items";
+import { bomb, coinBag, ladder, pocketwatch, rope, smallGem } from "./items";
 import Tile from "./Tile";
 import {
   air,
@@ -105,5 +105,6 @@ export function loadMap(g: Game, map: string[]): void {
   }
 
   g.player = new Actor(px, py, player);
+  g.player.inventory[0] = new Item(0, 0, pocketwatch);
   g.add(g.player);
 }
