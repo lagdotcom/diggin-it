@@ -1,7 +1,7 @@
 import { RNG } from "rot-js";
 
-import Grid from "../interfaces/Grid";
-import LinearGrid from "../LinearGrid";
+import Grid from "./interfaces/Grid";
+import LinearGrid from "./LinearGrid";
 
 interface VaultTransform {
   src: string;

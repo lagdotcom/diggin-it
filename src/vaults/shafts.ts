@@ -1,4 +1,4 @@
-import Vault from "./Vault";
+import Vault from "../Vault";
 
 const shaft5 = new Vault("shaft5", [
   "#?#",
@@ -22,5 +22,4 @@ const shaft11 = new Vault("shaft11", [
   "# #",
 ]);
 
-const shafts = [shaft5, shaft11];
-export default shafts;
+export default [shaft5, shaft11];

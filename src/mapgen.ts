@@ -5,8 +5,9 @@ import Hotspots from "./Hotspots";
 import Grid from "./interfaces/Grid";
 import LinearGrid from "./LinearGrid";
 import shafts from "./vaults/shafts";
+import zanrooms from "./vaults/zan";
 
-const vaults = [...shafts];
+const vaults = [...shafts, ...zanrooms];
 
 function solidity(n: number) {
   if (n < 40) return " ";
@@ -58,8 +59,8 @@ function findExit(map: Grid<string>) {
 export function generateMap(
   width: number,
   height: number,
-  maxvaults = 3,
-  vaultattempts = 10
+  maxvaults = 5,
+  vaultattempts = 15
 ) {
   const noise = new Simplex();
   const taken = new Hotspots<number>();

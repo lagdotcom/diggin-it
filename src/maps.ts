@@ -71,6 +71,7 @@ const tileTypes: Record<string, Tile | Tile[]> = {
 
 const actorTypes: Record<string, Partial<ActorOptions>> = {
   "1": squimpy,
+  "2": squimpy, // TODO
   O: boulder,
   M: metal,
 };
