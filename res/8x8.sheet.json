@@ -137,6 +137,8 @@
     "Bolas": { "row": 6, "col": 41, "size": 4 },
 
     "Pocketwatch": { "row": 8, "col": 19, "size": 4 },
-    "BrokenPocketwatch": { "row": 8, "col": 21, "size": 4 }
+    "BrokenPocketwatch": { "row": 8, "col": 21, "size": 4 },
+    "Detector": { "row": 8, "col": 39, "size": 4 },
+    "GasMask": { "row": 8, "col": 41, "size": 4 }
   }
 }

@@ -61,6 +61,8 @@
     "Artifact": { "row": 4, "col": 7 },
     "TreasureChest": { "row": 4, "col": 8 },
     "Fragment": { "row": 4, "col": 9 },
+    "Detector": { "row": 4, "col": 10 },
+    "GasMask": { "row": 4, "col": 11 },
 
     "Ink": { "row": 0, "col": 12, "size": 4 },
     "InkFloater": { "row": 1, "col": 14 },
@@ -73,6 +75,7 @@
     "Water": { "row": 8, "col": 17 },
     "Boulder": { "row": 9, "col": 15 },
     "MetalBlock": { "row": 11, "col": 15 },
+    "Gas": { "row": 12, "col": 14 },
     "Brick": { "row": 13, "col": 11 },
     "?": { "row": 13, "col": 15 },
     "RopeTileT": { "row": 13, "col": 17 },
