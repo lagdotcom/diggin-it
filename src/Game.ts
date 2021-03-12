@@ -151,9 +151,9 @@ export default class Game extends EventHandler {
     return this.items.update(item.x, item.y, (items) => items.concat(item));
   }
 
-  remove(actor: Actor) {
-    this.allActors = this.allActors.filter((actor) => actor !== actor);
-    return this.actors.set(actor.x, actor.y, undefined);
+  remove(victim: Actor) {
+    this.allActors = this.allActors.filter((actor) => actor !== victim);
+    return this.actors.set(victim.x, victim.y, undefined);
   }
 
   removeItem(item: Item) {
