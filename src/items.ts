@@ -22,14 +22,14 @@ export const pocketknife: Partial<ItemOptions> = {
   name: "pocket knife",
   slot: "weapon",
   durability: 15,
-  bonus: { sp: 5 },
+  bonus: { sp: 15 },
 };
 export const pickaxe: Partial<ItemOptions> = {
   glyph: "Pickaxe",
   name: "pickaxe",
   slot: "weapon",
   durability: 10,
-  bonus: { sp: 6 },
+  bonus: { sp: 28 },
 };
 
 export const clothes: Partial<ItemOptions> = {
@@ -38,7 +38,16 @@ export const clothes: Partial<ItemOptions> = {
   article: "some",
   plural: true,
   slot: "armour",
-  bonus: { maxhp: 5, dp: 2 },
+  durability: 10,
+  bonus: { maxhp: 5, dp: 8 },
+};
+export const reinforced: Partial<ItemOptions> = {
+  glyph: "ArmourB",
+  name: "reinforced attire",
+  article: "some",
+  slot: "armour",
+  durability: 12,
+  bonus: { maxhp: 8, dp: 12 },
 };
 
 export const bomb: Partial<ItemOptions> = { glyph: "Bomb", name: "bomb" };

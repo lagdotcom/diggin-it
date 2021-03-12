@@ -134,8 +134,8 @@ export default class Actor {
   }
 
   fullHeal() {
-    this.hp = this.maxhp;
-    this.ap = this.maxap; // TODO: should heal ap?
-    this.fp = this.maxfp; // TODO: should heal fp?
+    this.hp = this.get("maxhp");
+    this.ap = this.get("maxap"); // TODO: should heal ap?
+    this.fp = this.get("maxfp"); // TODO: should heal fp?
   }
 }

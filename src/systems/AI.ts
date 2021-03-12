@@ -83,10 +83,12 @@ export default class AI {
   isSafeMove(actor: Actor, mx: number, my: number) {
     const below = this.g.contents(actor.x + mx, actor.y + my + 1);
     if (below.tile.solid) return true;
+    if (below.actor?.pushable) return true;
 
     // falling one step is acceptable - can get back up
     const further = this.g.contents(actor.x + mx, actor.y + my + 2);
     if (further.tile.solid) return true;
+    if (further.actor?.pushable) return true;
 
     return false;
   }

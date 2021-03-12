@@ -17,6 +17,8 @@ export default class Death {
       this.g.log.add(this.getDeathString(data));
       this.g.remove(victim);
       this.g.emit("died", { attacker, victim });
+
+      if (!victim.player) this.g.player.experience += victim.experience;
     }
   }
 
