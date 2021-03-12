@@ -6,9 +6,7 @@ import Grid from "./interfaces/Grid";
 import LinearGrid from "./LinearGrid";
 import shafts from "./vaults/shafts";
 
-const vaults = [...shafts].map((tpl) =>
-  LinearGrid.from(tpl.map((row) => row.split("")))
-);
+const vaults = [...shafts];
 
 function solidity(n: number) {
   if (n < 40) return " ";
@@ -80,8 +78,9 @@ export function generateMap(
     const y = RNG.getUniformInt(1, height - vault.height - 1);
     const spot = taken.overlap(x, y, vault.width, vault.height);
     if (!spot) {
+      console.log(`placing ${vault.name} at ${x},${y}`);
       taken.register(i, x, y, vault.width, vault.height);
-      map.paste(vault, x, y);
+      map.paste(vault.resolve(), x, y);
 
       if (taken.spots.length >= maxvaults) break;
     }

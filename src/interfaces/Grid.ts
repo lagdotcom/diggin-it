@@ -12,6 +12,7 @@ export default interface Grid<T> {
   paste(grid: Grid<T>, x: number, y: number): boolean;
   set(x: number, y: number, value: T): void;
   toArray(): T[][];
+  transform(fn: (value: T, x: number, y: number) => T): Grid<T>;
   update(x: number, y: number, fn: (value: T) => T): void;
   visualise(fn?: (value: T) => string, space?: string): string;
 }

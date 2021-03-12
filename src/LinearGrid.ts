@@ -108,4 +108,10 @@ export default class LinearGrid<T> implements Grid<T> {
     }
     return true;
   }
+
+  transform(fn: (value: T, x: number, y: number) => T) {
+    return new LinearGrid(this.width, this.height, (x, y) =>
+      fn(this.get(x, y), x, y)
+    );
+  }
 }
