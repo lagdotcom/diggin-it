@@ -7,11 +7,17 @@ export default class LinearGrid<T> implements Grid<T> {
   constructor(
     public width: number,
     public height: number,
-    public uninitialised: () => T
+    public uninitialised: (x: number, y: number) => T
   ) {
     this.items = [];
     for (let y = 0; y < height; y++)
-      for (let x = 0; x < width; x++) this.items.push(uninitialised());
+      for (let x = 0; x < width; x++) this.items.push(uninitialised(x, y));
+  }
+
+  static from<T>(data: T[][]) {
+    const height = data.length;
+    const width = data[0].length;
+    return new LinearGrid(width, height, (x, y) => data[y][x]);
   }
 
   contains(x: number, y: number): boolean {
@@ -32,7 +38,7 @@ export default class LinearGrid<T> implements Grid<T> {
   }
 
   get(x: number, y: number): T {
-    if (!this.contains(x, y)) return this.uninitialised();
+    if (!this.contains(x, y)) return this.uninitialised(x, y);
 
     const i = this.index(x, y);
     return this.items[i];
@@ -89,5 +95,17 @@ export default class LinearGrid<T> implements Grid<T> {
     }
 
     return rows;
+  }
+
+  paste(grid: Grid<T>, sx: number, sy: number) {
+    if (sx + grid.width >= this.width) return false;
+    if (sy + grid.height >= this.height) return false;
+
+    for (var y = 0; y < grid.height; y++) {
+      for (var x = 0; x < grid.width; x++) {
+        this.set(sx + x, sy + y, grid.get(x, y));
+      }
+    }
+    return true;
   }
 }

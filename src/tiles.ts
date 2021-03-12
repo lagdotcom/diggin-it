@@ -41,6 +41,8 @@ export const sandDeep = new Tile("SandD", {
   collapses: true,
 });
 
+export const brick = new Tile("Brick", { name: "brick", solid: true });
+
 export const unset = new Tile("?", { name: "" });
 export const empty = new Tile(" ", { name: "" });
 export const entrance = new Tile("Entrance", { name: "how you got here" });

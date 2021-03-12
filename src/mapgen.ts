@@ -1,8 +1,14 @@
 import { RNG } from "rot-js";
 import Simplex from "rot-js/lib/noise/simplex";
 
+import Hotspots from "./Hotspots";
 import Grid from "./interfaces/Grid";
 import LinearGrid from "./LinearGrid";
+import shafts from "./vaults/shafts";
+
+const vaults = [...shafts].map((tpl) =>
+  LinearGrid.from(tpl.map((row) => row.split("")))
+);
 
 function solidity(n: number) {
   if (n < 40) return " ";
@@ -28,6 +34,8 @@ function findStart(map: Grid<string>) {
       if (here === " " && (under === "#" || under === ":")) return [x, y];
     }
   }
+
+  throw new Error("no valid entrance");
 }
 
 function findExit(map: Grid<string>) {
@@ -45,17 +53,37 @@ function findExit(map: Grid<string>) {
       }
     }
   }
+
+  throw new Error("no valid exit");
 }
 
-export function generateMap(width: number, height: number) {
+export function generateMap(
+  width: number,
+  height: number,
+  maxvaults = 3,
+  vaultattempts = 10
+) {
   const noise = new Simplex();
-
+  const taken = new Hotspots<number>();
   const map = new LinearGrid(width, height, () => "!");
 
   for (var x = 1; x < width - 1; x++) {
     for (var y = 1; y < height - 1; y++) {
       const n = (noise.get(x, y) + 1) * 50;
       map.set(x, y, solidity(n));
+    }
+  }
+
+  for (var i = 0; i < vaultattempts; i++) {
+    const vault = RNG.getItem(vaults);
+    const x = RNG.getUniformInt(1, width - vault.width - 1);
+    const y = RNG.getUniformInt(1, height - vault.height - 1);
+    const spot = taken.overlap(x, y, vault.width, vault.height);
+    if (!spot) {
+      taken.register(i, x, y, vault.width, vault.height);
+      map.paste(vault, x, y);
+
+      if (taken.spots.length >= maxvaults) break;
     }
   }
 
