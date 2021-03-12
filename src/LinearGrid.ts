@@ -51,4 +51,43 @@ export default class LinearGrid<T> implements Grid<T> {
     ];
     return offsets.filter(([x, y]) => this.contains(x, y));
   }
+
+  visualise(
+    fn: (value: T) => string = (x) => x.toString(),
+    space: string = ""
+  ) {
+    const { width, height } = this;
+    const rows: string[] = [];
+    var row: string[] = [];
+
+    for (var i = 0; i < width * height; i++) {
+      const tile = this.items[i];
+      row.push(fn(tile));
+
+      if (i % width === width - 1) {
+        rows.push(row.join(space));
+        row = [];
+      }
+    }
+
+    return rows.join("\n");
+  }
+
+  toArray() {
+    const { width, height } = this;
+    const rows: T[][] = [];
+    var row: T[] = [];
+
+    for (var i = 0; i < width * height; i++) {
+      const tile = this.items[i];
+      row.push(tile);
+
+      if (i % width === width - 1) {
+        rows.push(row);
+        row = [];
+      }
+    }
+
+    return rows;
+  }
 }

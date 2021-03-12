@@ -113,7 +113,13 @@ export default class Game extends EventHandler {
 
   start() {
     this.depth = 1;
-    loadMap(this, testMap);
+    this.useMap(testMap);
+  }
+
+  useMap(map: string[]) {
+    this.removeAllListeners();
+
+    loadMap(this, map);
     this.contexts.clear();
     this.contexts.push(new Dungeon(this));
     this.spent = 0;

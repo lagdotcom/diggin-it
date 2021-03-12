@@ -11,4 +11,6 @@ export default interface Grid<T> {
   get(x: number, y: number): T;
   update(x: number, y: number, fn: (value: T) => T): void;
   neighbours(sx: number, sy: number): XY[];
+  visualise(fn?: (value: T) => string, space?: string): string;
+  toArray(): T[][];
 }

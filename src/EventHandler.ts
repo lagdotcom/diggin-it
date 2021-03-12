@@ -15,10 +15,12 @@ interface Events {
 }
 
 export default class EventHandler implements Events {
+  private emitter: EventEmitter;
   emit: Events["emit"];
   off: Events["off"];
   on: Events["on"];
   once: Events["once"];
+  removeAllListeners: () => void;
 
   constructor() {
     const emitter = new EventEmitter();
@@ -27,5 +29,8 @@ export default class EventHandler implements Events {
     this.off = (name, listener) => emitter.off(name, listener);
     this.on = (name, listener) => emitter.on(name, listener);
     this.once = (name, listener) => emitter.once(name, listener);
+
+    this.removeAllListeners = () => emitter.removeAllListeners();
+    this.emitter = emitter;
   }
 }

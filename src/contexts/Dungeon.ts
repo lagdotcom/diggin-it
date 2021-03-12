@@ -18,6 +18,7 @@ import Cmd, {
 } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
+import { generateMap } from "../mapgen";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
@@ -82,6 +83,14 @@ export default class Dungeon implements Context {
     if (!this.canMove) return;
 
     switch (e.key) {
+      // debugging stuff
+      case "G":
+        e.preventDefault();
+        const map = generateMap(20, 30);
+        console.log(map.join("\n"));
+        this.g.useMap(map);
+        return;
+
       case "ArrowLeft":
         e.preventDefault();
         return { type: "move", x: -1, y: 0 };
