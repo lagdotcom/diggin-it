@@ -26,6 +26,7 @@ import {
   empty,
   entrance,
   exit,
+  gas,
   ladderTile,
   ropeTile,
   sandDeep,
@@ -55,6 +56,8 @@ export const testMap = [
 
 const tileTypes: Record<string, Tile | Tile[]> = {
   "?": unset,
+  " ": empty,
+  "%": gas,
   "!": border,
   "<": entrance,
   ">": exit,

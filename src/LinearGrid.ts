@@ -28,13 +28,15 @@ export default class LinearGrid<T> implements Grid<T> {
     return y * this.width + x;
   }
 
-  fill(value: T): void {
+  fill(value: T) {
     for (let i = 0; i < this.width * this.height; i++) this.items[i] = value;
+    return this;
   }
 
-  set(x: number, y: number, value: T): void {
+  set(x: number, y: number, value: T) {
     const i = this.index(x, y);
     this.items[i] = value;
+    return this;
   }
 
   get(x: number, y: number): T {
@@ -44,8 +46,8 @@ export default class LinearGrid<T> implements Grid<T> {
     return this.items[i];
   }
 
-  update(x: number, y: number, fn: (value: T) => T): void {
-    this.set(x, y, fn(this.get(x, y)));
+  update(x: number, y: number, fn: (value: T) => T) {
+    return this.set(x, y, fn(this.get(x, y)));
   }
 
   neighbours(sx: number, sy: number): XY[] {
@@ -112,6 +114,12 @@ export default class LinearGrid<T> implements Grid<T> {
   transform(fn: (value: T, x: number, y: number) => T) {
     return new LinearGrid(this.width, this.height, (x, y) =>
       fn(this.get(x, y), x, y)
+    );
+  }
+
+  flipH() {
+    return new LinearGrid(this.width, this.height, (x, y) =>
+      this.get(this.width - x - 1, y)
     );
   }
 }

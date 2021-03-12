@@ -33,7 +33,7 @@ export default class Vault {
 
   resolve() {
     const chose: Record<string, string> = {};
-    return this.grid.transform((ch) => {
+    const transformed = this.grid.transform((ch) => {
       for (var i = 0; i < this.transforms.length; i++) {
         const { src, dst, once } = this.transforms[i];
         if (src === ch) {
@@ -48,5 +48,7 @@ export default class Vault {
 
       return ch;
     });
+
+    return RNG.getPercentage() <= 50 ? transformed : transformed.flipH();
   }
 }

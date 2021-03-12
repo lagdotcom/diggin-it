@@ -45,6 +45,8 @@ export const brick = new Tile("Brick", { name: "brick", solid: true });
 
 export const unset = new Tile("?", { name: "" });
 export const empty = new Tile(" ", { name: "" });
+export const gas = new Tile("Gas", { name: "noxious gas", airCost: 5 });
+
 export const entrance = new Tile("Entrance", { name: "how you got here" });
 export const exit = new Tile("Exit", {
   name: "exit",
