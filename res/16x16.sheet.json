@@ -73,6 +73,7 @@
     "Water": { "row": 8, "col": 17 },
     "Boulder": { "row": 9, "col": 15 },
     "MetalBlock": { "row": 11, "col": 15 },
+    "Brick": { "row": 13, "col": 11 },
     "?": { "row": 13, "col": 15 },
     "RopeTileT": { "row": 13, "col": 17 },
     "RopeTile": { "row": 14, "col": 17 },

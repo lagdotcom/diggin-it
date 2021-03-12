@@ -22,6 +22,7 @@ import {
 import Tile from "./Tile";
 import {
   border,
+  brick,
   dirtDeep,
   dirtMiddle,
   dirtShallow,
@@ -65,6 +66,7 @@ const tileTypes: Record<string, Tile | Tile[]> = {
   "^": ladderTile,
   "|": ropeTile,
   "~": water,
+  "]": brick,
 };
 
 const actorTypes: Record<string, Partial<ActorOptions>> = {
