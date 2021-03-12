@@ -8,6 +8,14 @@ export const brokenPocketwatch: Partial<ItemOptions> = {
   glyph: "BrokenPocketwatch",
   name: "broken pocketwatch",
 };
+export const detector: Partial<ItemOptions> = {
+  glyph: "Detector",
+  name: "gas detector",
+};
+export const mask: Partial<ItemOptions> = {
+  glyph: "GasMask",
+  name: "gas mask",
+};
 
 export const pocketknife: Partial<ItemOptions> = {
   glyph: "PocketKnife",
@@ -61,6 +69,26 @@ export const airTank: Partial<ItemOptions> = {
   glyph: "Tank",
   name: "air tank",
   use: "air",
+};
+export const specs: Partial<ItemOptions> = {
+  glyph: "Specs",
+  name: "X-ray specs",
+};
+export const helmet: Partial<ItemOptions> = {
+  glyph: "Helmet",
+  name: "miner's helmet",
+};
+export const jetpack: Partial<ItemOptions> = {
+  glyph: "Jetpack",
+  name: "jetpack",
+};
+export const rock: Partial<ItemOptions> = {
+  glyph: "Rock",
+  name: "rock",
+};
+export const bolas: Partial<ItemOptions> = {
+  glyph: "Bolas",
+  name: "bolas",
 };
 
 export const coin: Partial<ItemOptions> = {

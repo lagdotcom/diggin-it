@@ -1,5 +1,5 @@
 import Actor, { ActorOptions } from "./Actor";
-import { boulder, metal, player, squimpy } from "./actors";
+import { boulder, crate, metal, squimpy } from "./actors";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import {
@@ -11,9 +11,12 @@ import {
   diamond,
   fragment,
   goldBar,
+  helmet,
   ladder,
+  rations,
   rope,
   smallGem,
+  specs,
   treasureBox,
 } from "./items";
 import Tile from "./Tile";
@@ -73,8 +76,10 @@ const actorTypes: Record<string, Partial<ActorOptions>> = {
   "1": squimpy, // TODO: simple foe
   "2": squimpy, // TODO: normal foe
   "3": squimpy, // TODO: fearsome foe
+  "4": squimpy, // TODO: the ink!
   O: boulder,
   M: metal,
+  W: crate,
 };
 
 const itemTypes: Record<string, Partial<ItemOptions>> = {
@@ -91,6 +96,9 @@ const itemTypes: Record<string, Partial<ItemOptions>> = {
   L: ladder,
   R: rope,
   A: airTank,
+  F: rations,
+  X: specs,
+  H: helmet,
 };
 
 function getZone(depth: number) {
