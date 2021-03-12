@@ -1,3 +1,5 @@
+import { RNG } from "rot-js";
+
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import XY from "../interfaces/XY";
@@ -39,6 +41,10 @@ export default class UsableItems {
           at = targets[0];
         }
         result = this.useRope(item, at);
+        break;
+
+      case "heal":
+        result = this.useHeal(item);
         break;
 
       default:
@@ -139,10 +145,24 @@ export default class UsableItems {
   useAirTank(item: Item): undefined {
     const { log, player } = this.g;
 
-    player.ap = player.maxap;
+    player.ap = player.get("maxap");
     log.add("You breathe deeply.");
     item.charges--;
     this.g.spent++;
     return undefined;
+  }
+
+  useHeal(item: Item) {
+    const { log, player } = this.g;
+
+    const maxhp = player.get("maxhp");
+    if (player.hp >= maxhp) return "You're feeling fine.";
+    const [min, max] = item.useArgs;
+    const amount = Math.min(RNG.getUniformInt(min, max), maxhp - player.hp);
+
+    player.hp += amount;
+    log.add(`You heal for ${amount}.`);
+    item.charges--;
+    this.g.spent++;
   }
 }

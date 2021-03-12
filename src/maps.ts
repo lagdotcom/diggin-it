@@ -1,22 +1,5 @@
-import { RNG } from "rot-js";
-
 import Actor, { ActorOptions } from "./Actor";
-import {
-  boulder,
-  buster,
-  canandra,
-  crate,
-  crim,
-  flazza,
-  glova,
-  metal,
-  muln,
-  slobberfin,
-  splinter,
-  squimpy,
-  telden,
-  theInk,
-} from "./actors";
+import { boulder, crate, metal, theInk } from "./actors";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import {
@@ -36,6 +19,7 @@ import {
   specs,
   treasureBox,
 } from "./items";
+import { getRandomArmour, getRandomEnemy, getRandomWeapon } from "./tables";
 import Tile from "./Tile";
 import {
   border,
@@ -89,61 +73,12 @@ const tileTypes: Record<string, Tile | Tile[]> = {
   "]": brick,
 };
 
-const common = 10;
-const uncommon = 5;
-const rare = 2;
-const ultrarare = 1;
+type Zoned<T> = (zone: number) => Partial<T>;
 
-const enemyTypes = {
-  squimpy,
-  buster,
-  canandra,
-  crim,
-  flazza,
-  glova,
-  muln,
-  slobberfin,
-  splinter,
-  telden,
-};
-type EnemyName = keyof typeof enemyTypes;
-type EnemyDistribution = Partial<Record<EnemyName, number>>;
-
-const enemiesByZone: EnemyDistribution[] = [
-  {
-    squimpy: uncommon,
-    buster: common,
-  },
-  {
-    squimpy: common,
-    buster: common,
-    canandra: rare,
-    crim: rare,
-    flazza: uncommon,
-    glova: uncommon,
-    muln: uncommon,
-    slobberfin: ultrarare,
-    splinter: uncommon,
-    telden: uncommon,
-  },
-  {
-    squimpy: uncommon,
-    canandra: uncommon,
-    crim: uncommon,
-    flazza: uncommon,
-    glova: common,
-    muln: uncommon,
-    slobberfin: rare,
-    splinter: common,
-    telden: uncommon,
-  },
-];
-
-function getRandomEnemy(zone: number) {
-  return enemyTypes[RNG.getWeightedValue(enemiesByZone[zone]) as EnemyName];
-}
-
-const actorTypes: Record<string, (zone: number) => Partial<ActorOptions>> = {
+const actorTypes: Record<
+  string,
+  Partial<ActorOptions> | Zoned<ActorOptions>
+> = {
   "1": (zone) => {
     const a = getRandomEnemy(zone);
     const b = getRandomEnemy(zone);
@@ -155,13 +90,13 @@ const actorTypes: Record<string, (zone: number) => Partial<ActorOptions>> = {
     const b = getRandomEnemy(zone);
     return a.maxhp > b.maxhp ? a : b;
   },
-  "4": () => theInk,
-  O: () => boulder,
-  M: () => metal,
-  W: () => crate,
+  "4": theInk,
+  O: boulder,
+  M: metal,
+  W: crate,
 };
 
-const itemTypes: Record<string, Partial<ItemOptions>> = {
+const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   c: coin,
   b: goldBar,
   g: smallGem,
@@ -178,6 +113,29 @@ const itemTypes: Record<string, Partial<ItemOptions>> = {
   F: rations,
   X: specs,
   H: helmet,
+
+  "5": (zone) => {
+    const a = getRandomWeapon(zone);
+    const b = getRandomWeapon(zone);
+    return a.bonus.sp < b.bonus.sp ? a : b;
+  },
+  "6": getRandomWeapon,
+  "7": (zone) => {
+    const a = getRandomWeapon(zone);
+    const b = getRandomWeapon(zone);
+    return a.bonus.sp > b.bonus.sp ? a : b;
+  },
+  "8": (zone) => {
+    const a = getRandomArmour(zone);
+    const b = getRandomArmour(zone);
+    return a.bonus.dp < b.bonus.dp ? a : b;
+  },
+  "9": getRandomArmour,
+  "0": (zone) => {
+    const a = getRandomArmour(zone);
+    const b = getRandomArmour(zone);
+    return a.bonus.dp > b.bonus.dp ? a : b;
+  },
 };
 
 function getZone(depth: number) {
@@ -205,9 +163,13 @@ export function loadMap(g: Game, map: string[]): void {
 
       g.map.set(x, y, tile || empty);
       if (item) {
-        g.addItem(new Item(x, y, item));
+        g.addItem(
+          new Item(x, y, typeof item === "function" ? item(zone) : item)
+        );
       } else if (actor) {
-        g.add(new Actor(x, y, actor(zone)));
+        g.add(
+          new Actor(x, y, typeof actor === "function" ? actor(zone) : actor)
+        );
       }
 
       if (glyph === "<") {

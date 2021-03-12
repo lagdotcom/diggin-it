@@ -1,7 +1,7 @@
 import Slot from "./interfaces/Slot";
 import Stat from "./interfaces/Stat";
 
-type ItemUse = "air" | "ladder" | "rope";
+type ItemUse = "air" | "heal" | "ladder" | "rope";
 
 export interface ItemOptions {
   article: string;

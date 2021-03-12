@@ -77,6 +77,90 @@ const escapade1 = new Vault(
   zanq
 );
 
+const armoury1 = new Vault(
+  "armouree 1",
+  ["]]]]]", "]  ?]", "?5 8?", ":::::", "     "],
+  zanq
+);
+
+const bakery = new Vault(
+  "bakeree",
+  ["]]]]]", "]  ?]", "?FFF?", ":::::", "     "],
+  zanq
+);
+
+const plateau = new Vault(
+  "plateau",
+  [
+    "  A2F2b  ",
+    "  :::::  ",
+    "   :::   ",
+    "    :    ",
+    "    : 111",
+    "?????????",
+  ],
+  zanq
+);
+
+const cove = new Vault(
+  "cove",
+  ["11   ?", "]]]]]]", "]AAAA]", "]####]", "~~~~~~", "~~~~~~"],
+  zanq
+);
+
+const meow = new Vault("meow", [" O   O ", "???O???", "  ???  "], zanq);
+
+const nin = new Vault(
+  "nin",
+  ["]]]?]?]]]", "?]  ]  ]?", "?]  ]  ]?", "?]?]]]?]?"],
+  zanq
+);
+
+const chaos1 = new Vault("chaos 1", [
+  "     | ",
+  "     |#",
+  "2aRM1|#",
+  "#######",
+]);
+
+const sorry = new Vault("sorry", [
+  "!!!!:::!!!!",
+  "!! !   ! !!",
+  "!!!!   !!!!",
+  "!         !",
+  "     L     ",
+  "~~~~###~~~~",
+  "~~~~~~~~~~~",
+]);
+
+const bridgekeeper = new Vault(
+  "bridgekeeper",
+  ["      ", "      ", " $3 F ", "### ]]", "#    ]", "??????", "??????"],
+  zanq
+);
+
+const clamber = new Vault(
+  "clamber",
+  [
+    "      ccc     ",
+    "]]]]]]]]]]]]]?",
+    "]           ]?",
+    "]F  ] ] 0 ] ]?",
+    "]]^]] ]]]]] ]?",
+    "] ^         ]?",
+    "] ^         ]?",
+    "] ^ 2 2 2 2 ??",
+  ],
+  zanq
+);
+
+const squimpyZone = new Vault("squimpy zone", [
+  "        1 F5",
+  "    1M  ]:::",
+  "1O  ::::::::",
+  "::::::::]]]]",
+]);
+
 export default [
   shed1,
   shed2,
@@ -92,4 +176,15 @@ export default [
   tunnel,
   nope,
   escapade1,
+  armoury1,
+  bakery,
+  plateau,
+  cove,
+  meow,
+  nin,
+  chaos1,
+  sorry,
+  bridgekeeper,
+  clamber,
+  squimpyZone,
 ];

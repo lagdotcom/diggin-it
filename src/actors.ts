@@ -8,7 +8,7 @@ export const player: Partial<ActorOptions> = {
   digStrength: 10,
   canClimb: true,
   maxhp: 20,
-  maxap: 100,
+  maxap: 150,
   sp: 8,
   dp: 8,
   inventorySize: 20,
@@ -119,7 +119,7 @@ export const drifter: Partial<ActorOptions> = {
   // TODO: mimic random ground enemy
 };
 export const theInk: Partial<ActorOptions> = {
-  glyph: "Ink",
+  glyph: "Ink1", // TODO: multiple tiles
   name: "ink",
   article: "the",
   colour: "purple",
@@ -127,7 +127,6 @@ export const theInk: Partial<ActorOptions> = {
   maxhp: 200,
   sp: 40,
   dp: 25,
-  // TODO: multiple tiles
 };
 
 export const crate: Partial<ActorOptions> = {
