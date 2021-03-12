@@ -86,9 +86,7 @@ export default class Dungeon implements Context {
       // debugging stuff
       case "G":
         e.preventDefault();
-        const map = generateMap(20, 30);
-        console.log(map.join("\n"));
-        this.g.useMap(map);
+        this.nextMap();
         return;
 
       case "ArrowLeft":
@@ -116,6 +114,11 @@ export default class Dungeon implements Context {
       case "P":
         if (e.shiftKey) return { type: "expandlog" };
         break;
+
+      case ">":
+      case "Enter":
+      case "Return":
+        return { type: "exit" };
     }
   }
 
@@ -159,6 +162,8 @@ export default class Dungeon implements Context {
         return this.handleDrop(cmd);
       case "equip":
         return this.handleEquip(cmd);
+      case "exit":
+        return this.handleExit();
       case "expandlog":
         return this.handleExpandLog();
       case "get":
@@ -242,6 +247,18 @@ export default class Dungeon implements Context {
     }
 
     return this.render();
+  }
+
+  handleExit() {
+    const { log, map, player } = this.g;
+    const tile = map.get(player.x, player.y);
+
+    if (tile.glyph === "Exit") {
+      // TODO: rewards
+      log.add("You leave the area.");
+      this.g.depth++;
+      this.nextMap();
+    }
   }
 
   handleExpandLog() {
@@ -463,5 +480,15 @@ export default class Dungeon implements Context {
     var string = number.toString();
     while (string.length < length) string = ch + string;
     return string;
+  }
+
+  nextMap() {
+    const width = 12 + this.g.depth * 3;
+    const height = 15 + this.g.depth * 5;
+    const maxvaults = Math.floor((width * height) / 80);
+
+    const map = generateMap(width, height, maxvaults, maxvaults * 5);
+    console.log(map.join("\n"));
+    this.g.useMap(map);
   }
 }

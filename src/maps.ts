@@ -6,15 +6,12 @@ import {
   airTank,
   artifact,
   bomb,
-  clothes,
   coin,
   coinBag,
   diamond,
   fragment,
   goldBar,
   ladder,
-  pocketknife,
-  pocketwatch,
   rope,
   smallGem,
   treasureBox,
@@ -70,8 +67,9 @@ const tileTypes: Record<string, Tile | Tile[]> = {
 };
 
 const actorTypes: Record<string, Partial<ActorOptions>> = {
-  "1": squimpy,
-  "2": squimpy, // TODO
+  "1": squimpy, // TODO: simple foe
+  "2": squimpy, // TODO: normal foe
+  "3": squimpy, // TODO: fearsome foe
   O: boulder,
   M: metal,
 };
@@ -129,13 +127,7 @@ export function loadMap(g: Game, map: string[]): void {
     }
   }
 
-  const weapon = new Item(0, 0, pocketknife);
-  const armour = new Item(0, 0, clothes);
-  const trinket = new Item(0, 0, pocketwatch);
-  g.player = new Actor(px, py, {
-    ...player,
-    equipment: { weapon, armour },
-    inventory: [weapon, armour, trinket],
-  });
+  g.player.x = px;
+  g.player.y = py;
   g.add(g.player);
 }

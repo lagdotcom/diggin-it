@@ -14,6 +14,7 @@ import Item from "./Item";
 import LinearGrid from "./LinearGrid";
 import { loadMap, testMap } from "./maps";
 import MessageLog from "./MessageLog";
+import { getNewPlayer } from "./prefabs";
 import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./sheets";
 import Tile from "./Tile";
 import { unset } from "./tiles";
@@ -113,11 +114,13 @@ export default class Game extends EventHandler {
 
   start() {
     this.depth = 1;
+    this.player = getNewPlayer();
     this.useMap(testMap);
   }
 
   useMap(map: string[]) {
     this.removeAllListeners();
+    this.player.fullHeal();
 
     loadMap(this, map);
     this.contexts.clear();
