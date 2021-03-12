@@ -2,9 +2,7 @@ import Game from "../Game";
 
 export default class TreasureGrabbing {
   constructor(public g: Game) {
-    g.on("moved", ({ thing }) => {
-      if (thing === g.player) this.getTreasure();
-    });
+    g.on("moved", () => this.getTreasure());
   }
 
   getTreasure() {
