@@ -13,6 +13,7 @@ export interface ItemOptions {
   durability: number;
   glyph: string;
   name: string;
+  namep: string;
   obeysGravity: boolean;
   plural: boolean;
   slot: Slot;
@@ -31,6 +32,7 @@ export default class Item {
   durability: number;
   glyph: string;
   name: string;
+  namep: string;
   obeysGravity: boolean;
   plural: boolean;
   slot?: Slot;
@@ -50,6 +52,7 @@ export default class Item {
       durability = 0,
       glyph = "?",
       name = glyph,
+      namep = name + "s",
       obeysGravity = true,
       plural = false,
       slot = undefined,
@@ -68,6 +71,7 @@ export default class Item {
     this.durability = durability;
     this.glyph = glyph;
     this.name = name;
+    this.namep = namep;
     this.obeysGravity = obeysGravity;
     this.plural = plural;
     this.slot = slot;

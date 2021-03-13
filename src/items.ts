@@ -34,6 +34,7 @@ export const powerDrill: Partial<ItemOptions> = {
 export const pocketknife: Partial<ItemOptions> = {
   glyph: "PocketKnife",
   name: "pocket knife",
+  namep: "pocket knives",
   slot: "weapon",
   durability: 15,
   bonus: { sp: 15 },
@@ -217,6 +218,7 @@ export const airTank: Partial<ItemOptions> = {
 export const specs: Partial<ItemOptions> = {
   glyph: "Specs",
   name: "X-ray specs",
+  plural: true,
 };
 export const helmet: Partial<ItemOptions> = {
   glyph: "Helmet",
@@ -233,6 +235,7 @@ export const rock: Partial<ItemOptions> = {
 export const bolas: Partial<ItemOptions> = {
   glyph: "Bolas",
   name: "bolas",
+  namep: "bolases",
 };
 
 export const coin: Partial<ItemOptions> = {

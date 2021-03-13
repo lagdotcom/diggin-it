@@ -24,6 +24,7 @@ export default class Tile {
   digResistance: number;
   indestructible: boolean;
   name: string;
+  namep: string;
   opaque: boolean;
   solid: boolean;
 
@@ -54,6 +55,7 @@ export default class Tile {
     this.digResistance = digResistance;
     this.indestructible = indestructible;
     this.name = name;
+    this.namep = name;
     this.opaque = opaque;
     this.solid = solid;
   }

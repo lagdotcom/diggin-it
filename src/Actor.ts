@@ -47,6 +47,7 @@ export default class Actor {
   inventory: Item[];
   inventorySize: number;
   name: string;
+  namep: string;
   obeysGravity: boolean;
   pushable: boolean;
   vision: number;
@@ -105,6 +106,7 @@ export default class Actor {
     this.glyph = glyph;
     this.heavy = heavy;
     this.name = name;
+    this.namep = name;
     this.obeysGravity = obeysGravity;
     this.pushable = pushable;
     this.vision = vision;
