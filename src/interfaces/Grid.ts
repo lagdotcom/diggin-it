@@ -8,6 +8,7 @@ export default interface Grid<T> {
   fill(value: T): Grid<T>;
   flipH(): Grid<T>;
   get(x: number, y: number): T;
+  includes(value: T): boolean;
   index(x: number, y: number): number;
   neighbours(sx: number, sy: number): XY[];
   paste(grid: Grid<T>, x: number, y: number): boolean;

@@ -483,11 +483,7 @@ export default class Dungeon implements Context {
   }
 
   nextMap(seed?: number) {
-    const width = 12 + this.g.depth * 3;
-    const height = 15 + this.g.depth * 5;
-    const maxvaults = Math.floor((width * height) / 80);
-
-    const map = generateMap(width, height, maxvaults, maxvaults * 5, seed);
+    const map = generateMap(this.g, seed);
     console.log(map.join("\n"));
     this.g.useMap(map);
   }

@@ -122,4 +122,8 @@ export default class LinearGrid<T> implements Grid<T> {
       this.get(this.width - x - 1, y)
     );
   }
+
+  includes(value: T) {
+    return this.items.includes(value);
+  }
 }

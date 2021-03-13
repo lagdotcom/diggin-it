@@ -1,10 +1,12 @@
 import { RNG } from "rot-js";
 import Simplex from "rot-js/lib/noise/simplex";
 
+import Game from "./Game";
 import Hotspots from "./Hotspots";
 import Grid from "./interfaces/Grid";
 import LinearGrid from "./LinearGrid";
 import basics from "./vaults/basics";
+import bossrooms from "./vaults/boss";
 import fragments from "./vaults/fragments";
 import jrooms from "./vaults/j";
 import lagrooms from "./vaults/lag";
@@ -66,13 +68,33 @@ function findExit(map: Grid<string>, taken: Hotspots<any>) {
   throw new Error("no valid exit");
 }
 
-export function generateMap(
-  width: number,
-  height: number,
-  maxvaults: number,
-  vaultattempts: number,
-  seed?: number
-) {
+function getMapParameters(depth: number) {
+  const width = 12 + depth * 3;
+  const height = 15 + depth * 5;
+  const maxvaults = Math.floor((width * height) / 80);
+  const vaultattempts = maxvaults * 5;
+
+  return { width, height, maxvaults, vaultattempts };
+}
+
+function toMapString(grid: Grid<string>) {
+  return grid.toArray().map((row) => row.join(""));
+}
+
+function generateBossMap(g: Game, seed?: number) {
+  if (typeof seed === "number") RNG.setSeed(seed);
+  else seed = RNG.getSeed();
+  console.log("map seed:", seed);
+
+  const vault = RNG.getItem(bossrooms);
+  return toMapString(vault.resolve());
+}
+
+export function generateMap(g: Game, seed?: number) {
+  if (g.depth >= 10) return generateBossMap(g, seed);
+
+  const { width, height, maxvaults, vaultattempts } = getMapParameters(g.depth);
+
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
   console.log("map seed:", seed);
@@ -104,11 +126,15 @@ export function generateMap(
     }
   }
 
-  const [px, py] = findStart(map, taken);
-  map.set(px, py, "<");
+  if (!map.includes("<")) {
+    const [px, py] = findStart(map, taken);
+    map.set(px, py, "<");
+  }
 
-  const [ex, ey] = findExit(map, taken);
-  map.set(ex, ey, ">");
+  if (!map.includes(">")) {
+    const [ex, ey] = findExit(map, taken);
+    map.set(ex, ey, ">");
+  }
 
-  return map.toArray().map((row) => row.join(""));
+  return toMapString(map);
 }
