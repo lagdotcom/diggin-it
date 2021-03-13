@@ -142,14 +142,18 @@ export default class UsableItems {
     return undefined;
   }
 
-  useAirTank(item: Item): undefined {
+  useAirTank(item: Item) {
     const { log, player } = this.g;
 
-    player.ap = player.get("maxap");
+    const maxap = player.get("maxap");
+    if (player.ap >= maxap) return "You have plenty of air.";
+    const [min, max] = item.useArgs;
+    const amount = Math.min(RNG.getUniformInt(min, max), maxap - player.ap);
+
+    player.ap += amount;
     log.add("You breathe deeply.");
     item.charges--;
     this.g.spent++;
-    return undefined;
   }
 
   useHeal(item: Item) {

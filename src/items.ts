@@ -205,6 +205,7 @@ export const airTank: Partial<ItemOptions> = {
   glyph: "Tank",
   name: "air tank",
   use: "air",
+  useArgs: [100, 100],
 };
 export const specs: Partial<ItemOptions> = {
   glyph: "Specs",
