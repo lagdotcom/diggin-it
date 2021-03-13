@@ -1,6 +1,10 @@
 import Tile from "./Tile";
 
-export const border = new Tile("Bedrock", { name: "", solid: true });
+export const border = new Tile("Bedrock", {
+  name: "",
+  solid: true,
+  indestructible: true,
+});
 export const dirtShallow = new Tile("DirtS", {
   colour: "brown",
   name: "dirt",

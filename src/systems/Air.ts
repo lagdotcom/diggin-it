@@ -1,7 +1,9 @@
 import Game from "../Game";
 
 export default class Air {
-  constructor(public g: Game) {}
+  constructor(public g: Game) {
+    g.on("tick", () => this.run());
+  }
 
   run() {
     const { log, map, player } = this.g;

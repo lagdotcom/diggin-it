@@ -174,7 +174,14 @@ export const arsenalArmour: Partial<ItemOptions> = {
   // TODO: slows user?
 };
 
-export const bomb: Partial<ItemOptions> = { glyph: "Bomb", name: "bomb" };
+export const bomb: Partial<ItemOptions> = {
+  glyph: "Bomb",
+  name: "bomb",
+  charges: 1,
+  use: "bomb",
+  useArgs: [4, -1, -1, 3, 3, 45],
+};
+
 export const rope: Partial<ItemOptions> = {
   glyph: "Rope",
   name: "rope",

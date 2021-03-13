@@ -1,12 +1,13 @@
 import Slot from "./interfaces/Slot";
 import Stat from "./interfaces/Stat";
 
-type ItemUse = "air" | "heal" | "ladder" | "rope";
+type ItemUse = "air" | "bomb" | "heal" | "ladder" | "rope";
 
 export interface ItemOptions {
   article: string;
   bonus: Partial<Record<Stat, number>>;
   canClimb: boolean;
+  canPickUp: boolean;
   charges: number;
   colour: string;
   durability: number;
@@ -24,6 +25,7 @@ export default class Item {
   article: string;
   bonus: Partial<Record<string, number>>;
   canClimb: boolean;
+  canPickUp: boolean;
   charges: number;
   colour: string;
   durability: number;
@@ -54,11 +56,13 @@ export default class Item {
       treasure = 0,
       use = undefined,
       useArgs = [],
+      canPickUp = treasure === 0,
     }: Partial<ItemOptions> = {}
   ) {
     this.article = article;
     this.bonus = bonus;
     this.canClimb = canClimb;
+    this.canPickUp = canPickUp;
     this.charges = charges;
     this.colour = colour;
     this.durability = durability;

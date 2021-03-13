@@ -99,6 +99,20 @@
     "}": { "row": 5, "col": 13 },
     "~": { "row": 5, "col": 14 },
 
+    "qty0": { "row": 6, "col": 1 },
+    "qty1": { "row": 6, "col": 2 },
+    "qty2": { "row": 6, "col": 3 },
+    "qty3": { "row": 6, "col": 4 },
+    "qty4": { "row": 6, "col": 5 },
+    "qty5": { "row": 6, "col": 6 },
+    "qty6": { "row": 6, "col": 7 },
+    "qty7": { "row": 6, "col": 8 },
+    "qty8": { "row": 6, "col": 9 },
+    "qty9": { "row": 6, "col": 10 },
+
+    "ScrollUp": { "row": 6, "col": 0 },
+    "ScrollDown": { "row": 7, "col": 0 },
+
     "bo": { "row": 0, "col": 16, "width": 3, "height": 3 },
 
     "Slingshot": { "row": 2, "col": 23, "width": 2, "height": 2 },

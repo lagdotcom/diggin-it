@@ -29,9 +29,15 @@ export default class TitleScreen implements Context {
   }
 
   render() {
-    this.g.tiles.clear();
+    const { chars, width, tiles } = this.g;
+    tiles.clear();
 
-    this.g.chars.drawText(1, 1, "Diggin' It");
-    this.g.chars.drawText(1, 3, "Hit S to begin.");
+    chars.drawText(1, 1, "Diggin' It");
+    chars.drawText(
+      1,
+      3,
+      "Welcome to Diggin' It! In this game you'll assume the role of Jacques Splintertooth, an intrepid explorer on the hunt for a mysterious thing known only as the Wisher's Fragment for a mysterious wealthy benefactor. To achieve that goal, you'll spelunk deeper and deeper into a constantly shifting cavern system, battling creatures and the terrain alike. Use tools, find armors, and carefully keep an eye on your ever draining air as you help Jacques make his way to the Wisher's Fragment. Good luck!",
+      (width - 1) * 2
+    );
   }
 }

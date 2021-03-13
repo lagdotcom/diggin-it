@@ -21,8 +21,10 @@ import XY from "../interfaces/XY";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
+import Bombs from "../systems/Bombs";
 import Combat from "../systems/Combat";
 import Death from "../systems/Death";
+import Effects from "../systems/Effects";
 import Gravity from "../systems/Gravity";
 import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
@@ -36,8 +38,10 @@ import Targeting from "./Targeting";
 export default class Dungeon implements Context {
   ai: AI;
   air: Air;
+  bombs: Bombs;
   combat: Combat;
   death: Death;
+  effects: Effects;
   gravity: Gravity;
   hotspots: Hotspots;
   info: string;
@@ -56,7 +60,9 @@ export default class Dungeon implements Context {
     this.combat = new Combat(g);
     this.ai = new AI(g, this.combat);
     this.air = new Air(g);
+    this.bombs = new Bombs(g);
     this.death = new Death(g);
+    this.effects = new Effects(g);
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
     this.movement = new Movement(g);
@@ -317,9 +323,7 @@ export default class Dungeon implements Context {
     this.gravity.run();
 
     while (this.g.spent > 0) {
-      this.air.run();
-      this.ai.run();
-      this.gravity.run();
+      this.g.emit("tick", {});
       this.g.spent--;
     }
   }
@@ -456,10 +460,22 @@ export default class Dungeon implements Context {
         // TODO: this sucks
         drawPanel(chars, x, y, 2, 2);
       } else {
-        chars.draw(x, y, item.glyph + "1", "transparent", "black");
-        chars.draw(x + 1, y, item.glyph + "2", "transparent", "black");
-        chars.draw(x, y + 1, item.glyph + "3", "transparent", "black");
-        chars.draw(x + 1, y + 1, item.glyph + "4", "transparent", "black");
+        chars.draw(x, y, item.glyph + "1");
+        chars.draw(x + 1, y, item.glyph + "2");
+        const bl = [item.glyph + "3"];
+        const br = [item.glyph + "4"];
+
+        if (item.charges > 1) {
+          const amount = Math.min(99, item.charges);
+          const tens = Math.floor(amount / 10).toString();
+          const digits = (amount % 10).toString();
+
+          br.push("qty" + digits);
+          if (amount > 9) bl.push("qty" + tens);
+        }
+
+        chars.draw(x, y + 1, bl);
+        chars.draw(x + 1, y + 1, br);
       }
 
       x += 2;

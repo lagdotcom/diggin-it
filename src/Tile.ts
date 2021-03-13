@@ -7,6 +7,7 @@ export interface TileOptions {
   colour: string;
   destroyIncomingPushes: boolean;
   digResistance: number;
+  indestructible: boolean;
   name: string;
   opaque: boolean;
   solid: boolean;
@@ -21,6 +22,7 @@ export default class Tile {
   colour: string;
   destroyIncomingPushes: boolean;
   digResistance: number;
+  indestructible: boolean;
   name: string;
   opaque: boolean;
   solid: boolean;
@@ -37,6 +39,7 @@ export default class Tile {
       colour = "white",
       destroyIncomingPushes = false,
       digResistance = Infinity,
+      indestructible = false,
       name = glyph,
       opaque = solid,
     }: Partial<TileOptions> = {}
@@ -49,6 +52,7 @@ export default class Tile {
     this.colour = colour;
     this.destroyIncomingPushes = destroyIncomingPushes;
     this.digResistance = digResistance;
+    this.indestructible = indestructible;
     this.name = name;
     this.opaque = opaque;
     this.solid = solid;

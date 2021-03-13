@@ -7,7 +7,9 @@ import { name } from "../text";
 import Tile from "../Tile";
 
 export default class Gravity {
-  constructor(public g: Game) {}
+  constructor(public g: Game) {
+    g.on("tick", () => this.run());
+  }
 
   run() {
     while (this.runOnce()) {}

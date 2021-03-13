@@ -4,6 +4,7 @@ import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import XY from "../interfaces/XY";
 import Item from "../Item";
+import { litBomb } from "../temps";
 import {
   ladderTile,
   ladderTileBottom,
@@ -45,6 +46,10 @@ export default class UsableItems {
 
       case "heal":
         result = this.useHeal(item);
+        break;
+
+      case "bomb":
+        result = this.useBomb(item);
         break;
 
       default:
@@ -168,5 +173,19 @@ export default class UsableItems {
     log.add(`You heal for ${amount}.`);
     item.charges--;
     this.g.spent++;
+  }
+
+  useBomb(item: Item): undefined {
+    const { log, player } = this.g;
+    const { useArgs } = item;
+
+    const lit = new Item(player.x, player.y, { ...litBomb, useArgs });
+    this.g.addItem(lit);
+
+    log.add(`You light the bomb.`);
+    this.g.emit("litBomb", { item: lit });
+    item.charges--;
+    this.g.spent++;
+    return undefined;
   }
 }

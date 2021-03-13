@@ -13,10 +13,12 @@ export default class Inventory {
 
     var spent = false;
     for (var i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (!item.canPickUp) continue;
+
       const slot = this.getFreeSlot(player);
       if (typeof slot === "undefined") return "You can't carry any more.";
 
-      const item = items[i];
       this.g.removeItem(item);
       player.inventory[slot] = item;
       this.g.emit("got", { actor: player, item });
@@ -27,6 +29,8 @@ export default class Inventory {
         this.g.spent++;
       }
     }
+
+    if (!spent) return "You can't pick up anything here.";
   }
 
   getFreeSlot(actor: Actor) {

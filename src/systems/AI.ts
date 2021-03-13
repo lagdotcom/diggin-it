@@ -13,6 +13,8 @@ export default class AI {
     this.functions = {
       wander: this.wanderAi.bind(this),
     };
+
+    g.on("tick", () => this.run());
   }
 
   run() {
