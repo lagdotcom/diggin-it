@@ -1,94 +1,126 @@
-import Tile from "./Tile";
+import { TileOptions } from "./Tile";
 
-export const border = new Tile("Bedrock", {
+export const border: Partial<TileOptions> = {
+  glyph: "Bedrock",
   name: "",
   solid: true,
   indestructible: true,
-});
-export const dirtShallow = new Tile("DirtS", {
+};
+export const dirtShallow: Partial<TileOptions> = {
+  glyph: "DirtS",
   colour: "brown",
   name: "dirt",
   solid: true,
-  digResistance: 10,
-});
-export const dirtMiddle = new Tile("DirtM", {
+  durability: 1,
+};
+export const dirtMiddle: Partial<TileOptions> = {
+  glyph: "DirtM",
   colour: "green",
   name: "dirt",
   solid: true,
-  digResistance: 10,
-});
-export const dirtDeep = new Tile("DirtD", {
+  durability: 1,
+};
+export const dirtDeep: Partial<TileOptions> = {
+  glyph: "DirtD",
   colour: "purple",
   name: "dirt",
   solid: true,
-  digResistance: 10,
-});
-export const sandShallow = new Tile("SandS", {
+  durability: 1,
+};
+export const sandShallow: Partial<TileOptions> = {
+  glyph: "SandS",
   colour: "yellow",
   name: "sand",
+  article: "",
   solid: true,
-  digResistance: 1,
+  durability: 1,
   collapses: true,
-});
-export const sandMiddle = new Tile("SandM", {
+};
+export const sandMiddle: Partial<TileOptions> = {
+  glyph: "SandM",
   colour: "blue",
   name: "sand",
+  article: "",
   solid: true,
-  digResistance: 1,
+  durability: 1,
   collapses: true,
-});
-export const sandDeep = new Tile("SandD", {
+};
+export const sandDeep: Partial<TileOptions> = {
+  glyph: "SandD",
   colour: "red",
   name: "sand",
+  article: "",
   solid: true,
-  digResistance: 1,
+  durability: 1,
   collapses: true,
-});
+};
 
-export const brick = new Tile("Brick", { name: "brick", solid: true });
+export const brick: Partial<TileOptions> = {
+  glyph: "Brick",
+  name: "brick",
+  solid: true,
+  durability: 10,
+};
 
-export const unset = new Tile("?", { name: "" });
-export const empty = new Tile(" ", { name: "" });
-export const gas = new Tile("Gas", { name: "noxious gas", airCost: 5 });
+export const unset: Partial<TileOptions> = { glyph: "?", name: "mistake" };
+export const empty: Partial<TileOptions> = {
+  glyph: " ",
+  name: "nothing",
+  article: "",
+};
+export const gas: Partial<TileOptions> = {
+  glyph: "Gas",
+  name: "noxious gas",
+  article: "",
+  airCost: 5,
+};
 
-export const entrance = new Tile("Entrance", { name: "how you got here" });
-export const exit = new Tile("Exit", {
+export const entrance: Partial<TileOptions> = {
+  glyph: "Entrance",
+  name: "entrance",
+  article: "an",
+};
+export const exit: Partial<TileOptions> = {
+  glyph: "Exit",
   name: "exit",
+  article: "an",
   destroyIncomingPushes: true,
-});
-export const ladderTileTop = new Tile("LadderTileT", {
+};
+export const ladderTileTop: Partial<TileOptions> = {
+  glyph: "LadderTileT",
   name: "ladder",
-  article: "a",
   canClimb: true,
-});
-export const ladderTile = new Tile("LadderTile", {
+};
+export const ladderTile: Partial<TileOptions> = {
+  glyph: "LadderTile",
   name: "ladder",
-  article: "a",
   canClimb: true,
-});
-export const ladderTileBottom = new Tile("LadderTileB", {
+};
+export const ladderTileBottom: Partial<TileOptions> = {
+  glyph: "LadderTileB",
   name: "ladder",
-  article: "a",
   canClimb: true,
-});
-export const ropeTileTop = new Tile("RopeTileT", {
+};
+export const ropeTileTop: Partial<TileOptions> = {
+  glyph: "RopeTileT",
   name: "rope",
-  article: "a",
   canClimb: true,
-});
-export const ropeTile = new Tile("RopeTile", {
+};
+export const ropeTile: Partial<TileOptions> = {
+  glyph: "RopeTile",
   name: "rope",
-  article: "a",
   canClimb: true,
-});
-export const ropeTileBottom = new Tile("RopeTileB", {
+};
+export const ropeTileBottom: Partial<TileOptions> = {
+  glyph: "RopeTileB",
   name: "rope",
-  article: "a",
   canClimb: true,
-});
-export const water = new Tile("Water", {
+};
+export const water: Partial<TileOptions> = {
+  glyph: "Water",
   name: "water",
+  article: "",
   colour: "blue",
   canSwimIn: true,
   airCost: 3,
-});
+};

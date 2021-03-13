@@ -5,6 +5,7 @@ import Cmd from "../interfaces/Cmd";
 import XY from "../interfaces/XY";
 import Item from "../Item";
 import { litBomb } from "../temps";
+import Tile from "../Tile";
 import {
   ladderTile,
   ladderTileBottom,
@@ -90,10 +91,10 @@ export default class UsableItems {
         x,
         ly,
         ly === player.y
-          ? ladderTileBottom
+          ? new Tile(ladderTileBottom)
           : ly === y
-          ? ladderTileTop
-          : ladderTile
+          ? new Tile(ladderTileTop)
+          : new Tile(ladderTile)
       );
     }
     log.add("You set up a ladder.");
@@ -131,7 +132,7 @@ export default class UsableItems {
     while (size) {
       const tile = map.get(x, y);
       if (tile.glyph === " ") {
-        map.set(x, y, first ? ropeTileTop : ropeTile);
+        map.set(x, y, first ? new Tile(ropeTileTop) : new Tile(ropeTile));
         first = false;
         y++;
         size--;
@@ -139,7 +140,7 @@ export default class UsableItems {
     }
 
     y--;
-    map.set(x, y, ropeTileBottom);
+    map.set(x, y, new Tile(ropeTileBottom));
 
     log.add("You set up a rope.");
     item.charges--;

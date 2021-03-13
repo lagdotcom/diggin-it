@@ -14,6 +14,7 @@ export interface EventMap {
     amount: number;
     type: DamageType;
   };
+  destroyed: { attacker: Actor; victim: Actor };
   died: { attacker: Actor; victim: Actor };
   digged: { tile: Tile; x: number; y: number };
   effect: { effect: Item; duration: number };

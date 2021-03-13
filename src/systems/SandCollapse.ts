@@ -1,5 +1,6 @@
 import Game from "../Game";
 import LinearGrid from "../LinearGrid";
+import Tile from "../Tile";
 import { empty } from "../tiles";
 
 export default class SandCollapse {
@@ -20,7 +21,7 @@ export default class SandCollapse {
 
       if (tile.collapses) {
         this.g.emit("collapsed", { x, y });
-        map.set(x, y, empty);
+        map.set(x, y, new Tile(empty));
         map.neighbours(x, y).forEach(([nx, ny]) => {
           if (!checks.get(nx, ny)) {
             checks.set(nx, ny, true);

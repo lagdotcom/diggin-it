@@ -1,3 +1,4 @@
+import Digging from "../commands/Digging";
 import Inventory from "../commands/Inventory";
 import Movement from "../commands/Movement";
 import Pushing from "../commands/Pushing";
@@ -31,7 +32,6 @@ import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { it, name, theName } from "../text";
-import { empty } from "../tiles";
 import ExpandedLog from "./ExpandedLog";
 import Targeting from "./Targeting";
 
@@ -41,6 +41,7 @@ export default class Dungeon implements Context {
   bombs: Bombs;
   combat: Combat;
   death: Death;
+  digging: Digging;
   effects: Effects;
   gravity: Gravity;
   hotspots: Hotspots;
@@ -62,6 +63,7 @@ export default class Dungeon implements Context {
     this.air = new Air(g);
     this.bombs = new Bombs(g);
     this.death = new Death(g);
+    this.digging = new Digging(g);
     this.effects = new Effects(g);
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
@@ -207,11 +209,14 @@ export default class Dungeon implements Context {
   }
 
   handleDig({ x, y }: DigCmd): void {
-    const tile = this.g.map.get(x, y);
-    this.g.map.set(x, y, empty);
-    this.g.log.add(`You dig through ${theName(tile)}.`);
-    this.g.emit("digged", { tile, x, y });
-    this.g.spent++;
+    const poss = this.digging.possible(x, y);
+    if (typeof poss === "object") return this.handle(poss);
+
+    if (poss) this.g.log.add(poss);
+    else {
+      this.digging.apply(x, y);
+      this.g.spent++;
+    }
     return this.render();
   }
 

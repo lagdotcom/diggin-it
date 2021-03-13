@@ -21,7 +21,7 @@ import {
   treasureBox,
 } from "./items";
 import { getRandomArmour, getRandomEnemy, getRandomWeapon } from "./tables";
-import Tile from "./Tile";
+import Tile, { TileOptions } from "./Tile";
 import {
   border,
   brick,
@@ -59,22 +59,24 @@ export const testMap = [
   "!!!!!!!!!!!!!!!!",
 ];
 
-const tileTypes: Record<string, Tile | Tile[]> = {
+type Zoned<T> = (zone: number) => Partial<T>;
+
+const dirtTiles = [dirtShallow, dirtMiddle, dirtDeep];
+const sandTiles = [sandShallow, sandMiddle, sandDeep];
+const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
   "?": unset,
   " ": empty,
   "%": gas,
   "!": border,
   "<": entrance,
   ">": exit,
-  "#": [dirtShallow, dirtMiddle, dirtDeep],
-  ":": [sandShallow, sandMiddle, sandDeep],
+  "#": (zone) => dirtTiles[zone],
+  ":": (zone) => sandTiles[zone],
   "^": ladderTile,
   "|": ropeTile,
   "~": water,
   "]": brick,
 };
-
-type Zoned<T> = (zone: number) => Partial<T>;
 
 const actorTypes: Record<
   string,
@@ -160,10 +162,9 @@ export function loadMap(g: Game, map: string[]): void {
       const glyph = map[y][x];
       const actor = actorTypes[glyph];
       const item = itemTypes[glyph];
-      const tiles = tileTypes[glyph];
-      const tile = Array.isArray(tiles) ? tiles[zone] : tiles;
+      const tile = tileTypes[glyph] || empty;
 
-      g.map.set(x, y, tile || empty);
+      g.map.set(x, y, new Tile(typeof tile === "function" ? tile(zone) : tile));
       if (item) {
         g.addItem(
           new Item(x, y, typeof item === "function" ? item(zone) : item)

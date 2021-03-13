@@ -9,8 +9,7 @@ export interface ActorOptions {
   article: string;
   canClimb: boolean;
   colour: string;
-  digResistance: number;
-  digStrength: number;
+  durability: number;
   equipment: Partial<Record<Slot, Item>>;
   glyph: string;
   heavy: boolean;
@@ -39,8 +38,7 @@ export default class Actor {
   article: string;
   canClimb: boolean;
   colour: string;
-  digResistance: number;
-  digStrength: number;
+  durability: number;
   equipment: Partial<Record<Slot, Item>>;
   glyph: string;
   heavy: boolean;
@@ -71,8 +69,7 @@ export default class Actor {
       article = "a",
       canClimb = false,
       colour = "silver",
-      digResistance = Infinity,
-      digStrength = 0,
+      durability = Infinity,
       equipment = {},
       glyph = "?",
       heavy = false,
@@ -100,8 +97,7 @@ export default class Actor {
     this.article = article;
     this.canClimb = canClimb;
     this.colour = colour;
-    this.digResistance = digResistance;
-    this.digStrength = digStrength;
+    this.durability = durability;
     this.equipment = equipment;
     this.glyph = glyph;
     this.heavy = heavy;

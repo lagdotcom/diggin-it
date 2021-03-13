@@ -213,6 +213,7 @@ export const airTank: Partial<ItemOptions> = {
   glyph: "Tank",
   name: "air tank",
   use: "air",
+  charges: 1,
   useArgs: [100, 100],
 };
 export const specs: Partial<ItemOptions> = {
@@ -231,6 +232,7 @@ export const jetpack: Partial<ItemOptions> = {
 export const rock: Partial<ItemOptions> = {
   glyph: "Rock",
   name: "rock",
+  charges: 1,
 };
 export const bolas: Partial<ItemOptions> = {
   glyph: "Bolas",

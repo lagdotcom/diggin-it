@@ -12,10 +12,9 @@ export default class Movement {
     const { actor, items, tile } = this.g.contents(x, y);
 
     if (actor) {
-      if (actor.pushable) return { type: "push", x, y, mx, my };
+      if (actor.pushable && my === 0) return { type: "push", x, y, mx, my };
 
-      if (actor.digResistance <= player.digStrength)
-        return { type: "dig", x, y };
+      if (actor.durability < Infinity) return { type: "dig", x, y };
 
       if (actor.alive) return { type: "attack", x, y };
 
@@ -26,7 +25,7 @@ export default class Movement {
     if (tile.solid) {
       const canClimb =
         my === 0 && Movement.canClimb(this.g, player.x, player.y, mx);
-      const canDig = tile.digResistance <= player.digStrength;
+      const canDig = tile.durability < Infinity;
 
       if (shift) {
         if (canDig) return { type: "dig", x, y };
@@ -36,7 +35,7 @@ export default class Movement {
         if (canDig) return { type: "dig", x, y };
       }
 
-      return "It's blocked.";
+      return "It's too tough to dig.";
     }
 
     if (my === -1 && !tile.canClimb && !tile.canSwimIn)

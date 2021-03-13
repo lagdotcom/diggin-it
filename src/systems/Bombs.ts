@@ -1,6 +1,7 @@
 import Game from "../Game";
 import Item from "../Item";
 import { explosion } from "../temps";
+import Tile from "../Tile";
 import { empty } from "../tiles";
 
 export default class Bombs {
@@ -43,7 +44,7 @@ export default class Bombs {
 
             if (tile.solid && !tile.indestructible) {
               // TODO: create rock?
-              map.set(x, y, empty);
+              map.set(x, y, new Tile(empty));
               this.g.emit("digged", { tile, x, y });
             }
 

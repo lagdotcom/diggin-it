@@ -163,7 +163,7 @@ export default class Game extends EventHandler {
   }
 
   initMap(width: number, height: number) {
-    this.map = new LinearGrid(width, height, () => unset);
+    this.map = new LinearGrid(width, height, () => new Tile(unset));
     this.memory = new LinearGrid(width, height, () => false);
     this.actors = new LinearGrid(width, height, () => undefined);
     this.allActors = [];
