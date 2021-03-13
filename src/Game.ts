@@ -12,8 +12,9 @@ import Stack from "./interfaces/Stack";
 import Thing from "./interfaces/Thing";
 import Item from "./Item";
 import LinearGrid from "./LinearGrid";
-import { loadMap, testMap } from "./maps";
+import { getZone, loadMap, testMap } from "./maps";
 import MessageLog from "./MessageLog";
+import loadAllMusic, { MusicLibrary, MusicName } from "./music";
 import { getNewPlayer } from "./prefabs";
 import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./sheets";
 import Tile from "./Tile";
@@ -33,6 +34,8 @@ export default class Game extends EventHandler {
   log: MessageLog;
   map: Grid<Tile>;
   memory: Grid<boolean>;
+  music: MusicLibrary;
+  musicPlaying?: MusicName;
   player: Actor;
   spent: number;
   tiles: Display;
@@ -70,6 +73,7 @@ export default class Game extends EventHandler {
 
   async init() {
     const [tilesConfig, charsConfig] = await this.getDisplayConfigs();
+    this.music = await loadAllMusic();
 
     this.tiles = new Display(tilesConfig);
     this.canvas = this.tiles.getContainer() as HTMLCanvasElement;
@@ -112,6 +116,17 @@ export default class Game extends EventHandler {
     ]);
   }
 
+  play(track: MusicName) {
+    if (this.musicPlaying) {
+      if (this.musicPlaying === track) return;
+
+      this.music[this.musicPlaying].pause();
+      this.music[this.musicPlaying].currentTime = 0;
+    }
+
+    this.music[track].play().then(() => (this.musicPlaying = track));
+  }
+
   start() {
     this.depth = 1;
     this.player = getNewPlayer();
@@ -127,6 +142,8 @@ export default class Game extends EventHandler {
     this.contexts.push(new Dungeon(this));
     this.spent = 0;
 
+    const depth = this.depth;
+    this.emit("entered", { depth, zone: getZone(depth) });
     this.contexts.top.render();
   }
 

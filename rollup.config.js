@@ -1,4 +1,5 @@
 import commonjs from "@rollup/plugin-commonjs";
+import file from "rollup-plugin-import-file";
 import json from "@rollup/plugin-json";
 import nodePolyfills from "rollup-plugin-node-polyfills";
 import pkg from "./package.json";
@@ -9,11 +10,15 @@ import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 import url from "@rollup/plugin-url";
 
+const production = !process.env.ROLLUP_WATCH;
+const outputDir = production ? "dist" : "demo";
+
 const output = [];
 const plugins = [
   nodePolyfills(),
   json({ preferConst: true }),
-  url({ limit: Infinity }),
+  file({ output: outputDir, extensions: /\.mp3/ }),
+  url({ limit: 30 * 1024 }),
   sourcemaps(),
   resolve(),
   commonjs(),

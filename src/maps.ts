@@ -140,7 +140,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   },
 };
 
-function getZone(depth: number) {
+export function getZone(depth: number) {
   if (depth < 4) return 0;
   if (depth < 7) return 1;
   return 2;

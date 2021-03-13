@@ -25,6 +25,7 @@ import Air from "../systems/Air";
 import Combat from "../systems/Combat";
 import Death from "../systems/Death";
 import Gravity from "../systems/Gravity";
+import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
@@ -44,6 +45,7 @@ export default class Dungeon implements Context {
   inventory: Inventory;
   mouse: XY;
   movement: Movement;
+  music: Music;
   pushing: Pushing;
   rerender: Soon;
   sand: SandCollapse;
@@ -59,6 +61,7 @@ export default class Dungeon implements Context {
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
     this.movement = new Movement(g);
+    this.music = new Music(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
     this.treasure = new TreasureGrabbing(g);

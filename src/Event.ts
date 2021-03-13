@@ -16,6 +16,7 @@ export interface EventMap {
   };
   died: { attacker: Actor; victim: Actor };
   digged: { tile: Tile; x: number; y: number };
+  entered: { depth: number; zone: number };
   fell: { thing: Thing; distance: number };
   got: { actor: Actor; item: Item };
   moved: { thing: Thing; mx: number; my: number; forced?: Thing };
