@@ -92,26 +92,31 @@ export default class Dungeon implements Context {
   onKey(e: KeyboardEvent): Cmd {
     if (!this.canMove) return;
 
+    const { x, y } = this.g.player;
     const shift = e.shiftKey;
     switch (e.key) {
       // debugging stuff
-      case "G":
-        e.preventDefault();
-        this.g.nextMap();
-        return;
+      // case "G":
+      //   e.preventDefault();
+      //   this.g.nextMap();
+      //   return;
 
       case "ArrowLeft":
         e.preventDefault();
-        return { type: "move", x: -1, y: 0, shift };
+        if (shift) return { type: "dig", x: x - 1, y: y };
+        return { type: "move", x: -1, y: 0 };
       case "ArrowUp":
         e.preventDefault();
-        return { type: "move", x: 0, y: -1, shift };
+        if (shift) return { type: "dig", x: x, y: y - 1 };
+        return { type: "move", x: 0, y: -1 };
       case "ArrowRight":
         e.preventDefault();
-        return { type: "move", x: 1, y: 0, shift };
+        if (shift) return { type: "dig", x: x + 1, y: y };
+        return { type: "move", x: 1, y: 0 };
       case "ArrowDown":
         e.preventDefault();
-        return { type: "move", x: 0, y: 1, shift };
+        if (shift) return { type: "dig", x: x, y: y + 1 };
+        return { type: "move", x: 0, y: 1 };
       case "g":
       case ",":
         e.preventDefault();
@@ -287,8 +292,8 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
-  handleMove({ x, y, shift }: MoveCmd): void {
-    const poss = this.movement.possible(x, y, shift);
+  handleMove({ x, y }: MoveCmd): void {
+    const poss = this.movement.possible(x, y);
     if (typeof poss === "object") return this.handle(poss);
 
     if (poss) this.g.log.add(poss);

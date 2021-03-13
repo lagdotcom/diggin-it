@@ -16,6 +16,10 @@ export interface ClimbCmd {
   y: number;
 }
 
+export interface CreditsCmd {
+  type: "credits";
+}
+
 export interface DropCmd {
   type: "drop";
   index: number;
@@ -48,7 +52,6 @@ export interface MoveCmd {
   type: "move";
   x: number;
   y: number;
-  shift: boolean;
 }
 
 export interface PushCmd {
@@ -83,6 +86,7 @@ type Cmd =
   | AttackCmd
   | CancelCmd
   | ClimbCmd
+  | CreditsCmd
   | DigCmd
   | DropCmd
   | EquipCmd
