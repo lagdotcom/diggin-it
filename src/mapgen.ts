@@ -7,6 +7,7 @@ import Grid from "./interfaces/Grid";
 import LinearGrid from "./LinearGrid";
 import basics from "./vaults/basics";
 import bossrooms from "./vaults/boss";
+import exits from "./vaults/exits";
 import fragments from "./vaults/fragments";
 import jrooms from "./vaults/j";
 import lagrooms from "./vaults/lag";
@@ -110,6 +111,18 @@ export function generateMap(g: Game, seed?: number) {
     }
   }
 
+  while (!taken.spots.length) {
+    const exit = RNG.getItem(exits);
+    if (exit.width > width - 2) continue;
+
+    const x = RNG.getUniformInt(1, width - exit.width - 1);
+    const y = height - exit.height - 1;
+    console.log(`placing ${exit.name} at ${x},${y}`);
+    taken.register(-1, x, y, exit.width, exit.height);
+    map.paste(exit.resolve(), x, y);
+  }
+
+  var placed = 0;
   for (var i = 0; i < vaultattempts; i++) {
     const vault = RNG.getItem(vaults);
     const x = RNG.getUniformInt(1, width - vault.width - 1);
@@ -122,7 +135,8 @@ export function generateMap(g: Game, seed?: number) {
       taken.register(i, x, y, vault.width, vault.height);
       map.paste(vault.resolve(), x, y);
 
-      if (taken.spots.length >= maxvaults) break;
+      placed++;
+      if (placed >= maxvaults) break;
     }
   }
 

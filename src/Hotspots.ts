@@ -57,23 +57,14 @@ export default class Hotspots<T = string> {
     }
   }
 
-  overlap(
-    x: number,
-    y: number,
-    w: number,
-    h: number
-  ): [name: T, ox: number, oy: number] {
+  overlap(x: number, y: number, w: number, h: number) {
     const temp = rect("temp", x, y, w, h);
 
     for (var i = 0; i < this.spots.length; i++) {
       const spot = this.spots[i];
-
-      if (overlaps(spot, temp))
-        return [
-          spot.name,
-          Math.floor((x - spot.left) / 2),
-          Math.floor((y - spot.top) / 2),
-        ];
+      if (overlaps(spot, temp)) return true;
     }
+
+    return false;
   }
 }
