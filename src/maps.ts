@@ -13,6 +13,7 @@ import {
   goldBar,
   helmet,
   ladder,
+  mask,
   rations,
   rope,
   smallGem,
@@ -113,6 +114,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   F: rations,
   X: specs,
   H: helmet,
+  G: mask,
 
   "5": (zone) => {
     const a = getRandomWeapon(zone);

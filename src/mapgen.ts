@@ -70,8 +70,13 @@ export function generateMap(
   width: number,
   height: number,
   maxvaults: number,
-  vaultattempts: number
+  vaultattempts: number,
+  seed?: number
 ) {
+  if (typeof seed === "number") RNG.setSeed(seed);
+  else seed = RNG.getSeed();
+  console.log("map seed:", seed);
+
   const noise = new Simplex();
   const taken = new Hotspots<number>();
   const map = new LinearGrid(width, height, () => "!");

@@ -77,4 +77,210 @@ const chase = new Vault("frightening chase", [
   "!!!!!!!!!!!",
 ]);
 
-export default [den1, den2, tower, ozymandias, leak, panic, chase];
+const stash = new Vault("Cohagen's Stash", [
+  "]]]]]]",
+  "]    ]",
+  "  AA1 ",
+  "]]]]]]",
+]);
+
+const leprechaun = new Vault("Leprechaun", [
+  "!!!!^!!!!",
+  "!   ^   !",
+  "    ^    ",
+  "!!!!^!!!!",
+  "!$gb^ 26!",
+  "!!!!!!!!!",
+]);
+
+const cool = new Vault("Cool Drink", [
+  "##~~~##",
+  "#~~~~~#",
+  "#~~~~~#",
+  "#~~9~~#",
+  "#######",
+]);
+
+const cooler = new Vault("Cooler Drink", [
+  "###~~~###",
+  "!~~~~~~~!",
+  "!!!!!!!~!",
+  "!~~~~~~~!",
+  "!~!!!!!!!",
+  "!~~~~~~~!",
+  "!!!96A!!!",
+  "!!!###!!!",
+]);
+
+const gas = new Vault("Have A Gas", ["]]#]", "]G%%", "]]#]"]);
+
+const blast = new Vault("Have A Blast", ["###", " B ", "###"]);
+
+const bridge = new Vault("Bridge", [
+  "!!!!!!!!!",
+  "!OOOOOOO!",
+  ":::::::::",
+  "c       c",
+  "!~~~~~~~!",
+  "!~~~~~~~!",
+  "!~~~~~~~!",
+  "!~~~~~~~!",
+  "!!!!!!!!!",
+]);
+
+// TODO: won't work rn
+const secret = new Vault("Beelzebub's Secret", [
+  "::::]]]]]]]",
+  ":%%%%%%%%%]",
+  "]]]]]]]]]%]",
+  "]%%%%%%%]%]",
+  "]%]DG693]%]",
+  "]%]]]]]]]%]",
+  "]%%%%%%%%%]",
+  "]]]]]]]]]]]",
+]);
+
+const safe = new Vault("Safe T", [
+  "#######",
+  "   |   ",
+  "###|###",
+  "!!#|#!!",
+  "!!#|#!!",
+  "!!#|#!!",
+  "!!#|#!!",
+  "!!#|#!!",
+]);
+
+const remnant = new Vault("Remnant", [
+  "]]]]]]]]]",
+  "    |    ",
+  "]#]]|]]#]",
+  "] ]]|]] ]",
+  "#| c|  |#",
+  "]|]]]]]|]",
+  "]| 91 c|]",
+  "]]]###]]]",
+]);
+
+const fool = new Vault("Fool's Gold", [
+  "!!!!!!!!",
+  "# 1cc1 #",
+  "!!!::!!!",
+  "# 1cc1 #",
+  "!!!!!!!!",
+]);
+
+const eye = new Vault("Swimmer's Eye", [
+  "   !###!    ",
+  "  !    !##  ",
+  " !    !   # ",
+  "!~~~~#  A  #",
+  "!~~~~#~~!~~#",
+  " !~~~~!~~~# ",
+  "  !~~~~!##  ",
+  "   !##!!    ",
+]);
+
+const wiggle = new Vault("Wiggle Room", [
+  "]###]   ",
+  " ]F  ]1 ",
+  "  ] | ] ",
+  "   ]|  #",
+  "   ]| 1#",
+  " 1] | ] ",
+  " ]  |]  ",
+  "]1 B]   ",
+  "]]]]]   ",
+]);
+
+const corridor = new Vault("Corridor", [
+  "]]]]]]]]]]",
+  "  1  O    ",
+  " WMW OO2  ",
+  "]]]]]]]]]]",
+]);
+
+const iam = new Vault("I Am", [
+  "!!###!!",
+  "!  ^   ",
+  "!!!^!!!",
+  "  !^!  ",
+  "  !^!  ",
+  "!!!^!!!",
+  "#6 ^2 !",
+  "!!###!!",
+]);
+
+const iwas = new Vault("I Was", [
+  "!!###!!",
+  "  2^ 6!",
+  "!!!^!!!",
+  "  !^!  ",
+  "  !^!  ",
+  "!!!^!!!",
+  "!  ^  #",
+  "!!!!!!!",
+]);
+
+const breakfast = new Vault("Breakfast", ["::::", ": F:", "::::"]);
+
+const breakfast2 = new Vault("Second Breakfast", ["####", "#FF#", "####"]);
+
+const pit = new Vault("Hunter's Pit", [
+  "#:::::::#",
+  "##     ##",
+  "### 63###",
+  "#########",
+]);
+
+const drowning = new Vault("Gray Days Drowning", [
+  "!!~~~~~~~~~~!!",
+  "#~~~!!!!~~~~~#",
+  "!~~~~~~~~~~~~!",
+  "!~~!!~~~!!~~~!",
+  "!~~~~~~~~~~~~!",
+  "!~~~!!!!!!~~~!",
+  "!~~~~#dA#~~~~!",
+  "!!!!!!!!!!!!!!",
+]);
+
+const e1m1 = new Vault("Eee One Emm One", [
+  "]]]]]]]]]^]",
+  "]]]      ^]",
+  "]9   # # ^]",
+  "]]2   ^  ^]",
+  "]]]  #^# ^]",
+  "]]]]] ^ ]]]",
+  "]]]]] ^ ]]]",
+  "]]]]]]^]]]]",
+]);
+
+export default [
+  den1,
+  den2,
+  tower,
+  ozymandias,
+  leak,
+  panic,
+  chase,
+  stash,
+  leprechaun,
+  cool,
+  cooler,
+  gas,
+  blast,
+  bridge,
+  safe,
+  remnant,
+  fool,
+  eye,
+  wiggle,
+  corridor,
+  iam,
+  iwas,
+  breakfast,
+  breakfast2,
+  pit,
+  drowning,
+  e1m1,
+];
