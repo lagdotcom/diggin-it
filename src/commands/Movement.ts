@@ -4,7 +4,7 @@ import Cmd from "../interfaces/Cmd";
 export default class Movement {
   constructor(public g: Game) {}
 
-  possible(mx: number, my: number): undefined | string | Cmd {
+  possible(mx: number, my: number, shift = false): undefined | string | Cmd {
     const { player } = this.g;
     const x = player.x + mx;
     const y = player.y + my;
@@ -24,11 +24,17 @@ export default class Movement {
     }
 
     if (tile.solid) {
-      if (my === 0 && Movement.canClimb(this.g, player.x, player.y, mx))
-        return { type: "climb", x, y: y - 1 };
+      const canClimb =
+        my === 0 && Movement.canClimb(this.g, player.x, player.y, mx);
+      const canDig = tile.digResistance <= player.digStrength;
 
-      if (tile.digResistance <= player.digStrength)
-        return { type: "dig", x, y };
+      if (shift) {
+        if (canDig) return { type: "dig", x, y };
+        if (canClimb) return { type: "climb", x, y: y - 1 };
+      } else {
+        if (canClimb) return { type: "climb", x, y: y - 1 };
+        if (canDig) return { type: "dig", x, y };
+      }
 
       return "It's blocked.";
     }

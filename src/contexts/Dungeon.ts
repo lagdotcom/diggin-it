@@ -84,6 +84,7 @@ export default class Dungeon implements Context {
   onKey(e: KeyboardEvent): Cmd {
     if (!this.canMove) return;
 
+    const shift = e.shiftKey;
     switch (e.key) {
       // debugging stuff
       case "G":
@@ -93,16 +94,16 @@ export default class Dungeon implements Context {
 
       case "ArrowLeft":
         e.preventDefault();
-        return { type: "move", x: -1, y: 0 };
+        return { type: "move", x: -1, y: 0, shift };
       case "ArrowUp":
         e.preventDefault();
-        return { type: "move", x: 0, y: -1 };
+        return { type: "move", x: 0, y: -1, shift };
       case "ArrowRight":
         e.preventDefault();
-        return { type: "move", x: 1, y: 0 };
+        return { type: "move", x: 1, y: 0, shift };
       case "ArrowDown":
         e.preventDefault();
-        return { type: "move", x: 0, y: 1 };
+        return { type: "move", x: 0, y: 1, shift };
       case "g":
       case ",":
         e.preventDefault();
@@ -114,8 +115,7 @@ export default class Dungeon implements Context {
 
       case "p":
       case "P":
-        if (e.shiftKey) return { type: "expandlog" };
-        break;
+        return { type: "expandlog" };
 
       case ">":
       case "Enter":
@@ -276,8 +276,8 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
-  handleMove({ x, y }: MoveCmd): void {
-    const poss = this.movement.possible(x, y);
+  handleMove({ x, y, shift }: MoveCmd): void {
+    const poss = this.movement.possible(x, y, shift);
     if (typeof poss === "object") return this.handle(poss);
 
     if (poss) this.g.log.add(poss);

@@ -48,6 +48,7 @@ export interface MoveCmd {
   type: "move";
   x: number;
   y: number;
+  shift: boolean;
 }
 
 export interface PushCmd {
