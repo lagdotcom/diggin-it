@@ -18,7 +18,6 @@ import Cmd, {
 } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
-import { generateMap } from "../mapgen";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
@@ -89,7 +88,7 @@ export default class Dungeon implements Context {
       // debugging stuff
       case "G":
         e.preventDefault();
-        this.nextMap();
+        this.g.nextMap();
         return;
 
       case "ArrowLeft":
@@ -260,7 +259,7 @@ export default class Dungeon implements Context {
       // TODO: rewards
       log.add("You leave the area.");
       this.g.depth++;
-      this.nextMap();
+      this.g.nextMap();
     }
   }
 
@@ -435,10 +434,9 @@ export default class Dungeon implements Context {
 
     drawPanel(chars, 28, 0, 12, 10);
     chars.drawText(31, 1, "HP:" + this.pad(player.hp, 3));
-    chars.drawText(31, 2, "FP:" + this.pad(player.fp, 3));
-    chars.drawText(31, 3, "AP:" + this.pad(player.ap, 3));
-    chars.drawText(31, 4, "SP:" + this.pad(player.get("sp"), 3));
-    chars.drawText(31, 5, "DP:" + this.pad(player.get("dp"), 3));
+    chars.drawText(31, 2, "AP:" + this.pad(player.ap, 3));
+    chars.drawText(31, 3, "SP:" + this.pad(player.get("sp"), 3));
+    chars.drawText(31, 4, "DP:" + this.pad(player.get("dp"), 3));
 
     chars.drawText(29, 7, "Experience");
     chars.drawText(31, 8, this.pad(player.experience, 6, "0"));
@@ -483,11 +481,5 @@ export default class Dungeon implements Context {
     var string = number.toString();
     while (string.length < length) string = ch + string;
     return string;
-  }
-
-  nextMap(seed?: number) {
-    const map = generateMap(this.g, seed);
-    console.log(map.join("\n"));
-    this.g.useMap(map);
   }
 }

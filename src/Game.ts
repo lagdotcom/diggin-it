@@ -13,7 +13,8 @@ import Stack from "./interfaces/Stack";
 import Thing from "./interfaces/Thing";
 import Item from "./Item";
 import LinearGrid from "./LinearGrid";
-import { getZone, loadMap, testMap } from "./maps";
+import { generateMap } from "./mapgen";
+import { getZone, loadMap } from "./maps";
 import MessageLog from "./MessageLog";
 import loadAllMusic, { MusicLibrary, MusicName } from "./music";
 import { getNewPlayer } from "./prefabs";
@@ -138,7 +139,13 @@ export default class Game extends EventHandler {
   start() {
     this.depth = 1;
     this.player = getNewPlayer();
-    this.useMap(testMap);
+    this.nextMap();
+  }
+
+  nextMap(seed?: number) {
+    const map = generateMap(this, seed);
+    console.log(map.join("\n"));
+    this.useMap(map);
   }
 
   useMap(map: string[]) {
