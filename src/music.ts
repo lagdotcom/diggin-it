@@ -8,7 +8,10 @@ function fetchMusic(url: string, loop = false): Promise<HTMLAudioElement> {
   return new Promise((resolve, reject) => {
     const aud = document.createElement("audio");
     aud.addEventListener("canplaythrough", () => resolve(aud));
-    aud.addEventListener("error", () => reject(aud));
+    aud.addEventListener("error", () => {
+      console.log("couldn't load:", url);
+      // reject(aud);
+    });
     aud.loop = loop;
     aud.src = url;
   });
