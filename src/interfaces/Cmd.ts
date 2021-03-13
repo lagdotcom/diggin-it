@@ -58,6 +58,10 @@ export interface PushCmd {
   my: number;
 }
 
+export interface StartGameCmd {
+  type: "start";
+}
+
 export interface TargetCmd {
   type: "target";
   possibilities: XY[];
@@ -86,6 +90,7 @@ type Cmd =
   | GetCmd
   | MoveCmd
   | PushCmd
+  | StartGameCmd
   | TargetCmd
   | UseCmd
   | WaitCmd;

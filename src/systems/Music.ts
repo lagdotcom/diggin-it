@@ -5,6 +5,6 @@ const zoneTracks: MusicName[] = ["shallow", "medium", "deep"];
 
 export default class Music {
   constructor(public g: Game) {
-    g.on("entered", ({ zone }) => g.play(zoneTracks[zone]));
+    g.on("entered", ({ zone }) => g.playMusic(zoneTracks[zone]));
   }
 }

@@ -5,6 +5,7 @@ import { KeyInputHandler, MouseInputHandler } from "@lagdotcom/simple-inputs";
 import Actor from "./Actor";
 import ArrayStack from "./ArrayStack";
 import Dungeon from "./contexts/Dungeon";
+import TitleScreen from "./contexts/TitleScreen";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
 import Grid from "./interfaces/Grid";
@@ -100,6 +101,8 @@ export default class Game extends EventHandler {
       (cmd) => this.contexts.top.handle(cmd),
       { events: ["click", "contextmenu", "mousemove"] }
     );
+
+    this.contexts.push(new TitleScreen(this));
   }
 
   async getDisplayConfigs() {
@@ -116,15 +119,20 @@ export default class Game extends EventHandler {
     ]);
   }
 
-  play(track: MusicName) {
+  playMusic(track: MusicName) {
     if (this.musicPlaying) {
       if (this.musicPlaying === track) return;
-
-      this.music[this.musicPlaying].pause();
-      this.music[this.musicPlaying].currentTime = 0;
+      this.stopMusic();
     }
 
     this.music[track].play().then(() => (this.musicPlaying = track));
+  }
+  stopMusic() {
+    if (this.musicPlaying) {
+      this.music[this.musicPlaying].pause();
+      this.music[this.musicPlaying].currentTime = 0;
+      this.musicPlaying = undefined;
+    }
   }
 
   start() {
