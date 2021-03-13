@@ -18,7 +18,10 @@ function fetchImage(url: string): Promise<HTMLImageElement> {
 
 type Sheet = {
   size: number;
-  tiles: Record<string, { row: number; col: number; size?: number }>;
+  tiles: Record<
+    string,
+    { row: number; col: number; width?: number; height?: number }
+  >;
 };
 function parseSheet(sheet: Sheet): TileMap {
   const map: TileMap = {};
@@ -27,31 +30,17 @@ function parseSheet(sheet: Sheet): TileMap {
     (map[ch] = [col * sheet.size, row * sheet.size]);
 
   for (var ch in sheet.tiles) {
-    const { row, col, size } = sheet.tiles[ch];
+    const { row, col, width, height } = sheet.tiles[ch];
 
-    switch (size) {
-      case 4:
-        add(row, col, ch + "1");
-        add(row, col + 1, ch + "2");
-        add(row + 1, col, ch + "3");
-        add(row + 1, col + 1, ch + "4");
-        break;
-
-      case 9:
-        add(row, col, ch + "7");
-        add(row, col + 1, ch + "8");
-        add(row, col + 2, ch + "9");
-        add(row + 1, col, ch + "4");
-        add(row + 1, col + 1, ch + "5");
-        add(row + 1, col + 2, ch + "6");
-        add(row + 2, col, ch + "1");
-        add(row + 2, col + 1, ch + "2");
-        add(row + 2, col + 2, ch + "3");
-        break;
-
-      default:
-        add(row, col, ch);
-    }
+    if (width || height) {
+      var i = 0;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          i++;
+          add(row + y, col + x, ch + i.toString());
+        }
+      }
+    } else add(row, col, ch);
   }
 
   return map;

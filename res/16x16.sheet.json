@@ -64,7 +64,7 @@
     "Detector": { "row": 4, "col": 10 },
     "GasMask": { "row": 4, "col": 11 },
 
-    "Ink": { "row": 0, "col": 12, "size": 4 },
+    "Ink": { "row": 0, "col": 12, "width": 2, "height": 2 },
     "InkFloater": { "row": 1, "col": 14 },
     "InkDrifter": { "row": 1, "col": 15 },
 

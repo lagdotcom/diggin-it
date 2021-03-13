@@ -7,9 +7,9 @@ type BorderTileset = [
 ];
 
 const panelTiles: BorderTileset = [
-  ["bo7", "bo8", "bo9"],
-  ["bo4", "bo5", "bo6"],
   ["bo1", "bo2", "bo3"],
+  ["bo4", "bo5", "bo6"],
+  ["bo7", "bo8", "bo9"],
 ];
 
 export function drawPanel(
