@@ -17,6 +17,7 @@ export interface ActorOptions {
   heavy: boolean;
   inventory: Item[];
   inventorySize: number;
+  lore: string;
   name: string;
   obeysGravity: boolean;
   pushable: boolean;
@@ -47,6 +48,7 @@ export default class Actor {
   inkparts: Actor[];
   inventory: Item[];
   inventorySize: number;
+  lore?: string;
   name: string;
   namep: string;
   obeysGravity: boolean;
@@ -76,6 +78,7 @@ export default class Actor {
       equipment = {},
       glyph = "?",
       heavy = false,
+      lore = undefined,
       name = glyph,
       obeysGravity = true,
       pushable = false,
@@ -104,6 +107,7 @@ export default class Actor {
     this.equipment = equipment;
     this.glyph = glyph;
     this.heavy = heavy;
+    this.lore = lore;
     this.name = name;
     this.namep = name;
     this.obeysGravity = obeysGravity;
