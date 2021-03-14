@@ -1,6 +1,6 @@
-import mediumUrl from "../res/flowstone-flood.mp3";
+import shallowUrl from "../res/flowstone-flood.mp3";
 import deepUrl from "../res/grumbles.mp3";
-import shallowUrl from "../res/lost-in-lessonus.mp3";
+import mediumUrl from "../res/lost-in-lessonus.mp3";
 import mysteryUrl from "../res/mystery-sting.mp3";
 import inkUrl from "../res/sealed-in-ink.mp3";
 import shinyUrl from "../res/shiny-sting.mp3";
@@ -41,7 +41,7 @@ export default async function loadAllMusic(): Promise<MusicLibrary> {
     fetchMusic(deepUrl, true),
     fetchMusic(mysteryUrl),
     fetchMusic(shinyUrl),
-    fetchMusic(inkUrl),
+    fetchMusic(inkUrl, true),
   ]);
 
   return { shallow, medium, deep, mystery, shiny, ink };
