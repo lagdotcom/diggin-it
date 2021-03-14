@@ -8,6 +8,7 @@ import Item, { ItemOptions } from "../Item";
 import {
   airTank,
   bomb,
+  busterArmour,
   claws,
   hammer,
   ladder,
@@ -54,6 +55,7 @@ const items: Record<string, Partial<ItemOptions>> = {
   [spelunkersKit.glyph]: spelunkersKit,
   [militaryMail.glyph]: militaryMail,
   [squadLeaderGear.glyph]: squadLeaderGear,
+  [busterArmour.glyph]: busterArmour,
 };
 
 export default class ShopScreen implements Context {
@@ -72,10 +74,10 @@ export default class ShopScreen implements Context {
     this.weapon = [];
     this.armour = [];
 
-    this.addOffer("stat", "HP", 50, "HP");
-    this.addOffer("stat", "SP", 50, "SP");
-    this.addOffer("stat", "DP", 50, "DP");
-    this.recalculateStatOffers();
+    const cost = this.getStatCost();
+    this.addOffer("stat", "HP", cost, "HP");
+    this.addOffer("stat", "SP", cost, "SP");
+    this.addOffer("stat", "DP", cost, "DP");
 
     this.addOffer("use", bomb.glyph, 300);
     this.addOffer("use", ladder.glyph, 250);
@@ -89,10 +91,11 @@ export default class ShopScreen implements Context {
     this.addOffer("weapon", claws.glyph, 3000);
     this.addOffer("weapon", machete.glyph, 3500);
 
-    this.addOffer("armour", reinforced.glyph, 500);
-    this.addOffer("armour", spelunkersKit.glyph, 650);
-    this.addOffer("armour", militaryMail.glyph, 850);
-    this.addOffer("armour", squadLeaderGear.glyph, 1000);
+    this.addOffer("armour", reinforced.glyph, 400);
+    this.addOffer("armour", spelunkersKit.glyph, 900);
+    this.addOffer("armour", militaryMail.glyph, 1600);
+    this.addOffer("armour", squadLeaderGear.glyph, 2500);
+    this.addOffer("armour", busterArmour.glyph, 3600);
 
     this.renderPanels();
     this.render();
@@ -155,10 +158,13 @@ export default class ShopScreen implements Context {
     }
   }
 
-  recalculateStatOffers() {
-    const { player } = this.g;
+  getStatCost() {
+    return Math.floor(50 * Math.pow(1.1, this.g.player.player.stats));
+  }
 
-    this.stat.forEach((o) => (o.cost = 50 + player.player.stats * 10));
+  recalculateStatOffers() {
+    const cost = this.getStatCost();
+    this.stat.forEach((o) => (o.cost = cost));
   }
 
   onKey(e: KeyboardEvent): Cmd {

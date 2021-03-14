@@ -40,4 +40,14 @@ const quiet = new Vault("quiet passage", [
   "# ########",
 ]);
 
-export default [shaft5, shaft11, close, freebie, quiet];
+const nightmare = new Vault("nightmare", [
+  "]:]]]]]]]]]",
+  "]   1 1 1 ]",
+  "]]]]]]]]]:]",
+  "] 2 2     ]",
+  "]:]]]]]]]]]",
+  "]   3   a6]",
+  "]]]]]]]]]:]",
+]);
+
+export default [shaft5, shaft11, close, freebie, quiet, nightmare];

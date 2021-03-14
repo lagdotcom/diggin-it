@@ -7,7 +7,7 @@ export default class Music {
   constructor(public g: Game) {
     g.on("entered", ({ depth, zone }) => {
       if (depth < 10) g.playMusic(zoneTracks[zone]);
-      else g.fadeOutMusic();
+      else g.stopMusic();
     });
 
     g.on("noticed", ({ actor }) => {
@@ -15,9 +15,7 @@ export default class Music {
     });
 
     g.on("left", ({ depth }) => {
-      if (depth === 3 || depth === 6 || depth === 9) {
-        g.fadeOutMusic().then(() => g.playMusic("mystery"));
-      }
+      if (depth === 3 || depth === 6 || depth === 9) g.playMusic("mystery");
     });
   }
 }

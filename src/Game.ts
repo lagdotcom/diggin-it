@@ -126,11 +126,7 @@ export default class Game extends EventHandler {
   }
 
   playMusic(track: MusicName) {
-    if (this.musicPlaying) {
-      if (this.musicPlaying === track) return;
-      return this.fadeOutMusic().then(() => this.startMusic(track));
-    }
-
+    if (this.musicPlaying === track) return;
     this.startMusic(track);
   }
   stopMusic() {
