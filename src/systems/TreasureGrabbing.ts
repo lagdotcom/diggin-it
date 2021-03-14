@@ -18,7 +18,11 @@ export default class TreasureGrabbing {
 
         if (i.glyph === "Fragment") {
           this.g.playMusic("shiny");
-          // TODO: win the game?
+          var good = false;
+          player.inventory.forEach((item) => {
+            if (item?.use === "memento") good = true;
+          });
+          this.g.showEnding(good);
         }
       });
   }

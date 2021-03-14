@@ -8,7 +8,7 @@ export default class BadEndingScreen implements Context {
 
   constructor(public g: Game) {
     this.stage = 0;
-    this.render();
+    requestAnimationFrame(() => this.render());
   }
 
   next() {
