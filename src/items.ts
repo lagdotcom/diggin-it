@@ -108,33 +108,32 @@ export const reinforced: Partial<ItemOptions> = {
   durability: 12,
   bonus: { maxhp: 8, dp: 12 },
 };
-export const armourC: Partial<ItemOptions> = {
+export const spelunkersKit: Partial<ItemOptions> = {
   glyph: "ArmourC",
-  name: "armour c",
-  article: "some",
+  name: "spelunker's kit",
   slot: "armour",
   durability: 16,
   bonus: { maxhp: 15, dp: 15 },
 };
-export const armourD: Partial<ItemOptions> = {
+export const militaryMail: Partial<ItemOptions> = {
   glyph: "ArmourD",
-  name: "armour d",
+  name: "military mail",
   article: "some",
   slot: "armour",
   durability: 16,
   bonus: { maxhp: 20, dp: 16 },
 };
-export const armourE: Partial<ItemOptions> = {
+export const squadLeaderGear: Partial<ItemOptions> = {
   glyph: "ArmourE",
-  name: "armour e",
+  name: "squad leader's gear",
   article: "some",
   slot: "armour",
   durability: 15,
   bonus: { maxhp: 24, dp: 18 },
 };
-export const armourF: Partial<ItemOptions> = {
+export const busterArmour: Partial<ItemOptions> = {
   glyph: "ArmourF",
-  name: "armour f",
+  name: "buster armour",
   article: "some",
   slot: "armour",
   durability: 18,
@@ -148,18 +147,17 @@ export const wingArmour: Partial<ItemOptions> = {
   durability: 18,
   bonus: { maxhp: 40, dp: 20 },
 };
-export const armourH: Partial<ItemOptions> = {
+export const gildedPlate: Partial<ItemOptions> = {
   glyph: "ArmourH",
-  name: "armour h",
+  name: "gilded plate",
   article: "some",
   slot: "armour",
   durability: 16,
   bonus: { maxhp: 45, dp: 21 },
 };
-export const armourI: Partial<ItemOptions> = {
+export const valkyrieSet: Partial<ItemOptions> = {
   glyph: "ArmourI",
-  name: "armour i",
-  article: "some",
+  name: "valkyrie set",
   slot: "armour",
   durability: 19,
   bonus: { maxhp: 52, dp: 23 },
@@ -212,6 +210,7 @@ export const vial: Partial<ItemOptions> = { glyph: "Vial", name: "empty vial" };
 export const airTank: Partial<ItemOptions> = {
   glyph: "Tank",
   name: "air tank",
+  article: "an",
   use: "air",
   charges: 1,
   useArgs: [100, 100],

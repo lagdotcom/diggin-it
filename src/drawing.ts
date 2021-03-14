@@ -33,3 +33,20 @@ export function drawPanel(
     }
   }
 }
+
+export function drawMulti(
+  chars: Display,
+  sx: number,
+  sy: number,
+  width: number,
+  height: number,
+  glyph: string
+) {
+  var i = 0;
+  for (var y = 0; y < height; y++) {
+    for (var x = 0; x < width; x++) {
+      i++;
+      chars.draw(sx + x, sy + y, glyph + i.toString());
+    }
+  }
+}

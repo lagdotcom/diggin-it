@@ -4,6 +4,10 @@ import Item from "./Item";
 
 export type ActorAI = "wander" | "fly" | "ink";
 
+interface PlayerData {
+  stats: number;
+}
+
 export interface ActorOptions {
   ai?: ActorAI;
   aiData: Record<string, any>;
@@ -31,7 +35,7 @@ export interface ActorOptions {
   sp: number;
   dp: number;
   experience: number;
-  player: boolean;
+  player: PlayerData;
 }
 
 export default class Actor {
@@ -63,7 +67,7 @@ export default class Actor {
   sp: number;
   dp: number;
   experience: number;
-  player: boolean;
+  player?: PlayerData;
   reeling: boolean;
 
   constructor(
@@ -96,7 +100,7 @@ export default class Actor {
       experience = 0,
       inventorySize = 0,
       inventory = new Array(inventorySize),
-      player = false,
+      player = undefined,
     }: Partial<ActorOptions> = {}
   ) {
     this.ai = ai;

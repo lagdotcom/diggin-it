@@ -13,5 +13,11 @@ export default class Music {
     g.on("noticed", ({ actor }) => {
       if (actor.glyph === "Ink1") g.playMusic("ink");
     });
+
+    g.on("left", ({ depth }) => {
+      if (depth === 3 || depth === 6 || depth === 9) {
+        g.fadeOutMusic().then(() => g.playMusic("mystery"));
+      }
+    });
   }
 }

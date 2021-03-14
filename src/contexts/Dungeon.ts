@@ -19,6 +19,7 @@ import Cmd, {
 } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
+import { getZone } from "../maps";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
@@ -34,7 +35,9 @@ import TheInk from "../systems/TheInk";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { it, name, theName } from "../text";
+import { pad } from "../utils";
 import ExpandedLog from "./ExpandedLog";
+import ShopScreen from "./ShopScreen";
 import Targeting from "./Targeting";
 
 export default class Dungeon implements Context {
@@ -274,15 +277,16 @@ export default class Dungeon implements Context {
   }
 
   handleExit() {
-    const { log, map, player } = this.g;
+    const { map, player } = this.g;
     const tile = map.get(player.x, player.y);
 
-    if (tile.glyph === "Exit") {
-      // TODO: rewards
-      log.add("You leave the area.");
-      this.g.depth++;
-      this.g.nextMap();
-    }
+    if (tile.glyph === "Exit") this.leaveArea();
+  }
+
+  leaveArea() {
+    const { depth } = this.g;
+    this.g.emit("left", { depth, zone: getZone(depth) });
+    this.g.contexts.push(new ShopScreen(this.g));
   }
 
   handleExpandLog() {
@@ -454,13 +458,13 @@ export default class Dungeon implements Context {
     const { chars, player } = this.g;
 
     drawPanel(chars, 28, 0, 12, 10);
-    chars.drawText(31, 1, "HP:" + this.pad(player.hp, 3));
-    chars.drawText(31, 2, "AP:" + this.pad(player.ap, 3));
-    chars.drawText(31, 3, "SP:" + this.pad(player.get("sp"), 3));
-    chars.drawText(31, 4, "DP:" + this.pad(player.get("dp"), 3));
+    chars.drawText(31, 1, "HP:" + pad(player.hp, 3));
+    chars.drawText(31, 2, "AP:" + pad(player.ap, 3));
+    chars.drawText(31, 3, "SP:" + pad(player.get("sp"), 3));
+    chars.drawText(31, 4, "DP:" + pad(player.get("dp"), 3));
 
     chars.drawText(29, 7, "Experience");
-    chars.drawText(31, 8, this.pad(player.experience, 6, "0"));
+    chars.drawText(31, 8, pad(player.experience, 6, "0"));
   }
 
   renderInventory() {
@@ -508,11 +512,5 @@ export default class Dungeon implements Context {
 
     drawPanel(chars, 0, 0, 28, 10, true);
     chars.drawText(1, 1, this.info, 26);
-  }
-
-  pad(number: number, length: number, ch = " ") {
-    var string = number.toString();
-    while (string.length < length) string = ch + string;
-    return string;
   }
 }

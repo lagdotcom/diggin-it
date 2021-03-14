@@ -126,6 +126,10 @@
     "Jackhammer": { "row": 2, "col": 39, "width": 2, "height": 2 },
     "LaserCutter": { "row": 2, "col": 41, "width": 2, "height": 2 },
 
+    "HP": { "row": 2, "col": 21, "width": 2, "height": 2 },
+    "DP": { "row": 4, "col": 19, "width": 2, "height": 2 },
+    "SP": { "row": 4, "col": 21, "width": 2, "height": 2 },
+
     "ArmourA": { "row": 4, "col": 23, "width": 2, "height": 2 },
     "ArmourB": { "row": 4, "col": 25, "width": 2, "height": 2 },
     "ArmourC": { "row": 4, "col": 27, "width": 2, "height": 2 },

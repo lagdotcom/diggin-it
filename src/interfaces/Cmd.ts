@@ -6,6 +6,11 @@ export interface AttackCmd {
   y: number;
 }
 
+export interface BuyCmd {
+  type: "buy";
+  name: string;
+}
+
 export interface CancelCmd {
   type: "cancel";
 }
@@ -84,6 +89,7 @@ export interface WaitCmd {
 
 type Cmd =
   | AttackCmd
+  | BuyCmd
   | CancelCmd
   | ClimbCmd
   | CreditsCmd

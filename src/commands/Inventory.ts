@@ -17,18 +17,8 @@ export default class Inventory {
       const item = items[i];
       if (!item.canPickUp) continue;
 
-      const slot = this.getFreeSlot(player, item);
-      if (typeof slot === "undefined") return "You can't carry any more.";
-
-      const [pos, mix] = slot;
-      this.g.removeItem(item);
-      if (mix) {
-        player.inventory[pos].charges += item.charges;
-      } else {
-        player.inventory[pos] = item;
-      }
-      this.g.emit("got", { actor: player, item });
-      this.g.log.add(`You get ${name(item)}.`);
+      const result = Inventory.addToInventory(this.g, player, item);
+      if (!result) return "You can't carry any more.";
 
       if (!spent) {
         spent = true;
@@ -39,7 +29,23 @@ export default class Inventory {
     if (!spent) return "You can't pick up anything here.";
   }
 
-  getFreeSlot(actor: Actor, item: Item): [pos: number, mix: boolean] {
+  static addToInventory(g: Game, actor: Actor, item: Item, quiet = false) {
+    const slot = Inventory.getFreeSlot(actor, item);
+    if (typeof slot === "undefined") return false;
+
+    const [pos, mix] = slot;
+    g.removeItem(item);
+    if (mix) {
+      actor.inventory[pos].charges += item.charges;
+    } else {
+      actor.inventory[pos] = item;
+    }
+    g.emit("got", { actor: actor, item });
+    if (!quiet) g.log.add(`You get ${name(item)}.`);
+    return true;
+  }
+
+  static getFreeSlot(actor: Actor, item: Item): [pos: number, mix: boolean] {
     if (item.charges)
       for (var i = 0; i < actor.inventorySize; i++) {
         if (actor.inventory[i]?.name === item.name) return [i, true];
