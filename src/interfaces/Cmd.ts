@@ -25,6 +25,12 @@ export interface CreditsCmd {
   type: "credits";
 }
 
+export interface DigCmd {
+  type: "dig";
+  x: number;
+  y: number;
+}
+
 export interface DropCmd {
   type: "drop";
   index: number;
@@ -51,10 +57,8 @@ export interface GetCmd {
   type: "get";
 }
 
-export interface DigCmd {
-  type: "dig";
-  x: number;
-  y: number;
+export interface HelpCmd {
+  type: "help";
 }
 
 export interface MoveCmd {
@@ -108,6 +112,7 @@ type Cmd =
   | ExitCmd
   | ExpandLogCmd
   | GetCmd
+  | HelpCmd
   | MoveCmd
   | PushCmd
   | StartGameCmd

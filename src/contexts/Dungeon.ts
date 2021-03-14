@@ -39,6 +39,7 @@ import { it, name, theName } from "../text";
 import { pad } from "../utils";
 import ExamineScreen from "./ExamineScreen";
 import ExpandedLog from "./ExpandedLog";
+import HelpScreen from "./HelpScreen";
 import ScenarioScreen from "./ScenarioScreen";
 import ShopScreen from "./ShopScreen";
 import Targeting from "./Targeting";
@@ -163,6 +164,9 @@ export default class Dungeon implements Context {
       case "Enter":
       case "Return":
         return { type: "exit" };
+
+      case "?":
+        return { type: "help" };
     }
   }
 
@@ -219,6 +223,8 @@ export default class Dungeon implements Context {
         return this.handleExpandLog();
       case "get":
         return this.handleGet();
+      case "help":
+        return this.handleHelp();
       case "move":
         return this.handleMove(cmd);
       case "push":
@@ -336,6 +342,11 @@ export default class Dungeon implements Context {
 
     if (poss) this.g.log.add(poss);
     return this.render();
+  }
+
+  handleHelp() {
+    this.g.contexts.push(new HelpScreen(this.g));
+    this.rerender.stop();
   }
 
   handleMove({ x, y }: MoveCmd): void {
