@@ -33,6 +33,11 @@ export default class AI {
   }
 
   wanderAi(actor: Actor, data: any) {
+    if (actor.reeling) {
+      actor.reeling = false;
+      return;
+    }
+
     let { dir } = data;
     if (!dir) dir = pick(-1, 1);
 
@@ -109,6 +114,11 @@ export default class AI {
   }
 
   flyingAi(enemy: Actor, data: any) {
+    if (enemy.reeling) {
+      enemy.reeling = false;
+      return;
+    }
+
     var { active } = data;
     if (!active) {
       if (this.vision.visible(enemy.x, enemy.y)) {
@@ -151,6 +161,14 @@ export default class AI {
 
     const { inkparts } = a;
     const [b, c, d] = inkparts;
+
+    if (a.reeling || b.reeling || c.reeling || d.reeling) {
+      a.reeling = false;
+      b.reeling = false;
+      c.reeling = false;
+      d.reeling = false;
+      return;
+    }
 
     const { player } = this.g;
     if (

@@ -64,6 +64,7 @@ export default class Actor {
   dp: number;
   experience: number;
   player: boolean;
+  reeling: boolean;
 
   constructor(
     public x: number,
@@ -126,6 +127,7 @@ export default class Actor {
     this.inventory = inventory;
     this.inventorySize = inventorySize;
     this.player = player;
+    this.reeling = false;
   }
 
   get(st: Stat) {

@@ -382,6 +382,7 @@ export default class Dungeon implements Context {
           const { actor, items, tile } = this.g.contents(x, y);
           if (actor) {
             this.info = name(actor);
+            if (actor.lore) this.info += "\n" + actor.lore;
           } else if (items.length) {
             this.info = name(items[0]);
           } else {
@@ -506,7 +507,7 @@ export default class Dungeon implements Context {
     const { chars } = this.g;
 
     drawPanel(chars, 0, 0, 28, 10, true);
-    chars.drawText(1, 1, this.info, chars._options.width - 2);
+    chars.drawText(1, 1, this.info, 26);
   }
 
   pad(number: number, length: number, ch = " ") {

@@ -149,7 +149,9 @@ export default class Gravity {
       } else if (distance > 2 && !tile.canSwimIn) {
         const amount = distance * 5;
         victim.hp -= amount;
-        if (victim.player) this.g.log.add("You fall and get hurt!");
+
+        if (victim.player)
+          this.g.log.add(`You fall and get hurt! (fell ${distance} tiles)`);
         this.g.emit("damaged", {
           attacker: victim,
           victim,
@@ -197,6 +199,7 @@ export default class Gravity {
       y--;
       distance--;
       if (escape) this.g.move(victim, escape[0], escape[1], attacker);
+      victim.reeling = true;
     }
 
     this.g.move(attacker, x, y);
