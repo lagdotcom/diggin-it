@@ -192,21 +192,21 @@ export default class ShopScreen implements Context {
     drawPanel(chars, 12, 1, 16, 3);
     chars.drawText(13, 2, "SPEND YOUR EXP");
 
-    drawPanel(chars, 1, 5, 8, 19);
+    drawPanel(chars, 1, 5, 8, 18);
     chars.drawText(2, 6, "STATS");
 
-    drawPanel(chars, 11, 5, 8, 19);
+    drawPanel(chars, 11, 5, 8, 18);
     chars.drawText(13, 6, "USE");
 
-    drawPanel(chars, 21, 5, 8, 19);
+    drawPanel(chars, 21, 5, 8, 18);
     chars.drawText(22, 6, "WEAPON");
 
-    drawPanel(chars, 31, 5, 8, 19);
+    drawPanel(chars, 31, 5, 8, 18);
     chars.drawText(32, 6, "ARMOUR");
 
-    drawPanel(chars, 17, 25, 6, 3);
-    chars.drawText(18, 26, "EXIT");
-    this.spots.register("exit", 17, 25, 6, 3);
+    drawPanel(chars, 17, 24, 6, 3);
+    chars.drawText(18, 25, "EXIT");
+    this.spots.register("exit", 17, 24, 6, 3);
 
     chars.drawText(30, 1, "EXP TOTAL");
   }

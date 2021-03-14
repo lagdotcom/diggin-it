@@ -388,7 +388,9 @@ export default class Dungeon implements Context {
             this.info = name(actor);
             if (actor.lore) this.info += "\n" + actor.lore;
           } else if (items.length) {
+            const item = items[0];
             this.info = name(items[0]);
+            if (item.lore) this.info += "\n" + item.lore;
           } else {
             this.info = name(tile);
           }
@@ -401,6 +403,7 @@ export default class Dungeon implements Context {
             const equipped =
               item.slot && player.equipment[item.slot] === item ? " (eq)" : "";
             this.info = name(item) + equipped;
+            if (item.lore) this.info += "\n" + item.lore;
           } else {
             this.info = "";
           }

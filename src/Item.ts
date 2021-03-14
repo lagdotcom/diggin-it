@@ -12,6 +12,7 @@ export interface ItemOptions {
   colour: string;
   durability: number;
   glyph: string;
+  lore: string;
   name: string;
   namep: string;
   obeysGravity: boolean;
@@ -31,6 +32,7 @@ export default class Item {
   colour: string;
   durability: number;
   glyph: string;
+  lore: string;
   name: string;
   namep: string;
   obeysGravity: boolean;
@@ -51,6 +53,7 @@ export default class Item {
       colour = "silver",
       durability = 0,
       glyph = "?",
+      lore = "",
       name = glyph,
       namep = name + "s",
       obeysGravity = true,
@@ -70,6 +73,7 @@ export default class Item {
     this.colour = colour;
     this.durability = durability;
     this.glyph = glyph;
+    this.lore = lore;
     this.name = name;
     this.namep = namep;
     this.obeysGravity = obeysGravity;

@@ -9,7 +9,7 @@ interface PlayerData {
 }
 
 export interface ActorOptions {
-  ai?: ActorAI;
+  ai: ActorAI;
   aiData: Record<string, any>;
   alive: boolean;
   article: string;
