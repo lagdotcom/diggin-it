@@ -2,7 +2,7 @@ import Slot from "./interfaces/Slot";
 import Stat from "./interfaces/Stat";
 import Item from "./Item";
 
-type ActorAI = "wander" | "fly";
+export type ActorAI = "wander" | "fly" | "ink";
 
 export interface ActorOptions {
   ai?: ActorAI;
@@ -44,6 +44,7 @@ export default class Actor {
   equipment: Partial<Record<Slot, Item>>;
   glyph: string;
   heavy: boolean;
+  inkparts: Actor[];
   inventory: Item[];
   inventorySize: number;
   name: string;
@@ -137,5 +138,6 @@ export default class Actor {
     this.hp = this.get("maxhp");
     this.ap = this.get("maxap"); // TODO: should heal ap?
     this.fp = this.get("maxfp"); // TODO: should heal fp?
+    this.alive = true;
   }
 }

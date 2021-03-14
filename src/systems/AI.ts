@@ -1,6 +1,6 @@
 import AStar from "rot-js/lib/path/astar";
 
-import Actor from "../Actor";
+import Actor, { ActorAI } from "../Actor";
 import Movement from "../commands/Movement";
 import Game from "../Game";
 import XY from "../interfaces/XY";
@@ -10,12 +10,13 @@ import Combat from "./Combat";
 import Vision from "./Vision";
 
 export default class AI {
-  functions: Record<string, (actor: Actor, data: any) => void>;
+  functions: Record<ActorAI, (actor: Actor, data: any) => void>;
 
   constructor(public g: Game, public combat: Combat, public vision: Vision) {
     this.functions = {
       wander: this.wanderAi.bind(this),
       fly: this.flyingAi.bind(this),
+      ink: this.inkAi.bind(this),
     };
 
     g.on("tick", () => this.run());
@@ -100,11 +101,20 @@ export default class AI {
     return false;
   }
 
+  flyPassable(x: number, y: number, ignore: Actor[] = []) {
+    const { actor, tile } = this.g.contents(x, y);
+    if (ignore.includes(actor)) return true;
+    if (actor || tile.solid) return false;
+    return true;
+  }
+
   flyingAi(enemy: Actor, data: any) {
     var { active } = data;
     if (!active) {
-      if (this.vision.visible(enemy.x, enemy.y)) active = true;
-      else return;
+      if (this.vision.visible(enemy.x, enemy.y)) {
+        active = true;
+        this.g.emit("noticed", { actor: enemy });
+      } else return;
     }
 
     const { player } = this.g;
@@ -115,12 +125,7 @@ export default class AI {
     const astar = new AStar(
       player.x,
       player.y,
-      (x, y) => {
-        const { actor, tile } = this.g.contents(x, y);
-        if (actor === enemy) return true;
-        if (actor || tile.solid) return false;
-        return true;
-      },
+      (x, y) => this.flyPassable(x, y, [player, enemy]),
       { topology: 4 }
     );
 
@@ -133,5 +138,53 @@ export default class AI {
     } else active = false;
 
     enemy.aiData = { active };
+  }
+
+  inkAi(a: Actor, data: any) {
+    var { active } = data;
+    if (!active) {
+      if (this.vision.visible(a.x, a.y)) {
+        active = true;
+        this.g.emit("noticed", { actor: a });
+      } else return;
+    }
+
+    const { inkparts } = a;
+    const [b, c, d] = inkparts;
+
+    const { player } = this.g;
+    if (
+      player.alive &&
+      (manhattan(player.x, player.y, a.x, a.y) < 2 ||
+        manhattan(player.x, player.y, b.x, b.y) < 2 ||
+        manhattan(player.x, player.y, c.x, c.y) < 2 ||
+        manhattan(player.x, player.y, d.x, d.y) < 2)
+    ) {
+      return this.combat.attack(a, player);
+    }
+
+    const astar = new AStar(
+      player.x,
+      player.y,
+      (x, y) =>
+        this.flyPassable(x, y, [player, a, b, c, d]) &&
+        this.flyPassable(x + 1, y, [player, a, b, c, d]) &&
+        this.flyPassable(x, y + 1, [player, a, b, c, d]) &&
+        this.flyPassable(x + 1, y + 1, [player, a, b, c, d]),
+      { topology: 4 }
+    );
+
+    const path: XY[] = [];
+    astar.compute(a.x, a.y, (x, y) => path.push([x, y]));
+
+    if (path.length) {
+      const [x, y] = path[1];
+      this.g.move(a, x, y);
+      this.g.move(b, x + 1, y);
+      this.g.move(c, x, y + 1);
+      this.g.move(d, x + 1, y + 1);
+    } else active = false;
+
+    a.aiData = { active };
   }
 }

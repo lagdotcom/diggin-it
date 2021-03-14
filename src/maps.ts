@@ -1,5 +1,5 @@
 import Actor, { ActorOptions } from "./Actor";
-import { boulder, crate, metal, theInk } from "./actors";
+import { boulder, crate, metal } from "./actors";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import {
@@ -9,7 +9,6 @@ import {
   coin,
   coinBag,
   diamond,
-  fragment,
   goldBar,
   helmet,
   ladder,
@@ -20,6 +19,7 @@ import {
   specs,
   treasureBox,
 } from "./items";
+import { addTheInk } from "./prefabs";
 import { getRandomArmour, getRandomEnemy, getRandomWeapon } from "./tables";
 import Tile, { TileOptions } from "./Tile";
 import {
@@ -32,6 +32,7 @@ import {
   entrance,
   exit,
   gas,
+  inkDoor,
   ladderTile,
   ropeTile,
   sandDeep,
@@ -76,6 +77,7 @@ const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
   "|": ropeTile,
   "~": water,
   "]": brick,
+  "*": inkDoor,
 };
 
 const actorTypes: Record<
@@ -93,7 +95,6 @@ const actorTypes: Record<
     const b = getRandomEnemy(zone);
     return a.maxhp > b.maxhp ? a : b;
   },
-  "4": theInk,
   O: boulder,
   M: metal,
   W: crate,
@@ -107,7 +108,6 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   a: artifact,
   x: treasureBox,
   d: diamond,
-  f: fragment,
 
   B: bomb,
   L: ladder,
@@ -173,6 +173,10 @@ export function loadMap(g: Game, map: string[]): void {
         g.add(
           new Actor(x, y, typeof actor === "function" ? actor(zone) : actor)
         );
+      }
+
+      if (glyph === "4") {
+        addTheInk(g, x, y);
       }
 
       if (glyph === "<") {

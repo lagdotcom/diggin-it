@@ -23,6 +23,7 @@ export interface EventMap {
   got: { actor: Actor; item: Item };
   litBomb: { item: Item };
   moved: { thing: Thing; mx: number; my: number; forced?: Thing };
+  noticed: { actor: Actor };
   tick: {};
 }
 

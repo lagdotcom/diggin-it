@@ -7,7 +7,11 @@ export default class Music {
   constructor(public g: Game) {
     g.on("entered", ({ depth, zone }) => {
       if (depth < 10) g.playMusic(zoneTracks[zone]);
-      else g.stopMusic();
+      else g.fadeOutMusic();
+    });
+
+    g.on("noticed", ({ actor }) => {
+      if (actor.glyph === "Ink1") g.playMusic("ink");
     });
   }
 }

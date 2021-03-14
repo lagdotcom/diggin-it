@@ -1,5 +1,6 @@
 import Actor from "./Actor";
-import { player } from "./actors";
+import { player, theInk } from "./actors";
+import Game from "./Game";
 import Item from "./Item";
 import { clothes, ladder, pocketknife, pocketwatch, rope } from "./items";
 
@@ -14,4 +15,21 @@ export function getNewPlayer() {
     equipment: { weapon, armour },
     inventory: [weapon, armour, trinket, ropes, ladders],
   });
+}
+
+export function addTheInk(g: Game, x: number, y: number) {
+  const tl = new Actor(x, y, { ...theInk, ai: "ink" });
+  const tr = new Actor(x + 1, y, { ...theInk, glyph: "Ink2" });
+  const bl = new Actor(x, y + 1, { ...theInk, glyph: "Ink3" });
+  const br = new Actor(x + 1, y + 1, { ...theInk, glyph: "Ink4" });
+
+  tl.inkparts = [tr, bl, br];
+  tr.inkparts = [tl, bl, br];
+  bl.inkparts = [tl, tr, br];
+  br.inkparts = [tl, tr, bl];
+
+  g.add(tl);
+  g.add(tr);
+  g.add(bl);
+  g.add(br);
 }

@@ -30,6 +30,7 @@ import Gravity from "../systems/Gravity";
 import Memento from "../systems/Memento";
 import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
+import TheInk from "../systems/TheInk";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { it, name, theName } from "../text";
@@ -47,6 +48,7 @@ export default class Dungeon implements Context {
   gravity: Gravity;
   hotspots: Hotspots;
   info: string;
+  ink: TheInk;
   inventory: Inventory;
   memento: Memento;
   mouse: XY;
@@ -69,6 +71,7 @@ export default class Dungeon implements Context {
     this.digging = new Digging(g);
     this.effects = new Effects(g);
     this.gravity = new Gravity(g);
+    this.ink = new TheInk(g);
     this.inventory = new Inventory(g);
     this.memento = new Memento(g);
     this.movement = new Movement(g);

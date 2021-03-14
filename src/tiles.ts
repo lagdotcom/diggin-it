@@ -3,6 +3,7 @@ import { TileOptions } from "./Tile";
 export const border: Partial<TileOptions> = {
   glyph: "Bedrock",
   name: "",
+  article: "",
   solid: true,
   indestructible: true,
 };
@@ -10,6 +11,7 @@ export const dirtShallow: Partial<TileOptions> = {
   glyph: "DirtS",
   colour: "brown",
   name: "dirt",
+  article: "",
   solid: true,
   durability: 1,
 };
@@ -17,6 +19,7 @@ export const dirtMiddle: Partial<TileOptions> = {
   glyph: "DirtM",
   colour: "green",
   name: "dirt",
+  article: "",
   solid: true,
   durability: 1,
 };
@@ -24,6 +27,7 @@ export const dirtDeep: Partial<TileOptions> = {
   glyph: "DirtD",
   colour: "purple",
   name: "dirt",
+  article: "",
   solid: true,
   durability: 1,
 };
@@ -62,10 +66,14 @@ export const brick: Partial<TileOptions> = {
   durability: 10,
 };
 
-export const unset: Partial<TileOptions> = { glyph: "?", name: "mistake" };
+export const unset: Partial<TileOptions> = {
+  glyph: "?",
+  name: "mistake",
+  solid: true,
+};
 export const empty: Partial<TileOptions> = {
   glyph: " ",
-  name: "nothing",
+  name: "",
   article: "",
 };
 export const gas: Partial<TileOptions> = {
@@ -123,4 +131,10 @@ export const water: Partial<TileOptions> = {
   colour: "blue",
   canSwimIn: true,
   airCost: 3,
+};
+
+export const inkDoor: Partial<TileOptions> = {
+  glyph: "InkDoor",
+  name: "mysterious door",
+  colour: "purple",
 };

@@ -120,13 +120,18 @@ export default class Game extends EventHandler {
     ]);
   }
 
+  private startMusic(track: MusicName) {
+    this.music[track].volume = 1;
+    this.music[track].play().then(() => (this.musicPlaying = track));
+  }
+
   playMusic(track: MusicName) {
     if (this.musicPlaying) {
       if (this.musicPlaying === track) return;
-      this.stopMusic();
+      return this.fadeOutMusic().then(() => this.startMusic(track));
     }
 
-    this.music[track].play().then(() => (this.musicPlaying = track));
+    this.startMusic(track);
   }
   stopMusic() {
     if (this.musicPlaying) {
@@ -134,6 +139,21 @@ export default class Game extends EventHandler {
       this.music[this.musicPlaying].currentTime = 0;
       this.musicPlaying = undefined;
     }
+  }
+  fadeOutMusic() {
+    if (!this.musicPlaying) return;
+
+    return new Promise<void>((resolve) => {
+      const aud = this.music[this.musicPlaying];
+      const timer = setInterval(() => {
+        aud.volume = Math.max(0, aud.volume - 0.05);
+        if (aud.volume <= 0) {
+          this.stopMusic();
+          clearInterval(timer);
+          resolve();
+        }
+      }, 150);
+    });
   }
 
   start() {
@@ -201,7 +221,8 @@ export default class Game extends EventHandler {
     const mx = x - thing.x,
       my = y - thing.y;
 
-    this.actors.set(thing.x, thing.y, undefined);
+    if (this.actors.get(thing.x, thing.y) === thing)
+      this.actors.set(thing.x, thing.y, undefined);
     thing.x = x;
     thing.y = y;
     this.actors.set(x, y, thing);

@@ -121,11 +121,10 @@ export const drifter: Partial<ActorOptions> = {
   // TODO: mimic random ground enemy
 };
 export const theInk: Partial<ActorOptions> = {
-  glyph: "Ink1", // TODO: multiple tiles
+  glyph: "Ink1",
   name: "ink",
   article: "the",
   colour: "purple",
-  ai: "fly",
   maxhp: 200,
   sp: 40,
   dp: 25,

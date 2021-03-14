@@ -94,6 +94,7 @@
     "Entrance": { "row": 15, "col": 15 },
     "Bedrock": { "row": 17, "col": 11 },
     "Exit": { "row": 17, "col": 15 },
+    "InkDoor": { "row": 17, "col": 17 },
 
     "Air": { "row": 0, "col": 1, "TODO": true }
   }

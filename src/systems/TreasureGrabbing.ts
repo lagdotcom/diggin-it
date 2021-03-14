@@ -15,6 +15,11 @@ export default class TreasureGrabbing {
         this.g.removeItem(i);
         this.g.log.add(`You grab the ${i.name}.`);
         player.experience += i.treasure;
+
+        if (i.glyph === "Fragment") {
+          this.g.playMusic("shiny");
+          // TODO: win the game?
+        }
       });
   }
 }
