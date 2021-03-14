@@ -114,9 +114,9 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   R: rope,
   A: airTank,
   F: rations,
-  X: specs,
-  H: helmet,
-  G: mask,
+  X: getRandomArmour, // TODO: X-ray Specs
+  H: getRandomWeapon, // TODO: miner's helmet
+  G: getRandomArmour, // TODO: gas mask
 
   "5": (zone) => {
     const a = getRandomWeapon(zone);
