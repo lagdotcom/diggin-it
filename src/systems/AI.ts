@@ -1,3 +1,5 @@
+import AStar from "rot-js/lib/path/astar";
+
 import Actor from "../Actor";
 import Movement from "../commands/Movement";
 import Game from "../Game";
@@ -5,13 +7,15 @@ import XY from "../interfaces/XY";
 import { pick } from "../random";
 import { manhattan } from "../utils";
 import Combat from "./Combat";
+import Vision from "./Vision";
 
 export default class AI {
-  functions: Record<string, (actor: Actor) => void>;
+  functions: Record<string, (actor: Actor, data: any) => void>;
 
-  constructor(public g: Game, public combat: Combat) {
+  constructor(public g: Game, public combat: Combat, public vision: Vision) {
     this.functions = {
       wander: this.wanderAi.bind(this),
+      fly: this.flyingAi.bind(this),
     };
 
     g.on("tick", () => this.run());
@@ -21,13 +25,14 @@ export default class AI {
     this.g.allActors.forEach((actor) => {
       if (!actor.ai) return;
 
-      if (this.functions[actor.ai]) this.functions[actor.ai](actor);
+      if (this.functions[actor.ai])
+        this.functions[actor.ai](actor, actor.aiData);
       else throw Error("Invalid AI name: " + actor.ai);
     });
   }
 
-  wanderAi(actor: Actor) {
-    let { dir } = actor.aiData;
+  wanderAi(actor: Actor, data: any) {
+    let { dir } = data;
     if (!dir) dir = pick(-1, 1);
 
     const { player } = this.g;
@@ -93,5 +98,40 @@ export default class AI {
     if (further.actor?.pushable) return true;
 
     return false;
+  }
+
+  flyingAi(enemy: Actor, data: any) {
+    var { active } = data;
+    if (!active) {
+      if (this.vision.visible(enemy.x, enemy.y)) active = true;
+      else return;
+    }
+
+    const { player } = this.g;
+    if (player.alive && manhattan(player.x, player.y, enemy.x, enemy.y) < 2) {
+      return this.combat.attack(enemy, player);
+    }
+
+    const astar = new AStar(
+      player.x,
+      player.y,
+      (x, y) => {
+        const { actor, tile } = this.g.contents(x, y);
+        if (actor === enemy) return true;
+        if (actor || tile.solid) return false;
+        return true;
+      },
+      { topology: 4 }
+    );
+
+    const path: XY[] = [];
+    astar.compute(enemy.x, enemy.y, (x, y) => path.push([x, y]));
+
+    if (path.length) {
+      const [x, y] = path[1];
+      this.g.move(enemy, x, y);
+    } else active = false;
+
+    enemy.aiData = { active };
   }
 }

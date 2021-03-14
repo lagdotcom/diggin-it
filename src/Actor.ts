@@ -2,8 +2,10 @@ import Slot from "./interfaces/Slot";
 import Stat from "./interfaces/Stat";
 import Item from "./Item";
 
+type ActorAI = "wander" | "fly";
+
 export interface ActorOptions {
-  ai: string;
+  ai?: ActorAI;
   aiData: Record<string, any>;
   alive: boolean;
   article: string;
@@ -32,7 +34,7 @@ export interface ActorOptions {
 }
 
 export default class Actor {
-  ai: string;
+  ai?: ActorAI;
   aiData: Record<string, any>;
   alive: boolean;
   article: string;
@@ -64,7 +66,7 @@ export default class Actor {
     public x: number,
     public y: number,
     {
-      ai = "",
+      ai = undefined,
       aiData = {},
       article = "a",
       canClimb = false,

@@ -61,7 +61,8 @@ export default class Dungeon implements Context {
 
   constructor(public g: Game) {
     this.combat = new Combat(g);
-    this.ai = new AI(g, this.combat);
+    this.vision = new Vision(g);
+    this.ai = new AI(g, this.combat, this.vision);
     this.air = new Air(g);
     this.bombs = new Bombs(g);
     this.death = new Death(g);
@@ -76,7 +77,6 @@ export default class Dungeon implements Context {
     this.sand = new SandCollapse(g);
     this.treasure = new TreasureGrabbing(g);
     this.use = new UsableItems(g);
-    this.vision = new Vision(g);
 
     const { width, height } = g.chars._options;
     this.info = "";

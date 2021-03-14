@@ -53,10 +53,11 @@ export const flazza: Partial<ActorOptions> = {
   glyph: "Flazza",
   name: "flazza",
   colour: "cyan",
-  ai: "wander",
+  ai: "fly",
   maxhp: 32,
   sp: 25,
   dp: 15,
+  obeysGravity: false,
 };
 export const glova: Partial<ActorOptions> = {
   glyph: "Glova",
@@ -98,17 +99,19 @@ export const telden: Partial<ActorOptions> = {
   glyph: "Telden",
   name: "telden",
   colour: "red",
-  ai: "wander",
+  ai: "fly",
   maxhp: 35,
   sp: 24,
   dp: 12,
+  obeysGravity: false,
 };
 export const floater: Partial<ActorOptions> = {
   glyph: "InkFloater",
   name: "floater",
   colour: "darkblue",
-  ai: "wander",
+  ai: "fly",
   // TODO: mimic random flying enemy
+  obeysGravity: false,
 };
 export const drifter: Partial<ActorOptions> = {
   glyph: "InkDrifter",
@@ -122,10 +125,11 @@ export const theInk: Partial<ActorOptions> = {
   name: "ink",
   article: "the",
   colour: "purple",
-  ai: "wander",
+  ai: "fly",
   maxhp: 200,
   sp: 40,
   dp: 25,
+  obeysGravity: false,
 };
 
 export const crate: Partial<ActorOptions> = {

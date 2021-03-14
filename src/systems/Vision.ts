@@ -39,6 +39,7 @@ export default class Vision {
   }
 
   visible(x: number, y: number) {
+    if (this.dirty) this.get();
     return this.vision.get(x, y);
   }
 }
