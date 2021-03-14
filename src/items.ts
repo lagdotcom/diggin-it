@@ -252,7 +252,7 @@ export const rations: Partial<ItemOptions> = {
   name: "Lessonus ration",
   use: "heal",
   charges: 1,
-  useArgs: [10, 15],
+  useArgs: [20, 30],
   lore:
     "An abundance of these made their way into circulation during tension-filled times between Lessonus and Ziyadma, and fortunately they never became the staple food people expected them to be. Comes in many middling flavors like Bean Soup, Tofurkey, Veggie Bowl and Chocolate Beef. It'll do in a pinch or for a quick pick me up.",
 };
