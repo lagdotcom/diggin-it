@@ -27,6 +27,7 @@ import Combat from "../systems/Combat";
 import Death from "../systems/Death";
 import Effects from "../systems/Effects";
 import Gravity from "../systems/Gravity";
+import Memento from "../systems/Memento";
 import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
@@ -47,6 +48,7 @@ export default class Dungeon implements Context {
   hotspots: Hotspots;
   info: string;
   inventory: Inventory;
+  memento: Memento;
   mouse: XY;
   movement: Movement;
   music: Music;
@@ -67,6 +69,7 @@ export default class Dungeon implements Context {
     this.effects = new Effects(g);
     this.gravity = new Gravity(g);
     this.inventory = new Inventory(g);
+    this.memento = new Memento(g);
     this.movement = new Movement(g);
     this.music = new Music(g);
     this.pushing = new Pushing(g);
