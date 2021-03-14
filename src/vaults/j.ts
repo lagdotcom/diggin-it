@@ -20,7 +20,7 @@ const den2 = new Vault("monster den 2", [
   "!!!!!!",
 ]);
 
-const tower = new Vault("boulder tower", [
+const bouldertower = new Vault("boulder tower", [
   "]]]]]]]]]]",
   "]aOaO  OA]",
   "]##:::::#]",
@@ -255,10 +255,199 @@ const e1m1 = new Vault("Eee One Emm One", [
   "]]]]]]^]]]]",
 ]);
 
+const bombastic = new Vault("bombastic", ["]]]]]", "#B B#", "]###]"]);
+
+const sad = new Vault("sad guy", ["#######", "#     #", "#c  1 #", "#######"]);
+
+const tophat = new Vault("tophat", [
+  "  ]]]]]]  ",
+  "  ] cBx]  ",
+  "  ]::::]  ",
+  "  ]    ]  ",
+  "::##OO##::",
+  "##########",
+]);
+
+const lucky = new Vault("LUCKY! CHA CHA CHA!", [
+  "]]]]###]]]]",
+  "]]]#####]]]",
+  "]]]3[6[3]]]",
+  "###]]]]]###",
+  "]]##]d]##]]",
+  "]]]]]]]]]]]",
+]);
+
+const monsterbox = new Vault("monster box", [
+  "#####",
+  "#3#2#",
+  "##a##",
+  "#2#1#",
+  "#####",
+]);
+
+const arsenal = new Vault("arsenal", ["]]]]]]]", "]L69BF]", "]]]]]]]"]);
+
+const wish = new Vault("make a wish", [
+  "]]]]]]]]]]]",
+  "]3: :F: :6]",
+  "]::^:::^::]",
+  "#  ^   ^  #",
+  "#::^:::^::#",
+  "#B:^:3:^:3#",
+  "]]]]]]]]]]]",
+]);
+
+const fishhook = new Vault("fish hook", [
+  "###:]#]",
+  "##::]|]",
+  "###:]|]",
+  "]]x] |]",
+  "] ]  ]#",
+  "] AA]##",
+  "]]]]###",
+]);
+
+const meanie = new Vault("hidden meanie", ["]]]", "]3]", "]]]"]);
+
+const headache = new Vault("headache", [
+  "[[[[[",
+  "[O9O[",
+  "[:::[",
+  "     ",
+  "#####",
+]);
+
+const the = new Vault("the vault", [
+  "####]####",
+  "###]]]###",
+  "##]]]]]##",
+  "]]]d d]]]",
+  ":]]]x]]]:",
+  "::]]]]]::",
+  ":::]]]:::",
+  "::::]::::",
+]);
+
+const tower = new Vault("tower", [
+  "]]^]]",
+  "] ^ ]",
+  "]1^ ]",
+  "]]^ ]",
+  "] ^2]",
+  "] ^]]",
+  "] ^B]",
+  "] ^]]",
+  "]c^2]",
+  "]]^]]",
+  "] ^ ]",
+]);
+
+const echo = new Vault("echo", [
+  "]]]^]]]",
+  "]  ^  ]",
+  "]  ^  ]",
+  "]  ^  ]",
+  "]  ^  ]",
+  "]  ^  ]",
+  "]  ^  ]",
+  "]  ^  ]",
+  "]  ^  ]",
+]);
+
+const well = new Vault("the well", [
+  "]~~~~~]",
+  "]~~~~~]",
+  "]~~~~~]",
+  "]~~~~~]",
+  "]~~~~~]",
+  "]~~~~~]",
+  ":::::::",
+  "##:::##",
+]);
+
+const moon = new Vault("moon", [
+  "#########",
+  "###   ###",
+  "##    2##",
+  "### B ###",
+  "#########",
+]);
+
+const heart = new Vault("heart", [
+  "#########",
+  "#   #   #",
+  "::     ::",
+  "::: F :::",
+  "#########",
+]);
+
+const morgue = new Vault("ultimate morgue", [
+  "]]]]]]]]",
+  "]OOOOOO]",
+  "]OOOOOO]",
+  "]OOOOOO]",
+  "]::::::]",
+  "  gcgc  ",
+  "]]]]]]]]",
+]);
+
+const money = new Vault("mmmmmonay", [
+  "]]]]]]]]",
+  "]]]]]]]]",
+  "]]]]]]]]",
+  "]]dgcx]]",
+  "]::::::]",
+  "        ",
+  "::::::::",
+]);
+
+const pancake = new Vault("pancake maker", [
+  " OOOOOOOOO ",
+  ":::::::::::",
+  "#         #",
+  "]         ]",
+  "]111111111]",
+  "]:::::::::]",
+]);
+
+const luckybar = new Vault("lucky bar", ["###", "#g#", "###"]);
+
+const lame = new Vault("lame home", ["####", "#1 :", "####"]);
+
+const shirt = new Vault("lucky shirt", ["###", "#9#", "###"]);
+
+const shoe = new Vault("shoe", ["]]]]   ", "#  ]]]]", "#  L  #", "#######"]);
+
+const shoe2 = new Vault("other shoe", [
+  "   ]]]]",
+  "]]]]  #",
+  "#  R  #",
+  "#######",
+]);
+
+const shoe3 = new Vault("double shoe", [
+  "   ]]]]^]]]]   ",
+  "]]]]  #^#  ]]]]",
+  "#2BR  #^#  La2#",
+  "#######^#######",
+]);
+
+const gong = new Vault("bonkey gong", [
+  "]|1||||]",
+  " |]|||| ",
+  "]||||1|]",
+  " |1||]| ",
+  "]|]||||]",
+  "]||3|2|]",
+  "]||]|]|]",
+  "]||||||]",
+  "]| dd |]",
+]);
+
 export default [
   den1,
   den2,
-  tower,
+  bouldertower,
   ozymandias,
   leak,
   panic,
@@ -283,4 +472,30 @@ export default [
   pit,
   drowning,
   e1m1,
+  bombastic,
+  sad,
+  tophat,
+  lucky,
+  monsterbox,
+  arsenal,
+  wish,
+  fishhook,
+  meanie,
+  headache,
+  the,
+  tower,
+  echo,
+  well,
+  moon,
+  heart,
+  morgue,
+  money,
+  pancake,
+  luckybar,
+  lame,
+  shirt,
+  shoe,
+  shoe2,
+  shoe3,
+  gong,
 ];
