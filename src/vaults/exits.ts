@@ -1,6 +1,7 @@
 import Vault from "../Vault";
 import { zanq } from "./zan";
 
+// TODO: too mean
 const recessed = new Vault("recessed exit", [
   "F ]]]^",
   "]]] ]^",
@@ -14,18 +15,18 @@ const divot = new Vault("divot exit", [
   "^#  #     ",
   "^##   ###^",
   "^#]#2>#]#^",
-  "^#]]]]]]#^",
+  "^#]]]!]]#^",
 ]);
 
 const midgar = new Vault(
   "midgar exit",
-  ["]]", "^>", "^]", "^?", "^?", "^?", "^?", "^?", "^?", "^?"],
+  ["]]", "^>", "^!", "^?", "^?", "^?", "^?", "^?", "^?", "^?"],
   zanq
 );
 
 const merc = new Vault(
   "merc outfit",
-  ["#######", "#? a ?#", "?? # ??", "111>111", "#######"],
+  ["#######", "#? a ?#", "?? # ??", "111>111", "###!###"],
   zanq
 );
 
@@ -38,16 +39,16 @@ const squiggle = new Vault("squiggle exit", [
   "|]]>      ]|",
 ]);
 
-const gameboy = new Vault("gameboy exit", ["]]]", " > ", "]]]"]);
+const gameboy = new Vault("gameboy exit", ["]]]", " > ", "]!]"]);
 
 const pyramid = new Vault("pyramid exit", [
   "  $>  ",
-  " 1]]1 ",
+  " 1]!1 ",
   "1]::]1",
   "]::::]",
 ]);
 
-const moat = new Vault("moat exit", ["   b  >", " ]~~~]]", "]]~~~2]"]);
+const moat = new Vault("moat exit", ["   b  >", " ]~~~]!", "]]~~~2]"]);
 
 const miracle = new Vault("miracle exit", [":d>:"]);
 
@@ -137,11 +138,11 @@ const meme = new Vault("annoying meme", [
   "##########",
   "#    #   #",
   "#12  #1L>#",
-  "##########",
+  "########!#",
 ]);
 
 export default [
-  recessed,
+  // recessed,
   divot,
   midgar,
   merc,
