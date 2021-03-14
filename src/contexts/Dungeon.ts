@@ -18,6 +18,7 @@ import Cmd, {
   UseCmd,
 } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
+import Thing from "../interfaces/Thing";
 import XY from "../interfaces/XY";
 import { getZone } from "../maps";
 import Soon from "../Soon";
@@ -36,6 +37,7 @@ import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { it, name, theName } from "../text";
 import { pad } from "../utils";
+import ExamineScreen from "./ExamineScreen";
 import ExpandedLog from "./ExpandedLog";
 import ShopScreen from "./ShopScreen";
 import Targeting from "./Targeting";
@@ -52,6 +54,7 @@ export default class Dungeon implements Context {
   gravity: Gravity;
   hotspots: Hotspots;
   info: string;
+  infoMore?: Thing;
   ink: TheInk;
   inventory: Inventory;
   memento: Memento;
@@ -147,6 +150,11 @@ export default class Dungeon implements Context {
         e.preventDefault();
         return { type: "wait" };
 
+      case "x":
+      case "X":
+        e.preventDefault();
+        return { type: "examine" };
+
       case "p":
       case "P":
         return { type: "expandlog" };
@@ -203,6 +211,8 @@ export default class Dungeon implements Context {
         return this.handleDrop(cmd);
       case "equip":
         return this.handleEquip(cmd);
+      case "examine":
+        return this.handleExamine();
       case "exit":
         return this.handleExit();
       case "expandlog":
@@ -293,6 +303,13 @@ export default class Dungeon implements Context {
     }
 
     return this.render();
+  }
+
+  handleExamine() {
+    if (this.infoMore) {
+      this.g.contexts.push(new ExamineScreen(this.g, this.infoMore));
+      this.rerender.stop();
+    }
   }
 
   handleExit() {
@@ -390,6 +407,7 @@ export default class Dungeon implements Context {
     // not even on the canvas
     if (ex === -1) {
       this.info = "";
+      this.infoMore = undefined;
       return;
     }
 
@@ -404,19 +422,21 @@ export default class Dungeon implements Context {
             y = oy - ymod;
           if (!this.vision.visible(x, y)) {
             this.info = "";
+            this.infoMore = undefined;
             return;
           }
 
           const { actor, items, tile } = this.g.contents(x, y);
           if (actor) {
             this.info = name(actor);
-            if (actor.lore) this.info += "\n" + actor.lore;
+            if (actor.lore) this.infoMore = actor;
           } else if (items.length) {
             const item = items[0];
-            this.info = name(items[0]);
-            if (item.lore) this.info += "\n" + item.lore;
+            this.info = name(item);
+            if (item.lore) this.infoMore = item;
           } else {
             this.info = name(tile);
+            this.infoMore = undefined;
           }
           break;
 
@@ -427,14 +447,18 @@ export default class Dungeon implements Context {
             const equipped =
               item.slot && player.equipment[item.slot] === item ? " (eq)" : "";
             this.info = name(item) + equipped;
-            if (item.lore) this.info += "\n" + item.lore;
+            if (item.lore) this.infoMore = item;
           } else {
             this.info = "";
+            this.infoMore = undefined;
           }
 
           break;
       }
-    } else this.info = "";
+    } else {
+      this.info = "";
+      this.infoMore = undefined;
+    }
   }
 
   render(): void {
@@ -537,7 +561,9 @@ export default class Dungeon implements Context {
   renderInfo() {
     const { chars } = this.g;
 
-    drawPanel(chars, 0, 0, 28, 10, true);
+    drawPanel(chars, 0, 0, 28, 5, true);
     chars.drawText(1, 1, this.info, 26);
+
+    if (this.infoMore) chars.drawText(1, 3, "e[X]amine for more.");
   }
 }

@@ -35,6 +35,10 @@ export interface EquipCmd {
   index: number;
 }
 
+export interface ExamineCmd {
+  type: "examine";
+}
+
 export interface ExitCmd {
   type: "exit";
 }
@@ -100,6 +104,7 @@ type Cmd =
   | DigCmd
   | DropCmd
   | EquipCmd
+  | ExamineCmd
   | ExitCmd
   | ExpandLogCmd
   | GetCmd
