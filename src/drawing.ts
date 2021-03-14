@@ -35,7 +35,7 @@ export function drawPanel(
 }
 
 export function drawMulti(
-  chars: Display,
+  display: Display,
   sx: number,
   sy: number,
   width: number,
@@ -46,7 +46,7 @@ export function drawMulti(
   for (var y = 0; y < height; y++) {
     for (var x = 0; x < width; x++) {
       i++;
-      chars.draw(sx + x, sy + y, glyph + i.toString());
+      display.draw(sx + x, sy + y, glyph + i.toString());
     }
   }
 }

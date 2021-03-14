@@ -4,8 +4,8 @@ import { KeyInputHandler, MouseInputHandler } from "@lagdotcom/simple-inputs";
 
 import Actor from "./Actor";
 import ArrayStack from "./ArrayStack";
+import AuthorScreen from "./contexts/AuthorScreen";
 import Dungeon from "./contexts/Dungeon";
-import TitleScreen from "./contexts/TitleScreen";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
 import Grid from "./interfaces/Grid";
@@ -18,7 +18,13 @@ import { getZone, loadMap } from "./maps";
 import MessageLog from "./MessageLog";
 import loadAllMusic, { MusicLibrary, MusicName } from "./music";
 import { getNewPlayer } from "./prefabs";
-import { loadChars, loadCharsAscii, loadTiles, loadTilesAscii } from "./sheets";
+import {
+  loadChars,
+  loadCharsAscii,
+  loadTiles,
+  loadTilesAscii,
+  loadTitleGraphics,
+} from "./sheets";
 import Tile from "./Tile";
 import { unset } from "./tiles";
 
@@ -41,6 +47,7 @@ export default class Game extends EventHandler {
   player: Actor;
   spent: number;
   tiles: Display;
+  title: HTMLImageElement;
 
   constructor(
     public container: HTMLElement = document.body,
@@ -85,6 +92,7 @@ export default class Game extends EventHandler {
     if (!context) throw Error("Could not get context");
     this.ctx = context;
 
+    this.title = await loadTitleGraphics();
     this.chars = new Display({ ...charsConfig, context });
 
     this.container.append(this.canvas);
@@ -103,7 +111,7 @@ export default class Game extends EventHandler {
       { events: ["click", "contextmenu", "mousemove"] }
     );
 
-    this.contexts.push(new TitleScreen(this));
+    this.contexts.push(new AuthorScreen(this));
   }
 
   async getDisplayConfigs() {

@@ -39,9 +39,9 @@ import { it, name, theName } from "../text";
 import { pad } from "../utils";
 import ExamineScreen from "./ExamineScreen";
 import ExpandedLog from "./ExpandedLog";
+import ScenarioScreen from "./ScenarioScreen";
 import ShopScreen from "./ShopScreen";
 import Targeting from "./Targeting";
-import TitleScreen from "./TitleScreen";
 
 export default class Dungeon implements Context {
   ai: AI;
@@ -363,7 +363,7 @@ export default class Dungeon implements Context {
 
   handleTitle() {
     this.g.contexts.clear();
-    this.g.contexts.push(new TitleScreen(this.g));
+    this.g.contexts.push(new ScenarioScreen(this.g));
   }
 
   handleUse({ index, at }: UseCmd) {

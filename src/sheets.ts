@@ -4,6 +4,7 @@ import tilesUrl from "../res/16x16.png";
 import tilesSheet from "../res/16x16.sheet.json";
 import charsUrl from "../res/8x8.png";
 import charsSheet from "../res/8x8.sheet.json";
+import titleUrl from "../res/title.png";
 
 type TileMap = DisplayOptions["tileMap"];
 
@@ -60,6 +61,7 @@ export async function loadTiles(
     tileHeight: 16,
     tileSet,
     tileMap,
+    fg: "transparent",
     tileColorize: true,
   };
 }
@@ -108,4 +110,8 @@ export function loadCharsAscii(
     fontSize: tileSize / 2,
     forceSquareRatio: true,
   };
+}
+
+export function loadTitleGraphics(): Promise<HTMLImageElement> {
+  return fetchImage(titleUrl);
 }

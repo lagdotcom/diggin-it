@@ -2,9 +2,9 @@ import { drawMulti } from "../drawing";
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
-import ScenarioScreen from "./ScenarioScreen";
+import TitleScreen from "./TitleScreen";
 
-export default class TitleScreen implements Context {
+export default class AuthorScreen implements Context {
   timeout: ReturnType<typeof setTimeout>;
 
   constructor(public g: Game) {
@@ -15,7 +15,7 @@ export default class TitleScreen implements Context {
   exit() {
     clearTimeout(this.timeout);
     this.g.contexts.pop();
-    this.g.contexts.push(new ScenarioScreen(this.g));
+    this.g.contexts.push(new TitleScreen(this.g));
   }
 
   handle(cmd: Cmd) {
@@ -33,10 +33,8 @@ export default class TitleScreen implements Context {
   }
 
   render() {
-    const { canvas, ctx, title } = this.g;
-
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(title, 48, 0);
+    const { tiles } = this.g;
+    tiles.clear();
+    drawMulti(tiles, 5, 5, 10, 3, "SadFolksLogo");
   }
 }

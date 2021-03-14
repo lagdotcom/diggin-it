@@ -1,6 +1,8 @@
 {
   "size": 16,
   "tiles": {
+    "SadFolksLogo": { "row": 8, "col": 0, "width": 10, "height": 3 },
+
     "@": { "row": 0, "col": 0 },
     " ": { "row": 0, "col": 1 },
     "Squimpy": { "row": 0, "col": 2 },
