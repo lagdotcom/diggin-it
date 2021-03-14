@@ -82,7 +82,7 @@ export default class ShopScreen implements Context {
     this.addOffer("use", bomb.glyph, 300);
     this.addOffer("use", ladder.glyph, 250);
     this.addOffer("use", rations.glyph, 500);
-    this.addOffer("use", airTank.glyph, 800);
+    this.addOffer("use", airTank.glyph, 300);
     this.addOffer("use", rope.glyph, 250);
 
     this.addOffer("weapon", shovel.glyph, 1000);
@@ -126,7 +126,7 @@ export default class ShopScreen implements Context {
         if (offer.cost <= player.experience) {
           switch (offer.glyph) {
             case "HP":
-              player.maxhp++;
+              player.maxhp += 5;
               player.player.stats++;
               redocosts = true;
               break;

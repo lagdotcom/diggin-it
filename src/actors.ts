@@ -6,7 +6,7 @@ export const player: Partial<ActorOptions> = {
   name: "you",
   article: "",
   canClimb: true,
-  maxhp: 20,
+  maxhp: 80,
   maxap: 150,
   sp: 8,
   dp: 8,
