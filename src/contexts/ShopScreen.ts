@@ -127,6 +127,7 @@ export default class ShopScreen implements Context {
           switch (offer.glyph) {
             case "HP":
               player.maxhp += 5;
+              player.hp += 5;
               player.player.stats++;
               redocosts = true;
               break;
