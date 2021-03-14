@@ -14,6 +14,10 @@ export default class MessageLog {
     this.messages = [];
   }
 
+  clear() {
+    this.messages = [];
+  }
+
   add(message: string): void {
     const msg = message[0].toUpperCase() + message.slice(1);
 

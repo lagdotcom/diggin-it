@@ -39,6 +39,7 @@ import { pad } from "../utils";
 import ExpandedLog from "./ExpandedLog";
 import ShopScreen from "./ShopScreen";
 import Targeting from "./Targeting";
+import TitleScreen from "./TitleScreen";
 
 export default class Dungeon implements Context {
   ai: AI;
@@ -99,6 +100,17 @@ export default class Dungeon implements Context {
   }
 
   onKey(e: KeyboardEvent): Cmd {
+    if (!this.g.player.alive) {
+      switch (e.key) {
+        case "Escape":
+        case "Backspace":
+        case "n":
+          return { type: "title" };
+      }
+
+      return;
+    }
+
     if (!this.canMove) return;
 
     const { x, y } = this.g.player;
@@ -149,6 +161,11 @@ export default class Dungeon implements Context {
   onMouse(e: MouseEvent): Cmd {
     this.rerender.start();
     this.mouse = this.g.chars.eventToPosition(e);
+    if (!this.g.player.alive) {
+      if (e.button === 2) return { type: "title" };
+      return;
+    }
+
     if (!this.canMove) return;
     if (e.type === "mousemove") return;
 
@@ -198,6 +215,8 @@ export default class Dungeon implements Context {
         return this.handlePush(cmd);
       case "target":
         return this.handleTarget(cmd);
+      case "title":
+        return this.handleTitle();
       case "use":
         return this.handleUse(cmd);
       case "wait":
@@ -323,6 +342,11 @@ export default class Dungeon implements Context {
 
   handleTarget(cmd: TargetCmd) {
     this.g.contexts.push(new Targeting(this.g, this, cmd));
+  }
+
+  handleTitle() {
+    this.g.contexts.clear();
+    this.g.contexts.push(new TitleScreen(this.g));
   }
 
   handleUse({ index, at }: UseCmd) {

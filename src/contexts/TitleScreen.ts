@@ -5,6 +5,7 @@ import CreditsScreen from "./CreditsScreen";
 
 export default class TitleScreen implements Context {
   constructor(public g: Game) {
+    g.log.clear();
     this.render();
   }
 

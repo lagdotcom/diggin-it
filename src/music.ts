@@ -1,3 +1,4 @@
+import consolationUrl from "../res/consolation-sting.mp3";
 import mediumUrl from "../res/flowstone-flood.mp3";
 import deepUrl from "../res/grumbles.mp3";
 import shallowUrl from "../res/lost-in-lessonus.mp3";
@@ -29,20 +30,30 @@ export type MusicName =
   | "shallow"
   | "medium"
   | "deep"
+  | "ink"
   | "mystery"
   | "shiny"
-  | "ink";
+  | "consolation";
 export type MusicLibrary = Record<MusicName, HTMLAudioElement>;
 
 export default async function loadAllMusic(): Promise<MusicLibrary> {
-  const [shallow, medium, deep, mystery, shiny, ink] = await Promise.all([
+  const [
+    shallow,
+    medium,
+    deep,
+    mystery,
+    shiny,
+    ink,
+    consolation,
+  ] = await Promise.all([
     fetchMusic(shallowUrl, true),
     fetchMusic(mediumUrl, true),
     fetchMusic(deepUrl, true),
     fetchMusic(mysteryUrl),
     fetchMusic(shinyUrl),
     fetchMusic(inkUrl, true),
+    fetchMusic(consolationUrl),
   ]);
 
-  return { shallow, medium, deep, mystery, shiny, ink };
+  return { shallow, medium, deep, mystery, shiny, ink, consolation };
 }

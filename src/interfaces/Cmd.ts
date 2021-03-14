@@ -77,6 +77,10 @@ export interface TargetCmd {
   callback: (pos: XY) => Cmd;
 }
 
+export interface TitleCmd {
+  type: "title";
+}
+
 export interface UseCmd {
   type: "use";
   index: number;
@@ -103,6 +107,7 @@ type Cmd =
   | PushCmd
   | StartGameCmd
   | TargetCmd
+  | TitleCmd
   | UseCmd
   | WaitCmd;
 export default Cmd;

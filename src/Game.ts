@@ -126,7 +126,11 @@ export default class Game extends EventHandler {
   }
 
   playMusic(track: MusicName) {
-    if (this.musicPlaying === track) return;
+    if (this.musicPlaying) {
+      if (this.musicPlaying === track) return;
+      this.stopMusic();
+    }
+
     this.startMusic(track);
   }
   stopMusic() {
@@ -166,7 +170,7 @@ export default class Game extends EventHandler {
 
   useMap(map: string[]) {
     this.removeAllListeners();
-    this.player.fullHeal();
+    // this.player.fullHeal();
 
     loadMap(this, map);
     this.contexts.clear();
