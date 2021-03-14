@@ -5,6 +5,8 @@ export const pocketwatch: Partial<ItemOptions> = {
   name: "pocketwatch",
   lore:
     "A constant reminder of why you are here, keep it safe and never give up!",
+  use: "memento",
+  useArgs: [3],
 };
 export const brokenPocketwatch: Partial<ItemOptions> = {
   glyph: "BrokenPocketwatch",

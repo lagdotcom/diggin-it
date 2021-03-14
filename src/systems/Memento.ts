@@ -15,16 +15,37 @@ export default class Memento {
     for (var i = 0; i < victim.inventory.length; i++) {
       const item = victim.inventory[i];
 
-      if (item?.glyph === "Pocketwatch") {
-        victim.inventory[i] = new Item(0, 0, brokenPocketwatch);
-        return this.g.log.add("You hear a quiet smashing sound.");
+      if (item?.use === "memento") {
+        if (!this.damage(item)) {
+          victim.inventory[i] = new Item(0, 0, brokenPocketwatch);
+          return;
+        }
       }
     }
   }
 
+  damage(item: Item) {
+    var [health] = item.useArgs;
+    health--;
+    item.useArgs = [health];
+
+    switch (health) {
+      case 2:
+        this.g.log.add("You hear a quiet tinkle.");
+        return true;
+      case 1:
+        this.g.log.add("You hear tiny gears grind to a halt.");
+        return true;
+      default:
+        this.g.log.add("You hear a quiet smashing sound.");
+        return false;
+    }
+  }
+
   break(item: Item) {
-    this.g.removeItem(item);
-    this.g.addItem(new Item(item.x, item.y, brokenPocketwatch));
-    return this.g.log.add("You hear a quiet smashing sound.");
+    if (!this.damage(item)) {
+      this.g.removeItem(item);
+      this.g.addItem(new Item(item.x, item.y, brokenPocketwatch));
+    }
   }
 }

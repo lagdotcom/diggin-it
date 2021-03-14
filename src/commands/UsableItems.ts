@@ -53,6 +53,9 @@ export default class UsableItems {
         result = this.useBomb(item);
         break;
 
+      case "memento":
+        return this.useMemento(item);
+
       default:
         return "You can't use that.";
     }
@@ -188,5 +191,18 @@ export default class UsableItems {
     item.charges--;
     this.g.spent++;
     return undefined;
+  }
+
+  useMemento(item: Item) {
+    const [health] = item.useArgs;
+
+    switch (health) {
+      case 3:
+        return "It looks brand new.";
+      case 2:
+        return "It rattles a little.";
+      default:
+        return "It's barely holding together.";
+    }
   }
 }
