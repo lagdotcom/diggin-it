@@ -141,7 +141,7 @@ export default class Gravity {
     this.g.move(victim, x, y);
     this.g.emit("fell", { thing: victim, distance });
 
-    if (victim.alive) {
+    if (victim.alive && !victim.inky) {
       if (tile.canSwimIn) {
         if (victim.player) this.g.log.add(`You fall into ${name(tile)}!`);
       } else if (tile.canClimb) {
@@ -170,7 +170,7 @@ export default class Gravity {
 
     var x = victim.x,
       y = victim.y;
-    if (!victim.alive)
+    if (!victim.alive || (victim.inky && attacker.inky))
       return this.fallOntoTile(
         attacker,
         this.g.map.get(x, y - 1),

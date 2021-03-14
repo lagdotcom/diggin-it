@@ -140,7 +140,12 @@ export const floater: Partial<ActorOptions> = {
   name: "floater",
   colour: "darkblue",
   ai: "fly",
+  inky: true,
   // TODO: mimic random flying enemy
+  maxhp: 65,
+  sp: 30,
+  dp: 21,
+  experience: 800,
   obeysGravity: false,
   lore:
     "\"If this is not a trick or hallucination of oxygen deprived madness, this conjoined face seems to almost lament its state of being. I must stay clear of these foul things, the stench is unfathomable and I can't be sure its touch isn't fatal in some way.\"\n- Jacques Splintertooth",
@@ -150,7 +155,12 @@ export const drifter: Partial<ActorOptions> = {
   name: "drifter",
   colour: "darkblue",
   ai: "wander",
+  inky: true,
   // TODO: mimic random ground enemy
+  maxhp: 70,
+  sp: 33,
+  dp: 23,
+  experience: 800,
   lore:
     "\"I don't understand how, but this strange abomination drifts and glides about like a feather, mimicing movements of human and beast alike. It unsettles me greatly to know things like this exist in the world, but I've come too far to give up now!\"\n- Jacques Splintertooth",
 };
@@ -159,6 +169,7 @@ export const theInk: Partial<ActorOptions> = {
   name: "ink",
   article: "the",
   colour: "purple",
+  inky: true,
   obeysGravity: false,
   maxhp: 200,
   sp: 40,

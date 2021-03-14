@@ -1,10 +1,13 @@
+import { RNG } from "rot-js";
 import AStar from "rot-js/lib/path/astar";
 
 import Actor, { ActorAI } from "../Actor";
+import { drifter, floater } from "../actors";
 import Movement from "../commands/Movement";
 import Game from "../Game";
 import XY from "../interfaces/XY";
 import { pick } from "../random";
+import { name } from "../text";
 import { manhattan } from "../utils";
 import Combat from "./Combat";
 import Vision from "./Vision";
@@ -151,13 +154,14 @@ export default class AI {
   }
 
   inkAi(a: Actor, data: any) {
-    var { active } = data;
+    var { active, spawn } = data;
     if (!active) {
       if (this.vision.visible(a.x, a.y)) {
         active = true;
         this.g.emit("noticed", { actor: a });
       } else return;
     }
+    if (!spawn) spawn = 0;
 
     const { inkparts } = a;
     const [b, c, d] = inkparts;
@@ -169,6 +173,30 @@ export default class AI {
       d.reeling = false;
       return;
     }
+
+    spawn++;
+    if (spawn >= 10) {
+      const possible: XY[] = [];
+      for (var y = a.y - 2; y < a.y + 4; y++)
+        for (var x = a.x - 2; x < a.x + 4; x++) {
+          const { actor, tile } = this.g.contents(x, y);
+          if (!actor && !tile.solid) possible.push([x, y]);
+        }
+
+      if (possible.length) {
+        spawn = 0;
+        const [x, y] = RNG.getItem(possible);
+        const baby = new Actor(
+          x,
+          y,
+          RNG.getPercentage() > 50 ? floater : drifter
+        );
+        this.g.add(baby);
+        this.g.log.add(`${name(baby)} splits from the ink!`);
+      }
+    }
+
+    a.aiData = { active, spawn };
 
     const { player } = this.g;
     if (
@@ -201,8 +229,6 @@ export default class AI {
       this.g.move(b, x + 1, y);
       this.g.move(c, x, y + 1);
       this.g.move(d, x + 1, y + 1);
-    } else active = false;
-
-    a.aiData = { active };
+    }
   }
 }

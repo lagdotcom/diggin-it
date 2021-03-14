@@ -19,6 +19,7 @@ export interface ActorOptions {
   equipment: Partial<Record<Slot, Item>>;
   glyph: string;
   heavy: boolean;
+  inky: boolean;
   inventory: Item[];
   inventorySize: number;
   lore: string;
@@ -49,6 +50,7 @@ export default class Actor {
   equipment: Partial<Record<Slot, Item>>;
   glyph: string;
   heavy: boolean;
+  inky: boolean;
   inkparts: Actor[];
   inventory: Item[];
   inventorySize: number;
@@ -83,6 +85,7 @@ export default class Actor {
       equipment = {},
       glyph = "?",
       heavy = false,
+      inky = false,
       lore = undefined,
       name = glyph,
       obeysGravity = true,
@@ -112,6 +115,7 @@ export default class Actor {
     this.equipment = equipment;
     this.glyph = glyph;
     this.heavy = heavy;
+    this.inky = inky;
     this.lore = lore;
     this.name = name;
     this.namep = name;
