@@ -86,7 +86,7 @@ function toMapString(grid: Grid<string>) {
 function generateBossMap(g: Game, seed?: number) {
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
-  console.log("map seed:", seed);
+  // console.log("map seed:", seed);
 
   const vault = RNG.getItem(bossrooms);
   return toMapString(vault.resolve());
@@ -99,7 +99,7 @@ export function generateMap(g: Game, seed?: number) {
 
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
-  console.log("map seed:", seed);
+  // console.log("map seed:", seed);
 
   const noise = new Simplex();
   const taken = new Hotspots<number>();
@@ -118,7 +118,7 @@ export function generateMap(g: Game, seed?: number) {
 
     const x = RNG.getUniformInt(1, width - exit.width - 1);
     const y = height - exit.height - 1;
-    console.log(`placing ${exit.name} at ${x},${y}`);
+    // console.log(`placing ${exit.name} at ${x},${y}`);
     taken.register(-1, x, y, exit.width, exit.height);
     map.paste(exit.resolve(), x, y);
   }
@@ -132,7 +132,7 @@ export function generateMap(g: Game, seed?: number) {
 
     const spot = taken.overlap(x, y, vault.width, vault.height);
     if (!spot) {
-      console.log(`placing ${vault.name} at ${x},${y}`);
+      // console.log(`placing ${vault.name} at ${x},${y}`);
       taken.register(i, x, y, vault.width, vault.height);
       map.paste(vault.resolve(), x, y);
 

@@ -63,7 +63,7 @@ export default class Game extends EventHandler {
     public ascii = false
   ) {
     super();
-    (window as any).g = this;
+    // (window as any).g = this;
     this.contexts = new ArrayStack();
     this.log = new MessageLog(this);
 
@@ -193,7 +193,7 @@ export default class Game extends EventHandler {
 
   nextMap(seed?: number) {
     const map = generateMap(this, seed);
-    console.log(map.join("\n"));
+    // console.log(map.join("\n"));
     this.useMap(map);
   }
 
