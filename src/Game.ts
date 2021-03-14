@@ -5,7 +5,9 @@ import { KeyInputHandler, MouseInputHandler } from "@lagdotcom/simple-inputs";
 import Actor from "./Actor";
 import ArrayStack from "./ArrayStack";
 import AuthorScreen from "./contexts/AuthorScreen";
+import BadEndingScreen from "./contexts/BadEndingScreen";
 import Dungeon from "./contexts/Dungeon";
+import GoodEndingScreen from "./contexts/GoodEndingScreen";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
 import Grid from "./interfaces/Grid";
@@ -19,8 +21,10 @@ import MessageLog from "./MessageLog";
 import loadAllMusic, { MusicLibrary, MusicName } from "./music";
 import { getNewPlayer } from "./prefabs";
 import {
+  loadBadEndGraphics,
   loadChars,
   loadCharsAscii,
+  loadGoodEndGraphics,
   loadTiles,
   loadTilesAscii,
   loadTitleGraphics,
@@ -48,6 +52,8 @@ export default class Game extends EventHandler {
   spent: number;
   tiles: Display;
   title: HTMLImageElement;
+  badEnd: HTMLImageElement;
+  goodEnd: HTMLImageElement;
 
   constructor(
     public container: HTMLElement = document.body,
@@ -82,6 +88,12 @@ export default class Game extends EventHandler {
 
   async init() {
     const [tilesConfig, charsConfig] = await this.getDisplayConfigs();
+    const [titleGraphics, goodGraphics, badGraphics] = await Promise.all([
+      loadTitleGraphics(),
+      loadGoodEndGraphics(),
+      loadBadEndGraphics(),
+    ]);
+
     this.music = await loadAllMusic();
 
     this.tiles = new Display(tilesConfig);
@@ -92,7 +104,9 @@ export default class Game extends EventHandler {
     if (!context) throw Error("Could not get context");
     this.ctx = context;
 
-    this.title = await loadTitleGraphics();
+    this.title = titleGraphics;
+    this.badEnd = badGraphics;
+    this.goodEnd = goodGraphics;
     this.chars = new Display({ ...charsConfig, context });
 
     this.container.append(this.canvas);
@@ -131,6 +145,13 @@ export default class Game extends EventHandler {
   private startMusic(track: MusicName) {
     this.music[track].volume = 1;
     this.music[track].play().then(() => (this.musicPlaying = track));
+  }
+
+  showEnding(good: boolean) {
+    this.contexts.clear();
+    this.contexts.push(
+      good ? new GoodEndingScreen(this) : new BadEndingScreen(this)
+    );
   }
 
   playMusic(track: MusicName) {

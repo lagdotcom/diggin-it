@@ -4,6 +4,8 @@ import tilesUrl from "../res/16x16.png";
 import tilesSheet from "../res/16x16.sheet.json";
 import charsUrl from "../res/8x8.png";
 import charsSheet from "../res/8x8.sheet.json";
+import badEndUrl from "../res/ending1.png";
+import goodEndUrl from "../res/ending2.png";
 import titleUrl from "../res/title.png";
 
 type TileMap = DisplayOptions["tileMap"];
@@ -114,4 +116,12 @@ export function loadCharsAscii(
 
 export function loadTitleGraphics(): Promise<HTMLImageElement> {
   return fetchImage(titleUrl);
+}
+
+export function loadBadEndGraphics(): Promise<HTMLImageElement> {
+  return fetchImage(badEndUrl);
+}
+
+export function loadGoodEndGraphics(): Promise<HTMLImageElement> {
+  return fetchImage(goodEndUrl);
 }

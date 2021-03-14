@@ -1,4 +1,3 @@
-import { drawMulti } from "../drawing";
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
