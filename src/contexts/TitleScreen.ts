@@ -37,6 +37,6 @@ export default class TitleScreen implements Context {
 
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(title, 48, 0);
+    ctx.drawImage(title, 0, 0);
   }
 }

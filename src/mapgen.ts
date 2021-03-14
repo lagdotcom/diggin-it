@@ -11,8 +11,9 @@ import exits from "./vaults/exits";
 import fragments from "./vaults/fragments";
 import jrooms from "./vaults/j";
 import lagrooms from "./vaults/lag";
+import morerooms from "./vaults/more";
 
-const vaults = [...basics, ...lagrooms, ...fragments, ...jrooms];
+const vaults = [...basics, ...lagrooms, ...fragments, ...jrooms, ...morerooms];
 
 function solidity(n: number) {
   if (n < 40) return " ";
