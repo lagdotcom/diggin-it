@@ -43,7 +43,7 @@ export default class ExamineScreen implements Context {
     chars.drawText(
       1,
       1,
-      "Diggin' It (Jam Version)\n\n\nControls:\n- Left click: Interact with inventory item, use shop interface, check further action history\n\n- Right click: Drop inventory item\n\n- arrow keys: move\n\n- esc: Exit large screen menus, restart game on death\n\n- shift + arrow keys: hold to dig in any direction without moving\n\n- g: grab item\n\n- x: examine detailed item and enemy descriptions\n\n- . or 5: wait",
+      "Diggin' It (Jam Version)\n\n\nControls:\n- Left click: Interact with inventory item, use shop interface, check further action history\n\n- Right click: Drop inventory item\n\n- arrow keys: move\n\n- esc: Exit large screen menus, restart game on death\n\n- shift + arrow keys: hold to dig in any direction without moving\n\n- g: grab item\n\n- x: examine detailed item and enemy descriptions\n\n- . or 5: wait\n\n- enter or >: go through exits",
       w - 2
     );
   }
