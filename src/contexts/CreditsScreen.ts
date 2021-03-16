@@ -39,6 +39,10 @@ export default class CreditsScreen implements Context {
     chars.drawText(2, y++, "Jacob J. Ritz (@UltraJDude)");
 
     y++;
+    chars.drawText(1, y++, "Programming:");
+    chars.drawText(2, y++, "Paul Davies");
+
+    y++;
     chars.drawText(1, y++, "Art:");
     chars.drawText(2, y++, "Jacob J. Ritz");
 
