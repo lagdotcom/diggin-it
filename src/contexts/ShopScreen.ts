@@ -2,7 +2,7 @@ import Inventory from "../commands/Inventory";
 import { drawMulti, drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
-import Cmd, { BuyCmd } from "../interfaces/Cmd";
+import Cmd, { BuyCmd, CancelCmd } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import Item, { ItemOptions } from "../Item";
 import {
@@ -111,7 +111,7 @@ export default class ShopScreen implements Context {
     this[type].push(offer);
   }
 
-  handle(cmd: Cmd): void {
+  handle(cmd: CancelCmd | BuyCmd): void {
     const { player } = this.g;
 
     if (cmd.type === "cancel") {
@@ -120,7 +120,7 @@ export default class ShopScreen implements Context {
       return;
     }
 
-    const offer = this.offers[(cmd as BuyCmd).name];
+    const offer = this.offers[cmd.name];
     let redocosts = false;
     if (offer.cost <= player.experience) {
       switch (offer.glyph) {
