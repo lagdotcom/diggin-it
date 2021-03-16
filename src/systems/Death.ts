@@ -9,7 +9,7 @@ export default class Death {
     g.on("damaged", this.damaged.bind(this));
   }
 
-  damaged(data: DamagedData) {
+  damaged(data: DamagedData): void {
     const { attacker, victim } = data;
 
     if (victim.hp < 1) {
@@ -23,7 +23,7 @@ export default class Death {
     }
   }
 
-  getDeathString({ victim, type }: DamagedData) {
+  getDeathString({ victim, type }: DamagedData): string {
     const vname = name(victim);
     const s = victim.player ? "" : "s";
     const is = victim.player ? "are" : "is";

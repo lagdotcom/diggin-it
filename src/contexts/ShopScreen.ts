@@ -2,7 +2,7 @@ import Inventory from "../commands/Inventory";
 import { drawMulti, drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
-import Cmd from "../interfaces/Cmd";
+import Cmd, { BuyCmd } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import Item, { ItemOptions } from "../Item";
 import {
@@ -101,7 +101,7 @@ export default class ShopScreen implements Context {
     this.render();
   }
 
-  addOffer(type: OfferType, glyph: string, cost: number, name?: string) {
+  addOffer(type: OfferType, glyph: string, cost: number, name?: string): void {
     const x = positions[type];
     const y = 8 + this[type].length * 3;
     this.spots.register(glyph, x, y, 6, 2);
@@ -114,56 +114,53 @@ export default class ShopScreen implements Context {
   handle(cmd: Cmd): void {
     const { player } = this.g;
 
-    switch (cmd.type) {
-      case "cancel":
-        this.g.depth++;
-        this.g.nextMap();
-        break;
+    if (cmd.type === "cancel") {
+      this.g.depth++;
+      this.g.nextMap();
+      return;
+    }
 
-      case "buy":
-        const offer = this.offers[cmd.name];
-        var redocosts = false;
-        if (offer.cost <= player.experience) {
-          switch (offer.glyph) {
-            case "HP":
-              player.maxhp += 5;
-              player.hp += 5;
-              player.player.stats++;
-              redocosts = true;
-              break;
+    const offer = this.offers[(cmd as BuyCmd).name];
+    let redocosts = false;
+    if (offer.cost <= player.experience) {
+      switch (offer.glyph) {
+        case "HP":
+          player.maxhp += 5;
+          player.hp += 5;
+          player.player.stats++;
+          redocosts = true;
+          break;
 
-            case "SP":
-              player.sp++;
-              player.player.stats++;
-              redocosts = true;
-              break;
+        case "SP":
+          player.sp++;
+          player.player.stats++;
+          redocosts = true;
+          break;
 
-            case "DP":
-              player.dp++;
-              player.player.stats++;
-              redocosts = true;
-              break;
+        case "DP":
+          player.dp++;
+          player.player.stats++;
+          redocosts = true;
+          break;
 
-            default:
-              const item = new Item(0, 0, items[cmd.name]);
-              if (!Inventory.addToInventory(this.g, player, item, true)) return;
-              if (item.slot) player.equipment[item.slot] = item;
-              break;
-          }
+        default:
+          const item = new Item(0, 0, items[cmd.name]);
+          if (!Inventory.addToInventory(this.g, player, item, true)) return;
+          if (item.slot) player.equipment[item.slot] = item;
+          break;
+      }
 
-          player.experience -= offer.cost;
-          if (redocosts) this.recalculateStatOffers();
-          return this.render();
-        }
-        break;
+      player.experience -= offer.cost;
+      if (redocosts) this.recalculateStatOffers();
+      return this.render();
     }
   }
 
-  getStatCost() {
+  getStatCost(): number {
     return 50 * (this.g.player.player.stats + 1);
   }
 
-  recalculateStatOffers() {
+  recalculateStatOffers(): void {
     const cost = this.getStatCost();
     this.stat.forEach((o) => (o.cost = cost));
   }
@@ -229,11 +226,11 @@ export default class ShopScreen implements Context {
     this.showOffers("armour");
   }
 
-  showOffers(type: OfferType) {
+  showOffers(type: OfferType): void {
     const { chars } = this.g;
 
-    var x = positions[type];
-    var y = 8;
+    const x = positions[type];
+    let y = 8;
 
     this[type].forEach((o) => {
       drawMulti(chars, x, y, 2, 2, o.glyph);

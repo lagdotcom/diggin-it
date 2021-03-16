@@ -3,14 +3,12 @@ import Stat from "./interfaces/Stat";
 import Item from "./Item";
 
 export type ActorAI = "wander" | "fly" | "ink";
-
-interface PlayerData {
-  stats: number;
-}
+export type AIData = { active?: boolean; dir?: number; spawn?: number };
+export type PlayerData = { stats: number };
 
 export interface ActorOptions {
   ai: ActorAI;
-  aiData: Record<string, any>;
+  aiData: AIData;
   alive: boolean;
   article: string;
   canClimb: boolean;
@@ -41,7 +39,7 @@ export interface ActorOptions {
 
 export default class Actor {
   ai?: ActorAI;
-  aiData: Record<string, any>;
+  aiData: AIData;
   alive: boolean;
   article: string;
   canClimb: boolean;
@@ -138,9 +136,9 @@ export default class Actor {
     this.reeling = false;
   }
 
-  get(st: Stat) {
+  get(st: Stat): number {
     const base = this[st];
-    var mod = 0;
+    let mod = 0;
     Object.values(this.equipment).forEach((it) => {
       if (it.bonus[st]) mod += it.bonus[st];
     });
@@ -148,7 +146,7 @@ export default class Actor {
     return base + mod;
   }
 
-  fullHeal() {
+  fullHeal(): void {
     this.hp = this.get("maxhp");
     this.ap = this.get("maxap"); // TODO: should heal ap?
     this.fp = this.get("maxfp"); // TODO: should heal fp?

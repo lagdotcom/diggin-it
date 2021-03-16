@@ -13,25 +13,24 @@ export default class Bombs {
     g.on("tick", () => this.run());
   }
 
-  run() {
+  run(): void {
     const { log, map, player } = this.g;
 
     const remove: Item[] = [];
     this.bombs.forEach((bomb) => {
-      var [fuse, xm, ym, w, h, dmg] = bomb.useArgs;
-      fuse--;
+      const [fuse, xm, ym, w, h, dmg] = bomb.useArgs;
 
-      if (fuse < 1) {
+      if (fuse < 2) {
         remove.push(bomb);
         log.add("There is a large explosion!");
         this.g.removeItem(bomb);
 
-        for (var yo = 0; yo < h; yo++) {
-          for (var xo = 0; xo < w; xo++) {
+        for (let yo = 0; yo < h; yo++) {
+          for (let xo = 0; xo < w; xo++) {
             const x = bomb.x + xm + xo,
               y = bomb.y + ym + yo;
 
-            const { actor, items, tile } = this.g.contents(x, y);
+            const { actor, tile } = this.g.contents(x, y);
             if (actor?.alive) {
               actor.hp -= dmg;
               this.g.emit("damaged", {
@@ -41,6 +40,8 @@ export default class Bombs {
                 type: "bomb",
               });
             }
+
+            // TODO: destroy pocketwatch
 
             if (tile.solid && !tile.indestructible) {
               // TODO: create rock?
@@ -57,7 +58,7 @@ export default class Bombs {
         return;
       }
 
-      bomb.useArgs = [fuse, xm, ym, w, h, dmg];
+      bomb.useArgs = [fuse - 1, xm, ym, w, h, dmg];
     });
 
     this.bombs = this.bombs.filter((bomb) => !remove.includes(bomb));

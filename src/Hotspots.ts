@@ -22,11 +22,11 @@ function rect<T>(
   };
 }
 
-function contains(rect: Hotspot<any>, x: number, y: number) {
+function contains(rect: Hotspot<unknown>, x: number, y: number): boolean {
   return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
 }
 
-function overlaps(a: Hotspot<any>, b: Hotspot<any>) {
+function overlaps(a: Hotspot<unknown>, b: Hotspot<unknown>): boolean {
   if (a.left >= b.right || b.left >= a.right) return false;
   if (a.bottom <= b.top || b.bottom <= a.top) return false;
   return true;
@@ -39,14 +39,14 @@ export default class Hotspots<T = string> {
     this.spots = [];
   }
 
-  register(name: T, x: number, y: number, w: number, h: number) {
+  register(name: T, x: number, y: number, w: number, h: number): Hotspot<T> {
     const spot = rect(name, x, y, w, h);
     this.spots.push(rect(name, x, y, w, h));
     return spot;
   }
 
   resolve(x: number, y: number): [name: T, ox: number, oy: number] {
-    for (var i = 0; i < this.spots.length; i++) {
+    for (let i = 0; i < this.spots.length; i++) {
       const spot = this.spots[i];
       if (contains(spot, x, y))
         return [
@@ -57,10 +57,10 @@ export default class Hotspots<T = string> {
     }
   }
 
-  overlap(x: number, y: number, w: number, h: number) {
+  overlap(x: number, y: number, w: number, h: number): boolean {
     const temp = rect("temp", x, y, w, h);
 
-    for (var i = 0; i < this.spots.length; i++) {
+    for (let i = 0; i < this.spots.length; i++) {
       const spot = this.spots[i];
       if (overlaps(spot, temp)) return true;
     }

@@ -2,8 +2,6 @@ import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
-import Thing from "../interfaces/Thing";
-import { name } from "../text";
 
 export default class ExamineScreen implements Context {
   constructor(public g: Game) {

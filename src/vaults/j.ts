@@ -1,3 +1,4 @@
+/* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 
 const den1 = new Vault("monster den 1", [
@@ -129,16 +130,16 @@ const bridge = new Vault("Bridge", [
 ]);
 
 // TODO: won't work rn
-const secret = new Vault("Beelzebub's Secret", [
-  "::::]]]]]]]",
-  ":%%%%%%%%%]",
-  "]]]]]]]]]%]",
-  "]%%%%%%%]%]",
-  "]%]DG693]%]",
-  "]%]]]]]]]%]",
-  "]%%%%%%%%%]",
-  "]]]]]]]]]]]",
-]);
+// const secret = new Vault("Beelzebub's Secret", [
+//   "::::]]]]]]]",
+//   ":%%%%%%%%%]",
+//   "]]]]]]]]]%]",
+//   "]%%%%%%%]%]",
+//   "]%]DG693]%]",
+//   "]%]]]]]]]%]",
+//   "]%%%%%%%%%]",
+//   "]]]]]]]]]]]",
+// ]);
 
 const safe = new Vault("Safe T", [
   "#######",
@@ -499,3 +500,4 @@ export default [
   shoe3,
   gong,
 ];
+/* eslint-enable radar/no-duplicate-string */

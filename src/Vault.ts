@@ -26,15 +26,15 @@ export default class Vault {
     this.transforms = transforms;
   }
 
-  transform(src: string, dst: string, once = true) {
+  transform(src: string, dst: string, once = true): this {
     this.transforms.push({ src, dst: dst.split(""), once });
     return this;
   }
 
-  resolve() {
+  resolve(): Grid<string> {
     const chose: Record<string, string> = {};
     const transformed = this.grid.transform((ch) => {
-      for (var i = 0; i < this.transforms.length; i++) {
+      for (let i = 0; i < this.transforms.length; i++) {
         const { src, dst, once } = this.transforms[i];
         if (src === ch) {
           if (once) {
@@ -49,6 +49,6 @@ export default class Vault {
       return ch;
     });
 
-    return RNG.getPercentage() <= 50 ? transformed : transformed.flipH();
+    return RNG.getPercentage() <= 50 ? transformed : transformed.mirror();
   }
 }

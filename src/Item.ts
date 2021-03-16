@@ -20,7 +20,7 @@ export interface ItemOptions {
   slot: Slot;
   treasure: number;
   use: ItemUse;
-  useArgs: any[];
+  useArgs: number[];
 }
 
 export default class Item {
@@ -40,7 +40,7 @@ export default class Item {
   slot?: Slot;
   treasure: number;
   use?: ItemUse;
-  useArgs: any[];
+  useArgs: number[];
 
   constructor(
     public x: number,

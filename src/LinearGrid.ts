@@ -14,7 +14,7 @@ export default class LinearGrid<T> implements Grid<T> {
       for (let x = 0; x < width; x++) this.items.push(uninitialised(x, y));
   }
 
-  static from<T>(data: T[][]) {
+  static from<T>(data: T[][]): Grid<T> {
     const height = data.length;
     const width = data[0].length;
     return new LinearGrid(width, height, (x, y) => data[y][x]);
@@ -28,12 +28,12 @@ export default class LinearGrid<T> implements Grid<T> {
     return y * this.width + x;
   }
 
-  fill(value: T) {
+  fill(value: T): this {
     for (let i = 0; i < this.width * this.height; i++) this.items[i] = value;
     return this;
   }
 
-  set(x: number, y: number, value: T) {
+  set(x: number, y: number, value: T): this {
     const i = this.index(x, y);
     this.items[i] = value;
     return this;
@@ -46,7 +46,7 @@ export default class LinearGrid<T> implements Grid<T> {
     return this.items[i];
   }
 
-  update(x: number, y: number, fn: (value: T) => T) {
+  update(x: number, y: number, fn: (value: T) => T): this {
     return this.set(x, y, fn(this.get(x, y)));
   }
 
@@ -62,13 +62,13 @@ export default class LinearGrid<T> implements Grid<T> {
 
   visualise(
     fn: (value: T) => string = (x) => x.toString(),
-    space: string = ""
-  ) {
+    space = ""
+  ): string {
     const { width, height } = this;
     const rows: string[] = [];
-    var row: string[] = [];
+    let row: string[] = [];
 
-    for (var i = 0; i < width * height; i++) {
+    for (let i = 0; i < width * height; i++) {
       const tile = this.items[i];
       row.push(fn(tile));
 
@@ -81,12 +81,12 @@ export default class LinearGrid<T> implements Grid<T> {
     return rows.join("\n");
   }
 
-  toArray() {
+  toArray(): T[][] {
     const { width, height } = this;
     const rows: T[][] = [];
-    var row: T[] = [];
+    let row: T[] = [];
 
-    for (var i = 0; i < width * height; i++) {
+    for (let i = 0; i < width * height; i++) {
       const tile = this.items[i];
       row.push(tile);
 
@@ -99,31 +99,31 @@ export default class LinearGrid<T> implements Grid<T> {
     return rows;
   }
 
-  paste(grid: Grid<T>, sx: number, sy: number) {
+  paste(grid: Grid<T>, sx: number, sy: number): boolean {
     if (sx + grid.width >= this.width) return false;
     if (sy + grid.height >= this.height) return false;
 
-    for (var y = 0; y < grid.height; y++) {
-      for (var x = 0; x < grid.width; x++) {
+    for (let y = 0; y < grid.height; y++) {
+      for (let x = 0; x < grid.width; x++) {
         this.set(sx + x, sy + y, grid.get(x, y));
       }
     }
     return true;
   }
 
-  transform(fn: (value: T, x: number, y: number) => T) {
+  transform(fn: (value: T, x: number, y: number) => T): Grid<T> {
     return new LinearGrid(this.width, this.height, (x, y) =>
       fn(this.get(x, y), x, y)
     );
   }
 
-  flipH() {
+  mirror(): Grid<T> {
     return new LinearGrid(this.width, this.height, (x, y) =>
       this.get(this.width - x - 1, y)
     );
   }
 
-  includes(value: T) {
+  includes(value: T): boolean {
     return this.items.includes(value);
   }
 }

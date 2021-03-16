@@ -5,7 +5,7 @@ export default class Air {
     g.on("tick", () => this.run());
   }
 
-  run() {
+  run(): void {
     const { log, map, player } = this.g;
     const tile = map.get(player.x, player.y);
     player.ap -= tile.airCost;

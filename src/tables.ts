@@ -1,5 +1,6 @@
 import { RNG } from "rot-js";
 
+import { ActorOptions } from "./Actor";
 import {
   buster,
   canandra,
@@ -12,6 +13,7 @@ import {
   squimpy,
   telden,
 } from "./actors";
+import { ItemOptions } from "./Item";
 import {
   arsenalArmour,
   busterArmour,
@@ -86,7 +88,7 @@ const enemiesByZone: Distribution<EnemyName>[] = [
   },
 ];
 
-export function getRandomEnemy(zone: number) {
+export function getRandomEnemy(zone: number): Partial<ActorOptions> {
   return enemyTypes[RNG.getWeightedValue(enemiesByZone[zone]) as EnemyName];
 }
 
@@ -132,7 +134,7 @@ const weaponsByZone: Distribution<WeaponName>[] = [
   },
 ];
 
-export function getRandomWeapon(zone: number) {
+export function getRandomWeapon(zone: number): Partial<ItemOptions> {
   return weaponTypes[RNG.getWeightedValue(weaponsByZone[zone]) as WeaponName];
 }
 
@@ -173,6 +175,6 @@ const armourByZone: Distribution<ArmourName>[] = [
   },
 ];
 
-export function getRandomArmour(zone: number) {
+export function getRandomArmour(zone: number): Partial<ItemOptions> {
   return armourTypes[RNG.getWeightedValue(armourByZone[zone]) as ArmourName];
 }

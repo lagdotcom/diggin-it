@@ -9,7 +9,7 @@ export default class Movement {
     const x = player.x + mx;
     const y = player.y + my;
 
-    const { actor, items, tile } = this.g.contents(x, y);
+    const { actor, tile } = this.g.contents(x, y);
 
     if (actor) {
       if (actor.pushable && my === 0) return { type: "push", x, y, mx, my };
@@ -37,14 +37,14 @@ export default class Movement {
       return "Nothing to climb.";
   }
 
-  static canClimb(g: Game, sx: number, sy: number, mx: number) {
+  static canClimb(g: Game, sx: number, sy: number, mx: number): boolean {
     const thru = g.contents(sx, sy - 1);
     const above = g.contents(sx + mx, sy - 1);
 
     return !thru.actor && !thru.tile.solid && !above.actor && !above.tile.solid;
   }
 
-  apply(mx: number, my: number) {
+  apply(mx: number, my: number): void {
     const { player } = this.g;
     const x = player.x + mx;
     const y = player.y + my;

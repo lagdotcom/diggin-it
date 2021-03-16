@@ -5,7 +5,7 @@ export default class TreasureGrabbing {
     g.on("moved", () => this.getTreasure());
   }
 
-  getTreasure() {
+  getTreasure(): void {
     const { player } = this.g;
 
     this.g.items
@@ -18,7 +18,7 @@ export default class TreasureGrabbing {
 
         if (i.glyph === "Fragment") {
           this.g.playMusic("shiny");
-          var good = false;
+          let good = false;
           player.inventory.forEach((item) => {
             if (item?.use === "memento") good = true;
           });

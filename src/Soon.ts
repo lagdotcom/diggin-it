@@ -6,7 +6,7 @@ export default class Soon {
     if (started) this.start();
   }
 
-  start() {
+  start(): void {
     if (!this.handle)
       this.handle = requestAnimationFrame(() => {
         this.callback();
@@ -14,7 +14,7 @@ export default class Soon {
       });
   }
 
-  stop() {
+  stop(): void {
     if (this.handle) {
       cancelAnimationFrame(this.handle);
       this.handle = 0;

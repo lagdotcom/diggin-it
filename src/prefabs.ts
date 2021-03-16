@@ -12,7 +12,7 @@ import {
   rope,
 } from "./items";
 
-export function getNewPlayer() {
+export function getNewPlayer(): Actor {
   const weapon = new Item(0, 0, pocketknife);
   const armour = new Item(0, 0, clothes);
   const trinket = new Item(0, 0, pocketwatch);
@@ -28,7 +28,7 @@ export function getNewPlayer() {
   });
 }
 
-export function addTheInk(g: Game, x: number, y: number) {
+export function addTheInk(g: Game, x: number, y: number): void {
   const tl = new Actor(x, y, { ...theInk, ai: "ink" });
   const tr = new Actor(x + 1, y, { ...theInk, glyph: "Ink2" });
   const bl = new Actor(x, y + 1, { ...theInk, glyph: "Ink3" });

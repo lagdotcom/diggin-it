@@ -21,9 +21,9 @@ function solidity(n: number) {
   return "#";
 }
 
-function rando(end: number, start: number = 0) {
+function rando(end: number, start = 0) {
   const cols = [];
-  for (var x = start; x < end; x++) cols.push(x);
+  for (let x = start; x < end; x++) cols.push(x);
   return RNG.shuffle(cols);
 }
 
@@ -31,11 +31,11 @@ function isSolid(ch: string) {
   return "#:[!".includes(ch);
 }
 
-function findStart(map: Grid<string>, taken: Hotspots<any>) {
-  for (var y = 1; y < map.height - 1; y++) {
+function findStart(map: Grid<string>, taken: Hotspots<unknown>) {
+  for (let y = 1; y < map.height - 1; y++) {
     const cols = rando(map.width - 1, 1);
 
-    for (var i = 0; i < cols.length; i++) {
+    for (let i = 0; i < cols.length; i++) {
       const x = cols[i];
       if (taken.resolve(x, y)) continue;
 
@@ -49,11 +49,11 @@ function findStart(map: Grid<string>, taken: Hotspots<any>) {
   throw new Error("no valid entrance");
 }
 
-function findExit(map: Grid<string>, taken: Hotspots<any>) {
-  for (var y = map.height - 1; y > 0; y--) {
+function findExit(map: Grid<string>, taken: Hotspots<unknown>) {
+  for (let y = map.height - 1; y > 0; y--) {
     const cols = rando(map.width - 1, 1);
 
-    for (var i = 0; i < cols.length; i++) {
+    for (let i = 0; i < cols.length; i++) {
       const x = cols[i];
       if (taken.resolve(x, y)) continue;
 
@@ -92,7 +92,7 @@ function generateBossMap(g: Game, seed?: number) {
   return toMapString(vault.resolve());
 }
 
-export function generateMap(g: Game, seed?: number) {
+export function generateMap(g: Game, seed?: number): string[] {
   if (g.depth >= 10) return generateBossMap(g, seed);
 
   const { width, height, maxvaults, vaultattempts } = getMapParameters(g.depth);
@@ -105,8 +105,8 @@ export function generateMap(g: Game, seed?: number) {
   const taken = new Hotspots<number>();
   const map = new LinearGrid(width, height, () => "!");
 
-  for (var x = 1; x < width - 1; x++) {
-    for (var y = 1; y < height - 1; y++) {
+  for (let x = 1; x < width - 1; x++) {
+    for (let y = 1; y < height - 1; y++) {
       const n = (noise.get(x, y) + 1) * 50;
       map.set(x, y, solidity(n));
     }
@@ -123,8 +123,8 @@ export function generateMap(g: Game, seed?: number) {
     map.paste(exit.resolve(), x, y);
   }
 
-  var placed = 0;
-  for (var i = 0; i < vaultattempts; i++) {
+  let placed = 0;
+  for (let i = 0; i < vaultattempts; i++) {
     const vault = RNG.getItem(vaults);
     const x = RNG.getUniformInt(1, width - vault.width - 1);
     const y = RNG.getUniformInt(1, height - vault.height - 1);

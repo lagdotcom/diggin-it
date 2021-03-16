@@ -32,7 +32,7 @@ export default class ExamineScreen implements Context {
     }
   }
 
-  getInfo() {
+  getInfo(): string {
     return name(this.thing) + "\n\n" + this.thing.lore;
   }
 

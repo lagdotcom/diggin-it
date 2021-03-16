@@ -99,7 +99,7 @@ export default class Dungeon implements Context {
     this.rerender = new Soon(() => this.render());
   }
 
-  get canMove() {
+  get canMove(): boolean {
     return this.g.spent === 0 && this.g.player.alive;
   }
 
@@ -311,27 +311,27 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
-  handleExamine() {
+  handleExamine(): void {
     if (this.infoMore) {
       this.g.contexts.push(new ExamineScreen(this.g, this.infoMore));
       this.rerender.stop();
     }
   }
 
-  handleExit() {
+  handleExit(): void {
     const { map, player } = this.g;
     const tile = map.get(player.x, player.y);
 
     if (tile.glyph === "Exit") this.leaveArea();
   }
 
-  leaveArea() {
+  leaveArea(): void {
     const { depth } = this.g;
     this.g.emit("left", { depth, zone: getZone(depth) });
     this.g.contexts.push(new ShopScreen(this.g));
   }
 
-  handleExpandLog() {
+  handleExpandLog(): void {
     this.g.contexts.push(new ExpandedLog(this.g));
     this.rerender.stop();
   }
@@ -344,7 +344,7 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
-  handleHelp() {
+  handleHelp(): void {
     this.g.contexts.push(new HelpScreen(this.g));
     this.rerender.stop();
   }
@@ -368,16 +368,16 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
-  handleTarget(cmd: TargetCmd) {
+  handleTarget(cmd: TargetCmd): void {
     this.g.contexts.push(new Targeting(this.g, this, cmd));
   }
 
-  handleTitle() {
+  handleTitle(): void {
     this.g.contexts.clear();
     this.g.contexts.push(new ScenarioScreen(this.g));
   }
 
-  handleUse({ index, at }: UseCmd) {
+  handleUse({ index, at }: UseCmd): void {
     const item = this.g.player.inventory[index];
     const poss = this.use.use(index, item, at);
     if (typeof poss === "object") return this.handle(poss);
@@ -386,7 +386,7 @@ export default class Dungeon implements Context {
     return this.render();
   }
 
-  handleWait() {
+  handleWait(): void {
     this.g.spent++;
     this.rerender.start();
   }
@@ -408,13 +408,13 @@ export default class Dungeon implements Context {
     return [xmod, ymod];
   }
 
-  getMouseSpot() {
+  getMouseSpot(): ReturnType<Hotspots["resolve"]> {
     const [ex, ey] = this.mouse;
     return this.hotspots.resolve(ex, ey);
   }
 
   updateInfo(): void {
-    const [ex, ey] = this.mouse;
+    const [ex] = this.mouse;
     // not even on the canvas
     if (ex === -1) {
       this.info = "";
@@ -488,13 +488,13 @@ export default class Dungeon implements Context {
     log.draw();
   }
 
-  renderDisplay() {
+  renderDisplay(): void {
     const { displayHeight, displayWidth, memory, tiles } = this.g;
     const vision = this.vision.get();
     const [xmod, ymod] = this.getDisplayOffset();
 
-    for (var y = 0; y < displayHeight; y++) {
-      for (var x = 0; x < displayWidth; x++) {
+    for (let y = 0; y < displayHeight; y++) {
+      for (let x = 0; x < displayWidth; x++) {
         const tx = x - xmod,
           ty = y - ymod;
 
@@ -516,7 +516,7 @@ export default class Dungeon implements Context {
     }
   }
 
-  renderStats() {
+  renderStats(): void {
     const { chars, player } = this.g;
 
     drawPanel(chars, 28, 0, 12, 10);
@@ -529,14 +529,14 @@ export default class Dungeon implements Context {
     chars.drawText(31, 8, pad(player.experience, 6, "0"));
   }
 
-  renderInventory() {
+  renderInventory(): void {
     const { chars, player } = this.g;
 
     drawPanel(chars, 28, 10, 12, 12);
 
-    var x = 29,
+    let x = 29,
       y = 13;
-    for (var i = 0; i < player.inventorySize; i++) {
+    for (let i = 0; i < player.inventorySize; i++) {
       const item = player.inventory[i];
 
       if (!item) {
@@ -569,7 +569,7 @@ export default class Dungeon implements Context {
     }
   }
 
-  renderInfo() {
+  renderInfo(): void {
     const { chars } = this.g;
 
     drawPanel(chars, 0, 0, 28, 5, true);

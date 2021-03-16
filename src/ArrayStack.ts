@@ -7,23 +7,23 @@ export default class ArrayStack<T> implements Stack<T> {
     this.items = [];
   }
 
-  get size() {
+  get size(): number {
     return this.items.length;
   }
 
-  get top() {
+  get top(): T {
     return this.items[this.items.length - 1];
   }
 
-  clear() {
+  clear(): void {
     this.items.splice(0, this.items.length);
   }
 
-  push(item: T) {
+  push(item: T): number {
     return this.items.push(item);
   }
 
-  pop() {
+  pop(): T {
     return this.items.pop();
   }
 }

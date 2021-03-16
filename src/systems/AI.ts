@@ -1,19 +1,18 @@
 import { RNG } from "rot-js";
 import AStar from "rot-js/lib/path/astar";
 
-import Actor, { ActorAI } from "../Actor";
+import Actor, { ActorAI, AIData } from "../Actor";
 import { drifter, floater } from "../actors";
 import Movement from "../commands/Movement";
 import Game from "../Game";
 import XY from "../interfaces/XY";
-import { pick } from "../random";
 import { name } from "../text";
 import { manhattan } from "../utils";
 import Combat from "./Combat";
 import Vision from "./Vision";
 
 export default class AI {
-  functions: Record<ActorAI, (actor: Actor, data: any) => void>;
+  functions: Record<ActorAI, (actor: Actor, data: AIData) => void>;
 
   constructor(public g: Game, public combat: Combat, public vision: Vision) {
     this.functions = {
@@ -25,7 +24,7 @@ export default class AI {
     g.on("tick", () => this.run());
   }
 
-  run() {
+  run(): void {
     this.g.allActors.forEach((actor) => {
       if (!actor.ai) return;
 
@@ -35,21 +34,21 @@ export default class AI {
     });
   }
 
-  wanderAi(actor: Actor, data: any) {
+  wanderAi(actor: Actor, data: AIData): void {
     if (actor.reeling) {
       actor.reeling = false;
       return;
     }
 
     let { dir } = data;
-    if (!dir) dir = pick(-1, 1);
+    if (!dir) dir = RNG.getItem([-1, 1]);
 
     const { player } = this.g;
     if (player.alive && manhattan(player.x, player.y, actor.x, actor.y) < 2) {
       return this.combat.attack(actor, player);
     }
 
-    var success = false;
+    let success = false;
     const move = this.canMoveDir(actor, dir);
     if (move) {
       const [mx, my] = move;
@@ -75,7 +74,7 @@ export default class AI {
   }
 
   canMoveDir(actor: Actor, mx: number): XY {
-    var my = 0;
+    const my = 0;
 
     const side = this.g.contents(actor.x + mx, actor.y);
     if (side.actor) {
@@ -96,7 +95,7 @@ export default class AI {
     return [mx, my];
   }
 
-  isSafeMove(actor: Actor, mx: number, my: number) {
+  isSafeMove(actor: Actor, mx: number, my: number): boolean {
     const below = this.g.contents(actor.x + mx, actor.y + my + 1);
     if (below.tile.solid) return true;
     if (below.actor?.pushable) return true;
@@ -109,20 +108,20 @@ export default class AI {
     return false;
   }
 
-  flyPassable(x: number, y: number, ignore: Actor[] = []) {
+  flyPassable(x: number, y: number, ignore: Actor[] = []): boolean {
     const { actor, tile } = this.g.contents(x, y);
     if (ignore.includes(actor)) return true;
     if (actor || tile.solid) return false;
     return true;
   }
 
-  flyingAi(enemy: Actor, data: any) {
+  flyingAi(enemy: Actor, data: AIData): void {
     if (enemy.reeling) {
       enemy.reeling = false;
       return;
     }
 
-    var { active } = data;
+    let { active } = data;
     if (!active) {
       if (this.vision.visible(enemy.x, enemy.y)) {
         active = true;
@@ -153,8 +152,8 @@ export default class AI {
     enemy.aiData = { active };
   }
 
-  inkAi(a: Actor, data: any) {
-    var { active, spawn } = data;
+  inkAi(a: Actor, data: AIData): void {
+    let { active, spawn } = data;
     if (!active) {
       if (this.vision.visible(a.x, a.y)) {
         active = true;
@@ -177,8 +176,8 @@ export default class AI {
     spawn++;
     if (spawn >= 10) {
       const possible: XY[] = [];
-      for (var y = a.y - 2; y < a.y + 4; y++)
-        for (var x = a.x - 2; x < a.x + 4; x++) {
+      for (let y = a.y - 2; y < a.y + 4; y++)
+        for (let x = a.x - 2; x < a.x + 4; x++) {
           const { actor, tile } = this.g.contents(x, y);
           if (!actor && !tile.solid) possible.push([x, y]);
         }

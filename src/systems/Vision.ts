@@ -16,13 +16,13 @@ export default class Vision {
     g.on("moved", dirty);
   }
 
-  remake() {
+  remake(): void {
     const { map } = this.g;
     this.dirty = true;
     this.vision = new LinearGrid(map.width, map.height, () => false);
   }
 
-  get() {
+  get(): Grid<boolean> {
     if (this.dirty) {
       this.dirty = false;
       const { map, player } = this.g;
@@ -38,7 +38,7 @@ export default class Vision {
     return this.vision;
   }
 
-  visible(x: number, y: number) {
+  visible(x: number, y: number): boolean {
     if (this.dirty) this.get();
     return this.vision.get(x, y);
   }

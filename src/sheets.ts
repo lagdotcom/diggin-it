@@ -32,11 +32,11 @@ function parseSheet(sheet: Sheet): TileMap {
   const add = (row: number, col: number, ch: string) =>
     (map[ch] = [col * sheet.size, row * sheet.size]);
 
-  for (var ch in sheet.tiles) {
+  for (const ch in sheet.tiles) {
     const { row, col, width, height } = sheet.tiles[ch];
 
     if (width || height) {
-      var i = 0;
+      let i = 0;
       for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
           i++;

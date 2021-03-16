@@ -5,7 +5,7 @@ import { theName } from "../text";
 export default class Combat {
   constructor(public g: Game) {}
 
-  attack(attacker: Actor, victim: Actor) {
+  attack(attacker: Actor, victim: Actor): void {
     const amount = Math.max(1, attacker.get("sp") - victim.get("dp"));
     const aname = theName(attacker);
     const vname = theName(victim);

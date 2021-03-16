@@ -16,12 +16,12 @@ export default class Effects {
     g.on("tick", () => this.run());
   }
 
-  run() {
+  run(): void {
     const remove: number[] = [];
 
-    for (var i = 0; i < this.effects.length; i++) {
+    for (let i = 0; i < this.effects.length; i++) {
       const effect = this.effects[i];
-      var duration = this.durations[i];
+      let duration = this.durations[i];
       duration--;
 
       if (duration < 1) {

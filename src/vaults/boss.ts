@@ -1,3 +1,4 @@
+/* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 
 const boss1 = new Vault("boss 1", [
@@ -42,3 +43,4 @@ const boss3 = new Vault("boss 3", [
 ]);
 
 export default [boss1, boss2, boss3];
+/* eslint-enable radar/no-duplicate-string */

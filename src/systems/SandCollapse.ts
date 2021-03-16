@@ -10,7 +10,7 @@ export default class SandCollapse {
     });
   }
 
-  collapse(sx: number, sy: number) {
+  collapse(sx: number, sy: number): void {
     const { map } = this.g;
     const checks = new LinearGrid(map.width, map.height, () => false);
     const queue = map.neighbours(sx, sy);

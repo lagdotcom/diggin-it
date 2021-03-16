@@ -10,13 +10,10 @@ import {
   coinBag,
   diamond,
   goldBar,
-  helmet,
   ladder,
-  mask,
   rations,
   rope,
   smallGem,
-  specs,
   treasureBox,
 } from "./items";
 import { addTheInk } from "./prefabs";
@@ -142,7 +139,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   },
 };
 
-export function getZone(depth: number) {
+export function getZone(depth: number): 0 | 1 | 2 {
   if (depth < 4) return 0;
   if (depth < 7) return 1;
   return 2;

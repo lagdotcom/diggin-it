@@ -6,7 +6,7 @@ export default interface Grid<T> {
 
   contains(x: number, y: number): boolean;
   fill(value: T): Grid<T>;
-  flipH(): Grid<T>;
+  mirror(): Grid<T>;
   get(x: number, y: number): T;
   includes(value: T): boolean;
   index(x: number, y: number): number;

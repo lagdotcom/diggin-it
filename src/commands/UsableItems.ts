@@ -19,7 +19,7 @@ export default class UsableItems {
   constructor(public g: Game) {}
 
   use(index: number, item: Item, at?: XY): undefined | string | Cmd {
-    var result;
+    let result;
 
     switch (item.use) {
       case "ladder":
@@ -42,7 +42,7 @@ export default class UsableItems {
             };
           at = targets[0];
         }
-        result = this.useRope(item, at);
+        result = this.useRope(item, at[0], at[1]);
         break;
 
       case "heal":
@@ -68,12 +68,12 @@ export default class UsableItems {
     return result;
   }
 
-  useLadder(item: Item) {
+  useLadder(item: Item): string | undefined {
     const { log, map, player } = this.g;
-    var [size] = item.useArgs;
+    let [size] = item.useArgs;
 
-    var x = player.x,
-      y = player.y + 1;
+    const x = player.x;
+    let y = player.y + 1;
     while (size) {
       y--;
 
@@ -105,12 +105,12 @@ export default class UsableItems {
     this.g.spent++;
   }
 
-  getRopeTargets() {
+  getRopeTargets(): XY[] {
     const { map, player } = this.g;
     const possibilities: XY[] = [];
 
     const offsets = [-1, 1];
-    for (var i = 0; i < offsets.length; i++) {
+    for (let i = 0; i < offsets.length; i++) {
       const x = player.x + offsets[i];
       const y = player.y;
 
@@ -126,12 +126,11 @@ export default class UsableItems {
     return possibilities;
   }
 
-  useRope(item: Item, at: XY): undefined {
+  useRope(item: Item, x: number, y: number): undefined {
     const { log, map } = this.g;
-    var [size] = item.useArgs;
+    let [size] = item.useArgs;
 
-    var [x, y] = at;
-    var first = true;
+    let first = true;
     while (size) {
       const tile = map.get(x, y);
       if (tile.glyph === " ") {
@@ -151,7 +150,7 @@ export default class UsableItems {
     return undefined;
   }
 
-  useAirTank(item: Item) {
+  useAirTank(item: Item): string | undefined {
     const { log, player } = this.g;
 
     const maxap = player.get("maxap");
@@ -165,7 +164,7 @@ export default class UsableItems {
     this.g.spent++;
   }
 
-  useHeal(item: Item) {
+  useHeal(item: Item): string | undefined {
     const { log, player } = this.g;
 
     const maxhp = player.get("maxhp");
@@ -193,7 +192,7 @@ export default class UsableItems {
     return undefined;
   }
 
-  useMemento(item: Item) {
+  useMemento(item: Item): string {
     const [health] = item.useArgs;
 
     switch (health) {

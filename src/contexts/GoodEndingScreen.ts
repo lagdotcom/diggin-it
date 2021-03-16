@@ -11,17 +11,17 @@ export default class GoodEndingScreen implements Context {
     requestAnimationFrame(() => this.render());
   }
 
-  next() {
+  next(): void {
     this.stage++;
     this.render();
   }
 
-  exit() {
+  exit(): void {
     this.g.contexts.clear();
     this.g.contexts.push(new ScenarioScreen(this.g));
   }
 
-  handle(cmd: Cmd) {
+  handle(cmd: Cmd): void {
     switch (cmd.type) {
       case "start":
         return this.next();
@@ -46,7 +46,7 @@ export default class GoodEndingScreen implements Context {
     if (e.type !== "mousemove") return { type: "start" };
   }
 
-  render() {
+  render(): void {
     const { badEnd, chars, canvas, ctx, goodEnd, tiles } = this.g;
 
     switch (this.stage) {

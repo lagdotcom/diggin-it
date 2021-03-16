@@ -14,7 +14,7 @@ export default class MessageLog {
     this.messages = [];
   }
 
-  clear() {
+  clear(): void {
     this.messages = [];
   }
 
@@ -31,7 +31,7 @@ export default class MessageLog {
     const maxWidth = width - 2;
 
     let y = minY + height - 1;
-    for (var i = 0; i < this.messages.length && y > minY + 1; i++) {
+    for (let i = 0; i < this.messages.length && y > minY + 1; i++) {
       const msg = this.messages[i];
       const size = Text.measure(msg, maxWidth);
       y -= size.height;
@@ -40,7 +40,7 @@ export default class MessageLog {
     drawPanel(chars, x, minY, width, height);
   }
 
-  bounds() {
+  bounds(): [x: number, y: number, w: number, h: number] {
     const { width, height } = this.g.chars._options;
     return this.expanded ? [0, 0, width, height] : [0, height - 6, width, 6];
   }

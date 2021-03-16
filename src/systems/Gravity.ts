@@ -11,13 +11,13 @@ export default class Gravity {
     g.on("tick", () => this.run());
   }
 
-  run() {
-    while (this.runOnce()) {}
+  run(): void {
+    while (this.runOnce());
   }
 
   runOnce(): boolean {
     const { actors, items, map } = this.g;
-    var affected = 0;
+    let affected = 0;
 
     for (let y = map.height - 1; y >= 0; y--) {
       for (let x = 0; x < map.width; x++) {
@@ -34,7 +34,7 @@ export default class Gravity {
     return affected > 0;
   }
 
-  check(thing: Thing) {
+  check(thing: Thing): boolean {
     if (!thing) return;
     if (!thing.obeysGravity) return;
 
@@ -42,7 +42,7 @@ export default class Gravity {
     if (current.canSwimIn) return;
     if (thing.canClimb && current.canClimb) return;
 
-    const { actor, items, tile } = this.g.contents(thing.x, thing.y + 1);
+    const { actor, tile } = this.g.contents(thing.x, thing.y + 1);
 
     if (actor && thing instanceof Actor) return;
     if (tile.solid) return;
@@ -53,12 +53,13 @@ export default class Gravity {
 
   fall(thing: Actor): boolean {
     const { map } = this.g;
-    var { x, y } = thing;
-    var distance = 0;
-    var victim: Actor | Tile = undefined;
+    const x = thing.x;
+    let y = thing.y;
+    let distance = 0;
+    let victim: Actor | Tile = undefined;
 
     while (y < map.height) {
-      const { actor, items, tile } = this.g.contents(x, y + 1);
+      const { actor, tile } = this.g.contents(x, y + 1);
 
       // hit something
       if (actor) {
@@ -90,19 +91,18 @@ export default class Gravity {
   }
 
   itemFall(thing: Item): boolean {
-    var { x, y } = thing;
-    var contents = this.g.contents(x, y + 1);
-    var distance = 0;
+    const x = thing.x;
+    let y = thing.y;
+    let distance = 0;
 
     while (y < this.g.map.height) {
-      const { actor, items, tile } = this.g.contents(x, y + 1);
+      const { tile } = this.g.contents(x, y + 1);
 
       // landed
       if (tile.solid) break;
 
       y++;
       distance++;
-      contents = this.g.contents(x, y + 1);
 
       // TODO: float? sink?
       if (tile.canSwimIn) break;
@@ -120,7 +120,7 @@ export default class Gravity {
 
   findPushTile(actor: Actor): XY {
     const offsets = [-1, 1];
-    for (var i = 0; i < offsets.length; i++) {
+    for (let i = 0; i < offsets.length; i++) {
       const x = actor.x + offsets[i];
       const y = actor.y;
 
@@ -137,39 +137,38 @@ export default class Gravity {
     distance: number,
     x: number,
     y: number
-  ) {
+  ): boolean {
     this.g.move(victim, x, y);
     this.g.emit("fell", { thing: victim, distance });
+    if (!victim.alive || victim.inky) return true;
 
-    if (victim.alive && !victim.inky) {
-      if (tile.canSwimIn) {
-        if (victim.player) this.g.log.add(`You fall into ${name(tile)}!`);
-      } else if (tile.canClimb) {
-        if (victim.player) this.g.log.add(`You grab onto ${name(tile)}.`);
-      } else if (distance > 2 && !tile.canSwimIn) {
-        const amount = distance * 5;
-        victim.hp -= amount;
+    if (tile.canSwimIn) {
+      if (victim.player) this.g.log.add(`You fall into ${name(tile)}!`);
+    } else if (tile.canClimb) {
+      if (victim.player) this.g.log.add(`You grab onto ${name(tile)}.`);
+    } else if (distance > 2 && !tile.canSwimIn) {
+      const amount = distance * 5;
+      victim.hp -= amount;
 
-        if (victim.player)
-          this.g.log.add(`You fall and get hurt! (fell ${distance} tiles)`);
-        this.g.emit("damaged", {
-          attacker: victim,
-          victim,
-          amount,
-          type: "fall",
-        });
-      }
+      if (victim.player)
+        this.g.log.add(`You fall and get hurt! (fell ${distance} tiles)`);
+      this.g.emit("damaged", {
+        attacker: victim,
+        victim,
+        amount,
+        type: "fall",
+      });
     }
 
     return true;
   }
 
-  fallOntoActor(attacker: Actor, victim: Actor, distance: number) {
-    var escape = undefined;
-    var amount = 0;
+  fallOntoActor(attacker: Actor, victim: Actor, distance: number): boolean {
+    let escape = undefined;
+    let amount = 0;
 
-    var x = victim.x,
-      y = victim.y;
+    const x = victim.x;
+    let y = victim.y;
     if (!victim.alive || (victim.inky && attacker.inky))
       return this.fallOntoTile(
         attacker,

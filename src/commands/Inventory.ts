@@ -12,8 +12,8 @@ export default class Inventory {
     const { items } = this.g.contents(player.x, player.y);
     if (!items.length) return "There's nothing here.";
 
-    var spent = false;
-    for (var i = 0; i < items.length; i++) {
+    let spent = false;
+    for (let i = 0; i < items.length; i++) {
       const item = items[i];
       if (!item.canPickUp) continue;
 
@@ -29,7 +29,12 @@ export default class Inventory {
     if (!spent) return "You can't pick up anything here.";
   }
 
-  static addToInventory(g: Game, actor: Actor, item: Item, quiet = false) {
+  static addToInventory(
+    g: Game,
+    actor: Actor,
+    item: Item,
+    quiet = false
+  ): boolean {
     const slot = Inventory.getFreeSlot(actor, item);
     if (typeof slot === "undefined") return false;
 
@@ -47,11 +52,11 @@ export default class Inventory {
 
   static getFreeSlot(actor: Actor, item: Item): [pos: number, mix: boolean] {
     if (item.charges)
-      for (var i = 0; i < actor.inventorySize; i++) {
+      for (let i = 0; i < actor.inventorySize; i++) {
         if (actor.inventory[i]?.name === item.name) return [i, true];
       }
 
-    for (var i = 0; i < actor.inventorySize; i++) {
+    for (let i = 0; i < actor.inventorySize; i++) {
       if (!actor.inventory[i]) return [i, false];
     }
   }

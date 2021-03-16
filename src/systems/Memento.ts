@@ -11,21 +11,19 @@ export default class Memento {
     });
   }
 
-  findAndBreak(victim: Actor) {
-    for (var i = 0; i < victim.inventory.length; i++) {
+  findAndBreak(victim: Actor): void {
+    for (let i = 0; i < victim.inventory.length; i++) {
       const item = victim.inventory[i];
 
-      if (item?.use === "memento") {
-        if (!this.damage(item)) {
-          victim.inventory[i] = new Item(0, 0, brokenPocketwatch);
-          return;
-        }
+      if (item?.use === "memento" && !this.damage(item)) {
+        victim.inventory[i] = new Item(0, 0, brokenPocketwatch);
+        return;
       }
     }
   }
 
-  damage(item: Item) {
-    var [health] = item.useArgs;
+  damage(item: Item): boolean {
+    let [health] = item.useArgs;
     health--;
     item.useArgs = [health];
 
@@ -42,7 +40,7 @@ export default class Memento {
     }
   }
 
-  break(item: Item) {
+  break(item: Item): void {
     if (!this.damage(item)) {
       this.g.removeItem(item);
       this.g.addItem(new Item(item.x, item.y, brokenPocketwatch));

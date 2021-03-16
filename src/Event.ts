@@ -25,7 +25,7 @@ export interface EventMap {
   litBomb: { item: Item };
   moved: { thing: Thing; mx: number; my: number; forced?: Thing };
   noticed: { actor: Actor };
-  tick: {};
+  tick: Record<string, never>;
 }
 
 export type EventName = keyof EventMap;

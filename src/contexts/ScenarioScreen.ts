@@ -9,13 +9,14 @@ export default class ScenarioScreen implements Context {
     this.render();
   }
 
-  handle(cmd: Cmd) {
+  handle(cmd: Cmd): void {
     switch (cmd.type) {
       case "start":
         return this.g.start();
 
       case "credits":
-        return this.g.contexts.push(new CreditsScreen(this.g));
+        this.g.contexts.push(new CreditsScreen(this.g));
+        return;
     }
   }
 
@@ -34,11 +35,11 @@ export default class ScenarioScreen implements Context {
         return { type: "credits" };
     }
   }
-  onMouse(e: MouseEvent): Cmd {
+  onMouse(): Cmd {
     return undefined;
   }
 
-  render() {
+  render(): void {
     const { chars, height, width, tiles } = this.g;
     tiles.clear();
 

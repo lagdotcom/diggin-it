@@ -1,4 +1,5 @@
 import { Display } from "rot-js";
+import { DisplayOptions } from "rot-js/lib/display/types";
 
 import { KeyInputHandler, MouseInputHandler } from "@lagdotcom/simple-inputs";
 
@@ -86,7 +87,7 @@ export default class Game extends EventHandler {
     this.container.style.height = `${uh * zz}px`;
   }
 
-  async init() {
+  async init(): Promise<void> {
     const [tilesConfig, charsConfig] = await this.getDisplayConfigs();
     const [titleGraphics, goodGraphics, badGraphics] = await Promise.all([
       loadTitleGraphics(),
@@ -128,7 +129,7 @@ export default class Game extends EventHandler {
     this.contexts.push(new AuthorScreen(this));
   }
 
-  async getDisplayConfigs() {
+  async getDisplayConfigs(): Promise<Partial<DisplayOptions>[]> {
     const { width, height, tileSize } = this;
     if (this.ascii) {
       return [
@@ -147,14 +148,14 @@ export default class Game extends EventHandler {
     this.music[track].play().then(() => (this.musicPlaying = track));
   }
 
-  showEnding(good: boolean) {
+  showEnding(good: boolean): void {
     this.contexts.clear();
     this.contexts.push(
       good ? new GoodEndingScreen(this) : new BadEndingScreen(this)
     );
   }
 
-  playMusic(track: MusicName) {
+  playMusic(track: MusicName): void {
     if (this.musicPlaying) {
       if (this.musicPlaying === track) return;
       this.stopMusic();
@@ -162,14 +163,14 @@ export default class Game extends EventHandler {
 
     this.startMusic(track);
   }
-  stopMusic() {
+  stopMusic(): void {
     if (this.musicPlaying) {
       this.music[this.musicPlaying].pause();
       this.music[this.musicPlaying].currentTime = 0;
       this.musicPlaying = undefined;
     }
   }
-  fadeOutMusic() {
+  fadeOutMusic(): Promise<void> {
     if (!this.musicPlaying) return;
 
     return new Promise<void>((resolve) => {
@@ -185,19 +186,19 @@ export default class Game extends EventHandler {
     });
   }
 
-  start() {
+  start(): void {
     this.depth = 1;
     this.player = getNewPlayer();
     this.nextMap();
   }
 
-  nextMap(seed?: number) {
+  nextMap(seed?: number): void {
     const map = generateMap(this, seed);
     // console.log(map.join("\n"));
     this.useMap(map);
   }
 
-  useMap(map: string[]) {
+  useMap(map: string[]): void {
     this.removeAllListeners();
     // this.player.fullHeal();
 
@@ -211,7 +212,7 @@ export default class Game extends EventHandler {
     this.contexts.top.render();
   }
 
-  initMap(width: number, height: number) {
+  initMap(width: number, height: number): void {
     this.map = new LinearGrid(width, height, () => new Tile(unset));
     this.memory = new LinearGrid(width, height, () => false);
     this.actors = new LinearGrid(width, height, () => undefined);
@@ -219,34 +220,34 @@ export default class Game extends EventHandler {
     this.items = new LinearGrid(width, height, () => []);
   }
 
-  contents(x: number, y: number) {
+  contents(x: number, y: number): { actor?: Actor; items: Item[]; tile: Tile } {
     const actor = this.actors.get(x, y);
     const items = this.items.get(x, y);
     const tile = this.map.get(x, y);
     return { actor, items, tile };
   }
 
-  add(actor: Actor) {
+  add(actor: Actor): Grid<Actor> {
     this.allActors.push(actor);
     return this.actors.set(actor.x, actor.y, actor);
   }
 
-  addItem(item: Item) {
+  addItem(item: Item): Grid<Item[]> {
     return this.items.update(item.x, item.y, (items) => items.concat(item));
   }
 
-  remove(victim: Actor) {
+  remove(victim: Actor): Grid<Actor> {
     this.allActors = this.allActors.filter((actor) => actor !== victim);
     return this.actors.set(victim.x, victim.y, undefined);
   }
 
-  removeItem(item: Item) {
+  removeItem(item: Item): Grid<Item[]> {
     return this.items.update(item.x, item.y, (items) =>
       items.filter((i) => i !== item)
     );
   }
 
-  move(thing: Actor, x: number, y: number, forced?: Thing) {
+  move(thing: Actor, x: number, y: number, forced?: Thing): boolean {
     const mx = x - thing.x,
       my = y - thing.y;
 
@@ -259,7 +260,7 @@ export default class Game extends EventHandler {
     return this.emit("moved", { thing, mx, my, forced });
   }
 
-  moveItem(thing: Item, x: number, y: number, forced?: Thing) {
+  moveItem(thing: Item, x: number, y: number, forced?: Thing): boolean {
     const mx = x - thing.x,
       my = y - thing.y;
 

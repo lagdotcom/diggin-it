@@ -20,11 +20,11 @@ export function drawPanel(
   height: number,
   fill = false,
   tiles = panelTiles
-) {
-  for (var y = 0; y < height; y++) {
+): void {
+  for (let y = 0; y < height; y++) {
     const row = y === 0 ? 0 : y === height - 1 ? 2 : 1;
 
-    for (var x = 0; x < width; x++) {
+    for (let x = 0; x < width; x++) {
       const col = x === 0 ? 0 : x === width - 1 ? 2 : 1;
       const tile = tiles[row][col];
       if (tile === "bo5" && !fill) continue;
@@ -41,10 +41,10 @@ export function drawMulti(
   width: number,
   height: number,
   glyph: string
-) {
-  var i = 0;
-  for (var y = 0; y < height; y++) {
-    for (var x = 0; x < width; x++) {
+): void {
+  let i = 0;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
       i++;
       display.draw(sx + x, sy + y, glyph + i.toString());
     }

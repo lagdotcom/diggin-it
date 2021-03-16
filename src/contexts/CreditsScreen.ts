@@ -7,7 +7,7 @@ export default class CreditsScreen implements Context {
     this.render();
   }
 
-  handle(cmd: Cmd) {
+  handle(cmd: Cmd): void {
     if (cmd.type === "cancel") {
       this.g.contexts.pop();
       this.g.contexts.top.render();
@@ -26,11 +26,11 @@ export default class CreditsScreen implements Context {
     if (e.button === 2) return { type: "cancel" };
   }
 
-  render() {
+  render(): void {
     const { chars, height, tiles } = this.g;
     tiles.clear();
 
-    var y = 1;
+    let y = 1;
     chars.drawText(1, y++, "CREDITS");
 
     y++;

@@ -1,13 +1,14 @@
+/* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 import { zanq } from "./zan";
 
 // TODO: too mean
-const recessed = new Vault("recessed exit", [
-  "F ]]]^",
-  "]]] ]^",
-  "## >]^",
-  " M  M^",
-]);
+// const recessed = new Vault("recessed exit", [
+//   "F ]]]^",
+//   "]]] ]^",
+//   "## >]^",
+//   " M  M^",
+// ]);
 
 const divot = new Vault("divot exit", [
   "^]]]]]]]]]",
@@ -168,3 +169,4 @@ export default [
   aristocrats,
   meme,
 ];
+/* eslint-enable radar/no-duplicate-string */

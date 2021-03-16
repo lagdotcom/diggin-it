@@ -16,7 +16,7 @@ export default class Pushing {
     const x = thing.x + mx;
     const y = thing.y + my;
 
-    const { actor, items, tile } = this.g.contents(x, y);
+    const { actor, tile } = this.g.contents(x, y);
 
     // TODO: squashing?
     if (actor || tile.solid) {
@@ -29,7 +29,7 @@ export default class Pushing {
     // TODO: breaking items?
   }
 
-  apply(actor: Actor, mx: number, my: number) {
+  apply(actor: Actor, mx: number, my: number): void {
     const x = actor.x + mx;
     const y = actor.y + my;
 

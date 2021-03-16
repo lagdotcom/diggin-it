@@ -15,8 +15,8 @@ export default class TheInk {
       if (victim.inkparts) {
         victim.inkparts.forEach((part) => g.remove(part));
 
-        for (var y = 0; y < g.map.height; y++)
-          for (var x = 0; x < g.map.width; x++) {
+        for (let y = 0; y < g.map.height; y++)
+          for (let x = 0; x < g.map.width; x++) {
             if (g.map.get(x, y).glyph === "InkDoor") {
               g.fadeOutMusic();
               g.map.set(x, y, new Tile(empty));

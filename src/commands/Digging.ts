@@ -8,7 +8,7 @@ export default class Digging {
   constructor(public g: Game) {}
 
   possible(x: number, y: number): undefined | string | Cmd {
-    const { actor, items, tile } = this.g.contents(x, y);
+    const { actor, tile } = this.g.contents(x, y);
 
     if (actor) {
       if (actor.durability < Infinity) return undefined;
@@ -25,9 +25,9 @@ export default class Digging {
     return "Nothing to dig.";
   }
 
-  apply(x: number, y: number) {
+  apply(x: number, y: number): void {
     const { player, log, map } = this.g;
-    const { actor, items, tile } = this.g.contents(x, y);
+    const { actor, tile } = this.g.contents(x, y);
 
     if (actor) {
       actor.durability--;
