@@ -189,6 +189,7 @@ export default class Game extends EventHandler {
   start(): void {
     this.depth = 1;
     this.player = getNewPlayer();
+    this.player.fullHeal();
     this.nextMap();
   }
 
