@@ -81,7 +81,7 @@ export default class GoodEndingScreen implements Context {
         chars.drawText(
           1,
           5,
-          "Jacques placed the Wisher's Fragment carefully into his pack and began the arduous trek out. As daylight greeted him with it's touch, he breathed a sigh of relief and sat down to stare at the setting sun, retrieving the pocket watch from his belongings and popping it open.\n\nStaring back at him from within are three familiar faces, that of his own and that of a lovely woman and their infant child. Jacques cracks a smile as a tear streams down his cheek, knowing that he'll soon return home after delivering the Fragment to his client.",
+          "Jacques placed the Wisher's Fragment carefully into his pack and began the arduous trek out. As daylight greeted him with its touch, he breathed a sigh of relief and sat down to stare at the setting sun, retrieving the pocket watch from his belongings and popping it open.\n\nStaring back at him from within are three familiar faces, that of his own and that of a lovely woman and their infant child. Jacques cracks a smile as a tear streams down his cheek, knowing that he'll soon return home after delivering the Fragment to his client.",
           38
         );
         break;
