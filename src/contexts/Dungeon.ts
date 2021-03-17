@@ -519,14 +519,20 @@ export default class Dungeon implements Context {
   renderStats(): void {
     const { chars, player } = this.g;
 
-    drawPanel(chars, 28, 0, 12, 10);
-    chars.drawText(31, 1, "HP:" + pad(player.hp, 3));
-    chars.drawText(31, 2, "AP:" + pad(player.ap, 3));
-    chars.drawText(31, 3, "SP:" + pad(player.get("sp"), 3));
-    chars.drawText(31, 4, "DP:" + pad(player.get("dp"), 3));
+    let y = 0;
+    drawPanel(chars, 28, y++, 12, 10);
+    this.renderStat(y++, "HP", player.hp, 20);
+    this.renderStat(y++, "AP", player.ap, 20);
+    this.renderStat(y++, "SP", player.get("sp"));
+    this.renderStat(y++, "DP", player.get("dp"));
 
     chars.drawText(29, 7, "Experience");
     chars.drawText(31, 8, pad(player.experience, 6, "0"));
+  }
+
+  private renderStat(y: number, name: string, value: number, warn = 0) {
+    const col = value < warn ? "%b{red}" : "";
+    this.g.chars.drawText(31, y, `${col}${name}:${pad(value, 3)}`);
   }
 
   renderInventory(): void {
