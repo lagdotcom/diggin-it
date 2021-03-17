@@ -38,6 +38,8 @@ export default class Game extends EventHandler {
   allActors: Actor[];
   canvas: HTMLCanvasElement;
   chars: Display;
+  charsHeight: number;
+  charsWidth: number;
   contexts: Stack<Context>;
   ctx: CanvasRenderingContext2D;
   depth: number;
@@ -109,6 +111,8 @@ export default class Game extends EventHandler {
     this.badEnd = badGraphics;
     this.goodEnd = goodGraphics;
     this.chars = new Display({ ...charsConfig, context });
+    this.charsWidth = charsConfig.width;
+    this.charsHeight = charsConfig.height;
 
     this.container.append(this.canvas);
     window.addEventListener("resize", this.resized.bind(this));

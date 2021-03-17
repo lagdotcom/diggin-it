@@ -1,6 +1,6 @@
 {
   "name": "diggin-it",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "7DRL 2021",
   "main": "src/index.ts",
   "scripts": {
@@ -8,8 +8,10 @@
     "watch": "rollup -cw",
     "start": "rollup -cw",
     "lint": "eslint --fix src",
-    "butler": "butler push dist lagdotcom/diggin-it:web",
-    "status": "butler status lagdotcom/diggin-it:web",
+    "butler": "butler push dist lagdotcom/diggin-it:dev",
+    "status": "butler status lagdotcom/diggin-it:dev",
+    "butler:web": "butler push dist lagdotcom/diggin-it:web",
+    "status:web": "butler status lagdotcom/diggin-it:web",
     "publish": "npm run build && npm run butler"
   },
   "author": "Lag.Com <lagdotcom@gmail.com>",

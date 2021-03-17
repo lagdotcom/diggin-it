@@ -37,15 +37,12 @@ export default class ExamineScreen implements Context {
   }
 
   render(): void {
-    const { chars, tiles, width, height } = this.g;
-
-    const w = width * 2,
-      h = height * 2;
+    const { chars, tiles, charsWidth, charsHeight } = this.g;
 
     tiles.clear();
-    drawPanel(chars, 0, 0, w, h);
-    chars.drawText(1, 1, this.getInfo(), w - 2);
+    drawPanel(chars, 0, 0, charsWidth, charsHeight);
+    chars.drawText(1, 1, this.getInfo(), charsWidth - 2);
 
-    chars.drawText(1, h - 2, "[ESC] to go back");
+    chars.drawText(1, charsHeight - 2, "[ESC] to go back");
   }
 }

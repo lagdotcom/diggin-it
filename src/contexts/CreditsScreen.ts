@@ -27,7 +27,7 @@ export default class CreditsScreen implements Context {
   }
 
   render(): void {
-    const { chars, height, tiles } = this.g;
+    const { chars, charsHeight, tiles } = this.g;
     tiles.clear();
 
     let y = 1;
@@ -56,6 +56,6 @@ export default class CreditsScreen implements Context {
     chars.drawText(2, y++, "Jacob J. Ritz");
     chars.drawText(2, y++, "Zan-zan-zawa-veia");
 
-    chars.drawText(1, (height - 1) * 2, "[ESC] to go back");
+    chars.drawText(1, charsHeight - 2, "[ESC] to go back");
   }
 }

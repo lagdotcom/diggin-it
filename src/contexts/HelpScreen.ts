@@ -1,3 +1,4 @@
+import pkg from "../../package.json";
 import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
@@ -31,18 +32,15 @@ export default class ExamineScreen implements Context {
   }
 
   render(): void {
-    const { chars, tiles, width, height } = this.g;
-
-    const w = width * 2,
-      h = height * 2;
+    const { chars, tiles, charsWidth, charsHeight } = this.g;
 
     tiles.clear();
-    drawPanel(chars, 0, 0, w, h);
+    drawPanel(chars, 0, 0, charsWidth, charsHeight);
     chars.drawText(
       1,
       1,
-      "Diggin' It (Jam Version)\n\n\nControls:\n- Left click: Interact with inventory item, use shop interface, check further action history\n\n- Right click: Drop inventory item\n\n- arrow keys: move\n\n- esc: Exit large screen menus, restart game on death\n\n- shift + arrow keys: hold to dig in any direction without moving\n\n- g: grab item\n\n- x: examine detailed item and enemy descriptions\n\n- . or 5: wait\n\n- enter or >: go through exits",
-      w - 2
+      `Diggin' It (v${pkg.version})\n\n\nControls:\n- Left click: Interact with inventory item, use shop interface, check further action history\n\n- Right click: Drop inventory item\n\n- arrow keys: move\n\n- esc: Exit large screen menus, restart game on death\n\n- shift + arrow keys: hold to dig in any direction without moving\n\n- g: grab item\n\n- x: examine detailed item and enemy descriptions\n\n- . or 5: wait\n\n- enter or >: go through exits`,
+      charsWidth - 2
     );
   }
 }
