@@ -5,7 +5,9 @@ import { brokenPocketwatch } from "../items";
 
 export default class Memento {
   constructor(public g: Game) {
-    g.on("damaged", ({ victim }) => this.findAndBreak(victim));
+    g.on("damaged", ({ victim, type }) => {
+      if (type !== "suffocation") this.findAndBreak(victim);
+    });
     g.on("fell", ({ thing }) => {
       if (thing.glyph === "Pocketwatch") this.break(thing as Item);
     });
