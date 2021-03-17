@@ -1,6 +1,6 @@
 import { EventMap } from "../Event";
 import Game from "../Game";
-import { name } from "../text";
+import { cname } from "../text";
 
 type DamagedData = EventMap["damaged"];
 
@@ -24,7 +24,7 @@ export default class Death {
   }
 
   getDeathString({ victim, type }: DamagedData): string {
-    const vname = name(victim);
+    const vname = cname(victim, true);
     const s = victim.player ? "" : "s";
     const is = victim.player ? "are" : "is";
 

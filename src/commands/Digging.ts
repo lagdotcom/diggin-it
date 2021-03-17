@@ -33,7 +33,7 @@ export default class Digging {
       actor.durability--;
       if (actor.durability < 1) {
         this.g.remove(actor);
-        log.add(`${theName(actor)} falls apart.`);
+        log.add(`${theName(actor, true)} falls apart.`);
         this.g.emit("destroyed", { attacker: player, victim: actor });
         return;
       }

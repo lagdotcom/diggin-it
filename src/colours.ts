@@ -1,0 +1,6 @@
+export const lightBlue = "rgba(85,85,255,0.4)";
+export const darkBlue = "rgba(0,0,170,0.4)";
+export const lightRed = "rgba(255,85,85,0.4)";
+export const darkRed = "rgba(170,0,0,0.4)";
+export const lightGreen = "rgba(85,255,85,0.4)";
+export const darkGreen = "rgba(0,170,0,0.4)";

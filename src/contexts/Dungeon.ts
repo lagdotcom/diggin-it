@@ -1,3 +1,4 @@
+import { lightRed } from "../colours";
 import Digging from "../commands/Digging";
 import Inventory from "../commands/Inventory";
 import Movement from "../commands/Movement";
@@ -35,7 +36,7 @@ import SandCollapse from "../systems/SandCollapse";
 import TheInk from "../systems/TheInk";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
-import { it, name, theName } from "../text";
+import { ctheName, it, name } from "../text";
 import { pad } from "../utils";
 import ExamineScreen from "./ExamineScreen";
 import ExpandedLog from "./ExpandedLog";
@@ -277,8 +278,8 @@ export default class Dungeon implements Context {
 
     if (item.slot && player.equipment[item.slot] === item) {
       delete player.equipment[item.slot];
-      log.add(`You remove ${theName(item)} and drop ${it(item)}.`);
-    } else log.add(`You drop ${theName(item)}.`);
+      log.add(`You remove ${ctheName(item)} and drop ${it(item)}.`);
+    } else log.add(`You drop ${ctheName(item)}.`);
 
     item.x = player.x;
     item.y = player.y;
@@ -296,14 +297,14 @@ export default class Dungeon implements Context {
       const current = player.equipment[item.slot];
       if (current === item) {
         delete player.equipment[item.slot];
-        log.add(`You remove ${theName(item)}.`);
+        log.add(`You remove ${ctheName(item)}.`);
       } else if (current) {
         player.equipment[item.slot] = item;
-        log.add(`You replace ${theName(current)} with ${theName(item)}.`);
+        log.add(`You replace ${ctheName(current)} with ${ctheName(item)}.`);
         this.g.spent++;
       } else {
         player.equipment[item.slot] = item;
-        log.add(`You equip ${theName(item)}.`);
+        log.add(`You equip ${ctheName(item)}.`);
         this.g.spent++;
       }
     }
@@ -531,7 +532,7 @@ export default class Dungeon implements Context {
   }
 
   private renderStat(y: number, name: string, value: number, warn = 0) {
-    const col = value < warn ? "%b{red}" : "";
+    const col = value < warn ? `%b{${lightRed}}` : "";
     this.g.chars.drawText(31, y, `${col}${name}:${pad(value, 3)}`);
   }
 
@@ -553,6 +554,8 @@ export default class Dungeon implements Context {
         chars.draw(x + 1, y, item.glyph + "2");
         const bl = [item.glyph + "3"];
         const br = [item.glyph + "4"];
+        const fg = ["transparent", "transparent"];
+        const bg = ["black", "transparent"];
 
         if (item.charges > 1) {
           const amount = Math.min(99, item.charges);
@@ -563,8 +566,8 @@ export default class Dungeon implements Context {
           if (amount > 9) bl.push("qty" + tens);
         }
 
-        chars.draw(x, y + 1, bl);
-        chars.draw(x + 1, y + 1, br);
+        chars.draw(x, y + 1, bl, fg, bg);
+        chars.draw(x + 1, y + 1, br, fg, bg);
       }
 
       x += 2;

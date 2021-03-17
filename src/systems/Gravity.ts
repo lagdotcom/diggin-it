@@ -3,7 +3,7 @@ import Game from "../Game";
 import Thing from "../interfaces/Thing";
 import XY from "../interfaces/XY";
 import Item from "../Item";
-import { name } from "../text";
+import { cname, name } from "../text";
 import Tile from "../Tile";
 
 export default class Gravity {
@@ -187,10 +187,10 @@ export default class Gravity {
 
     if (amount) {
       victim.hp -= amount;
-      if (attacker.player) this.g.log.add(`You fall onto ${name(victim)}!`);
+      if (attacker.player) this.g.log.add(`You fall onto ${cname(victim)}!`);
       else if (victim.player)
-        this.g.log.add(`${name(attacker)} falls onto you!`);
-      else this.g.log.add(`${name(victim)} is crushed!`);
+        this.g.log.add(`${cname(attacker, true)} falls onto you!`);
+      else this.g.log.add(`${cname(victim, true)} is crushed!`);
 
       this.g.emit("damaged", { attacker, victim, amount, type: "crush" });
     }

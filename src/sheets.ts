@@ -97,6 +97,8 @@ export async function loadChars(
     tileHeight: 8,
     tileSet,
     tileMap,
+    tileColorize: true,
+    fg: "transparent",
   };
 }
 

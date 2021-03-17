@@ -6,7 +6,7 @@ import { drifter, floater } from "../actors";
 import Movement from "../commands/Movement";
 import Game from "../Game";
 import XY from "../interfaces/XY";
-import { name } from "../text";
+import { cname } from "../text";
 import { manhattan } from "../utils";
 import Combat from "./Combat";
 import Vision from "./Vision";
@@ -191,7 +191,7 @@ export default class AI {
           RNG.getPercentage() > 50 ? floater : drifter
         );
         this.g.add(baby);
-        this.g.log.add(`${name(baby)} splits from the ink!`);
+        this.g.log.add(`${cname(baby, true)} splits from the ink!`);
       }
     }
 

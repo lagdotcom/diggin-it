@@ -1,7 +1,7 @@
 import Actor from "../Actor";
 import Game from "../Game";
 import Item from "../Item";
-import { name } from "../text";
+import { cname } from "../text";
 
 export default class Inventory {
   constructor(public g: Game) {}
@@ -46,7 +46,7 @@ export default class Inventory {
       actor.inventory[pos] = item;
     }
     g.emit("got", { actor: actor, item });
-    if (!quiet) g.log.add(`You get ${name(item)}.`);
+    if (!quiet) g.log.add(`You get ${cname(item)}.`);
     return true;
   }
 
