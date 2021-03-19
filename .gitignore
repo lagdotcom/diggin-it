@@ -5,3 +5,9 @@
 /dist/*.png
 /dist/bundle.*
 /node_modules
+
+/DigginItWinWrap/bin
+/DigginItWinWrap/obj
+/DigginItWinWrap/packages
+/DigginItWinWrap/Resources
+*.suo
