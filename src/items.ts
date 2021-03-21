@@ -32,7 +32,7 @@ export const pickaxe: Partial<ItemOptions> = {
   name: "pickaxe",
   slot: "weapon",
   durability: 10,
-  bonus: { sp: 28 },
+  bonus: { sp: 26 },
   lore:
     "A digger's best friend, its function as a mining and exploration tool as well as a weapon is not to be underestimated. Many have abandoned them in recent times as the sparks from mining have a tendency to ignite gas, creating explosions and doing extreme harm to people and history alike",
 };
@@ -41,7 +41,7 @@ export const powerDrill: Partial<ItemOptions> = {
   name: "power drill",
   slot: "weapon",
   durability: 18,
-  bonus: { sp: 50 },
+  bonus: { sp: 42 },
   lore:
     "Originally only used at quarries to grind down harder materials, the portable power drill became a staple of deep digs for its ability to quickly bore through almost anything. A flaw in the manufacturing process left many models with a pension for jamming, and it's a flaw that has yet to be addressed.",
 };
@@ -60,7 +60,7 @@ export const slingshot: Partial<ItemOptions> = {
   name: "slingshot",
   slot: "weapon",
   durability: 12,
-  bonus: { sp: 15 },
+  bonus: { sp: 18 },
   lore:
     "This simple tool may seem like a children's toy, but is actually quite handy for protection against small creatures. An easy tool to make as well, requiring only elastic bands and a well carved stick, fables tell of a legendary prankster whose sling never broke, a fabled marksman among gods until he tragically put his own eye out.",
 };
@@ -69,7 +69,7 @@ export const shovel: Partial<ItemOptions> = {
   name: "shovel",
   slot: "weapon",
   durability: 12,
-  bonus: { sp: 25 },
+  bonus: { sp: 22 },
   lore:
     "Can you dig it? This simple question has been the start of many excavations and great adventures, and so too is it the start of yours!",
 };
@@ -78,7 +78,7 @@ export const hammer: Partial<ItemOptions> = {
   name: "hammer",
   slot: "weapon",
   durability: 13,
-  bonus: { sp: 32 },
+  bonus: { sp: 28 },
   lore:
     "Every swing of the trusty hammer is guaranteed to be a smashing success, or so the guarantee says. While these are manufactured for stubborn rocks, they can also be handy for stubborn creatures and other dangers.",
 };
@@ -87,7 +87,7 @@ export const machete: Partial<ItemOptions> = {
   name: "machete",
   slot: "weapon",
   durability: 11,
-  bonus: { sp: 45 },
+  bonus: { sp: 35 },
   lore:
     "A choice item of bandits and intrepid explorers alike for entirely different reasons. Its large blade is thorough at sweeping through thick foliage and just as good at keeping one safe from the myriad dangers a deep cavern can hold.",
 };
@@ -98,7 +98,7 @@ export const claws: Partial<ItemOptions> = {
   plural: true,
   slot: "weapon",
   durability: 8,
-  bonus: { sp: 38 },
+  bonus: { sp: 32 },
   lore:
     "After studying how Muln moved underground for over a decade, the Finelli & Sons corporation were able to utilize what they learned and produce digging claws. Surprisingly practical for quickly maneuvering through soft dirt, they also serve for self-protection should the need arise; this first run is not very sturdy, however and complaints of shattered claws are common.",
 };
@@ -107,7 +107,7 @@ export const jackhammer: Partial<ItemOptions> = {
   name: "jackhammer",
   slot: "weapon",
   durability: 18,
-  bonus: { sp: 57 },
+  bonus: { sp: 45 },
   lore:
     "Outlawed in most mining sites due to the severe noise deafening many of its users, a handful still turn up where you least expect them. Jackhammers are nothing if not effective and are capable of chewing through the hardiest of things with ease, just make sure to bring earplugs.",
 };
@@ -116,7 +116,7 @@ export const laserCutter: Partial<ItemOptions> = {
   name: "laser cutter",
   slot: "weapon",
   durability: 1000, // TODO: explode chance
-  bonus: { sp: 60 },
+  bonus: { sp: 50 },
   lore:
     "The ultimate in rock-cutting and digging technology, they were never actually released to market due to the danger its faulty battery presented. In seven out of every ten tests, the cutter was shown to explode after repeated use rendering them highly dangerous. How one found its way here is almost more mysterious than the depths themselves.",
 };
@@ -147,7 +147,7 @@ export const spelunkersKit: Partial<ItemOptions> = {
   name: "spelunker's kit",
   slot: "armour",
   durability: 16,
-  bonus: { maxhp: 15, dp: 15 },
+  bonus: { maxhp: 12, dp: 15 },
   lore:
     "Lightly armored and generally the preferred kit for the serious explorer, a common Spelunker's Kit will protect from small slips, general hazards and minor harmful substances.",
 };
@@ -157,7 +157,7 @@ export const militaryMail: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 16,
-  bonus: { maxhp: 20, dp: 16 },
+  bonus: { maxhp: 15, dp: 16 },
   lore:
     "Usually only issued to military personel, various pieces can still be rented for exceptionally dangerous expeditions. The design is slightly unwieldly for exploring, but the medium weight and thick plates make it decent protection from all manner of harm.",
 };
@@ -167,7 +167,7 @@ export const squadLeaderGear: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 15,
-  bonus: { maxhp: 24, dp: 18 },
+  bonus: { maxhp: 18, dp: 18 },
   lore:
     "A strange find, as squad leader military gear is never used for expeditions and tends to only be found on the frontlines during times of war or during military operations.\nPerhaps a stranded squadron once holed up in these deep tunnels.",
 };
@@ -177,7 +177,7 @@ export const busterArmour: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 18,
-  bonus: { maxhp: 30, dp: 18 },
+  bonus: { maxhp: 21, dp: 18 },
   lore:
     "Named after the loveable and obnoxious frog like creatures that seem to turn up everywhere, the Buster Armor is actually a relic from a nameless warrior race. Expert historians theororize the armor was made for rushing head first into battle, much like a feral Buster does when threatened.",
 };
@@ -187,7 +187,7 @@ export const wingArmour: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 18,
-  bonus: { maxhp: 40, dp: 20 },
+  bonus: { maxhp: 22, dp: 19 },
   lore:
     "Once used by a proud and nameless warrior race from forgotten times, it earned its nickname as those entering battles were said to move with the swiftness of a soaring bird. These armors are rarely excavated, and often not in a usable condition, a rare find indeed!",
 };
@@ -197,7 +197,7 @@ export const gildedPlate: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 16,
-  bonus: { maxhp: 45, dp: 21 },
+  bonus: { maxhp: 24, dp: 20 },
   lore:
     "Associated with ancient royalty and long forgotten civilizations, these plates are extremely rare and were only given to a King or Queen's most loyal and trusted guard. To wear these plates was to willingly be ready to give your life at any moment or reason for your people.",
 };
@@ -206,7 +206,7 @@ export const valkyrieSet: Partial<ItemOptions> = {
   name: "valkyrie set",
   slot: "armour",
   durability: 19,
-  bonus: { maxhp: 52, dp: 23 },
+  bonus: { maxhp: 25, dp: 22 },
   // TODO: allows flight?
   lore:
     "Among the most elite of elite warriors from the time of ancient rulers were those dubbed as Valkyries. A set of personal guards hand picked by a King or Queen from among the gilded elite based on combat prowess, it is said that no Valkyrie was ever defeated in combat.",
@@ -217,7 +217,7 @@ export const arsenalArmour: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 20,
-  bonus: { maxhp: 60, dp: 30 },
+  bonus: { maxhp: 30, dp: 25 },
   // TODO: slows user?
   lore:
     "Heavy machine armor made for Lessonus military operations. Its plating and arsenal of weaponry makes movement unwieldly, but leaves its user highly protected from most manner of harm.\n...You can't help but wonder how or why it got down here, though.",
