@@ -11,6 +11,9 @@ export default class ExamineScreen implements Context {
 
   handle(cmd: Cmd): void {
     if (cmd.type === "cancel") {
+      this.g.emit("refreshed", {});
+      this.g.tiles.clear();
+
       this.g.contexts.pop();
       this.g.contexts.top.render();
     }

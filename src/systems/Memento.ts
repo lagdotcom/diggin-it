@@ -19,6 +19,7 @@ export default class Memento {
 
       if (item?.use === "memento" && !this.damage(item)) {
         victim.inventory[i] = new Item(0, 0, brokenPocketwatch);
+        this.g.emit("used", { actor: victim, item });
         return;
       }
     }

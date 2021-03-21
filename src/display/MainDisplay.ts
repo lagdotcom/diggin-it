@@ -20,12 +20,19 @@ export default class MainDisplay {
     this.dirtyBot = true;
     this.dirtyTop = true;
 
-    g.on("refreshed", () => (this.dirtyBot = this.dirtyTop = true));
-    g.on("infoClosed", () => (this.dirtyTop = true));
-    g.on("moved", () => {
+    const maybeBoth = () => {
       this.dirtyBot = true;
       if (!info.target) this.dirtyTop = true;
-    });
+    };
+    g.on("died", maybeBoth);
+    g.on("digged", maybeBoth);
+    g.on("dropped", maybeBoth);
+    g.on("got", maybeBoth);
+    g.on("litBomb", maybeBoth);
+    g.on("moved", maybeBoth);
+
+    g.on("refreshed", () => (this.dirtyBot = this.dirtyTop = true));
+    g.on("infoClosed", () => (this.dirtyTop = true));
   }
 
   render(): void {
