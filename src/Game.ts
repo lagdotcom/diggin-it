@@ -9,6 +9,7 @@ import AuthorScreen from "./contexts/AuthorScreen";
 import BadEndingScreen from "./contexts/BadEndingScreen";
 import Dungeon from "./contexts/Dungeon";
 import GoodEndingScreen from "./contexts/GoodEndingScreen";
+import MessageLog from "./display/MessageLog";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
 import Grid from "./interfaces/Grid";
@@ -18,7 +19,6 @@ import Item from "./Item";
 import LinearGrid from "./LinearGrid";
 import { generateMap } from "./mapgen";
 import { getZone, loadMap } from "./maps";
-import MessageLog from "./MessageLog";
 import loadAllMusic, { MusicLibrary, MusicName } from "./music";
 import { getNewPlayer } from "./prefabs";
 import {
@@ -205,6 +205,7 @@ export default class Game extends EventHandler {
 
   useMap(map: string[]): void {
     this.removeAllListeners();
+    this.log.attach();
     // this.player.fullHeal();
 
     loadMap(this, map);
@@ -214,6 +215,9 @@ export default class Game extends EventHandler {
 
     const depth = this.depth;
     this.emit("entered", { depth, zone: getZone(depth) });
+    this.emit("refreshed", {});
+    this.tiles.clear();
+    this.chars.clear();
     this.contexts.top.render();
   }
 

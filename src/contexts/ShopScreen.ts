@@ -1,4 +1,4 @@
-import Inventory from "../commands/Inventory";
+import PickingUp from "../commands/PickingUp";
 import { drawMulti, drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
@@ -145,7 +145,7 @@ export default class ShopScreen implements Context {
 
         default:
           const item = new Item(0, 0, items[cmd.name]);
-          if (!Inventory.addToInventory(this.g, player, item, true)) return;
+          if (!PickingUp.addToInventory(this.g, player, item, true)) return;
           if (item.slot) player.equipment[item.slot] = item;
           break;
       }

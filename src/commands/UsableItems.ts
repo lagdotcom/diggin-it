@@ -101,6 +101,7 @@ export default class UsableItems {
       );
     }
     log.add("You set up a ladder.");
+    this.g.emit("used", { actor: player, item });
     item.charges--;
     this.g.spent++;
   }
@@ -145,6 +146,7 @@ export default class UsableItems {
     map.set(x, y, new Tile(ropeTileBottom));
 
     log.add("You set up a rope.");
+    this.g.emit("used", { actor: this.g.player, item });
     item.charges--;
     this.g.spent++;
     return undefined;
@@ -160,6 +162,7 @@ export default class UsableItems {
 
     player.ap += amount;
     log.add("You breathe deeply.");
+    this.g.emit("used", { actor: player, item });
     item.charges--;
     this.g.spent++;
   }
@@ -174,6 +177,7 @@ export default class UsableItems {
 
     player.hp += amount;
     log.add(`You heal for ${amount}.`);
+    this.g.emit("used", { actor: player, item });
     item.charges--;
     this.g.spent++;
   }
@@ -186,6 +190,7 @@ export default class UsableItems {
     this.g.addItem(lit);
 
     log.add(`You light the bomb.`);
+    this.g.emit("used", { actor: player, item });
     this.g.emit("litBomb", { item: lit });
     item.charges--;
     this.g.spent++;

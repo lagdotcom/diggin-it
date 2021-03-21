@@ -3,7 +3,7 @@ import Game from "../Game";
 import Item from "../Item";
 import { cname } from "../text";
 
-export default class Inventory {
+export default class PickingUp {
   constructor(public g: Game) {}
 
   getItems(): undefined | string {
@@ -17,7 +17,7 @@ export default class Inventory {
       const item = items[i];
       if (!item.canPickUp) continue;
 
-      const result = Inventory.addToInventory(this.g, player, item);
+      const result = PickingUp.addToInventory(this.g, player, item);
       if (!result) return "You can't carry any more.";
 
       if (!spent) {
@@ -35,7 +35,7 @@ export default class Inventory {
     item: Item,
     quiet = false
   ): boolean {
-    const slot = Inventory.getFreeSlot(actor, item);
+    const slot = PickingUp.getFreeSlot(actor, item);
     if (typeof slot === "undefined") return false;
 
     const [pos, mix] = slot;

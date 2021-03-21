@@ -48,7 +48,7 @@ export default class Targeting implements Context {
 
     if (e.type === "click") {
       const [ex, ey] = this.mouse;
-      const [xmod, ymod] = this.parent.getDisplayOffset();
+      const [xmod, ymod] = this.parent.display.getOffset();
       const x = ex - xmod,
         y = ey - ymod;
       const spot = this.hotspots.resolve(x, y);
@@ -65,6 +65,10 @@ export default class Targeting implements Context {
   handle(cmd: Cmd): void {
     if (cmd.type === "cancel") {
       this.g.log.add("Cancelled.");
+
+      // TODO: this isn't fully needed
+      this.g.emit("refreshed", {});
+
       this.g.contexts.pop();
       this.parent.rerender.start();
     }
@@ -72,7 +76,7 @@ export default class Targeting implements Context {
 
   render(): void {
     const { chars } = this.g;
-    const [xmod, ymod] = this.parent.getDisplayOffset();
+    const [xmod, ymod] = this.parent.display.getOffset();
 
     this.parent.render();
     this.cmd.possibilities.forEach(([x, y]) => {

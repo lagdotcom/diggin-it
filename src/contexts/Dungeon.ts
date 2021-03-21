@@ -1,9 +1,12 @@
 import { lightRed } from "../colours";
 import Digging from "../commands/Digging";
-import Inventory from "../commands/Inventory";
 import Movement from "../commands/Movement";
+import PickingUp from "../commands/PickingUp";
 import Pushing from "../commands/Pushing";
 import UsableItems from "../commands/UsableItems";
+import InfoPanel from "../display/InfoPanel";
+import Inventory from "../display/Inventory";
+import MainDisplay from "../display/MainDisplay";
 import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
@@ -36,7 +39,7 @@ import SandCollapse from "../systems/SandCollapse";
 import TheInk from "../systems/TheInk";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
-import { ctheName, it, name } from "../text";
+import { ctheName, it } from "../text";
 import { pad } from "../utils";
 import ExamineScreen from "./ExamineScreen";
 import ExpandedLog from "./ExpandedLog";
@@ -52,17 +55,18 @@ export default class Dungeon implements Context {
   combat: Combat;
   death: Death;
   digging: Digging;
+  display: MainDisplay;
   effects: Effects;
   gravity: Gravity;
   hotspots: Hotspots;
-  info: string;
-  infoMore?: Thing;
+  info: InfoPanel;
   ink: TheInk;
   inventory: Inventory;
   memento: Memento;
   mouse: XY;
   movement: Movement;
   music: Music;
+  pickingup: PickingUp;
   pushing: Pushing;
   rerender: Soon;
   sand: SandCollapse;
@@ -81,17 +85,20 @@ export default class Dungeon implements Context {
     this.effects = new Effects(g);
     this.gravity = new Gravity(g);
     this.ink = new TheInk(g);
-    this.inventory = new Inventory(g);
     this.memento = new Memento(g);
     this.movement = new Movement(g);
     this.music = new Music(g);
+    this.pickingup = new PickingUp(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
     this.treasure = new TreasureGrabbing(g);
     this.use = new UsableItems(g);
 
+    this.info = new InfoPanel(g);
+    this.inventory = new Inventory(g);
+    this.display = new MainDisplay(g, this.info, this.vision);
+
     const { width, height } = g.chars._options;
-    this.info = "";
     this.hotspots = new Hotspots();
     this.hotspots.register("display", 0, 0, width - 12, height - 6);
     this.hotspots.register("inventory", 29, 13, 10, 8);
@@ -280,6 +287,7 @@ export default class Dungeon implements Context {
       delete player.equipment[item.slot];
       log.add(`You remove ${ctheName(item)} and drop ${it(item)}.`);
     } else log.add(`You drop ${ctheName(item)}.`);
+    this.g.emit("dropped", { actor: player, item });
 
     item.x = player.x;
     item.y = player.y;
@@ -313,8 +321,10 @@ export default class Dungeon implements Context {
   }
 
   handleExamine(): void {
-    if (this.infoMore) {
-      this.g.contexts.push(new ExamineScreen(this.g, this.infoMore));
+    if (this.info.lore) {
+      this.g.contexts.push(
+        new ExamineScreen(this.g, this.info.target as Thing)
+      );
       this.rerender.stop();
     }
   }
@@ -338,7 +348,7 @@ export default class Dungeon implements Context {
   }
 
   handleGet(): void {
-    const poss = this.inventory.getItems();
+    const poss = this.pickingup.getItems();
     if (typeof poss === "object") return this.handle(poss);
 
     if (poss) this.g.log.add(poss);
@@ -401,14 +411,6 @@ export default class Dungeon implements Context {
     }
   }
 
-  getDisplayOffset(): XY {
-    const { displayHeight, displayWidth, player } = this.g;
-
-    const xmod = Math.floor(displayWidth / 2 - player.x);
-    const ymod = Math.floor(displayHeight / 2 - player.y);
-    return [xmod, ymod];
-  }
-
   getMouseSpot(): ReturnType<Hotspots["resolve"]> {
     const [ex, ey] = this.mouse;
     return this.hotspots.resolve(ex, ey);
@@ -417,11 +419,7 @@ export default class Dungeon implements Context {
   updateInfo(): void {
     const [ex] = this.mouse;
     // not even on the canvas
-    if (ex === -1) {
-      this.info = "";
-      this.infoMore = undefined;
-      return;
-    }
+    if (ex === -1) return this.info.clear();
 
     const { player } = this.g;
     const spot = this.getMouseSpot();
@@ -429,26 +427,18 @@ export default class Dungeon implements Context {
       const [area, ox, oy] = spot;
       switch (area) {
         case "display":
-          const [xmod, ymod] = this.getDisplayOffset();
+          const [xmod, ymod] = this.display.getOffset();
           const x = ox - xmod,
             y = oy - ymod;
-          if (!this.vision.visible(x, y)) {
-            this.info = "";
-            this.infoMore = undefined;
-            return;
-          }
+          if (!this.vision.visible(x, y)) return this.info.clear();
 
           const { actor, items, tile } = this.g.contents(x, y);
           if (actor) {
-            this.info = name(actor);
-            if (actor.lore) this.infoMore = actor;
+            this.info.useActor(actor);
           } else if (items.length) {
-            const item = items[0];
-            this.info = name(item);
-            if (item.lore) this.infoMore = item;
+            this.info.useItem(items[0]);
           } else {
-            this.info = name(tile);
-            this.infoMore = undefined;
+            this.info.useTile(tile);
           }
           break;
 
@@ -456,67 +446,30 @@ export default class Dungeon implements Context {
           const index = oy * 5 + ox;
           const item = player.inventory[index];
           if (item) {
-            const equipped =
-              item.slot && player.equipment[item.slot] === item ? " (eq)" : "";
-            this.info = name(item) + equipped;
-            if (item.lore) this.infoMore = item;
+            this.info.useItem(item);
           } else {
-            this.info = "";
-            this.infoMore = undefined;
+            this.info.clear();
           }
 
           break;
       }
-    } else {
-      this.info = "";
-      this.infoMore = undefined;
-    }
+    } else this.info.clear();
   }
 
   render(): void {
-    const { log, tiles } = this.g;
-
     this.updateInfo();
 
     // TODO: this is dumb lol
     this.systems();
-    tiles.clear();
 
-    this.renderDisplay();
+    this.display.render();
     this.renderStats();
-    this.renderInventory();
-    if (this.info) this.renderInfo();
-    log.draw();
+    this.inventory.render();
+    this.info.render();
+    this.g.log.render();
   }
 
-  renderDisplay(): void {
-    const { displayHeight, displayWidth, memory, tiles } = this.g;
-    const vision = this.vision.get();
-    const [xmod, ymod] = this.getDisplayOffset();
-
-    for (let y = 0; y < displayHeight; y++) {
-      for (let x = 0; x < displayWidth; x++) {
-        const tx = x - xmod,
-          ty = y - ymod;
-
-        const inFov = vision.get(tx, ty);
-        const inMemory = memory.get(tx, ty);
-        if (!inFov && !inMemory) continue;
-
-        const colour = inFov ? "transparent" : "rgba(0,0,0,0.5)";
-        const { actor, items, tile } = this.g.contents(tx, ty);
-
-        const glyphs: string[] = [tile.glyph];
-        glyphs.push(...items.map((i) => i.glyph));
-        if (actor && inFov) glyphs.push(actor.glyph);
-
-        const fgs = new Array<string>(glyphs.length).fill(colour);
-        const bgs = new Array<string>(glyphs.length).fill("transparent");
-        tiles.draw(x, y, glyphs, fgs, bgs);
-      }
-    }
-  }
-
+  // TODO: extract this into component too
   renderStats(): void {
     const { chars, player } = this.g;
 
@@ -534,56 +487,5 @@ export default class Dungeon implements Context {
   private renderStat(y: number, name: string, value: number, warn = 0) {
     const col = value < warn ? `%b{${lightRed}}` : "";
     this.g.chars.drawText(31, y, `${col}${name}:${pad(value, 3)}`);
-  }
-
-  renderInventory(): void {
-    const { chars, player } = this.g;
-
-    drawPanel(chars, 28, 10, 12, 12);
-
-    let x = 29,
-      y = 13;
-    for (let i = 0; i < player.inventorySize; i++) {
-      const item = player.inventory[i];
-
-      if (!item) {
-        // TODO: this sucks
-        drawPanel(chars, x, y, 2, 2);
-      } else {
-        chars.draw(x, y, item.glyph + "1");
-        chars.draw(x + 1, y, item.glyph + "2");
-        const bl = [item.glyph + "3"];
-        const br = [item.glyph + "4"];
-        const fg = ["transparent", "transparent"];
-        const bg = ["black", "transparent"];
-
-        if (item.charges > 1) {
-          const amount = Math.min(99, item.charges);
-          const tens = Math.floor(amount / 10).toString();
-          const digits = (amount % 10).toString();
-
-          br.push("qty" + digits);
-          if (amount > 9) bl.push("qty" + tens);
-        }
-
-        chars.draw(x, y + 1, bl, fg, bg);
-        chars.draw(x + 1, y + 1, br, fg, bg);
-      }
-
-      x += 2;
-      if (i % 5 === 4) {
-        y += 2;
-        x = 29;
-      }
-    }
-  }
-
-  renderInfo(): void {
-    const { chars } = this.g;
-
-    drawPanel(chars, 0, 0, 28, 5, true);
-    chars.drawText(1, 1, this.info, 26);
-
-    if (this.infoMore) chars.drawText(1, 3, "e[X]amine for more.");
   }
 }

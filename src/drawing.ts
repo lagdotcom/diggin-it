@@ -12,6 +12,20 @@ const panelTiles: BorderTileset = [
   ["bo7", "bo8", "bo9"],
 ];
 
+export function clearArea(
+  display: Display,
+  sx: number,
+  sy: number,
+  width: number,
+  height: number
+): void {
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      display.draw(sx + x, sy + y, " ");
+    }
+  }
+}
+
 export function drawPanel(
   chars: Display,
   sx: number,

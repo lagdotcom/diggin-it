@@ -7,14 +7,16 @@ export default class ExpandedLog implements Context {
   rerender: Soon;
 
   constructor(public g: Game) {
-    g.log.expanded = true;
+    g.log.expand(true);
     this.rerender = new Soon(() => this.render());
     this.rerender.start();
   }
 
   handle(cmd: Cmd): void {
     if (cmd.type === "cancel") {
-      this.g.log.expanded = false;
+      this.g.log.expand(false);
+      this.g.tiles.clear();
+
       this.g.contexts.pop();
       this.g.contexts.top.render();
     }
@@ -37,6 +39,6 @@ export default class ExpandedLog implements Context {
 
   render(): void {
     this.g.tiles.clear();
-    this.g.log.draw();
+    this.g.log.render();
   }
 }
