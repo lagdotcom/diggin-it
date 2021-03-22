@@ -7,8 +7,15 @@ import { cname, name } from "../text";
 import Tile from "../Tile";
 
 export default class Gravity {
+  silent: boolean;
+
   constructor(public g: Game) {
     g.on("tick", () => this.run());
+    g.on("entered", () => {
+      this.silent = true;
+      this.run();
+      this.silent = false;
+    });
   }
 
   run(): void {
@@ -141,7 +148,7 @@ export default class Gravity {
   ): boolean {
     this.g.move(victim, x, y);
     this.g.emit("fell", { thing: victim, distance });
-    if (!victim.alive || victim.inky) return true;
+    if (!victim.alive || victim.inky || this.silent) return true;
 
     if (tile.canSwimIn) {
       if (victim.player) this.g.log.add(`You fall into ${name(tile)}!`);
@@ -170,7 +177,7 @@ export default class Gravity {
 
     const x = victim.x;
     let y = victim.y;
-    if (!victim.alive || (victim.inky && attacker.inky))
+    if (!victim.alive || (victim.inky && attacker.inky) || this.silent)
       return this.fallOntoTile(
         attacker,
         this.g.map.get(x, y - 1),
