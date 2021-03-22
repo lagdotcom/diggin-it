@@ -59,11 +59,13 @@ export default class InfoPanel {
   useTile(tile: Tile): void {
     if (this.target === tile) return;
     this.dirty = true;
-    this.g.emit("infoOpened", {});
 
-    this.target = tile;
-    this.info = name(tile);
-    this.lore = false;
+    if (tile.name) {
+      this.g.emit("infoOpened", {});
+      this.target = tile;
+      this.info = name(tile);
+      this.lore = false;
+    } else this.clear();
   }
 
   render(): void {
