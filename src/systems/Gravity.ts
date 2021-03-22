@@ -96,10 +96,11 @@ export default class Gravity {
     let distance = 0;
 
     while (y < this.g.map.height) {
-      const { tile } = this.g.contents(x, y + 1);
+      const { actor, tile } = this.g.contents(x, y + 1);
 
       // landed
       if (tile.solid) break;
+      if (actor?.pushable) break;
 
       y++;
       distance++;
