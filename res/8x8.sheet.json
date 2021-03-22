@@ -140,6 +140,8 @@
     "ArmourH": { "row": 4, "col": 37, "width": 2, "height": 2 },
     "ArmourI": { "row": 4, "col": 39, "width": 2, "height": 2 },
     "ArmourJ": { "row": 4, "col": 41, "width": 2, "height": 2 },
+    "Rags": { "row": 4, "col": 43, "width": 2, "height": 2 },
+    "Stick": { "row": 4, "col": 45, "width": 2, "height": 2 },
 
     "Bomb": { "row": 6, "col": 19, "width": 2, "height": 2 },
     "Rope": { "row": 6, "col": 21, "width": 2, "height": 2 },

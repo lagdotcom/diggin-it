@@ -34,7 +34,7 @@ export const pickaxe: Partial<ItemOptions> = {
   durability: 10,
   bonus: { sp: 26 },
   lore:
-    "A digger's best friend, its function as a mining and exploration tool as well as a weapon is not to be underestimated. Many have abandoned them in recent times as the sparks from mining have a tendency to ignite gas, creating explosions and doing extreme harm to people and history alike",
+    "A digger's best friend, its function as a mining and exploration tool as well as a weapon is not to be underestimated. Many have abandoned them in recent times as the sparks from mining have a tendency to ignite gas, creating explosions and doing extreme harm to people and history alike.",
 };
 export const powerDrill: Partial<ItemOptions> = {
   glyph: "PowerDrill",
@@ -370,4 +370,25 @@ export const fragment: Partial<ItemOptions> = {
   treasure: 5000,
   lore:
     "\"Unbelievable, it's actually real! What I've worked so hard for is finally within reach.\n...Can it truly grant wishes, though?\"\n- Jacques Splintertooth",
+};
+
+export const rags: Partial<ItemOptions> = {
+  glyph: "Rags",
+  name: "plain rags",
+  article: "some",
+  plural: true,
+  slot: "armour",
+  durability: 10,
+  bonus: { maxhp: 0, dp: 5 },
+  lore:
+    "You've been wearing these for a bit too long and it's starting to show; these old rags are barely protecting you from the heat and cold, let alone whatever may lurk around the corner.",
+};
+export const pointedStick: Partial<ItemOptions> = {
+  glyph: "Stick",
+  name: "pointed stick",
+  slot: "weapon",
+  durability: 10,
+  bonus: { sp: 12 },
+  lore:
+    "You have to defend yourself somehow, yet why you came armed with only a stick is a mystery even to yourself.",
 };

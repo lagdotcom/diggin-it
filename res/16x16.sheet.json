@@ -39,6 +39,8 @@
     "ArmourH": { "row": 2, "col": 9 },
     "ArmourI": { "row": 2, "col": 10 },
     "ArmourJ": { "row": 2, "col": 11 },
+    "Rags": { "row": 2, "col": 12 },
+    "Stick": { "row": 2, "col": 13 },
 
     "Bomb": { "row": 3, "col": 0 },
     "Rope": { "row": 3, "col": 1 },
