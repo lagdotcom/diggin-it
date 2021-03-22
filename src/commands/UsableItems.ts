@@ -102,6 +102,7 @@ export default class UsableItems {
     }
     log.add("You set up a ladder.");
     this.g.emit("used", { actor: player, item });
+    this.g.emit("mapChanged", {});
     item.charges--;
     this.g.spent++;
   }
@@ -147,6 +148,7 @@ export default class UsableItems {
 
     log.add("You set up a rope.");
     this.g.emit("used", { actor: this.g.player, item });
+    this.g.emit("mapChanged", {});
     item.charges--;
     this.g.spent++;
     return undefined;
@@ -192,6 +194,7 @@ export default class UsableItems {
     log.add(`You light the bomb.`);
     this.g.emit("used", { actor: player, item });
     this.g.emit("litBomb", { item: lit });
+    this.g.emit("mapChanged", {});
     item.charges--;
     this.g.spent++;
     return undefined;

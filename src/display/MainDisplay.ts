@@ -25,10 +25,9 @@ export default class MainDisplay {
       if (!info.target) this.dirtyTop = true;
     };
     g.on("died", maybeBoth);
-    g.on("digged", maybeBoth);
     g.on("dropped", maybeBoth);
     g.on("got", maybeBoth);
-    g.on("litBomb", maybeBoth);
+    g.on("mapChanged", maybeBoth);
     g.on("moved", maybeBoth);
 
     g.on("refreshed", () => (this.dirtyBot = this.dirtyTop = true));

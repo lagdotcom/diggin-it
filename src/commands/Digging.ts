@@ -47,6 +47,7 @@ export default class Digging {
       log.add(`You dig through ${theName(tile)}.`);
       map.set(x, y, new Tile(empty));
       this.g.emit("digged", { tile, x, y });
+      this.g.emit("mapChanged", {});
       return;
     }
 

@@ -13,8 +13,8 @@ export default class Death {
     const { attacker, victim } = data;
 
     if (victim.hp < 1) {
-      victim.alive = false;
       this.g.log.add(this.getDeathString(data));
+      victim.alive = false;
       this.g.remove(victim);
       this.g.emit("died", { attacker, victim });
 

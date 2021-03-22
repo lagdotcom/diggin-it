@@ -27,6 +27,7 @@ export interface EventMap {
   infoClosed: NoData;
   left: { depth: number; zone: number };
   litBomb: { item: Item };
+  mapChanged: NoData;
   moved: { thing: Thing; mx: number; my: number; forced?: Thing };
   noticed: { actor: Actor };
   refreshed: NoData;
