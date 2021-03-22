@@ -1,4 +1,4 @@
-import { lightBlue, lightGreen, lightRed } from "./colours";
+import { lightBlue, lightGold, lightGreen, lightRed } from "./colours";
 
 type Entity = {
   alive?: boolean;
@@ -8,6 +8,7 @@ type Entity = {
   namep: string;
   plural?: boolean;
   slot?: string;
+  treasure?: number;
   use?: string;
 };
 
@@ -16,6 +17,7 @@ export function colour(thing: Entity): string {
   if (thing.alive) return `%c{${lightRed}}`;
   if (thing.slot) return `%c{${lightGreen}}`;
   if (thing.use) return `%c{${lightBlue}}`;
+  if (thing.treasure) return `%c{${lightGold}}`;
   return "";
 }
 

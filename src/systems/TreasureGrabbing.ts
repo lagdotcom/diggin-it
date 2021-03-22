@@ -1,4 +1,5 @@
 import Game from "../Game";
+import { ctheName } from "../text";
 
 export default class TreasureGrabbing {
   constructor(public g: Game) {
@@ -13,7 +14,7 @@ export default class TreasureGrabbing {
       .filter((i) => i.treasure)
       .forEach((i) => {
         this.g.removeItem(i);
-        this.g.log.add(`You grab the ${i.name}.`);
+        this.g.log.add(`You grab ${ctheName(i)}.`);
         player.experience += i.treasure;
 
         if (i.glyph === "Fragment") {
