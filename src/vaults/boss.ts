@@ -1,7 +1,7 @@
 /* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 
-const boss1 = new Vault("boss 1", [
+const boss1 = new Vault("boss 1", 3, [
   "!!!!!!!!!!!!!!",
   "!   ^#< #^   !",
   "!   ^!!!!^   !",
@@ -19,7 +19,7 @@ const boss1 = new Vault("boss 1", [
   "!!!!!!!!!!!!!!",
 ]);
 
-const boss2 = new Vault("boss 2", [
+const boss2 = new Vault("boss 2", 3, [
   "!!!!!!!!!!!!!!",
   "!            !",
   "!    O ^  *^ !",
@@ -32,7 +32,7 @@ const boss2 = new Vault("boss 2", [
   "!!!!!!!!!!!!!!",
 ]);
 
-const boss3 = new Vault("boss 3", [
+const boss3 = new Vault("boss 3", 3, [
   "!!!!!!!!!!!!!!   !!!!!!!!!!!!!!",
   "!            !!!!!            !",
   "! ^   OB   ^       ^   6    ^ !",

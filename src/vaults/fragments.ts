@@ -3,6 +3,7 @@ import { zanq } from "./zan";
 
 const station1 = new Vault(
   "ladder station 1",
+  1,
   [
     "???? ^ 1?",
     "?c??]^]##",
@@ -16,24 +17,28 @@ const station1 = new Vault(
 
 const station2 = new Vault(
   "ladder station 2",
+  1,
   ["#####", "? ^1?", "?#^#?", "? ^ ?", "?#^#?", "? ^ ?", "##^##"],
   zanq
 );
 
 const ruin1 = new Vault(
   "ruin 1",
+  1,
   ["1???]] ]?", "????]] #1", "?]]]]]]]]", "????  ???"],
   zanq
 );
 
 const ruin2 = new Vault(
   "ruin 2",
+  1,
   ["]#]]]]]c", "] O   ]]", "] O  O ]", "# O OO1#", "]##]]##]"],
   zanq
 );
 
 const ruin3 = new Vault(
   "ruin 3",
+  1,
   ["]]]]]", "    O", "]]]]]", "?]]|#", " 2?|]", "###|#"],
   zanq
 );

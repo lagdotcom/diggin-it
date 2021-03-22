@@ -1,6 +1,6 @@
 import Vault from "../Vault";
 
-const shaft5 = new Vault("shaft5", [
+const shaft5 = new Vault("shaft5", 1, [
   "#?#",
   "#?#",
   "#?#",
@@ -8,7 +8,7 @@ const shaft5 = new Vault("shaft5", [
   "#?#",
 ]).transform("?", "^|");
 
-const shaft11 = new Vault("shaft11", [
+const shaft11 = new Vault("shaft11", 1, [
   "#|#",
   "#|#",
   "#|#",
@@ -22,7 +22,7 @@ const shaft11 = new Vault("shaft11", [
   "# #",
 ]);
 
-const close = new Vault("so close", [
+const close = new Vault("so close", 1, [
   ":::::",
   ":::::",
   "::d::",
@@ -30,9 +30,9 @@ const close = new Vault("so close", [
   ":::::",
 ]);
 
-const freebie = new Vault("freebie", [":::", ":g:", ":::"]);
+const freebie = new Vault("freebie", 1, [":::", ":g:", ":::"]);
 
-const quiet = new Vault("quiet passage", [
+const quiet = new Vault("quiet passage", 1, [
   "######## #",
   "#####    #",
   "##      ##",
@@ -40,7 +40,7 @@ const quiet = new Vault("quiet passage", [
   "# ########",
 ]);
 
-const nightmare = new Vault("nightmare", [
+const nightmare = new Vault("nightmare", 1, [
   "]:]]]]]]]]]",
   "]   1 1 1 ]",
   "]]]]]]]]]:]",

@@ -4,6 +4,7 @@ import { zanq } from "./zan";
 
 const tiramisu = new Vault(
   "tiramisu",
+  1,
   [
     "?       ?",
     "]~~~~~~~]",
@@ -18,32 +19,42 @@ const tiramisu = new Vault(
 
 const gym = new Vault(
   "buried gym",
+  1,
   ["|?b?b?", "|?]|]?", "|?b|2?", "|?]?]?", "]~~~~~"],
   zanq
 );
 
-const rocks = new Vault("loose rocks", ["O O O O", "?O?O?O?", " ? ? ? "], zanq);
+const rocks = new Vault(
+  "loose rocks",
+  1,
+  ["O O O O", "?O?O?O?", " ? ? ? "],
+  zanq
+);
 
 const net = new Vault(
   "safety net",
+  1,
   ["]    ]", "?    ?", "F    ?", "]1111]", "]]]]#]"],
   zanq
 );
 
 const bubblegum = new Vault(
   "bubblegum",
+  1,
   ["O?", "O?", "O?", "O?", "O?", "O?", "O?"],
   zanq
 );
 
 const nuclear = new Vault(
   "nuclear site",
+  1,
   ["#########", "#%#???#%#", "#%#???#%#", " % ?x? % ", "#%#???#%#"],
   zanq
 );
 
 const giga = new Vault(
   "gigasquimp",
+  1,
   [
     "??????1111??????",
     "????11????11????",
@@ -65,7 +76,7 @@ const giga = new Vault(
   zanq
 );
 
-const shopping = new Vault("shopping", [
+const shopping = new Vault("shopping", 1, [
   "]]]]]",
   "]   ]",
   "F 5 A",
@@ -76,6 +87,7 @@ const shopping = new Vault("shopping", [
 
 const flag = new Vault(
   "flag",
+  1,
   [
     "          ",
     "~~??~~??~~",
@@ -89,7 +101,7 @@ const flag = new Vault(
   zanq
 );
 
-const egg = new Vault("egg timer", [
+const egg = new Vault("egg timer", 1, [
   "#######",
   "  #:#  ",
   "  #:#  ",
@@ -99,7 +111,7 @@ const egg = new Vault("egg timer", [
   "#######",
 ]);
 
-const slasher = new Vault("slasher of veils", [
+const slasher = new Vault("slasher of veils", 1, [
   "MMMMM",
   "M:::M",
   "M   M",

@@ -5,24 +5,25 @@ import shallowUrl from "../res/lost-in-lessonus.mp3";
 import mysteryUrl from "../res/mystery-sting.mp3";
 import inkUrl from "../res/sealed-in-ink.mp3";
 import shinyUrl from "../res/shiny-sting.mp3";
+import { log } from "./utils";
 
 function fetchMusic(url: string, loop = false): Promise<HTMLAudioElement> {
   return new Promise((resolve, reject) => {
     const aud = document.createElement("audio");
     aud.addEventListener("canplay", () => {
-      // console.log("partially loaded:", url);
+      log("partially loaded:", url);
       resolve(aud);
     });
-    // aud.addEventListener("canplaythrough", () => {
-    //   console.log("fully loaded:", url);
-    // });
+    aud.addEventListener("canplaythrough", () => {
+      log("fully loaded:", url);
+    });
     aud.addEventListener("error", () => {
-      // console.log("couldn't load:", url);
+      log("couldn't load:", url);
       reject(aud);
     });
     aud.loop = loop;
     aud.src = url;
-    // console.log("started fetching:", url);
+    log("started fetching:", url);
   });
 }
 

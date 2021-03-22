@@ -1,41 +1,45 @@
 import Vault from "../Vault";
 import { zanq } from "./zan";
 
-const shed1 = new Vault("shed 1", ["#??#", "#  #", " 12 ", ":#:#"], zanq);
+const shed1 = new Vault("shed 1", 1, ["#??#", "#  #", " 12 ", ":#:#"], zanq);
 
 const shed2 = new Vault(
   "shed 2",
+  1,
   ["?:#:?", ":# #:", " 212 ", ":#|#:", "??|??", "??|??", "?:#:?"],
   zanq
 );
 
 const d2a2 = new Vault(
   "diablo 2 act 2",
+  1,
   [":???:", ":::::", ":::::", " :3: ", ":::::", ":::::", ":???:"],
   zanq
 );
 
 const shak = new Vault(
   "shak's shak",
+  1,
   ["]  ]]]]", "LRL   ]", "]]]   ", "???]2  ", "???]] ?"],
   zanq
 );
 
-const rope = new Vault("its rope", ["?R?R?R?"], zanq);
+const rope = new Vault("its rope", 1, ["?R?R?R?"], zanq);
 
-const ladder = new Vault("its ladder", ["?L?L?L?"], zanq);
+const ladder = new Vault("its ladder", 1, ["?L?L?L?"], zanq);
 
-const air = new Vault("its air", ["?A?A?"], zanq);
+const air = new Vault("its air", 1, ["?A?A?"], zanq);
 
 const stash = new Vault(
   "stash",
+  1,
   ["??:::::", "::: ba:", ":   ]::", "]     ]", " 21212 ", ":::::::"],
   zanq
 );
 
-const deth = new Vault("dethsquad", ["1111223", "OOOOOOO"]);
+const deth = new Vault("dethsquad", 1, ["1111223", "OOOOOOO"]);
 
-const depot = new Vault("depot", [
+const depot = new Vault("depot", 1, [
   "]]]    ",
   "]  M   ",
   "]M MM  ",
@@ -45,6 +49,7 @@ const depot = new Vault("depot", [
 
 const sinkhole = new Vault(
   "sinkhole",
+  1,
   [
     "???????????",
     "?      ::#?",
@@ -57,14 +62,14 @@ const sinkhole = new Vault(
   zanq
 );
 
-const tunnel = new Vault("tunnel", [
+const tunnel = new Vault("tunnel", 1, [
   "]#]]#]]#]",
   "         ",
   "         ",
   "]#]]#]]#]",
 ]);
 
-const nope = new Vault("nope tunnel", [
+const nope = new Vault("nope tunnel", 1, [
   "]#]]#]]#]",
   "   %%% % ",
   " %%%%%%%%",
@@ -73,24 +78,28 @@ const nope = new Vault("nope tunnel", [
 
 const escapade1 = new Vault(
   "escapade 1",
+  1,
   ["??] O ", "O ] ]]", "]    ]", "]    ]", "]    ]", "] g g]", "]]]]]?"],
   zanq
 );
 
 const armoury1 = new Vault(
   "armouree 1",
+  1,
   ["]]]]]", "]  ?]", "?5 8?", ":::::", "     "],
   zanq
 );
 
 const bakery = new Vault(
   "bakeree",
+  1,
   ["]]]]]", "]  ?]", "?FFF?", ":::::", "     "],
   zanq
 );
 
 const plateau = new Vault(
   "plateau",
+  1,
   [
     "  A2F2b  ",
     "  :::::  ",
@@ -104,26 +113,28 @@ const plateau = new Vault(
 
 const cove = new Vault(
   "cove",
+  1,
   ["11   ?", "]]]]]]", "]AAAA]", "]####]", "~~~~~~", "~~~~~~"],
   zanq
 );
 
-const meow = new Vault("meow", [" O   O ", "???O???", "  ???  "], zanq);
+const meow = new Vault("meow", 1, [" O   O ", "???O???", "  ???  "], zanq);
 
 const nin = new Vault(
   "nin",
+  1,
   ["]]]?]?]]]", "?]  ]  ]?", "?]  ]  ]?", "?]?]]]?]?"],
   zanq
 );
 
-const chaos1 = new Vault("chaos 1", [
+const chaos1 = new Vault("chaos 1", 1, [
   "     | ",
   "     |#",
   "2aRM1|#",
   "#######",
 ]);
 
-const sorry = new Vault("sorry", [
+const sorry = new Vault("sorry", 1, [
   "]]]]:::]]]]",
   "]] ]   ] ]]",
   "]]]]   ]]]]",
@@ -135,12 +146,14 @@ const sorry = new Vault("sorry", [
 
 const bridgekeeper = new Vault(
   "bridgekeeper",
+  1,
   ["      ", "      ", " $3 F ", "### ]]", "#    ]", "??????", "??????"],
   zanq
 );
 
 const clamber = new Vault(
   "clamber",
+  1,
   [
     "      ccc     ",
     "]]]]]]]]]]]]]?",
@@ -154,7 +167,7 @@ const clamber = new Vault(
   zanq
 );
 
-const squimpyZone = new Vault("squimpy zone", [
+const squimpyZone = new Vault("squimpy zone", 1, [
   "        1 F5",
   "    1M  ]:::",
   "1O  ::::::::",

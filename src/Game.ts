@@ -32,6 +32,7 @@ import {
 } from "./sheets";
 import Tile from "./Tile";
 import { unset } from "./tiles";
+import { log } from "./utils";
 
 export default class Game extends EventHandler {
   actors: Grid<Actor>;
@@ -199,7 +200,7 @@ export default class Game extends EventHandler {
 
   nextMap(seed?: number): void {
     const map = generateMap(this, seed);
-    // console.log(map.join("\n"));
+    log(map.join("\n"));
     this.useMap(map);
   }
 

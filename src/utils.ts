@@ -12,3 +12,8 @@ export function pad(value: number, length: number, ch = " "): string {
   while (string.length < length) string = ch + string;
   return string;
 }
+
+export function log(...args: unknown[]): void {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if ((window as any).showlogs) console.log(...args);
+}

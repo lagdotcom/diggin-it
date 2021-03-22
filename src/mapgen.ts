@@ -5,6 +5,8 @@ import Game from "./Game";
 import Hotspots from "./Hotspots";
 import Grid from "./interfaces/Grid";
 import LinearGrid from "./LinearGrid";
+import { getZone } from "./maps";
+import { log } from "./utils";
 import basics from "./vaults/basics";
 import bossrooms from "./vaults/boss";
 import exits from "./vaults/exits";
@@ -74,9 +76,10 @@ function getMapParameters(depth: number) {
   const width = 12 + depth * 3;
   const height = 15 + depth * 5;
   const maxvaults = Math.floor((width * height) / 80);
-  const vaultattempts = maxvaults * 5;
+  const vaultattempts = maxvaults * 10;
+  const zone = getZone(depth) + 1;
 
-  return { width, height, maxvaults, vaultattempts };
+  return { width, height, maxvaults, vaultattempts, zone };
 }
 
 function toMapString(grid: Grid<string>) {
@@ -86,7 +89,7 @@ function toMapString(grid: Grid<string>) {
 function generateBossMap(g: Game, seed?: number) {
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
-  // console.log("map seed:", seed);
+  log("map seed:", seed);
 
   const vault = RNG.getItem(bossrooms);
   return toMapString(vault.resolve());
@@ -95,11 +98,13 @@ function generateBossMap(g: Game, seed?: number) {
 export function generateMap(g: Game, seed?: number): string[] {
   if (g.depth >= 10) return generateBossMap(g, seed);
 
-  const { width, height, maxvaults, vaultattempts } = getMapParameters(g.depth);
+  const { width, height, maxvaults, vaultattempts, zone } = getMapParameters(
+    g.depth
+  );
 
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
-  // console.log("map seed:", seed);
+  log("map seed:", seed);
 
   const noise = new Simplex();
   const taken = new Hotspots<number>();
@@ -118,7 +123,7 @@ export function generateMap(g: Game, seed?: number): string[] {
 
     const x = RNG.getUniformInt(1, width - exit.width - 1);
     const y = height - exit.height - 1;
-    // console.log(`placing ${exit.name} at ${x},${y}`);
+    log(`placing ${exit.name} at ${x},${y}`);
     taken.register(-1, x, y, exit.width, exit.height);
     map.paste(exit.resolve(), x, y);
   }
@@ -126,13 +131,15 @@ export function generateMap(g: Game, seed?: number): string[] {
   let placed = 0;
   for (let i = 0; i < vaultattempts; i++) {
     const vault = RNG.getItem(vaults);
+    if (vault.difficulty > zone) continue;
+
     const x = RNG.getUniformInt(1, width - vault.width - 1);
     const y = RNG.getUniformInt(1, height - vault.height - 1);
     if (x < 1 || y < 1) continue;
 
     const spot = taken.overlap(x, y, vault.width, vault.height);
     if (!spot) {
-      // console.log(`placing ${vault.name} at ${x},${y}`);
+      log(`placing ${vault.name} at ${x},${y}`);
       taken.register(i, x, y, vault.width, vault.height);
       map.paste(vault.resolve(), x, y);
 

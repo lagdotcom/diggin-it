@@ -17,6 +17,7 @@ export default class Vault {
 
   constructor(
     public name: string,
+    public difficulty: number,
     rows: string[],
     transforms: VaultTransform[] = []
   ) {
