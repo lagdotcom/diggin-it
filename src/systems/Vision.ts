@@ -13,7 +13,7 @@ export default class Vision {
 
     const dirty = () => (this.dirty = true);
     g.on("digged", dirty);
-    g.on("equipped", dirty); // might change vision value
+    g.on("equipped", dirty); // might change vision/xray value
     g.on("moved", dirty);
   }
 
@@ -28,7 +28,12 @@ export default class Vision {
       this.dirty = false;
       const { map, player } = this.g;
 
-      const fov = new DiscreteShadowcasting((x, y) => !map.get(x, y).opaque);
+      const passCallback: (x: number, y: number) => boolean = player.get(
+        "xrayVision"
+      )
+        ? (x, y) => !map.get(x, y).xrayOpaque
+        : (x, y) => !map.get(x, y).opaque;
+      const fov = new DiscreteShadowcasting(passCallback);
       this.vision.fill(false);
       fov.compute(player.x, player.y, player.get("vision"), (x, y) => {
         this.vision.set(x, y, true);

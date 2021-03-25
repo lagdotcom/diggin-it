@@ -281,6 +281,8 @@ export const specs: Partial<ItemOptions> = {
   plural: true,
   lore:
     "Using Lessonian technology that traces the density and material of the environment, X-Ray Specs are the premiere tech of the last century. Highly sought after, these specs have the ability to show you what you're about to come across well before your pickaxe so much as scrapes a surface. Batteries included!",
+  slot: "face",
+  bonus: { xrayVision: 1 },
 };
 export const helmet: Partial<ItemOptions> = {
   glyph: "Helmet",

@@ -11,6 +11,7 @@ export interface TileOptions {
   indestructible: boolean;
   name: string;
   opaque: boolean;
+  xrayOpaque: boolean;
   solid: boolean;
 }
 
@@ -28,6 +29,7 @@ export default class Tile {
   name: string;
   namep: string;
   opaque: boolean;
+  xrayOpaque: boolean;
   solid: boolean;
 
   constructor({
@@ -44,6 +46,7 @@ export default class Tile {
     indestructible = false,
     name = glyph,
     opaque = solid,
+    xrayOpaque = indestructible,
   }: Partial<TileOptions> = {}) {
     this.airCost = airCost;
     this.article = article;
@@ -58,6 +61,7 @@ export default class Tile {
     this.name = name;
     this.namep = name;
     this.opaque = opaque;
+    this.xrayOpaque = xrayOpaque;
     this.solid = solid;
   }
 }

@@ -15,6 +15,7 @@ import {
   rations,
   rope,
   smallGem,
+  specs,
   treasureBox,
 } from "./items";
 import { addTheInk } from "./prefabs";
@@ -112,7 +113,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   R: rope,
   A: airTank,
   F: rations,
-  X: getRandomArmour, // TODO: X-ray Specs
+  X: specs,
   H: helmet,
   G: getRandomArmour, // TODO: gas mask
 

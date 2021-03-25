@@ -5,5 +5,6 @@ type Stat =
   | "sp"
   | "dp"
   | "vision"
-  | "crushResistance";
+  | "crushResistance"
+  | "xrayVision";
 export default Stat;

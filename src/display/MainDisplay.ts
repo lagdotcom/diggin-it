@@ -26,6 +26,7 @@ export default class MainDisplay {
     };
     g.on("died", maybeBoth);
     g.on("dropped", maybeBoth);
+    g.on("equipped", maybeBoth);
     g.on("got", maybeBoth);
     g.on("mapChanged", maybeBoth);
     g.on("moved", maybeBoth);
