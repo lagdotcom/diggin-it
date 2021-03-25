@@ -439,11 +439,13 @@ export default class Dungeon implements Context {
             y = oy - ymod;
           if (!this.vision.visible(x, y)) return this.info.clear();
 
-          const { actor, items, tile } = this.g.contents(x, y);
+          const { actor, items, tile, fluid } = this.g.contents(x, y);
           if (actor) {
             this.info.useActor(actor);
           } else if (items.length) {
             this.info.useItem(items[0]);
+          } else if (fluid.glyph) {
+            this.info.useTile(fluid);
           } else {
             this.info.useTile(tile);
           }

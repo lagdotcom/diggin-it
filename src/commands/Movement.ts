@@ -9,7 +9,7 @@ export default class Movement {
     const x = player.x + mx;
     const y = player.y + my;
 
-    const { actor, tile } = this.g.contents(x, y);
+    const { actor, tile, fluid } = this.g.contents(x, y);
 
     if (actor) {
       if (actor.pushable && my === 0) return { type: "push", x, y, mx, my };
@@ -18,7 +18,6 @@ export default class Movement {
 
       if (actor.alive) return { type: "attack", x, y };
 
-      // TODO: attack?
       return "It's occupied.";
     }
 
@@ -33,7 +32,7 @@ export default class Movement {
       return "It's too tough to dig.";
     }
 
-    if (my === -1 && !tile.canClimb && !tile.canSwimIn)
+    if (my === -1 && !tile.canClimb && !fluid.canSwimIn)
       return "Nothing to climb.";
   }
 

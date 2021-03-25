@@ -77,11 +77,12 @@ export default class MainDisplay {
         }
 
         const colour = inFov ? "transparent" : "rgba(0,0,0,0.5)";
-        const { actor, items, tile } = this.g.contents(tx, ty);
+        const { actor, items, tile, fluid } = this.g.contents(tx, ty);
 
         const glyphs: string[] = [tile.glyph];
         glyphs.push(...items.map((i) => i.glyph));
         if (actor && inFov) glyphs.push(actor.glyph);
+        if (fluid.glyph) glyphs.unshift(fluid.glyph);
 
         const fgs = new Array<string>(glyphs.length).fill(colour);
         const bgs = new Array<string>(glyphs.length).fill("transparent");

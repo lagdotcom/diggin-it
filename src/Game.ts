@@ -10,6 +10,7 @@ import BadEndingScreen from "./contexts/BadEndingScreen";
 import Dungeon from "./contexts/Dungeon";
 import GoodEndingScreen from "./contexts/GoodEndingScreen";
 import MessageLog from "./display/MessageLog";
+import { EventMap } from "./Event";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
 import Grid from "./interfaces/Grid";
@@ -49,6 +50,7 @@ export default class Game extends EventHandler {
   items: Grid<Item[]>;
   log: MessageLog;
   map: Grid<Tile>;
+  mapFluid: Grid<Tile>;
   memory: Grid<boolean>;
   music: MusicLibrary;
   musicPlaying?: MusicName;
@@ -199,17 +201,17 @@ export default class Game extends EventHandler {
   }
 
   nextMap(seed?: number): void {
-    const map = generateMap(this, seed);
-    log(map.join("\n"));
-    this.useMap(map);
+    const [map, fluid] = generateMap(this, seed);
+    log(map.join("\n"), fluid.join("\n"));
+    this.useMap(map, fluid);
   }
 
-  useMap(map: string[]): void {
+  useMap(map: string[], fluid: string[]): void {
     this.removeAllListeners();
     this.log.attach();
     // this.player.fullHeal();
 
-    loadMap(this, map);
+    loadMap(this, map, fluid);
     this.contexts.clear();
     this.contexts.push(new Dungeon(this));
     this.spent = 0;
@@ -224,17 +226,22 @@ export default class Game extends EventHandler {
 
   initMap(width: number, height: number): void {
     this.map = new LinearGrid(width, height, () => new Tile(unset));
+    this.mapFluid = new LinearGrid(width, height, () => new Tile(unset));
     this.memory = new LinearGrid(width, height, () => false);
     this.actors = new LinearGrid(width, height, () => undefined);
     this.allActors = [];
     this.items = new LinearGrid(width, height, () => []);
   }
 
-  contents(x: number, y: number): { actor?: Actor; items: Item[]; tile: Tile } {
+  contents(
+    x: number,
+    y: number
+  ): { actor?: Actor; items: Item[]; tile: Tile; fluid: Tile } {
     const actor = this.actors.get(x, y);
     const items = this.items.get(x, y);
     const tile = this.map.get(x, y);
-    return { actor, items, tile };
+    const fluid = this.mapFluid.get(x, y);
+    return { actor, items, tile, fluid };
   }
 
   add(actor: Actor): Grid<Actor> {
@@ -257,7 +264,7 @@ export default class Game extends EventHandler {
     );
   }
 
-  move(thing: Actor, x: number, y: number, forced?: Thing): boolean {
+  move(thing: Actor, x: number, y: number, forced?: Thing): EventMap["moved"] {
     const mx = x - thing.x,
       my = y - thing.y;
 
@@ -270,7 +277,12 @@ export default class Game extends EventHandler {
     return this.emit("moved", { thing, mx, my, forced });
   }
 
-  moveItem(thing: Item, x: number, y: number, forced?: Thing): boolean {
+  moveItem(
+    thing: Item,
+    x: number,
+    y: number,
+    forced?: Thing
+  ): EventMap["moved"] {
     const mx = x - thing.x,
       my = y - thing.y;
 

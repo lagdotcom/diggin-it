@@ -1,12 +1,19 @@
 import Vault from "../Vault";
 import { zanq } from "./zan";
 
-const shed1 = new Vault("shed 1", 1, ["#??#", "#  #", " 12 ", ":#:#"], zanq);
+const shed1 = new Vault(
+  "shed 1",
+  1,
+  ["#??#", "#  #", " 12 ", ":#:#"],
+  undefined,
+  zanq
+);
 
 const shed2 = new Vault(
   "shed 2",
   1,
   ["?:#:?", ":# #:", " 212 ", ":#|#:", "??|??", "??|??", "?:#:?"],
+  undefined,
   zanq
 );
 
@@ -14,6 +21,7 @@ const d2a2 = new Vault(
   "diablo 2 act 2",
   1,
   [":???:", ":::::", ":::::", " :3: ", ":::::", ":::::", ":???:"],
+  undefined,
   zanq
 );
 
@@ -21,19 +29,21 @@ const shak = new Vault(
   "shak's shak",
   1,
   ["]  ]]]]", "LRL   ]", "]]]   ", "???]2  ", "???]] ?"],
+  undefined,
   zanq
 );
 
-const rope = new Vault("its rope", 1, ["?R?R?R?"], zanq);
+const rope = new Vault("its rope", 1, ["?R?R?R?"], undefined, zanq);
 
-const ladder = new Vault("its ladder", 1, ["?L?L?L?"], zanq);
+const ladder = new Vault("its ladder", 1, ["?L?L?L?"], undefined, zanq);
 
-const air = new Vault("its air", 1, ["?A?A?"], zanq);
+const air = new Vault("its air", 1, ["?A?A?"], undefined, zanq);
 
 const stash = new Vault(
   "stash",
   1,
   ["??:::::", "::: ba:", ":   ]::", "]     ]", " 21212 ", ":::::::"],
+  undefined,
   zanq
 );
 
@@ -59,6 +69,7 @@ const sinkhole = new Vault(
     "?#    :::?#",
     "?   ??????#",
   ],
+  undefined,
   zanq
 );
 
@@ -69,17 +80,18 @@ const tunnel = new Vault("tunnel", 1, [
   "]#]]#]]#]",
 ]);
 
-const nope = new Vault("nope tunnel", 1, [
-  "]#]]#]]#]",
-  "   %%% % ",
-  " %%%%%%%%",
-  "]#]]#]]#]",
-]);
+const nope = new Vault(
+  "nope tunnel",
+  1,
+  ["]#]]#]]#]", "         ", "         ", "]#]]#]]#]"],
+  ["         ", "   %%% % ", " %%%%%%%%", "         "]
+);
 
 const escapade1 = new Vault(
   "escapade 1",
   1,
   ["??] O ", "O ] ]]", "]    ]", "]    ]", "]    ]", "] g g]", "]]]]]?"],
+  undefined,
   zanq
 );
 
@@ -87,6 +99,7 @@ const armoury1 = new Vault(
   "armouree 1",
   1,
   ["]]]]]", "]  ?]", "?5 8?", ":::::", "     "],
+  undefined,
   zanq
 );
 
@@ -94,6 +107,7 @@ const bakery = new Vault(
   "bakeree",
   1,
   ["]]]]]", "]  ?]", "?FFF?", ":::::", "     "],
+  undefined,
   zanq
 );
 
@@ -108,22 +122,31 @@ const plateau = new Vault(
     "    : 111",
     "?????????",
   ],
+  undefined,
   zanq
 );
 
 const cove = new Vault(
   "cove",
   1,
-  ["11   ?", "]]]]]]", "]AAAA]", "]####]", "~~~~~~", "~~~~~~"],
+  ["11   ?", "]]]]]]", "]AAAA]", "]####]", "      ", "      "],
+  ["      ", "      ", "      ", "      ", "~~~~~~", "~~~~~~"],
   zanq
 );
 
-const meow = new Vault("meow", 1, [" O   O ", "???O???", "  ???  "], zanq);
+const meow = new Vault(
+  "meow",
+  1,
+  [" O   O ", "???O???", "  ???  "],
+  undefined,
+  zanq
+);
 
 const nin = new Vault(
   "nin",
   1,
   ["]]]?]?]]]", "?]  ]  ]?", "?]  ]  ]?", "?]?]]]?]?"],
+  undefined,
   zanq
 );
 
@@ -134,20 +157,34 @@ const chaos1 = new Vault("chaos 1", 1, [
   "#######",
 ]);
 
-const sorry = new Vault("sorry", 1, [
-  "]]]]:::]]]]",
-  "]] ]   ] ]]",
-  "]]]]   ]]]]",
-  "]         ]",
-  "     L     ",
-  "~~~~###~~~~",
-  "~~~~~~~~~~~",
-]);
+const sorry = new Vault(
+  "sorry",
+  1,
+  [
+    "]]]]:::]]]]",
+    "]] ]   ] ]]",
+    "]]]]   ]]]]",
+    "]         ]",
+    "     L     ",
+    "    ###    ",
+    "           ",
+  ],
+  [
+    "           ",
+    "           ",
+    "           ",
+    "           ",
+    "           ",
+    "~~~~   ~~~~",
+    "~~~~~~~~~~~",
+  ]
+);
 
 const bridgekeeper = new Vault(
   "bridgekeeper",
   1,
   ["      ", "      ", " $3 F ", "### ]]", "#    ]", "??????", "??????"],
+  undefined,
   zanq
 );
 
@@ -164,6 +201,7 @@ const clamber = new Vault(
     "] ^         ]?",
     "] ^ 2 2 2 2 ??",
   ],
+  undefined,
   zanq
 );
 

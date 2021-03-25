@@ -6,8 +6,8 @@ export default class Air {
   }
 
   run(): void {
-    const { log, map, player } = this.g;
-    const tile = map.get(player.x, player.y);
+    const { log, mapFluid, player } = this.g;
+    const tile = mapFluid.get(player.x, player.y);
     player.ap -= tile.airCost;
 
     if (player.ap < 1) {

@@ -66,7 +66,6 @@ const sandTiles = [sandShallow, sandMiddle, sandDeep];
 const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
   "?": unset,
   " ": empty,
-  "%": gas,
   "!": border,
   "<": entrance,
   ">": exit,
@@ -74,9 +73,14 @@ const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
   ":": (zone) => sandTiles[zone],
   "^": ladderTile,
   "|": ropeTile,
-  "~": water,
   "]": brick,
   "*": inkDoor,
+};
+
+const fluidTypes: Record<string, Partial<TileOptions>> = {
+  " ": empty,
+  "%": gas,
+  "~": water,
 };
 
 const actorTypes: Record<
@@ -147,7 +151,7 @@ export function getZone(depth: number): 0 | 1 | 2 {
   return 2;
 }
 
-export function loadMap(g: Game, map: string[]): void {
+export function loadMap(g: Game, map: string[], fluid: string[]): void {
   let px = 0,
     py = 0;
 
@@ -182,6 +186,9 @@ export function loadMap(g: Game, map: string[]): void {
         px = x;
         py = y;
       }
+
+      const fglyph = fluid[y][x];
+      g.mapFluid.set(x, y, new Tile(fluidTypes[fglyph]));
     }
   }
 

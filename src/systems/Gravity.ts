@@ -45,8 +45,10 @@ export default class Gravity {
     if (!thing) return;
     if (!thing.obeysGravity) return;
 
+    const fluid = this.g.mapFluid.get(thing.x, thing.y);
+    if (fluid.canSwimIn) return;
+
     const current = this.g.map.get(thing.x, thing.y);
-    if (current.canSwimIn) return;
     if (thing.canClimb && current.canClimb) return;
 
     const { actor, tile } = this.g.contents(thing.x, thing.y + 1);
@@ -66,7 +68,7 @@ export default class Gravity {
     let victim: Actor | Tile = undefined;
 
     while (y < map.height) {
-      const { actor, tile } = this.g.contents(x, y + 1);
+      const { actor, tile, fluid } = this.g.contents(x, y + 1);
 
       // hit something
       if (actor) {
@@ -83,7 +85,12 @@ export default class Gravity {
       y++;
       distance++;
 
-      if ((thing.canClimb && tile.canClimb) || tile.canSwimIn) {
+      if (fluid.canSwimIn) {
+        victim = fluid;
+        break;
+      }
+
+      if (thing.canClimb && tile.canClimb) {
         victim = tile;
         break;
       }
@@ -103,7 +110,7 @@ export default class Gravity {
     let distance = 0;
 
     while (y < this.g.map.height) {
-      const { actor, tile } = this.g.contents(x, y + 1);
+      const { actor, tile, fluid } = this.g.contents(x, y + 1);
 
       // landed
       if (tile.solid) break;
@@ -113,7 +120,7 @@ export default class Gravity {
       distance++;
 
       // TODO: float? sink?
-      if (tile.canSwimIn) break;
+      if (fluid.canSwimIn) break;
     }
 
     // ???

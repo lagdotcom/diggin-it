@@ -11,6 +11,7 @@ interface VaultTransform {
 
 export default class Vault {
   grid: Grid<string>;
+  fluidGrid: Grid<string>;
   width: number;
   height: number;
   transforms: VaultTransform[];
@@ -19,9 +20,13 @@ export default class Vault {
     public name: string,
     public difficulty: number,
     rows: string[],
+    fluids?: string[],
     transforms: VaultTransform[] = []
   ) {
     this.grid = LinearGrid.from(rows.map((row) => row.split("")));
+    this.fluidGrid = fluids
+      ? LinearGrid.from(fluids.map((row) => row.split("")))
+      : new LinearGrid(this.grid.width, this.grid.height, () => " ");
     this.width = this.grid.width;
     this.height = this.grid.height;
     this.transforms = transforms;
@@ -32,7 +37,7 @@ export default class Vault {
     return this;
   }
 
-  resolve(): Grid<string> {
+  resolve(): [tiles: Grid<string>, fluids: Grid<string>] {
     const chose: Record<string, string> = {};
     const transformed = this.grid.transform((ch) => {
       for (let i = 0; i < this.transforms.length; i++) {
@@ -50,6 +55,8 @@ export default class Vault {
       return ch;
     });
 
-    return RNG.getPercentage() <= 50 ? transformed : transformed.mirror();
+    return RNG.getPercentage() <= 50
+      ? [transformed, this.fluidGrid]
+      : [transformed.mirror(), this.fluidGrid.mirror()];
   }
 }

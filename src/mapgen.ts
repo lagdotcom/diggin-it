@@ -86,16 +86,23 @@ function toMapString(grid: Grid<string>) {
   return grid.toArray().map((row) => row.join(""));
 }
 
-function generateBossMap(g: Game, seed?: number) {
+function generateBossMap(
+  g: Game,
+  seed?: number
+): [tiles: string[], fluids: string[]] {
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
   log("map seed:", seed);
 
   const vault = RNG.getItem(bossrooms);
-  return toMapString(vault.resolve());
+  const [map, fluid] = vault.resolve();
+  return [toMapString(map), toMapString(fluid)];
 }
 
-export function generateMap(g: Game, seed?: number): string[] {
+export function generateMap(
+  g: Game,
+  seed?: number
+): [tiles: string[], fluids: string[]] {
   if (g.depth >= 10) return generateBossMap(g, seed);
 
   const { width, height, maxvaults, vaultattempts, zone } = getMapParameters(
@@ -109,6 +116,7 @@ export function generateMap(g: Game, seed?: number): string[] {
   const noise = new Simplex();
   const taken = new Hotspots<number>();
   const map = new LinearGrid(width, height, () => "!");
+  const fluid = new LinearGrid(width, height, () => " ");
 
   for (let x = 1; x < width - 1; x++) {
     for (let y = 1; y < height - 1; y++) {
@@ -125,7 +133,10 @@ export function generateMap(g: Game, seed?: number): string[] {
     const y = height - exit.height - 1;
     log(`placing ${exit.name} at ${x},${y}`);
     taken.register(-1, x, y, exit.width, exit.height);
-    map.paste(exit.resolve(), x, y);
+
+    const [xmap, xfluid] = exit.resolve();
+    map.paste(xmap, x, y);
+    fluid.paste(xfluid, x, y);
   }
 
   let placed = 0;
@@ -141,7 +152,10 @@ export function generateMap(g: Game, seed?: number): string[] {
     if (!spot) {
       log(`placing ${vault.name} at ${x},${y}`);
       taken.register(i, x, y, vault.width, vault.height);
-      map.paste(vault.resolve(), x, y);
+
+      const [vmap, vfluid] = vault.resolve();
+      map.paste(vmap, x, y);
+      fluid.paste(vfluid, x, y);
 
       placed++;
       if (placed >= maxvaults) break;
@@ -158,5 +172,5 @@ export function generateMap(g: Game, seed?: number): string[] {
     map.set(ex, ey, ">");
   }
 
-  return toMapString(map);
+  return [toMapString(map), toMapString(fluid)];
 }

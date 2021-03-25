@@ -23,6 +23,7 @@ const midgar = new Vault(
   "midgar exit",
   1,
   ["]]", "^>", "^!", "^?", "^?", "^?", "^?", "^?", "^?", "^?"],
+  undefined,
   zanq
 );
 
@@ -30,6 +31,7 @@ const merc = new Vault(
   "merc outfit",
   1,
   ["#######", "#? a ?#", "?? # ??", "111>111", "###!###"],
+  undefined,
   zanq
 );
 
@@ -51,7 +53,12 @@ const pyramid = new Vault("pyramid exit", 1, [
   "]::::]",
 ]);
 
-const moat = new Vault("moat exit", 1, ["   b  >", " ]~~~]!", "]]~~~2]"]);
+const moat = new Vault(
+  "moat exit",
+  1,
+  ["   b  >", " ]   ]!", "]]   2]"],
+  ["       ", "  ~~~  ", "  ~~~  "]
+);
 
 const miracle = new Vault("miracle exit", 1, [":d>:"]);
 
@@ -111,12 +118,12 @@ const deadliest = new Vault("deadliest game", 3, [
   "#   :>: #",
 ]);
 
-const fishing = new Vault("fishing spot", 1, [
-  " !!!!! ",
-  " !   ! ",
-  " # > # ",
-  "!!~!~!!",
-]);
+const fishing = new Vault(
+  "fishing spot",
+  1,
+  [" !!!!! ", " !   ! ", " # > # ", "!! ! !!"],
+  ["       ", "       ", "       ", "  ~ ~  "]
+);
 
 const dad = new Vault("dad rock", 1, [" O####O ", " O 1> O "]);
 
