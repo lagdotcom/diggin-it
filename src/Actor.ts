@@ -35,6 +35,7 @@ export interface ActorOptions {
   dp: number;
   experience: number;
   player: PlayerData;
+  crushResistance: number;
 }
 
 export default class Actor {
@@ -68,6 +69,7 @@ export default class Actor {
   dp: number;
   experience: number;
   player?: PlayerData;
+  crushResistance: number;
   reeling: boolean;
 
   constructor(
@@ -102,6 +104,7 @@ export default class Actor {
       inventorySize = 0,
       inventory = new Array(inventorySize),
       player = undefined,
+      crushResistance = 0,
     }: Partial<ActorOptions> = {}
   ) {
     this.ai = ai;
@@ -133,6 +136,7 @@ export default class Actor {
     this.inventory = inventory;
     this.inventorySize = inventorySize;
     this.player = player;
+    this.crushResistance = crushResistance;
     this.reeling = false;
   }
 

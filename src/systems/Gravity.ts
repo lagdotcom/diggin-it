@@ -173,7 +173,6 @@ export default class Gravity {
 
   fallOntoActor(attacker: Actor, victim: Actor, distance: number): boolean {
     let escape = undefined;
-    let amount = 0;
 
     const x = victim.x;
     let y = victim.y;
@@ -186,14 +185,14 @@ export default class Gravity {
         y - 1
       );
 
+    const multiplier = 1 - victim.get("crushResistance");
+    let amount = Math.round(multiplier * distance * 5);
     if (attacker.heavy) {
       escape = this.findPushTile(victim);
-      amount = escape ? distance * 5 : victim.hp;
-    } else {
-      amount = distance * 5;
+      if (!escape) amount = victim.hp;
     }
 
-    if (amount) {
+    if (amount > 0) {
       victim.hp -= amount;
       if (attacker.player) this.g.log.add(`You fall onto ${cname(victim)}!`);
       else if (victim.player)

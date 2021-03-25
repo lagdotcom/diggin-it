@@ -24,6 +24,7 @@ import Cmd, {
 import Context from "../interfaces/Context";
 import Thing from "../interfaces/Thing";
 import XY from "../interfaces/XY";
+import Item from "../Item";
 import { getZone } from "../maps";
 import Soon from "../Soon";
 import AI from "../systems/AI";
@@ -299,22 +300,28 @@ export default class Dungeon implements Context {
   handleEquip({ index }: EquipCmd): void {
     const { log, player } = this.g;
 
+    let equipped: Item = undefined;
+
     const item = player.inventory[index];
     if (!item.slot) log.add("You can't equip that.");
     else {
-      const current = player.equipment[item.slot];
-      if (current === item) {
+      const removed = player.equipment[item.slot];
+      if (removed === item) {
         delete player.equipment[item.slot];
         log.add(`You remove ${ctheName(item)}.`);
-      } else if (current) {
+      } else if (removed) {
+        equipped = item;
         player.equipment[item.slot] = item;
-        log.add(`You replace ${ctheName(current)} with ${ctheName(item)}.`);
+        log.add(`You replace ${ctheName(removed)} with ${ctheName(item)}.`);
         this.g.spent++;
       } else {
+        equipped = item;
         player.equipment[item.slot] = item;
         log.add(`You equip ${ctheName(item)}.`);
         this.g.spent++;
       }
+
+      this.g.emit("equipped", { actor: player, equipped, removed });
     }
 
     return this.render();

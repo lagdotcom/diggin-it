@@ -10,6 +10,7 @@ import {
   coinBag,
   diamond,
   goldBar,
+  helmet,
   ladder,
   rations,
   rope,
@@ -112,7 +113,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   A: airTank,
   F: rations,
   X: getRandomArmour, // TODO: X-ray Specs
-  H: getRandomWeapon, // TODO: miner's helmet
+  H: helmet,
   G: getRandomArmour, // TODO: gas mask
 
   "5": (zone) => {

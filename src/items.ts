@@ -287,6 +287,8 @@ export const helmet: Partial<ItemOptions> = {
   name: "Miner's helmet",
   lore:
     "Patented during the great gold rush by Wilton B. Miner and named after his legacy, they vastly improved the safety of digs by providing protection from falling rocks as well as providing additional light in dark corridors and deep expanses.",
+  slot: "head",
+  bonus: { vision: 2, crushResistance: 0.5 },
 };
 export const jetpack: Partial<ItemOptions> = {
   glyph: "Jetpack",

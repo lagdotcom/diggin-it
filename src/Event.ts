@@ -21,6 +21,7 @@ export interface EventMap {
   dropped: { actor: Actor; item: Item };
   effect: { effect: Item; duration: number };
   entered: { depth: number; zone: number };
+  equipped: { actor: Actor; equipped?: Item; removed?: Item };
   fell: { thing: Thing; distance: number };
   got: { actor: Actor; item: Item };
   infoOpened: NoData;

@@ -1,2 +1,2 @@
-type Slot = "weapon" | "armour";
+type Slot = "weapon" | "armour" | "head";
 export default Slot;

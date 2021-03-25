@@ -13,6 +13,7 @@ export default class Vision {
 
     const dirty = () => (this.dirty = true);
     g.on("digged", dirty);
+    g.on("equipped", dirty); // might change vision value
     g.on("moved", dirty);
   }
 
@@ -29,7 +30,7 @@ export default class Vision {
 
       const fov = new DiscreteShadowcasting((x, y) => !map.get(x, y).opaque);
       this.vision.fill(false);
-      fov.compute(player.x, player.y, player.vision, (x, y) => {
+      fov.compute(player.x, player.y, player.get("vision"), (x, y) => {
         this.vision.set(x, y, true);
         this.g.memory.set(x, y, true);
       });
