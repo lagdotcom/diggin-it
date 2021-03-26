@@ -202,7 +202,7 @@ export default class Game extends EventHandler {
 
   nextMap(seed?: number): void {
     const [map, fluid] = generateMap(this, seed);
-    log(map.join("\n"), fluid.join("\n"));
+    log(map.join("\n"));
     this.useMap(map, fluid);
   }
 

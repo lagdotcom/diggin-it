@@ -9,13 +9,21 @@ import { getZone } from "./maps";
 import { log } from "./utils";
 import basics from "./vaults/basics";
 import bossrooms from "./vaults/boss";
+import eggrooms from "./vaults/egg";
 import exits from "./vaults/exits";
 import fragments from "./vaults/fragments";
 import jrooms from "./vaults/j";
 import lagrooms from "./vaults/lag";
 import morerooms from "./vaults/more";
 
-const vaults = [...basics, ...lagrooms, ...fragments, ...jrooms, ...morerooms];
+const vaults = [
+  ...basics,
+  ...lagrooms,
+  ...fragments,
+  ...jrooms,
+  ...morerooms,
+  ...eggrooms,
+];
 
 function solidity(n: number) {
   if (n < 40) return " ";

@@ -404,9 +404,9 @@ const fishhook = new Vault("fish hook", 1, [
 const meanie = new Vault("hidden meanie", 1, ["]]]", "]3]", "]]]"]);
 
 const headache = new Vault("headache", 1, [
-  "[[[[[",
-  "[O9O[",
-  "[:::[",
+  "]]]]]",
+  "]O9O]",
+  "]:::]",
   "     ",
   "#####",
 ]);
