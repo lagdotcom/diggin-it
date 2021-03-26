@@ -1,4 +1,3 @@
-import { lightRed } from "../colours";
 import Digging from "../commands/Digging";
 import Movement from "../commands/Movement";
 import PickingUp from "../commands/PickingUp";
@@ -7,7 +6,7 @@ import UsableItems from "../commands/UsableItems";
 import InfoPanel from "../display/InfoPanel";
 import Inventory from "../display/Inventory";
 import MainDisplay from "../display/MainDisplay";
-import { drawPanel } from "../drawing";
+import Stats from "../display/Stats";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
 import Cmd, {
@@ -41,7 +40,6 @@ import TheInk from "../systems/TheInk";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { ctheName, it } from "../text";
-import { pad } from "../utils";
 import ExamineScreen from "./ExamineScreen";
 import ExpandedLog from "./ExpandedLog";
 import HelpScreen from "./HelpScreen";
@@ -71,6 +69,7 @@ export default class Dungeon implements Context {
   pushing: Pushing;
   rerender: Soon;
   sand: SandCollapse;
+  stats: Stats;
   treasure: TreasureGrabbing;
   use: UsableItems;
   vision: Vision;
@@ -98,6 +97,7 @@ export default class Dungeon implements Context {
     this.info = new InfoPanel(g);
     this.inventory = new Inventory(g);
     this.display = new MainDisplay(g, this.info, this.vision);
+    this.stats = new Stats(g);
 
     const { width, height } = g.chars._options;
     this.hotspots = new Hotspots();
@@ -472,29 +472,9 @@ export default class Dungeon implements Context {
     this.systems();
 
     this.display.render();
-    this.renderStats();
+    this.stats.render();
     this.inventory.render();
     this.info.render();
     this.g.log.render();
-  }
-
-  // TODO: extract this into component too
-  renderStats(): void {
-    const { chars, player } = this.g;
-
-    let y = 0;
-    drawPanel(chars, 28, y++, 12, 10);
-    this.renderStat(y++, "HP", player.hp, 20);
-    this.renderStat(y++, "AP", player.ap, 20);
-    this.renderStat(y++, "SP", player.get("sp"));
-    this.renderStat(y++, "DP", player.get("dp"));
-
-    chars.drawText(29, 7, "Experience");
-    chars.drawText(31, 8, pad(player.experience, 6, "0"));
-  }
-
-  private renderStat(y: number, name: string, value: number, warn = 0) {
-    const col = value < warn ? `%b{${lightRed}}` : "";
-    this.g.chars.drawText(31, y, `${col}${name}:${pad(value, 3)}`);
   }
 }
