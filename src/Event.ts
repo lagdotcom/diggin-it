@@ -22,6 +22,7 @@ export interface EventMap {
   effect: { effect: Item; duration: number };
   entered: { depth: number; zone: number };
   equipped: { actor: Actor; equipped?: Item; removed?: Item };
+  exploded: { item: Item };
   fell: { thing: Thing; distance: number };
   got: { actor: Actor; item: Item };
   infoOpened: NoData;

@@ -8,6 +8,9 @@ export default class Memento {
     g.on("damaged", ({ victim, type }) => {
       if (type !== "suffocation") this.findAndBreak(victim);
     });
+    g.on("exploded", ({ item }) => {
+      if (item.glyph === "Pocketwatch") this.break(item);
+    });
     g.on("fell", ({ thing }) => {
       if (thing.glyph === "Pocketwatch") this.break(thing as Item);
     });
