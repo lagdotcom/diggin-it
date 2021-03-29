@@ -36,6 +36,7 @@ import { unset } from "./tiles";
 import { log } from "./utils";
 
 export default class Game extends EventHandler {
+  static INSTANCE: Game;
   actors: Grid<Actor>;
   allActors: Actor[];
   canvas: HTMLCanvasElement;
@@ -69,6 +70,8 @@ export default class Game extends EventHandler {
     public ascii = false
   ) {
     super();
+
+    Game.INSTANCE = this;
     // (window as any).g = this;
     this.contexts = new ArrayStack();
     this.log = new MessageLog(this);

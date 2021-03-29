@@ -178,6 +178,7 @@ export const theInk: Partial<ActorOptions> = {
   sp: 45,
   dp: 30,
   experience: 3000,
+  teleportThreshold: 30,
   lore:
     "\"Whatever this hideous creature is, it's far from cognizant of what's occuring around it. Strange beasts and horrifying grotesques spurn forth endlessly from this flying yolk of terror, as if ink dripping on tarnished paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\"\n- Jacques Splintertooth",
 };

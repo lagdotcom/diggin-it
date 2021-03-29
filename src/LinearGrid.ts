@@ -111,7 +111,18 @@ export default class LinearGrid<T> implements Grid<T> {
     return true;
   }
 
-  transform(fn: (value: T, x: number, y: number) => T): Grid<T> {
+  positions(): XY[] {
+    const list: XY[] = [];
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        list.push([x, y]);
+      }
+    }
+
+    return list;
+  }
+
+  transform<U>(fn: (value: T, x: number, y: number) => U): Grid<U> {
     return new LinearGrid(this.width, this.height, (x, y) =>
       fn(this.get(x, y), x, y)
     );

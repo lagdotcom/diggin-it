@@ -8,7 +8,10 @@ export default class TheInk {
   constructor(public g: Game) {
     g.on("damaged", ({ amount, victim }) => {
       if (victim.inkparts)
-        victim.inkparts.forEach((part) => (part.hp -= amount));
+        victim.inkparts.forEach((part) => {
+          part.hp -= amount;
+          part.teleportTracking += amount;
+        });
     });
 
     g.on("died", ({ victim }) => {

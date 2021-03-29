@@ -37,6 +37,7 @@ export interface ActorOptions {
   player: PlayerData;
   crushResistance: number;
   xrayVision: number;
+  teleportThreshold: number;
 }
 
 export default class Actor {
@@ -73,6 +74,8 @@ export default class Actor {
   crushResistance: number;
   xrayVision: number;
   reeling: boolean;
+  teleportThreshold?: number;
+  teleportTracking: number;
 
   constructor(
     public x: number,
@@ -108,6 +111,7 @@ export default class Actor {
       player = undefined,
       crushResistance = 0,
       xrayVision = 0,
+      teleportThreshold = undefined,
     }: Partial<ActorOptions> = {}
   ) {
     this.ai = ai;
@@ -142,6 +146,8 @@ export default class Actor {
     this.crushResistance = crushResistance;
     this.xrayVision = xrayVision;
     this.reeling = false;
+    this.teleportThreshold = teleportThreshold;
+    this.teleportTracking = 0;
   }
 
   get(st: Stat): number {

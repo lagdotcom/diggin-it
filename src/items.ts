@@ -228,7 +228,7 @@ export const bomb: Partial<ItemOptions> = {
   name: "bomb",
   charges: 1,
   use: "bomb",
-  useArgs: [4, -1, -1, 3, 3, 45],
+  useArgs: [4, -1, -1, 3, 3, 30],
   lore:
     "Powerful, effective, extremely dangerous. Capable of clearing vast swaths of dirt, rock and metals like but has a high chance to leave rubble in its wake, bombs are generally not used at dig sites anymore due to their pension for causing cave-ins and ireversible damage. Use great caution and safe thinking when using these explosives.",
 };
