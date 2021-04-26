@@ -5,7 +5,6 @@ import Item, { ItemOptions } from "./Item";
 import {
   airTank,
   artifact,
-  bomb,
   coin,
   coinBag,
   diamond,
@@ -19,7 +18,12 @@ import {
   treasureBox,
 } from "./items";
 import { addTheInk } from "./prefabs";
-import { getRandomArmour, getRandomEnemy, getRandomWeapon } from "./tables";
+import {
+  getRandomArmour,
+  getRandomBomb,
+  getRandomEnemy,
+  getRandomWeapon,
+} from "./tables";
 import Tile, { TileOptions } from "./Tile";
 import {
   border,
@@ -112,7 +116,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   x: treasureBox,
   d: diamond,
 
-  B: bomb,
+  B: () => getRandomBomb(),
   L: ladder,
   R: rope,
   A: airTank,

@@ -16,7 +16,9 @@ import {
 import { ItemOptions } from "./Item";
 import {
   arsenalArmour,
+  bomb,
   busterArmour,
+  cherryBomb,
   claws,
   clothes,
   gildedPlate,
@@ -29,6 +31,7 @@ import {
   pocketknife,
   powerDrill,
   reinforced,
+  ropeBomb,
   shovel,
   slingshot,
   spelunkersKit,
@@ -40,7 +43,7 @@ import {
 const common = 10;
 const uncommon = 5;
 const rare = 2;
-const ultrarare = 1;
+const ultraRare = 1;
 
 type Distribution<T extends string> = Partial<Record<T, number>>;
 
@@ -71,7 +74,7 @@ const enemiesByZone: Distribution<EnemyName>[] = [
     flazza: uncommon,
     glova: uncommon,
     muln: uncommon,
-    slobberfin: ultrarare,
+    slobberfin: ultraRare,
     splinter: uncommon,
     telden: uncommon,
   },
@@ -164,17 +167,30 @@ const armourByZone: Distribution<ArmourName>[] = [
     militaryMail: common,
     squadLeaderGear: uncommon,
     busterArmour: rare,
-    wingArmour: ultrarare,
+    wingArmour: ultraRare,
   },
   {
     busterArmour: uncommon,
     wingArmour: uncommon,
     gildedPlate: uncommon,
     valkyrieSet: rare,
-    arsenalArmour: ultrarare,
+    arsenalArmour: ultraRare,
   },
 ];
 
 export function getRandomArmour(zone: number): Partial<ItemOptions> {
   return armourTypes[RNG.getWeightedValue(armourByZone[zone]) as ArmourName];
+}
+
+const bombTypes = { bomb, cherryBomb, ropeBomb };
+type BombName = keyof typeof bombTypes;
+
+const bombWeights: Distribution<BombName> = {
+  bomb: common,
+  cherryBomb: rare,
+  ropeBomb: ultraRare,
+};
+
+export function getRandomBomb(): Partial<ItemOptions> {
+  return bombTypes[RNG.getWeightedValue(bombWeights) as BombName];
 }

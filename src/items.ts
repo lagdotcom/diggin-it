@@ -101,7 +101,7 @@ export const claws: Partial<ItemOptions> = {
   durability: 8,
   bonus: { sp: 32 },
   lore:
-    "After studying how Muln moved underground for over a decade, the Finelli & Sons corporation were able to utilize what they learned and produce digging claws. Surprisingly practical for quickly maneuvering through soft dirt, they also serve for self-protection should the need arise; this first run is not very sturdy, however and complaints of shattered claws are common.",
+    "After studying how Muln moved underground for over a decade, the Finelli & Sons corporation were able to utilize what they learned and produce digging claws. Surprisingly practical for quickly manoeuvring through soft dirt, they also serve for self-protection should the need arise; this first run is not very sturdy, however and complaints of shattered claws are common.",
 };
 export const jackhammer: Partial<ItemOptions> = {
   glyph: "Jackhammer",
@@ -150,7 +150,7 @@ export const spelunkersKit: Partial<ItemOptions> = {
   durability: 16,
   bonus: { maxHp: 12, dp: 15 },
   lore:
-    "Lightly armored and generally the preferred kit for the serious explorer, a common Spelunker's Kit will protect from small slips, general hazards and minor harmful substances.",
+    "Lightly armoured and generally the preferred kit for the serious explorer, a common Spelunker's Kit will protect from small slips, general hazards and minor harmful substances.",
 };
 export const militaryMail: Partial<ItemOptions> = {
   glyph: "ArmourD",
@@ -160,7 +160,7 @@ export const militaryMail: Partial<ItemOptions> = {
   durability: 16,
   bonus: { maxHp: 15, dp: 16 },
   lore:
-    "Usually only issued to military personel, various pieces can still be rented for exceptionally dangerous expeditions. The design is slightly unwieldly for exploring, but the medium weight and thick plates make it decent protection from all manner of harm.",
+    "Usually only issued to military personnel, various pieces can still be rented for exceptionally dangerous expeditions. The design is slightly unwieldy for exploring, but the medium weight and thick plates make it decent protection from all manner of harm.",
 };
 export const squadLeaderGear: Partial<ItemOptions> = {
   glyph: "ArmourE",
@@ -170,7 +170,7 @@ export const squadLeaderGear: Partial<ItemOptions> = {
   durability: 15,
   bonus: { maxHp: 18, dp: 18 },
   lore:
-    "A strange find, as squad leader military gear is never used for expeditions and tends to only be found on the frontlines during times of war or during military operations.\nPerhaps a stranded squadron once holed up in these deep tunnels.",
+    "A strange find, as squad leader military gear is never used for expeditions and tends to only be found on the front lines during times of war or during military operations.\nPerhaps a stranded squadron once holed up in these deep tunnels.",
 };
 export const busterArmour: Partial<ItemOptions> = {
   glyph: "ArmourF",
@@ -180,7 +180,7 @@ export const busterArmour: Partial<ItemOptions> = {
   durability: 18,
   bonus: { maxHp: 21, dp: 18 },
   lore:
-    "Named after the loveable and obnoxious frog like creatures that seem to turn up everywhere, the Buster Armor is actually a relic from a nameless warrior race. Expert historians theororize the armor was made for rushing head first into battle, much like a feral Buster does when threatened.",
+    "Named after the loveable and obnoxious frog like creatures that seem to turn up everywhere, the Buster Armour is actually a relic from a nameless warrior race. Expert historians theorize the armour was made for rushing head first into battle, much like a feral Buster does when threatened.",
 };
 export const wingArmour: Partial<ItemOptions> = {
   glyph: "ArmourG",
@@ -190,7 +190,7 @@ export const wingArmour: Partial<ItemOptions> = {
   durability: 18,
   bonus: { maxHp: 22, dp: 19 },
   lore:
-    "Once used by a proud and nameless warrior race from forgotten times, it earned its nickname as those entering battles were said to move with the swiftness of a soaring bird. These armors are rarely excavated, and often not in a usable condition, a rare find indeed!",
+    "Once used by a proud and nameless warrior race from forgotten times, it earned its nickname as those entering battles were said to move with the swiftness of a soaring bird. These armours are rarely excavated, and often not in a usable condition, a rare find indeed!",
 };
 export const gildedPlate: Partial<ItemOptions> = {
   glyph: "ArmourH",
@@ -221,7 +221,7 @@ export const arsenalArmour: Partial<ItemOptions> = {
   bonus: { maxHp: 30, dp: 25 },
   // TODO: slows user?
   lore:
-    "Heavy machine armor made for Lessonus military operations. Its plating and arsenal of weaponry makes movement unwieldly, but leaves its user highly protected from most manner of harm.\n...You can't help but wonder how or why it got down here, though.",
+    "Heavy machine armour made for Lessonus military operations. Its plating and arsenal of weaponry makes movement unwieldly, but leaves its user highly protected from most manner of harm.\n...You can't help but wonder how or why it got down here, though.",
 };
 
 export const bomb: Partial<ItemOptions> = {
@@ -231,7 +231,20 @@ export const bomb: Partial<ItemOptions> = {
   use: "bomb",
   useArgs: [4, -1, -1, 3, 3, 30],
   lore:
-    "Powerful, effective, extremely dangerous. Capable of clearing vast swaths of dirt, rock and metals like but has a high chance to leave rubble in its wake, bombs are generally not used at dig sites anymore due to their pension for causing cave-ins and ireversible damage. Use great caution and safe thinking when using these explosives.",
+    "Powerful, effective, extremely dangerous. Capable of clearing vast swaths of dirt, rock and metals like but has a high chance to leave rubble in its wake, bombs are generally not used at dig sites any more due to their pension for causing cave-ins and ireversible damage. Use great caution and safe thinking when using these explosives.",
+};
+export const cherryBomb: Partial<ItemOptions> = {
+  glyph: "CherryBomb",
+  name: "cherry bomb",
+  charges: 1,
+  use: "bomb",
+  useArgs: [4, -1, -1, 3, 3, 15], // TODO: values
+};
+export const ropeBomb: Partial<ItemOptions> = {
+  glyph: "RopeBomb",
+  name: "rope bomb",
+  charges: 1,
+  // TODO
 };
 
 export const rope: Partial<ItemOptions> = {
@@ -350,7 +363,7 @@ export const artifact: Partial<ItemOptions> = {
   colour: "red",
   treasure: 500,
   lore:
-    "Mysterious artifacts that have cropped up through many points in history, legitimate ones have become quite valuable. A vast counterfeit market has made skeptics of many folks that they were ever real to begin with, and carbon dating has only deepened the mystery as no two artifacts appear to be from the same era.",
+    "Mysterious artifacts that have cropped up through many points in history, legitimate ones have become quite valuable. A vast counterfeit market has made sceptics of many folks that they were ever real to begin with, and carbon dating has only deepened the mystery as no two artifacts appear to be from the same era.",
 };
 export const treasureBox: Partial<ItemOptions> = {
   glyph: "TreasureBox",
@@ -366,7 +379,7 @@ export const diamond: Partial<ItemOptions> = {
   colour: "pink",
   treasure: 1000,
   lore:
-    "The rarest of materials, diamonds are only found in the deepest trenches Gantella can muster. Raw diamond is extremely sought after by many explorers looking to turn their lot in life around, and just as sought after by those looking to make an extravagent statement about the size of their fortune.",
+    "The rarest of materials, diamonds are only found in the deepest trenches Gantella can muster. Raw diamond is extremely sought after by many explorers looking to turn their lot in life around, and just as sought after by those looking to make an extravagant statement about the size of their fortune.",
 };
 export const fragment: Partial<ItemOptions> = {
   glyph: "Fragment",
