@@ -3,7 +3,7 @@ import { RNG } from "rot-js";
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import XY from "../interfaces/XY";
-import Item from "../Item";
+import Item, { ItemUse } from "../Item";
 import { litBomb } from "../temps";
 import Tile from "../Tile";
 import {
@@ -13,51 +13,68 @@ import {
   ropeTile,
   ropeTileBottom,
   ropeTileTop,
+  stapleTile,
 } from "../tiles";
 
+interface SimpleUseFn {
+  type: "simple";
+  use(item: Item): undefined | string | Cmd;
+}
+interface TargetedUseFn {
+  type: "target";
+  use(item: Item, x: number, y: number): undefined | string | Cmd;
+  targets(): XY[];
+}
+type UseData = SimpleUseFn | TargetedUseFn;
+
+const simple = (use: SimpleUseFn["use"]): SimpleUseFn => ({
+  type: "simple",
+  use,
+});
+const targeted = (
+  use: TargetedUseFn["use"],
+  targets: TargetedUseFn["targets"]
+): TargetedUseFn => ({ type: "target", use, targets });
+
 export default class UsableItems {
-  constructor(public g: Game) {}
+  mapping: Record<ItemUse, UseData>;
+
+  constructor(public g: Game) {
+    this.mapping = {
+      air: simple(this.useAirTank.bind(this)),
+      bomb: simple(this.useBomb.bind(this)),
+      heal: simple(this.useHeal.bind(this)),
+      ladder: simple(this.useLadder.bind(this)),
+      memento: simple(this.useMemento.bind(this)),
+      rope: targeted(this.useRope.bind(this), this.getRopeTargets.bind(this)),
+      staple: targeted(
+        this.useStaple.bind(this),
+        this.getStapleTargets.bind(this)
+      ),
+    };
+  }
 
   use(index: number, item: Item, at?: XY): undefined | string | Cmd {
+    if (!item.use) return "You can't use that.";
+
     let result;
+    const data = this.mapping[item.use];
+    if (data.type === "target") {
+      if (!at) {
+        const targets = data.targets();
+        if (targets.length === 0) return "No room.";
+        if (targets.length > 1)
+          return {
+            type: "target",
+            possibilities: targets,
+            callback: (at: XY) => ({ type: "use", index, at }),
+          };
+        at = targets[0];
+      }
 
-    switch (item.use) {
-      case "ladder":
-        result = this.useLadder(item);
-        break;
-
-      case "air":
-        result = this.useAirTank(item);
-        break;
-
-      case "rope":
-        if (!at) {
-          const targets = this.getRopeTargets();
-          if (targets.length === 0) return "No room.";
-          if (targets.length > 1)
-            return {
-              type: "target",
-              possibilities: targets,
-              callback: (at: XY) => ({ type: "use", index, at }),
-            };
-          at = targets[0];
-        }
-        result = this.useRope(item, at[0], at[1]);
-        break;
-
-      case "heal":
-        result = this.useHeal(item);
-        break;
-
-      case "bomb":
-        result = this.useBomb(item);
-        break;
-
-      case "memento":
-        return this.useMemento(item);
-
-      default:
-        return "You can't use that.";
+      result = data.use(item, at[0], at[1]);
+    } else {
+      result = data.use(item);
     }
 
     if (item.charges < 1) {
@@ -154,13 +171,45 @@ export default class UsableItems {
     return undefined;
   }
 
+  getStapleTargets(): XY[] {
+    const { map, player } = this.g;
+    const possibilities: XY[] = [];
+    const offsets: XY[] = [
+      [0, 0],
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+    ];
+    offsets.forEach(([ox, oy]) => {
+      const x = player.x + ox,
+        y = player.y + oy;
+      const tile = map.get(x, y);
+      if (tile.glyph === " ") possibilities.push([x, y]);
+    });
+
+    return possibilities;
+  }
+
+  useStaple(item: Item, x: number, y: number): undefined {
+    const { log, map } = this.g;
+    map.set(x, y, new Tile(stapleTile));
+
+    log.add("You hammer in a staple.");
+    this.g.emit("used", { actor: this.g.player, item });
+    this.g.emit("mapChanged", {});
+    item.charges--;
+    this.g.spent++;
+    return undefined;
+  }
+
   useAirTank(item: Item): string | undefined {
     const { log, player } = this.g;
 
-    const maxap = player.get("maxap");
-    if (player.ap >= maxap) return "You have plenty of air.";
+    const maxAp = player.get("maxAp");
+    if (player.ap >= maxAp) return "You have plenty of air.";
     const [min, max] = item.useArgs;
-    const amount = Math.min(RNG.getUniformInt(min, max), maxap - player.ap);
+    const amount = Math.min(RNG.getUniformInt(min, max), maxAp - player.ap);
 
     player.ap += amount;
     log.add("You breathe deeply.");
@@ -172,10 +221,10 @@ export default class UsableItems {
   useHeal(item: Item): string | undefined {
     const { log, player } = this.g;
 
-    const maxhp = player.get("maxhp");
-    if (player.hp >= maxhp) return "You're feeling fine.";
+    const maxHp = player.get("maxHp");
+    if (player.hp >= maxHp) return "You're feeling fine.";
     const [min, max] = item.useArgs;
-    const amount = Math.min(RNG.getUniformInt(min, max), maxhp - player.hp);
+    const amount = Math.min(RNG.getUniformInt(min, max), maxHp - player.hp);
 
     player.hp += amount;
     log.add(`You heal for ${amount}.`);

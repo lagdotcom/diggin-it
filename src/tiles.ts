@@ -138,3 +138,9 @@ export const inkDoor: Partial<TileOptions> = {
   name: "mysterious door",
   colour: "purple",
 };
+
+export const stapleTile: Partial<TileOptions> = {
+  glyph: "StapleTile",
+  name: "staple",
+  canClimb: true,
+};

@@ -25,11 +25,11 @@ export interface ActorOptions {
   obeysGravity: boolean;
   pushable: boolean;
   vision: number;
-  maxhp: number;
+  maxHp: number;
   hp: number;
-  maxfp: number;
+  maxFp: number;
   fp: number;
-  maxap: number;
+  maxAp: number;
   ap: number;
   sp: number;
   dp: number;
@@ -52,20 +52,20 @@ export default class Actor {
   glyph: string;
   heavy: boolean;
   inky: boolean;
-  inkparts: Actor[];
+  inkParts: Actor[];
   inventory: Item[];
   inventorySize: number;
   lore?: string;
   name: string;
-  namep: string;
+  namePlural: string;
   obeysGravity: boolean;
   pushable: boolean;
   vision: number;
-  maxhp: number;
+  maxHp: number;
   hp: number;
-  maxfp: number;
+  maxFp: number;
   fp: number;
-  maxap: number;
+  maxAp: number;
   ap: number;
   sp: number;
   dp: number;
@@ -96,12 +96,12 @@ export default class Actor {
       obeysGravity = true,
       pushable = false,
       vision = 5,
-      maxhp = 0,
-      hp = maxhp,
-      maxfp = 0,
-      fp = maxfp,
-      maxap = 0,
-      ap = maxap,
+      maxHp = 0,
+      hp = maxHp,
+      maxFp = 0,
+      fp = maxFp,
+      maxAp = 0,
+      ap = maxAp,
       sp = 0,
       dp = 0,
       alive = hp > 0,
@@ -126,16 +126,16 @@ export default class Actor {
     this.inky = inky;
     this.lore = lore;
     this.name = name;
-    this.namep = name;
+    this.namePlural = name;
     this.obeysGravity = obeysGravity;
     this.pushable = pushable;
     this.vision = vision;
     this.alive = alive;
-    this.maxhp = maxhp;
+    this.maxHp = maxHp;
     this.hp = hp;
-    this.maxfp = maxfp;
+    this.maxFp = maxFp;
     this.fp = fp;
-    this.maxap = maxap;
+    this.maxAp = maxAp;
     this.ap = ap;
     this.sp = sp;
     this.dp = dp;
@@ -161,9 +161,9 @@ export default class Actor {
   }
 
   fullHeal(): void {
-    this.hp = this.get("maxhp");
-    this.ap = this.get("maxap");
-    this.fp = this.get("maxfp");
+    this.hp = this.get("maxHp");
+    this.ap = this.get("maxAp");
+    this.fp = this.get("maxFp");
     this.alive = true;
   }
 }

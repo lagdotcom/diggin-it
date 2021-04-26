@@ -7,16 +7,16 @@ import { empty } from "../tiles";
 export default class TheInk {
   constructor(public g: Game) {
     g.on("damaged", ({ amount, victim }) => {
-      if (victim.inkparts)
-        victim.inkparts.forEach((part) => {
+      if (victim.inkParts)
+        victim.inkParts.forEach((part) => {
           part.hp -= amount;
           part.teleportTracking += amount;
         });
     });
 
     g.on("died", ({ victim }) => {
-      if (victim.inkparts) {
-        victim.inkparts.forEach((part) => g.remove(part));
+      if (victim.inkParts) {
+        victim.inkParts.forEach((part) => g.remove(part));
 
         for (let y = 0; y < g.map.height; y++)
           for (let x = 0; x < g.map.width; x++) {

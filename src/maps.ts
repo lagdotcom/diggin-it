@@ -90,13 +90,13 @@ const actorTypes: Record<
   "1": (zone) => {
     const a = getRandomEnemy(zone);
     const b = getRandomEnemy(zone);
-    return a.maxhp < b.maxhp ? a : b;
+    return a.maxHp < b.maxHp ? a : b;
   },
   "2": getRandomEnemy,
   "3": (zone) => {
     const a = getRandomEnemy(zone);
     const b = getRandomEnemy(zone);
-    return a.maxhp > b.maxhp ? a : b;
+    return a.maxHp > b.maxHp ? a : b;
   },
   O: boulder,
   M: metal,
@@ -167,6 +167,7 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       const item = itemTypes[glyph];
       const tile = tileTypes[glyph] || empty;
 
+      // TODO: flyweight
       g.map.set(x, y, new Tile(typeof tile === "function" ? tile(zone) : tile));
       if (item) {
         g.addItem(
@@ -187,6 +188,7 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
         py = y;
       }
 
+      // TODO: flyweight
       const fglyph = fluid[y][x];
       g.mapFluid.set(x, y, new Tile(fluidTypes[fglyph]));
     }

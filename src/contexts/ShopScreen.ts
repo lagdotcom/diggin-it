@@ -125,7 +125,7 @@ export default class ShopScreen implements Context {
     if (offer.cost <= player.experience) {
       switch (offer.glyph) {
         case "HP":
-          player.maxhp += 5;
+          player.maxHp += 5;
           player.hp += 5;
           player.player.stats++;
           redocosts = true;

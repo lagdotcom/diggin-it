@@ -27,7 +27,7 @@ export default class Tile {
   glyph: string;
   indestructible: boolean;
   name: string;
-  namep: string;
+  namePlural: string;
   opaque: boolean;
   xrayOpaque: boolean;
   solid: boolean;
@@ -59,7 +59,7 @@ export default class Tile {
     this.glyph = glyph;
     this.indestructible = indestructible;
     this.name = name;
-    this.namep = name;
+    this.namePlural = name;
     this.opaque = opaque;
     this.xrayOpaque = xrayOpaque;
     this.solid = solid;

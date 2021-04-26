@@ -5,7 +5,7 @@ type Entity = {
   article?: string;
   charges?: number;
   name: string;
-  namep: string;
+  namePlural: string;
   plural?: boolean;
   slot?: string;
   treasure?: number;
@@ -22,7 +22,7 @@ export function colour(thing: Entity): string {
 }
 
 function iname(thing: Entity, article = thing.article): string {
-  if (thing.charges > 1) return `${thing.charges} ${thing.namep}`;
+  if (thing.charges > 1) return `${thing.charges} ${thing.namePlural}`;
   if (thing.article) return `${article} ${thing.name}`;
   return thing.name;
 }

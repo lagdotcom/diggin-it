@@ -12,9 +12,9 @@ function testGodMode() {
   const g = Game.INSTANCE;
 
   g.log.add("You feel incredible!");
-  g.player.maxhp = 999;
+  g.player.maxHp = 999;
   g.player.hp = 999;
-  g.player.maxap = 999;
+  g.player.maxAp = 999;
   g.player.ap = 999;
   g.player.dp = 100;
   g.player.sp = 50;

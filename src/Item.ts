@@ -1,7 +1,14 @@
 import Slot from "./interfaces/Slot";
 import Stat from "./interfaces/Stat";
 
-type ItemUse = "air" | "bomb" | "heal" | "ladder" | "memento" | "rope";
+export type ItemUse =
+  | "air"
+  | "bomb"
+  | "heal"
+  | "ladder"
+  | "memento"
+  | "rope"
+  | "staple";
 
 export interface ItemOptions {
   article: string;
@@ -14,7 +21,7 @@ export interface ItemOptions {
   glyph: string;
   lore: string;
   name: string;
-  namep: string;
+  namePlural: string;
   obeysGravity: boolean;
   plural: boolean;
   slot: Slot;
@@ -34,7 +41,7 @@ export default class Item {
   glyph: string;
   lore: string;
   name: string;
-  namep: string;
+  namePlural: string;
   obeysGravity: boolean;
   plural: boolean;
   slot?: Slot;
@@ -55,7 +62,7 @@ export default class Item {
       glyph = "?",
       lore = "",
       name = glyph,
-      namep = name + "s",
+      namePlural = name + "s",
       obeysGravity = true,
       plural = false,
       slot = undefined,
@@ -75,7 +82,7 @@ export default class Item {
     this.glyph = glyph;
     this.lore = lore;
     this.name = name;
-    this.namep = namep;
+    this.namePlural = namePlural;
     this.obeysGravity = obeysGravity;
     this.plural = plural;
     this.slot = slot;

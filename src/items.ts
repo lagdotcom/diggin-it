@@ -7,6 +7,7 @@ export const pocketwatch: Partial<ItemOptions> = {
     "A constant reminder of why you are here, keep it safe and never give up!",
   use: "memento",
   useArgs: [3],
+  charges: 1,
 };
 export const brokenPocketwatch: Partial<ItemOptions> = {
   glyph: "BrokenPocketwatch",
@@ -48,7 +49,7 @@ export const powerDrill: Partial<ItemOptions> = {
 export const pocketknife: Partial<ItemOptions> = {
   glyph: "PocketKnife",
   name: "pocket knife",
-  namep: "pocket knives",
+  namePlural: "pocket knives",
   slot: "weapon",
   durability: 15,
   bonus: { sp: 15 },
@@ -128,7 +129,7 @@ export const clothes: Partial<ItemOptions> = {
   plural: true,
   slot: "armour",
   durability: 10,
-  bonus: { maxhp: 5, dp: 8 },
+  bonus: { maxHp: 5, dp: 8 },
   lore:
     "Tailored to be hardy for long hikes and short digs, this basic attire allows for very freeform movement and has tons of breathing room making it an ideal take along for any trip.",
 };
@@ -138,7 +139,7 @@ export const reinforced: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 12,
-  bonus: { maxhp: 8, dp: 12 },
+  bonus: { maxHp: 8, dp: 12 },
   lore:
     "Longer hikes and deeper digs require safer gear, but in a strange twist of fate these reinforced rags were picked up by fashionable youths and now sell for exorbitant sums of money.",
 };
@@ -147,7 +148,7 @@ export const spelunkersKit: Partial<ItemOptions> = {
   name: "spelunker's kit",
   slot: "armour",
   durability: 16,
-  bonus: { maxhp: 12, dp: 15 },
+  bonus: { maxHp: 12, dp: 15 },
   lore:
     "Lightly armored and generally the preferred kit for the serious explorer, a common Spelunker's Kit will protect from small slips, general hazards and minor harmful substances.",
 };
@@ -157,7 +158,7 @@ export const militaryMail: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 16,
-  bonus: { maxhp: 15, dp: 16 },
+  bonus: { maxHp: 15, dp: 16 },
   lore:
     "Usually only issued to military personel, various pieces can still be rented for exceptionally dangerous expeditions. The design is slightly unwieldly for exploring, but the medium weight and thick plates make it decent protection from all manner of harm.",
 };
@@ -167,7 +168,7 @@ export const squadLeaderGear: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 15,
-  bonus: { maxhp: 18, dp: 18 },
+  bonus: { maxHp: 18, dp: 18 },
   lore:
     "A strange find, as squad leader military gear is never used for expeditions and tends to only be found on the frontlines during times of war or during military operations.\nPerhaps a stranded squadron once holed up in these deep tunnels.",
 };
@@ -177,7 +178,7 @@ export const busterArmour: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 18,
-  bonus: { maxhp: 21, dp: 18 },
+  bonus: { maxHp: 21, dp: 18 },
   lore:
     "Named after the loveable and obnoxious frog like creatures that seem to turn up everywhere, the Buster Armor is actually a relic from a nameless warrior race. Expert historians theororize the armor was made for rushing head first into battle, much like a feral Buster does when threatened.",
 };
@@ -187,7 +188,7 @@ export const wingArmour: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 18,
-  bonus: { maxhp: 22, dp: 19 },
+  bonus: { maxHp: 22, dp: 19 },
   lore:
     "Once used by a proud and nameless warrior race from forgotten times, it earned its nickname as those entering battles were said to move with the swiftness of a soaring bird. These armors are rarely excavated, and often not in a usable condition, a rare find indeed!",
 };
@@ -197,7 +198,7 @@ export const gildedPlate: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 16,
-  bonus: { maxhp: 24, dp: 20 },
+  bonus: { maxHp: 24, dp: 20 },
   lore:
     "Associated with ancient royalty and long forgotten civilizations, these plates are extremely rare and were only given to a King or Queen's most loyal and trusted guard. To wear these plates was to willingly be ready to give your life at any moment or reason for your people.",
 };
@@ -206,7 +207,7 @@ export const valkyrieSet: Partial<ItemOptions> = {
   name: "valkyrie set",
   slot: "armour",
   durability: 19,
-  bonus: { maxhp: 25, dp: 22 },
+  bonus: { maxHp: 25, dp: 22 },
   // TODO: allows flight?
   lore:
     "Among the most elite of elite warriors from the time of ancient rulers were those dubbed as Valkyries. A set of personal guards hand picked by a King or Queen from among the gilded elite based on combat prowess, it is said that no Valkyrie was ever defeated in combat.",
@@ -217,7 +218,7 @@ export const arsenalArmour: Partial<ItemOptions> = {
   article: "some",
   slot: "armour",
   durability: 20,
-  bonus: { maxhp: 30, dp: 25 },
+  bonus: { maxHp: 30, dp: 25 },
   // TODO: slows user?
   lore:
     "Heavy machine armor made for Lessonus military operations. Its plating and arsenal of weaponry makes movement unwieldly, but leaves its user highly protected from most manner of harm.\n...You can't help but wonder how or why it got down here, though.",
@@ -306,7 +307,7 @@ export const rock: Partial<ItemOptions> = {
 export const bolas: Partial<ItemOptions> = {
   glyph: "Bolas",
   name: "bolas",
-  namep: "bolases",
+  namePlural: "bolases",
   lore:
     "Initially used by hunters to ensnare game, the Bolas persisted as a go-to for those with a skilled hand as a tool of the trade in both exploration and digging. Ensnaring creatures on the attack can be the difference between life and death, but should be used with caution and care all the same.",
 };
@@ -383,7 +384,7 @@ export const rags: Partial<ItemOptions> = {
   plural: true,
   slot: "armour",
   durability: 10,
-  bonus: { maxhp: 0, dp: 5 },
+  bonus: { maxHp: 0, dp: 5 },
   lore:
     "You've been wearing these for a bit too long and it's starting to show; these old rags are barely protecting you from the heat and cold, let alone whatever may lurk around the corner.",
 };
@@ -395,4 +396,11 @@ export const pointedStick: Partial<ItemOptions> = {
   bonus: { sp: 12 },
   lore:
     "You have to defend yourself somehow, yet why you came armed with only a stick is a mystery even to yourself.",
+};
+
+export const staple: Partial<ItemOptions> = {
+  glyph: "Staple",
+  name: "staple",
+  use: "staple",
+  charges: 1,
 };

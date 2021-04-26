@@ -1,7 +1,7 @@
 type Stat =
-  | "maxhp"
-  | "maxfp"
-  | "maxap"
+  | "maxHp"
+  | "maxFp"
+  | "maxAp"
   | "sp"
   | "dp"
   | "vision"

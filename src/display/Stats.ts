@@ -23,8 +23,8 @@ export default class Stats {
 
     let y = 0;
     drawPanel(chars, 28, y++, 12, 10);
-    this.renderStatMax(y++, "HP:", player.hp, player.get("maxhp"), 20);
-    this.renderStatMax(y++, "AP:", player.ap, player.get("maxap"), 20);
+    this.renderStatMax(y++, "HP:", player.hp, player.get("maxHp"), 20);
+    this.renderStatMax(y++, "AP:", player.ap, player.get("maxAp"), 20);
     this.renderStat(y++, "SP:", player.get("sp"));
     this.renderStat(y++, "DP:", player.get("dp"));
 

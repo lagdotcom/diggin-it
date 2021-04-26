@@ -362,7 +362,7 @@ const tophat = new Vault("tophat", 1, [
   "##########",
 ]);
 
-const lucky = new Vault("LUCKY! CHA CHA CHA]", 1, [
+const lucky = new Vault("LUCKY! CHA CHA CHA!", 1, [
   "]]]]###]]]]",
   "]]]#####]]]",
   "]]]3[6[3]]]",
