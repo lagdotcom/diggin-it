@@ -142,6 +142,11 @@
     "ArmourJ": { "row": 4, "col": 41, "width": 2, "height": 2 },
     "Rags": { "row": 4, "col": 43, "width": 2, "height": 2 },
     "Stick": { "row": 4, "col": 45, "width": 2, "height": 2 },
+    "Taser": { "row": 4, "col": 47, "width": 2, "height": 2 },
+    "Bow": { "row": 4, "col": 49, "width": 2, "height": 2 },
+    "Spear": { "row": 4, "col": 51, "width": 2, "height": 2 },
+    "Axe": { "row": 4, "col": 53, "width": 2, "height": 2 },
+    "Crossbow": { "row": 4, "col": 55, "width": 2, "height": 2 },
 
     "Bomb": { "row": 6, "col": 19, "width": 2, "height": 2 },
     "Rope": { "row": 6, "col": 21, "width": 2, "height": 2 },
@@ -155,10 +160,24 @@
     "Jetpack": { "row": 6, "col": 37, "width": 2, "height": 2 },
     "Rock": { "row": 6, "col": 39, "width": 2, "height": 2 },
     "Bolas": { "row": 6, "col": 41, "width": 2, "height": 2 },
+    "Mambele": { "row": 6, "col": 43, "width": 2, "height": 2 },
+    "Staple": { "row": 6, "col": 45, "width": 2, "height": 2 },
+    "RopeBomb": { "row": 6, "col": 47, "width": 2, "height": 2 },
+    "CherryBomb": { "row": 6, "col": 49, "width": 2, "height": 2 },
+    "Arrow": { "row": 6, "col": 51, "width": 2, "height": 2 },
+    "Medikit": { "row": 6, "col": 53, "width": 2, "height": 2 },
 
     "Pocketwatch": { "row": 8, "col": 19, "width": 2, "height": 2 },
     "BrokenPocketwatch": { "row": 8, "col": 21, "width": 2, "height": 2 },
     "Detector": { "row": 8, "col": 39, "width": 2, "height": 2 },
-    "GasMask": { "row": 8, "col": 41, "width": 2, "height": 2 }
+    "GasMask": { "row": 8, "col": 41, "width": 2, "height": 2 },
+    "Ring": { "row": 8, "col": 43, "width": 2, "height": 2 },
+    "Slab": { "row": 8, "col": 45, "width": 2, "height": 2 },
+
+    "Remote": { "row": 9, "col": 19, "width": 2, "height": 2 },
+    "Bone": { "row": 9, "col": 21, "width": 2, "height": 2 },
+    "GreenPotion": { "row": 9, "col": 23, "width": 2, "height": 2 },
+    "RedPotion": { "row": 9, "col": 25, "width": 2, "height": 2 },
+    "BluePotion": { "row": 9, "col": 27, "width": 2, "height": 2 }
   }
 }

@@ -2,9 +2,10 @@
   "size": 16,
   "tiles": {
     "SadFolksLogo": { "row": 8, "col": 0, "width": 10, "height": 3 },
+    " ": { "row": 11, "col": 0 },
 
     "@": { "row": 0, "col": 0 },
-    " ": { "row": 0, "col": 1 },
+    "Fire": { "row": 0, "col": 1 },
     "Squimpy": { "row": 0, "col": 2 },
     "Buster": { "row": 0, "col": 3 },
     "Slobberfin": { "row": 0, "col": 4 },
@@ -15,9 +16,13 @@
     "Crim": { "row": 0, "col": 9 },
     "Canandra": { "row": 0, "col": 10 },
     "Glova": { "row": 0, "col": 11 },
+    "Ink": { "row": 0, "col": 12, "width": 2, "height": 2 },
+    "Puffus": { "row": 0, "col": 16 },
+    "Shockworm": { "row": 0, "col": 17 },
+    "Poregon": { "row": 0, "col": 18 },
 
     "Explosion": { "row": 1, "col": 0 },
-
+    "HP": { "row": 1, "col": 1 },
     "Slingshot": { "row": 1, "col": 2 },
     "PocketKnife": { "row": 1, "col": 3 },
     "Shovel": { "row": 1, "col": 4 },
@@ -28,7 +33,14 @@
     "PowerDrill": { "row": 1, "col": 9 },
     "Jackhammer": { "row": 1, "col": 10 },
     "LaserCutter": { "row": 1, "col": 11 },
+    "InkFloater": { "row": 1, "col": 14 },
+    "InkDrifter": { "row": 1, "col": 15 },
+    "PuffusInflated": { "row": 1, "col": 16 },
+    "Kreebus": { "row": 1, "col": 17 },
+    "MysteryEnemy": { "row": 1, "col": 18 },
 
+    "DP": { "row": 2, "col": 0 },
+    "SP": { "row": 2, "col": 1 },
     "ArmourA": { "row": 2, "col": 2 },
     "ArmourB": { "row": 2, "col": 3 },
     "ArmourC": { "row": 2, "col": 4 },
@@ -41,6 +53,11 @@
     "ArmourJ": { "row": 2, "col": 11 },
     "Rags": { "row": 2, "col": 12 },
     "Stick": { "row": 2, "col": 13 },
+    "Taser": { "row": 2, "col": 14 },
+    "Bow": { "row": 2, "col": 15 },
+    "Spear": { "row": 2, "col": 16 },
+    "Axe": { "row": 2, "col": 17 },
+    "Crossbow": { "row": 2, "col": 18 },
 
     "Bomb": { "row": 3, "col": 0 },
     "Rope": { "row": 3, "col": 1 },
@@ -54,6 +71,12 @@
     "Jetpack": { "row": 3, "col": 9 },
     "Rock": { "row": 3, "col": 10 },
     "Bolas": { "row": 3, "col": 11 },
+    "Mambele": { "row": 3, "col": 12 },
+    "Staple": { "row": 3, "col": 13 },
+    "RopeBomb": { "row": 3, "col": 14 },
+    "CherryBomb": { "row": 3, "col": 15 },
+    "Arrow": { "row": 3, "col": 16 },
+    "Medikit": { "row": 3, "col": 17 },
 
     "Pocketwatch": { "row": 4, "col": 0 },
     "BrokenPocketwatch": { "row": 4, "col": 1 },
@@ -67,39 +90,60 @@
     "Fragment": { "row": 4, "col": 9 },
     "Detector": { "row": 4, "col": 10 },
     "GasMask": { "row": 4, "col": 11 },
+    "Ring": { "row": 4, "col": 12 },
+    "Slab": { "row": 4, "col": 13 },
 
-    "Ink": { "row": 0, "col": 12, "width": 2, "height": 2 },
-    "InkFloater": { "row": 1, "col": 14 },
-    "InkDrifter": { "row": 1, "col": 15 },
+    "Remote": { "row": 5, "col": 0 },
+    "Bone": { "row": 5, "col": 1 },
+    "GreenPotion": { "row": 5, "col": 2 },
+    "RedPotion": { "row": 5, "col": 3 },
+    "BluePotion": { "row": 5, "col": 4 },
 
     "SandS": { "row": 7, "col": 11 },
     "SandM": { "row": 7, "col": 12 },
     "SandD": { "row": 7, "col": 13 },
     "Crate": { "row": 7, "col": 15 },
+
     "WaterT": { "row": 8, "col": 17, "TODO": true },
     "WaterBB": { "row": 8, "col": 18, "TODO": true },
     "WaterW": { "row": 8, "col": 19, "TODO": true },
+
     "Boulder": { "row": 9, "col": 15 },
     "WaterM": { "row": 9, "col": 17, "TODO": true },
     "Water": { "row": 9, "col": 18 },
+
     "MetalBlock": { "row": 11, "col": 15 },
+
+    "Coral": { "row": 12, "col": 11 },
     "Gas": { "row": 12, "col": 14 },
+
+    "GreenSwitch": { "row": 13, "col": 6 },
+    "BlueSwitch": { "row": 13, "col": 7 },
+    "WoodenSpike": { "row": 13, "col": 8 },
+    "Spike": { "row": 13, "col": 9 },
     "Brick": { "row": 13, "col": 11 },
     "?": { "row": 13, "col": 15 },
     "RopeTileT": { "row": 13, "col": 17 },
-    "RopeTile": { "row": 14, "col": 17 },
-    "RopeTileB": { "row": 15, "col": 17 },
     "LadderTileT": { "row": 13, "col": 21 },
+
+    "ArrowTrapL": { "row": 14, "col": 8 },
+    "ArrowTrapR": { "row": 14, "col": 9 },
+    "SideBrick": { "row": 14, "col": 11 },
+    "RopeTile": { "row": 14, "col": 17 },
     "LadderTile": { "row": 14, "col": 21 },
-    "LadderTileB": { "row": 15, "col": 21 },
+
     "DirtS": { "row": 15, "col": 11 },
     "DirtM": { "row": 15, "col": 12 },
     "DirtD": { "row": 15, "col": 13 },
     "Entrance": { "row": 15, "col": 15 },
+    "RopeTileB": { "row": 15, "col": 17 },
+    "LadderTileB": { "row": 15, "col": 21 },
+
+    "SideExit": { "row": 16, "col": 15 },
+
     "Bedrock": { "row": 17, "col": 11 },
     "Exit": { "row": 17, "col": 15 },
     "InkDoor": { "row": 17, "col": 17 },
-
-    "Air": { "row": 0, "col": 1, "TODO": true }
+    "StapleTile": { "row": 17, "col": 20 }
   }
 }
