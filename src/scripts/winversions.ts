@@ -1,10 +1,9 @@
-const pkg = require("./package.json");
-const fs = require("fs");
+import fs from "fs";
 
 const src = "DigginItWinWrap\\";
 
 const asm = src + "Properties\\AssemblyInfo.cs";
-function updateAssemblyInfo(ver) {
+function updateAssemblyInfo(ver: string) {
   const lines = fs.readFileSync(asm, { encoding: "utf8" }).split("\r\n");
   const code = [
     ...lines.slice(0, -3),
@@ -18,7 +17,7 @@ function updateAssemblyInfo(ver) {
 }
 
 const res = src + "Properties\\Resources.resx";
-function updateResources(ver) {
+function updateResources(ver: string) {
   const raw = fs.readFileSync(res, { encoding: "utf8" });
   const i = raw.indexOf('<data name="Version" xml:space="preserve">');
   const j = raw.indexOf("<value>", i) + 7;
@@ -29,6 +28,9 @@ function updateResources(ver) {
   console.log("updated:", res);
 }
 
+const pkg: { version: string } = JSON.parse(
+  fs.readFileSync("package.json", { encoding: "utf-8" })
+);
 console.log("version:", pkg.version);
 updateAssemblyInfo(pkg.version);
 updateResources(pkg.version);

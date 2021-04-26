@@ -3,16 +3,18 @@
   "version": "1.0.6",
   "description": "7DRL 2021",
   "main": "src/index.ts",
+  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -cw",
     "start": "rollup -cw",
     "lint": "eslint --fix src",
+    "stats": "node --loader ts-node/esm --experimental-specifier-resolution=node src/scripts/stats.ts",
     "butler:web": "butler push dist lagdotcom/diggin-it:web",
     "status:web": "butler status lagdotcom/diggin-it:web",
     "web": "npm run build && npm run butler:web",
     "resources:win": "copy dist\\*.* DigginItWinWrap\\Resources",
-    "version:win": "node winversions.js",
+    "version:win": "node --loader ts-node/esm src/scripts/winversions.ts",
     "build:win": "msbuild -p:Configuration=Release DigginItWinWrap\\DigginItWinWrap.sln",
     "butler:win": "butler push --userversion 1.0.6 DigginItWinWrap\\bin\\Release lagdotcom/diggin-it:win",
     "status:win": "butler status lagdotcom/diggin-it:win",
@@ -45,6 +47,7 @@
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
   "repository": {

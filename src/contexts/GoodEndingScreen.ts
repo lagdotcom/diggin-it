@@ -47,7 +47,7 @@ export default class GoodEndingScreen implements Context {
   }
 
   render(): void {
-    const { badEnd, chars, canvas, ctx, goodEnd, tiles } = this.g;
+    const { chars, graphics, tiles } = this.g;
 
     switch (this.stage) {
       case 0:
@@ -61,13 +61,11 @@ export default class GoodEndingScreen implements Context {
         break;
 
       case 1:
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(badEnd, 0, -8);
+        graphics.show("badEnd", 0, -8);
         break;
 
       case 2:
-        ctx.fillRect(0, 176, canvas.width, 48);
+        graphics.clear(176, 48);
         chars.drawText(
           5,
           22,
@@ -87,9 +85,7 @@ export default class GoodEndingScreen implements Context {
         break;
 
       case 4:
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(goodEnd, 0, 0);
+        graphics.show("goodEnd");
         break;
 
       case 5:
@@ -102,7 +98,7 @@ export default class GoodEndingScreen implements Context {
         break;
 
       default:
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        graphics.clear();
         chars.drawText(
           1,
           11,

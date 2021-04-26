@@ -7,6 +7,7 @@ import charsSheet from "../res/8x8.sheet.json";
 import badEndUrl from "../res/ending1.png";
 import goodEndUrl from "../res/ending2.png";
 import titleUrl from "../res/title.png";
+import GraphicsDisplay, { GraphicsName } from "./interfaces/GraphicsDisplay";
 
 type TileMap = DisplayOptions["tileMap"];
 
@@ -126,4 +127,45 @@ export function loadBadEndGraphics(): Promise<HTMLImageElement> {
 
 export function loadGoodEndGraphics(): Promise<HTMLImageElement> {
   return fetchImage(goodEndUrl);
+}
+
+class Graphics implements GraphicsDisplay {
+  private width: number;
+  private height: number;
+
+  constructor(
+    private ctx: CanvasRenderingContext2D,
+    private gfx: Record<GraphicsName, HTMLImageElement>
+  ) {
+    this.width = ctx.canvas.width;
+    this.height = ctx.canvas.height;
+  }
+
+  clear(y = 0, height = this.height) {
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(0, y, this.width, height);
+  }
+
+  show(gfx: GraphicsName, x = 0, y = 0) {
+    this.clear();
+    this.ctx.drawImage(this.gfx[gfx], x, y);
+  }
+}
+
+export default async function getGraphicsDisplay(
+  ctx: CanvasRenderingContext2D
+): Promise<GraphicsDisplay> {
+  const title = await loadTitleGraphics();
+  const badEnd = await loadBadEndGraphics();
+  const goodEnd = await loadGoodEndGraphics();
+
+  return new Graphics(ctx, { title, badEnd, goodEnd });
+}
+
+export function loadAllGraphics(): [
+  title: Promise<HTMLImageElement>,
+  good: Promise<HTMLImageElement>,
+  bad: Promise<HTMLImageElement>
+] {
+  return [loadTitleGraphics(), loadGoodEndGraphics(), loadBadEndGraphics()];
 }

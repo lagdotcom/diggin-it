@@ -25,7 +25,7 @@ import Thing from "../interfaces/Thing";
 import XY from "../interfaces/XY";
 import Item from "../Item";
 import { generateSideArea } from "../mapgen";
-import { getZone, loadMap } from "../maps";
+import { getZone } from "../maps";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
@@ -100,7 +100,7 @@ export default class Dungeon implements Context {
     this.display = new MainDisplay(g, this.info, this.vision);
     this.stats = new Stats(g);
 
-    const { width, height } = g.chars._options;
+    const { width, height } = g.chars.getOptions();
     this.hotspots = new Hotspots();
     this.hotspots.register("display", 0, 0, width - 12, height - 6);
     this.hotspots.register("inventory", 29, 13, 10, 8);

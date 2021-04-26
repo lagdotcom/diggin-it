@@ -18,7 +18,7 @@ export default class TreasureGrabbing {
         player.experience += i.treasure;
 
         if (i.glyph === "Fragment") {
-          this.g.playMusic("shiny");
+          this.g.music.play("shiny");
           let good = false;
           player.inventory.forEach((item) => {
             if (item?.use === "memento") good = true;

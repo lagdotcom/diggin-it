@@ -47,7 +47,7 @@ export default class ScenarioScreen implements Context {
     chars.drawText(
       1,
       1,
-      "Welcome to Diggin' It! In this game you'll assume the role of Jacques Splintertooth, an intrepid explorer on the hunt for a mysterious thing known only as the Wisher's Fragment for a mysterious wealthy benefactor. To achieve that goal, you'll spelunk deeper and deeper into a constantly shifting cavern system, battling creatures and the terrain alike. Use tools, find armors, and carefully keep an eye on your ever draining air as you help Jacques make his way to the Wisher's Fragment. Good luck!",
+      "Welcome to Diggin' It! In this game you'll assume the role of Jacques Splintertooth, an intrepid explorer on the hunt for a mysterious thing known only as the Wisher's Fragment for a mysterious wealthy benefactor. To achieve that goal, you'll spelunk deeper and deeper into a constantly shifting cavern system, battling creatures and the terrain alike. Use tools, find armour, and carefully keep an eye on your ever draining air as you help Jacques make his way to the Wisher's Fragment. Good luck!",
       charsWidth - 2
     );
 

@@ -1,4 +1,4 @@
-import { Display } from "rot-js";
+import TileDisplay from "./interfaces/TileDisplay";
 
 type BorderTileset = [
   [tl: string, tm: string, tr: string],
@@ -13,7 +13,7 @@ const panelTiles: BorderTileset = [
 ];
 
 export function clearArea(
-  display: Display,
+  display: TileDisplay,
   sx: number,
   sy: number,
   width: number,
@@ -27,7 +27,7 @@ export function clearArea(
 }
 
 export function drawPanel(
-  chars: Display,
+  chars: TileDisplay,
   sx: number,
   sy: number,
   width: number,
@@ -49,7 +49,7 @@ export function drawPanel(
 }
 
 export function drawMulti(
-  display: Display,
+  display: TileDisplay,
   sx: number,
   sy: number,
   width: number,

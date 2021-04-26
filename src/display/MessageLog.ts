@@ -61,7 +61,7 @@ export default class MessageLog {
   }
 
   bounds(): [x: number, y: number, w: number, h: number] {
-    const { width, height } = this.g.chars._options;
+    const { width, height } = this.g.chars.getOptions();
     return this.expanded ? [0, 0, width, height] : [0, height - 6, width, 6];
   }
 }

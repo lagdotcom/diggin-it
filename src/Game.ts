@@ -1,6 +1,3 @@
-import { Display } from "rot-js";
-import { DisplayOptions } from "rot-js/lib/display/types";
-
 import { KeyInputHandler, MouseInputHandler } from "@lagdotcom/simple-inputs";
 
 import Actor from "./Actor";
@@ -13,24 +10,17 @@ import MessageLog from "./display/MessageLog";
 import { EventMap } from "./Event";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
+import GraphicsDisplay from "./interfaces/GraphicsDisplay";
 import Grid from "./interfaces/Grid";
+import MusicLibrary from "./interfaces/MusicLibrary";
 import Stack from "./interfaces/Stack";
 import Thing from "./interfaces/Thing";
+import TileDisplay from "./interfaces/TileDisplay";
 import Item from "./Item";
 import LinearGrid from "./LinearGrid";
 import { generateMap } from "./mapgen";
 import { getZone, loadMap } from "./maps";
-import loadAllMusic, { MusicLibrary, MusicName } from "./music";
 import { getNewPlayer } from "./prefabs";
-import {
-  loadBadEndGraphics,
-  loadChars,
-  loadCharsAscii,
-  loadGoodEndGraphics,
-  loadTiles,
-  loadTilesAscii,
-  loadTitleGraphics,
-} from "./sheets";
 import Tile from "./Tile";
 import { unset } from "./tiles";
 import { log } from "./utils";
@@ -39,8 +29,6 @@ export default class Game extends EventHandler {
   static INSTANCE: Game;
   actors: Grid<Actor>;
   allActors: Actor[];
-  canvas: HTMLCanvasElement;
-  chars: Display;
   charsHeight: number;
   charsWidth: number;
   contexts: Stack<Context>;
@@ -53,23 +41,19 @@ export default class Game extends EventHandler {
   map: Grid<Tile>;
   mapFluid: Grid<Tile>;
   memory: Grid<boolean>;
-  music: MusicLibrary;
-  musicPlaying?: MusicName;
   player: Actor;
   sideArea: string;
   visitedAreas: string[];
   spent: number;
-  tiles: Display;
   title: HTMLImageElement;
   badEnd: HTMLImageElement;
   goodEnd: HTMLImageElement;
 
   constructor(
-    public container: HTMLElement = document.body,
-    public width = 20,
-    public height = 14,
-    public tileSize = 16,
-    public ascii = false
+    public music: MusicLibrary,
+    public tiles: TileDisplay,
+    public chars: TileDisplay,
+    public graphics: GraphicsDisplay
   ) {
     super();
 
@@ -78,53 +62,13 @@ export default class Game extends EventHandler {
     this.contexts = new ArrayStack();
     this.log = new MessageLog(this);
 
-    this.displayHeight = height - 3;
-    this.displayWidth = width - 6;
-  }
+    const tilesConfig = this.tiles.getOptions();
+    this.displayWidth = tilesConfig.width - 6;
+    this.displayHeight = tilesConfig.height - 3;
 
-  resized(): void {
-    const ww = window.innerWidth;
-    const wh = window.innerHeight;
-
-    const uw = this.width * this.tileSize;
-    const uh = this.height * this.tileSize;
-
-    const zw = ww / uw;
-    const zh = wh / uh;
-    const zz = Math.max(1, Math.min(Math.floor(zw), Math.floor(zh)));
-
-    this.container.style.width = `${uw * zz}px`;
-    this.container.style.height = `${uh * zz}px`;
-  }
-
-  async init(): Promise<void> {
-    const [tilesConfig, charsConfig] = await this.getDisplayConfigs();
-    const [titleGraphics, goodGraphics, badGraphics] = await Promise.all([
-      loadTitleGraphics(),
-      loadGoodEndGraphics(),
-      loadBadEndGraphics(),
-    ]);
-
-    this.music = await loadAllMusic();
-
-    this.tiles = new Display(tilesConfig);
-    this.canvas = this.tiles.getContainer() as HTMLCanvasElement;
-    this.canvas.className = "game";
-
-    const context = this.canvas.getContext("2d");
-    if (!context) throw Error("Could not get context");
-    this.ctx = context;
-
-    this.title = titleGraphics;
-    this.badEnd = badGraphics;
-    this.goodEnd = goodGraphics;
-    this.chars = new Display({ ...charsConfig, context });
+    const charsConfig = this.chars.getOptions();
     this.charsWidth = charsConfig.width;
     this.charsHeight = charsConfig.height;
-
-    this.container.append(this.canvas);
-    window.addEventListener("resize", this.resized.bind(this));
-    this.resized();
 
     new KeyInputHandler(
       (e) => this.contexts.top.onKey(e),
@@ -141,61 +85,11 @@ export default class Game extends EventHandler {
     this.contexts.push(new AuthorScreen(this));
   }
 
-  async getDisplayConfigs(): Promise<Partial<DisplayOptions>[]> {
-    const { width, height, tileSize } = this;
-    if (this.ascii) {
-      return [
-        loadTilesAscii(width, height, tileSize),
-        loadCharsAscii(width, height, tileSize),
-      ];
-    }
-    return await Promise.all([
-      loadTiles(width, height),
-      loadChars(width, height),
-    ]);
-  }
-
-  private startMusic(track: MusicName) {
-    this.music[track].volume = 1;
-    this.music[track].play().then(() => (this.musicPlaying = track));
-  }
-
   showEnding(good: boolean): void {
     this.contexts.clear();
     this.contexts.push(
       good ? new GoodEndingScreen(this) : new BadEndingScreen(this)
     );
-  }
-
-  playMusic(track: MusicName): void {
-    if (this.musicPlaying) {
-      if (this.musicPlaying === track) return;
-      this.stopMusic();
-    }
-
-    this.startMusic(track);
-  }
-  stopMusic(): void {
-    if (this.musicPlaying) {
-      this.music[this.musicPlaying].pause();
-      this.music[this.musicPlaying].currentTime = 0;
-      this.musicPlaying = undefined;
-    }
-  }
-  fadeOutMusic(): Promise<void> {
-    if (!this.musicPlaying) return;
-
-    return new Promise<void>((resolve) => {
-      const aud = this.music[this.musicPlaying];
-      const timer = setInterval(() => {
-        aud.volume = Math.max(0, aud.volume - 0.05);
-        if (aud.volume <= 0) {
-          this.stopMusic();
-          clearInterval(timer);
-          resolve();
-        }
-      }, 150);
-    });
   }
 
   start(): void {

@@ -29,10 +29,6 @@ export default class TitleScreen implements Context {
   }
 
   render(): void {
-    const { canvas, ctx, title } = this.g;
-
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(title, 0, 0);
+    this.g.graphics.show("title");
   }
 }
