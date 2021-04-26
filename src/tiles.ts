@@ -61,7 +61,13 @@ export const sandDeep: Partial<TileOptions> = {
 
 export const brick: Partial<TileOptions> = {
   glyph: "Brick",
-  name: "brick",
+  name: "brick wall",
+  solid: true,
+  durability: 10,
+};
+export const vaultBrick: Partial<TileOptions> = {
+  glyph: "SideBrick",
+  name: "brick wall",
   solid: true,
   durability: 10,
 };
@@ -90,6 +96,12 @@ export const entrance: Partial<TileOptions> = {
 };
 export const exit: Partial<TileOptions> = {
   glyph: "Exit",
+  name: "exit",
+  article: "an",
+  destroyIncomingPushes: true,
+};
+export const vaultExit: Partial<TileOptions> = {
+  glyph: "SideExit",
   name: "exit",
   article: "an",
   destroyIncomingPushes: true,

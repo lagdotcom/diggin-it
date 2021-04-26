@@ -15,12 +15,16 @@ export const brokenPocketwatch: Partial<ItemOptions> = {
   lore:
     "A shattered image of what used to be and what could have been. Vague shapes stare back at you through a cracked lens, unrecognizable.",
 };
+
+// TODO
 export const detector: Partial<ItemOptions> = {
   glyph: "Detector",
   name: "gas detector",
   lore:
     'A small electronic beeper that tells the density of the gas in any area for as long as its battery lasts. These devices are often dubbed "canaries" by more grizzled and seasoned diggers and miners, a reference to the since banned practice of using small birds to gauge if an area was too toxic to be explored.',
 };
+
+// TODO
 export const mask: Partial<ItemOptions> = {
   glyph: "GasMask",
   name: "gas mask",
@@ -37,6 +41,7 @@ export const pickaxe: Partial<ItemOptions> = {
   lore:
     "A digger's best friend, its function as a mining and exploration tool as well as a weapon is not to be underestimated. Many have abandoned them in recent times as the sparks from mining have a tendency to ignite gas, creating explosions and doing extreme harm to people and history alike.",
 };
+
 export const powerDrill: Partial<ItemOptions> = {
   glyph: "PowerDrill",
   name: "power drill",
@@ -46,6 +51,7 @@ export const powerDrill: Partial<ItemOptions> = {
   lore:
     "Originally only used at quarries to grind down harder materials, the portable power drill became a staple of deep digs for its ability to quickly bore through almost anything. A flaw in the manufacturing process left many models with a pension for jamming, and it's a flaw that has yet to be addressed.",
 };
+
 export const pocketknife: Partial<ItemOptions> = {
   glyph: "PocketKnife",
   name: "pocket knife",
@@ -56,6 +62,7 @@ export const pocketknife: Partial<ItemOptions> = {
   lore:
     "Good at opening cans, cutting strings and all manner of small but useful things, a pocket knife might not be much to look at or terribly handy in a fight, but is always a bread and butter survival tool that no explorer should leave home without.",
 };
+
 export const slingshot: Partial<ItemOptions> = {
   glyph: "Slingshot",
   name: "slingshot",
@@ -65,6 +72,7 @@ export const slingshot: Partial<ItemOptions> = {
   lore:
     "This simple tool may seem like a children's toy, but is actually quite handy for protection against small creatures. An easy tool to make as well, requiring only elastic bands and a well carved stick, fables tell of a legendary prankster whose sling never broke, a fabled marksman among gods until he tragically put his own eye out.",
 };
+
 export const shovel: Partial<ItemOptions> = {
   glyph: "Shovel",
   name: "shovel",
@@ -74,6 +82,7 @@ export const shovel: Partial<ItemOptions> = {
   lore:
     "Can you dig it? This simple question has been the start of many excavations and great adventures, and so too is it the start of yours!",
 };
+
 export const hammer: Partial<ItemOptions> = {
   glyph: "Hammer",
   name: "hammer",
@@ -83,6 +92,7 @@ export const hammer: Partial<ItemOptions> = {
   lore:
     "Every swing of the trusty hammer is guaranteed to be a smashing success, or so the guarantee says. While these are manufactured for stubborn rocks, they can also be handy for stubborn creatures and other dangers.",
 };
+
 export const machete: Partial<ItemOptions> = {
   glyph: "Machete",
   name: "machete",
@@ -92,6 +102,7 @@ export const machete: Partial<ItemOptions> = {
   lore:
     "A choice item of bandits and intrepid explorers alike for entirely different reasons. Its large blade is thorough at sweeping through thick foliage and just as good at keeping one safe from the myriad dangers a deep cavern can hold.",
 };
+
 export const claws: Partial<ItemOptions> = {
   glyph: "Claws",
   name: "digging claws",
@@ -103,6 +114,7 @@ export const claws: Partial<ItemOptions> = {
   lore:
     "After studying how Muln moved underground for over a decade, the Finelli & Sons corporation were able to utilize what they learned and produce digging claws. Surprisingly practical for quickly manoeuvring through soft dirt, they also serve for self-protection should the need arise; this first run is not very sturdy, however and complaints of shattered claws are common.",
 };
+
 export const jackhammer: Partial<ItemOptions> = {
   glyph: "Jackhammer",
   name: "jackhammer",
@@ -112,6 +124,7 @@ export const jackhammer: Partial<ItemOptions> = {
   lore:
     "Outlawed in most mining sites due to the severe noise deafening many of its users, a handful still turn up where you least expect them. Jackhammers are nothing if not effective and are capable of chewing through the hardiest of things with ease, just make sure to bring earplugs.",
 };
+
 export const laserCutter: Partial<ItemOptions> = {
   glyph: "LaserCutter",
   name: "laser cutter",
@@ -133,6 +146,7 @@ export const clothes: Partial<ItemOptions> = {
   lore:
     "Tailored to be hardy for long hikes and short digs, this basic attire allows for very freeform movement and has tons of breathing room making it an ideal take along for any trip.",
 };
+
 export const reinforced: Partial<ItemOptions> = {
   glyph: "ArmourB",
   name: "reinforced attire",
@@ -143,6 +157,7 @@ export const reinforced: Partial<ItemOptions> = {
   lore:
     "Longer hikes and deeper digs require safer gear, but in a strange twist of fate these reinforced rags were picked up by fashionable youths and now sell for exorbitant sums of money.",
 };
+
 export const spelunkersKit: Partial<ItemOptions> = {
   glyph: "ArmourC",
   name: "spelunker's kit",
@@ -152,6 +167,7 @@ export const spelunkersKit: Partial<ItemOptions> = {
   lore:
     "Lightly armoured and generally the preferred kit for the serious explorer, a common Spelunker's Kit will protect from small slips, general hazards and minor harmful substances.",
 };
+
 export const militaryMail: Partial<ItemOptions> = {
   glyph: "ArmourD",
   name: "military mail",
@@ -162,6 +178,7 @@ export const militaryMail: Partial<ItemOptions> = {
   lore:
     "Usually only issued to military personnel, various pieces can still be rented for exceptionally dangerous expeditions. The design is slightly unwieldy for exploring, but the medium weight and thick plates make it decent protection from all manner of harm.",
 };
+
 export const squadLeaderGear: Partial<ItemOptions> = {
   glyph: "ArmourE",
   name: "squad leader's gear",
@@ -172,6 +189,7 @@ export const squadLeaderGear: Partial<ItemOptions> = {
   lore:
     "A strange find, as squad leader military gear is never used for expeditions and tends to only be found on the front lines during times of war or during military operations.\nPerhaps a stranded squadron once holed up in these deep tunnels.",
 };
+
 export const busterArmour: Partial<ItemOptions> = {
   glyph: "ArmourF",
   name: "buster armour",
@@ -182,6 +200,7 @@ export const busterArmour: Partial<ItemOptions> = {
   lore:
     "Named after the loveable and obnoxious frog like creatures that seem to turn up everywhere, the Buster Armour is actually a relic from a nameless warrior race. Expert historians theorize the armour was made for rushing head first into battle, much like a feral Buster does when threatened.",
 };
+
 export const wingArmour: Partial<ItemOptions> = {
   glyph: "ArmourG",
   name: "wing armour",
@@ -192,6 +211,7 @@ export const wingArmour: Partial<ItemOptions> = {
   lore:
     "Once used by a proud and nameless warrior race from forgotten times, it earned its nickname as those entering battles were said to move with the swiftness of a soaring bird. These armours are rarely excavated, and often not in a usable condition, a rare find indeed!",
 };
+
 export const gildedPlate: Partial<ItemOptions> = {
   glyph: "ArmourH",
   name: "gilded plate",
@@ -202,6 +222,7 @@ export const gildedPlate: Partial<ItemOptions> = {
   lore:
     "Associated with ancient royalty and long forgotten civilizations, these plates are extremely rare and were only given to a King or Queen's most loyal and trusted guard. To wear these plates was to willingly be ready to give your life at any moment or reason for your people.",
 };
+
 export const valkyrieSet: Partial<ItemOptions> = {
   glyph: "ArmourI",
   name: "valkyrie set",
@@ -212,6 +233,7 @@ export const valkyrieSet: Partial<ItemOptions> = {
   lore:
     "Among the most elite of elite warriors from the time of ancient rulers were those dubbed as Valkyries. A set of personal guards hand picked by a King or Queen from among the gilded elite based on combat prowess, it is said that no Valkyrie was ever defeated in combat.",
 };
+
 export const arsenalArmour: Partial<ItemOptions> = {
   glyph: "ArmourJ",
   name: "arsenal armour",
@@ -233,6 +255,7 @@ export const bomb: Partial<ItemOptions> = {
   lore:
     "Powerful, effective, extremely dangerous. Capable of clearing vast swaths of dirt, rock and metals like but has a high chance to leave rubble in its wake, bombs are generally not used at dig sites any more due to their pension for causing cave-ins and ireversible damage. Use great caution and safe thinking when using these explosives.",
 };
+
 export const cherryBomb: Partial<ItemOptions> = {
   glyph: "CherryBomb",
   name: "cherry bomb",
@@ -240,11 +263,13 @@ export const cherryBomb: Partial<ItemOptions> = {
   use: "bomb",
   useArgs: [4, -1, -1, 3, 3, 15], // TODO: values
 };
+
+// TODO
 export const ropeBomb: Partial<ItemOptions> = {
   glyph: "RopeBomb",
   name: "rope bomb",
   charges: 1,
-  // TODO
+  lore: "This isn't implemented yet. Sorry.",
 };
 
 export const rope: Partial<ItemOptions> = {
@@ -255,6 +280,7 @@ export const rope: Partial<ItemOptions> = {
   useArgs: [4],
   lore: "Made for always letting you down, but not in a bad way.",
 };
+
 export const ladder: Partial<ItemOptions> = {
   glyph: "Ladder",
   name: "ladder",
@@ -263,6 +289,7 @@ export const ladder: Partial<ItemOptions> = {
   useArgs: [4],
   lore: "Always here to lift you up when you need it most!",
 };
+
 export const rations: Partial<ItemOptions> = {
   glyph: "Rations",
   name: "Lessonus ration",
@@ -272,13 +299,21 @@ export const rations: Partial<ItemOptions> = {
   lore:
     "An abundance of these made their way into circulation during tension-filled times between Lessonus and Ziyadma, and fortunately they never became the staple food people expected them to be. Comes in many middling flavors like Bean Soup, Tofurkey, Veggie Bowl and Chocolate Beef. It'll do in a pinch or for a quick pick me up.",
 };
+
 export const bracelet: Partial<ItemOptions> = {
   glyph: "Bracelet",
   name: "Mellogrinian bracelet",
   lore:
     "Bracelet resembling magical artifacts from the island of Mellogrin. Rarities outside of the island itself, as few Mellogrinians have ever ventured away from the island, and fewer still bring pieces of their old life with them. Mellogrinian artifacts are often said to be imbued with the celebration of life, protecting wearers from the harm that the world would do to them.",
 };
-export const vial: Partial<ItemOptions> = { glyph: "Vial", name: "empty vial" };
+
+// TODO
+export const vial: Partial<ItemOptions> = {
+  glyph: "Vial",
+  name: "empty vial",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
 export const airTank: Partial<ItemOptions> = {
   glyph: "Tank",
   name: "air tank",
@@ -289,15 +324,18 @@ export const airTank: Partial<ItemOptions> = {
   lore:
     "Underground air across Gantella is notorious for noxious gases and densely packed spaces where air barely creeps through. Spare oxygen canisters are a must for anyone looking to dive into even the most shallow of caverns.",
 };
+
 export const specs: Partial<ItemOptions> = {
   glyph: "Specs",
   name: "X-ray Specs",
+  article: "a pair of",
   plural: true,
   lore:
     "Using Lessonian technology that traces the density and material of the environment, X-Ray Specs are the premiere tech of the last century. Highly sought after, these specs have the ability to show you what you're about to come across well before your pickaxe so much as scrapes a surface. Batteries included!",
   slot: "face",
   bonus: { xrayVision: 1 },
 };
+
 export const helmet: Partial<ItemOptions> = {
   glyph: "Helmet",
   name: "Miner's helmet",
@@ -306,10 +344,15 @@ export const helmet: Partial<ItemOptions> = {
   slot: "head",
   bonus: { vision: 2, crushResistance: 0.5 },
 };
+
+// TODO
 export const jetpack: Partial<ItemOptions> = {
   glyph: "Jetpack",
   name: "jetpack",
+  lore: "This isn't implemented yet. Sorry.",
 };
+
+// TODO
 export const rock: Partial<ItemOptions> = {
   glyph: "Rock",
   name: "rock",
@@ -317,6 +360,8 @@ export const rock: Partial<ItemOptions> = {
   lore:
     "Made for throwing, skipping, looking at, having lonely existential conversations with, and so much more!\n...Not a good meal, though.",
 };
+
+// TODO
 export const bolas: Partial<ItemOptions> = {
   glyph: "Bolas",
   name: "bolas",
@@ -416,4 +461,19 @@ export const staple: Partial<ItemOptions> = {
   name: "staple",
   use: "staple",
   charges: 1,
+};
+
+export const medikit: Partial<ItemOptions> = {
+  glyph: "Medikit",
+  name: "emergency kit",
+  use: "heal",
+  charges: 1,
+  useArgs: [60, 80], // TODO: values
+};
+
+// TODO
+export const arrow: Partial<ItemOptions> = {
+  glyph: "Arrow",
+  name: "arrow",
+  lore: "This isn't implemented yet. Sorry.",
 };

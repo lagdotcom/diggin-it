@@ -20,7 +20,7 @@ export interface EventMap {
   digged: { tile: Tile; x: number; y: number };
   dropped: { actor: Actor; item: Item };
   effect: { effect: Item; duration: number };
-  entered: { depth: number; zone: number };
+  entered: { depth: number; zone: number; isSideArea: boolean };
   equipped: { actor: Actor; equipped?: Item; removed?: Item };
   exploded: { item: Item };
   fell: { thing: Thing; distance: number };

@@ -24,7 +24,8 @@ import Context from "../interfaces/Context";
 import Thing from "../interfaces/Thing";
 import XY from "../interfaces/XY";
 import Item from "../Item";
-import { getZone } from "../maps";
+import { generateSideArea } from "../mapgen";
+import { getZone, loadMap } from "../maps";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
@@ -337,10 +338,18 @@ export default class Dungeon implements Context {
   }
 
   handleExit(): void {
-    const { map, player } = this.g;
+    const { log, map, player, sideArea } = this.g;
     const tile = map.get(player.x, player.y);
 
     if (tile.glyph === "Exit") this.leaveArea();
+
+    if (tile.glyph === "SideExit" && sideArea) {
+      log.add(`You enter the strange doorway...`);
+
+      const [map, fluid] = generateSideArea(sideArea);
+      this.g.visitedAreas.push(sideArea);
+      this.g.useMap(map, fluid, true);
+    }
   }
 
   leaveArea(): void {
@@ -444,7 +453,7 @@ export default class Dungeon implements Context {
             this.info.useActor(actor);
           } else if (items.length) {
             this.info.useItem(items[0]);
-          } else if (fluid.glyph) {
+          } else if (fluid.glyph && fluid.glyph !== " ") {
             this.info.useTile(fluid);
           } else {
             this.info.useTile(tile);

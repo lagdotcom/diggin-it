@@ -15,6 +15,7 @@ import fragments from "./vaults/fragments";
 import jrooms from "./vaults/j";
 import lagrooms from "./vaults/lag";
 import morerooms from "./vaults/more";
+import { areas, entrances } from "./vaults/sideAreas";
 
 const vaults = [
   ...basics,
@@ -86,8 +87,9 @@ function getMapParameters(depth: number) {
   const maxvaults = Math.floor((width * height) / 80);
   const vaultattempts = maxvaults * 10;
   const zone = getZone(depth) + 1;
+  const hasSideArea = depth % 3 === 0;
 
-  return { width, height, maxvaults, vaultattempts, zone };
+  return { width, height, maxvaults, vaultattempts, zone, hasSideArea };
 }
 
 function toMapString(grid: Grid<string>) {
@@ -97,25 +99,31 @@ function toMapString(grid: Grid<string>) {
 function generateBossMap(
   g: Game,
   seed?: number
-): [tiles: string[], fluids: string[]] {
+): [tiles: string[], fluids: string[], side: string] {
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
   log("map seed:", seed);
 
   const vault = RNG.getItem(bossrooms);
   const [map, fluid] = vault.resolve();
-  return [toMapString(map), toMapString(fluid)];
+  return [toMapString(map), toMapString(fluid), ""];
 }
 
 export function generateMap(
   g: Game,
+  doNotUse: string[],
   seed?: number
-): [tiles: string[], fluids: string[]] {
+): [tiles: string[], fluids: string[], side: string] {
   if (g.depth >= 10) return generateBossMap(g, seed);
 
-  const { width, height, maxvaults, vaultattempts, zone } = getMapParameters(
-    g.depth
-  );
+  const {
+    width,
+    height,
+    maxvaults,
+    vaultattempts,
+    zone,
+    hasSideArea,
+  } = getMapParameters(g.depth);
 
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
@@ -125,6 +133,7 @@ export function generateMap(
   const taken = new Hotspots<number>();
   const map = new LinearGrid(width, height, () => "!");
   const fluid = new LinearGrid(width, height, () => " ");
+  let side = "";
 
   for (let x = 1; x < width - 1; x++) {
     for (let y = 1; y < height - 1; y++) {
@@ -145,6 +154,33 @@ export function generateMap(
     const [xmap, xfluid] = exit.resolve();
     map.paste(xmap, x, y);
     fluid.paste(xfluid, x, y);
+  }
+
+  if (hasSideArea) {
+    for (let i = 0; i < vaultattempts; i++) {
+      const vault = RNG.getItem(entrances);
+      if (vault.difficulty > zone) continue;
+      if (doNotUse.includes(vault.name)) continue;
+
+      const x = RNG.getUniformInt(1, width - vault.width - 1);
+      const y = RNG.getUniformInt(1, height - vault.height - 1);
+      if (x < 1 || y < 1) continue;
+
+      const spot = taken.overlap(x, y, vault.width, vault.height);
+      if (!spot) {
+        log(`placing ${vault.name} at ${x},${y}`);
+        taken.register(i, x, y, vault.width, vault.height);
+
+        const [vmap, vfluid] = vault.resolve();
+        map.paste(vmap, x, y);
+        fluid.paste(vfluid, x, y);
+
+        side = vault.name;
+        break;
+      }
+    }
+
+    if (!side) log("could not place side area");
   }
 
   let placed = 0;
@@ -180,5 +216,13 @@ export function generateMap(
     map.set(ex, ey, ">");
   }
 
-  return [toMapString(map), toMapString(fluid)];
+  return [toMapString(map), toMapString(fluid), side];
+}
+
+export function generateSideArea(
+  name: string
+): [tiles: string[], fluids: string[]] {
+  const vault = areas[name];
+  const [tiles, fluids] = vault.resolve();
+  return [toMapString(tiles), toMapString(fluids)];
 }

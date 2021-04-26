@@ -4,6 +4,7 @@ import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import {
   airTank,
+  arrow,
   artifact,
   coin,
   coinBag,
@@ -11,7 +12,10 @@ import {
   goldBar,
   helmet,
   ladder,
+  mask,
+  medikit,
   rations,
+  rock,
   rope,
   smallGem,
   specs,
@@ -42,6 +46,8 @@ import {
   sandMiddle,
   sandShallow,
   unset,
+  vaultBrick,
+  vaultExit,
   water,
 } from "./tiles";
 
@@ -71,14 +77,16 @@ const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
   "?": unset,
   " ": empty,
   "!": border,
-  "<": entrance,
-  ">": exit,
   "#": (zone) => dirtTiles[zone],
   ":": (zone) => sandTiles[zone],
+  "]": brick,
+  "*": vaultBrick,
   "^": ladderTile,
   "|": ropeTile,
-  "]": brick,
-  "*": inkDoor,
+  "<": entrance,
+  ">": exit,
+  v: vaultExit,
+  f: inkDoor,
 };
 
 const fluidTypes: Record<string, Partial<TileOptions>> = {
@@ -116,14 +124,18 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   x: treasureBox,
   d: diamond,
 
-  B: () => getRandomBomb(),
-  L: ladder,
-  R: rope,
   A: airTank,
+  B: () => getRandomBomb(),
   F: rations,
-  X: specs,
+  G: mask,
   H: helmet,
-  G: getRandomArmour, // TODO: gas mask
+  K: medikit,
+  L: ladder,
+  N: arrow,
+  // TODO P: () => getRandomPotion(),
+  R: rope,
+  S: rock,
+  X: specs,
 
   "5": (zone) => {
     const a = getRandomWeapon(zone);

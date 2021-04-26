@@ -56,6 +56,8 @@ export default class Game extends EventHandler {
   music: MusicLibrary;
   musicPlaying?: MusicName;
   player: Actor;
+  sideArea: string;
+  visitedAreas: string[];
   spent: number;
   tiles: Display;
   title: HTMLImageElement;
@@ -198,18 +200,20 @@ export default class Game extends EventHandler {
 
   start(): void {
     this.depth = 1;
+    this.visitedAreas = [];
     this.player = getNewPlayer();
     this.player.fullHeal();
     this.nextMap();
   }
 
   nextMap(seed?: number): void {
-    const [map, fluid] = generateMap(this, seed);
+    const [map, fluid, side] = generateMap(this, this.visitedAreas, seed);
     log(map.join("\n"));
-    this.useMap(map, fluid);
+    this.useMap(map, fluid, false);
+    this.sideArea = side;
   }
 
-  useMap(map: string[], fluid: string[]): void {
+  useMap(map: string[], fluid: string[], isSideArea: boolean): void {
     this.removeAllListeners();
     this.log.attach();
     // this.player.fullHeal();
@@ -220,7 +224,7 @@ export default class Game extends EventHandler {
     this.spent = 0;
 
     const depth = this.depth;
-    this.emit("entered", { depth, zone: getZone(depth) });
+    this.emit("entered", { depth, zone: getZone(depth), isSideArea });
     this.emit("refreshed", {});
     this.tiles.clear();
     this.chars.clear();

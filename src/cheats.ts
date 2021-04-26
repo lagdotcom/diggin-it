@@ -22,7 +22,16 @@ function testGodMode() {
   g.contexts.top.render();
 }
 
+function testChangeLevel(depth: number) {
+  const g = Game.INSTANCE;
+
+  g.log.add("You fall into a black hole!");
+  g.depth = depth;
+  g.nextMap();
+}
+
 export function initCheats(): void {
+  (window as any).idclvl = testChangeLevel;
   (window as any).keepyourselfalive = testGodMode;
   (window as any).theboss = testTheInk;
 }
