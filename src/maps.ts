@@ -50,6 +50,7 @@ import {
   vaultExit,
   water,
 } from "./tiles";
+import { higherOfTwo, lowerOfTwo } from "./utils";
 
 export const testMap = [
   "!!!!!!!!!!!!!!!!",
@@ -99,17 +100,9 @@ const actorTypes: Record<
   string,
   Partial<ActorOptions> | Zoned<ActorOptions>
 > = {
-  "1": (zone) => {
-    const a = getRandomEnemy(zone);
-    const b = getRandomEnemy(zone);
-    return a.maxHp < b.maxHp ? a : b;
-  },
+  "1": lowerOfTwo(getRandomEnemy, (e) => e.maxHp),
   "2": getRandomEnemy,
-  "3": (zone) => {
-    const a = getRandomEnemy(zone);
-    const b = getRandomEnemy(zone);
-    return a.maxHp > b.maxHp ? a : b;
-  },
+  "3": higherOfTwo(getRandomEnemy, (e) => e.maxHp),
   O: boulder,
   M: metal,
   W: crate,
@@ -137,28 +130,12 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   S: rock,
   X: specs,
 
-  "5": (zone) => {
-    const a = getRandomWeapon(zone);
-    const b = getRandomWeapon(zone);
-    return a.bonus.sp < b.bonus.sp ? a : b;
-  },
+  "5": lowerOfTwo(getRandomWeapon, (i) => i.bonus.sp),
   "6": getRandomWeapon,
-  "7": (zone) => {
-    const a = getRandomWeapon(zone);
-    const b = getRandomWeapon(zone);
-    return a.bonus.sp > b.bonus.sp ? a : b;
-  },
-  "8": (zone) => {
-    const a = getRandomArmour(zone);
-    const b = getRandomArmour(zone);
-    return a.bonus.dp < b.bonus.dp ? a : b;
-  },
+  "7": higherOfTwo(getRandomWeapon, (i) => i.bonus.sp),
+  "8": lowerOfTwo(getRandomArmour, (i) => i.bonus.dp),
   "9": getRandomArmour,
-  "0": (zone) => {
-    const a = getRandomArmour(zone);
-    const b = getRandomArmour(zone);
-    return a.bonus.dp > b.bonus.dp ? a : b;
-  },
+  "0": higherOfTwo(getRandomArmour, (i) => i.bonus.dp),
 };
 
 export function getZone(depth: number): 0 | 1 | 2 {

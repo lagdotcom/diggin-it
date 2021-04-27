@@ -97,7 +97,6 @@ function toMapString(grid: Grid<string>) {
 }
 
 function generateBossMap(
-  g: Game,
   seed?: number
 ): [tiles: string[], fluids: string[], side: string] {
   if (typeof seed === "number") RNG.setSeed(seed);
@@ -110,11 +109,11 @@ function generateBossMap(
 }
 
 export function generateMap(
-  g: Game,
-  doNotUse: string[],
+  depth: number,
+  doNotUse: string[] = [],
   seed?: number
 ): [tiles: string[], fluids: string[], side: string] {
-  if (g.depth >= 10) return generateBossMap(g, seed);
+  if (depth >= 10) return generateBossMap(seed);
 
   const {
     width,
@@ -123,7 +122,7 @@ export function generateMap(
     vaultattempts,
     zone,
     hasSideArea,
-  } = getMapParameters(g.depth);
+  } = getMapParameters(depth);
 
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();

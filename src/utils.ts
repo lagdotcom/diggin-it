@@ -17,3 +17,21 @@ export function log(...args: unknown[]): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if ((window as any).showlogs) console.log(...args);
 }
+
+export const higherOfTwo = <T>(
+  gen: (zone: number) => T,
+  metric: (thing: T) => number
+) => (zone: number): T => {
+  const a = gen(zone);
+  const b = gen(zone);
+  return metric(a) > metric(b) ? a : b;
+};
+
+export const lowerOfTwo = <T>(
+  gen: (zone: number) => T,
+  metric: (thing: T) => number
+) => (zone: number): T => {
+  const a = gen(zone);
+  const b = gen(zone);
+  return metric(a) > metric(b) ? b : a;
+};

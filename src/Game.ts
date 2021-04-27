@@ -101,7 +101,7 @@ export default class Game extends EventHandler {
   }
 
   nextMap(seed?: number): void {
-    const [map, fluid, side] = generateMap(this, this.visitedAreas, seed);
+    const [map, fluid, side] = generateMap(this.depth, this.visitedAreas, seed);
     log(map.join("\n"));
     this.useMap(map, fluid, false);
     this.sideArea = side;
