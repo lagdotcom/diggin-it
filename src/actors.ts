@@ -183,6 +183,73 @@ export const theInk: Partial<ActorOptions> = {
     "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Strange beasts and horrifying grotesques spurn forth endlessly from this flying yolk of terror, as if ink dripping on tarnished paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\"\n- Jacques Splintertooth",
 };
 
+export const puffus: Partial<ActorOptions> = {
+  glyph: "Puffus",
+  name: "puffus",
+  colour: "blue",
+  ai: "fly", // TODO: "wanderSwim"
+  maxHp: 39,
+  sp: 23,
+  dp: 11,
+  experience: 0, // TODO
+  lore:
+    "Native to deep and cool waters, Puffus are largely content tend to feed off various algae and microscopic fish. When threatened or attacked they will swell to over double their initial size, exposing highly painful barbs that can leave tingling and numbness in the affected wound for weeks. Take care not to step on one when diving!",
+};
+
+export const shockworm: Partial<ActorOptions> = {
+  glyph: "Shockworm",
+  name: "shockworm",
+  colour: "green",
+  ai: "fly", // TODO: "swim"
+  maxHp: 56,
+  sp: 32,
+  dp: 21,
+  experience: 0, // TODO
+  lore:
+    'Also commonly known as "Glowtubes" and "Sparknoodles", Shockworms inhabit both fresh and salt water habitats where it\'s dark. These sea predators can send massive voltage throughout their body and the surrounding body of water, making them harmful to local wildlife and most creatures of smaller stature than them. They may be related to the Breshava Megaworm, if such a thing actually exists.',
+};
+
+export const kreebus: Partial<ActorOptions> = {
+  glyph: "Kreebus",
+  name: "kreebus",
+  colour: "pink",
+  ai: "fly",
+  maxHp: 68,
+  sp: 32,
+  dp: 23,
+  experience: 0, // TODO
+  lore:
+    "Descended from ancient sea dragons of ages long past, the Kreebus was first sighted in the waters of the Aelonic Ocean. It is unknown how, but these vicious mini sea dragons are capable of flight through magical property alone and are relentlessly aggressive when approached. They are capable of defending themselves with short bursts of searing flame, and as such it's recommended to be wary of unusually warm waters in locales that normally wouldn't have them.",
+};
+
+export const grundilla: Partial<ActorOptions> = {
+  glyph: "Grundilla",
+  name: "grundilla",
+  colour: "yellow",
+  ai: "wander",
+  canClimb: true,
+  maxHp: 115,
+  sp: 45,
+  dp: 30,
+  experience: 0, // TODO
+  lore:
+    "An enraged Grundilla is said to be one of nature's most horrifying phenomena. Capable of crawling across almost any terrain and ambushing unsuspecting prey, Grundilla's evolved from a peaceful cave and forest dwelling-species into a violent powerhouse after years of over hunting. While they are still nearly extinct, their population has started to stabilize again and it's recommended to retreat as swiftly and quietly as possible should you meet one.",
+};
+
+export const poregon: Partial<ActorOptions> = {
+  glyph: "Poregon",
+  name: "poregon",
+  colour: "cyan",
+  ai: "wander",
+  canClimb: true,
+  maxHp: 38,
+  sp: 20,
+  dp: 19,
+  experience: 0, // TODO
+  lore:
+    "A strange race of creatures that are said to be pranksters, reincarnations of mischievous spirits of the past or even those that have fallen far away from home. Their mushroom like appearance hides what appear to be intentions both good and bad, some claim to have been saved in their hour of need, while others still claim to have seen hideous rituals and gruesome sights at Poregon camps. Caution is advised.",
+};
+
 export const crate: Partial<ActorOptions> = {
   glyph: "Crate",
   name: "crate",

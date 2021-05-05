@@ -10,10 +10,13 @@ import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 import url from "@rollup/plugin-url";
 
+// eslint-disable-next-line no-undef
 const production = !process.env.ROLLUP_WATCH;
 const outputDir = production ? "dist" : "demo";
 
+/** @type {import('rollup').OutputOptions[]} */
 const output = [];
+/** @type {import('rollup').Plugin[]} */
 const plugins = [
   nodePolyfills(),
   json({ preferConst: true }),
@@ -21,10 +24,10 @@ const plugins = [
   url({ limit: 30 * 1024 }),
   sourcemaps(),
   resolve(),
-  commonjs(),
   typescript({ tsconfigDefaults: { sourceMap: true } }),
+  commonjs(),
 ];
-if (process.env.ROLLUP_WATCH) {
+if (!production) {
   output.push({
     sourcemap: true,
     file: "demo/bundle.js",
@@ -39,4 +42,6 @@ if (process.env.ROLLUP_WATCH) {
   });
 }
 
-export default { input: pkg.main, output, plugins };
+/** @type {import('rollup').RollupOptions} */
+const options = { input: pkg.main, output, plugins };
+export default options;

@@ -7,7 +7,12 @@ import {
   crim,
   flazza,
   glova,
+  grundilla,
+  kreebus,
   muln,
+  poregon,
+  puffus,
+  shockworm,
   slobberfin,
   splinter,
   squimpy,
@@ -16,11 +21,15 @@ import {
 import { ItemOptions } from "./Item";
 import {
   arsenalArmour,
+  axe,
   bomb,
+  bow,
   busterArmour,
   cherryBomb,
   claws,
   clothes,
+  crossbow,
+  femur,
   gildedPlate,
   hammer,
   jackhammer,
@@ -34,8 +43,10 @@ import {
   ropeBomb,
   shovel,
   slingshot,
+  spear,
   spelunkersKit,
   squadLeaderGear,
+  taser,
   valkyrieSet,
   wingArmour,
 } from "./items";
@@ -58,13 +69,20 @@ const enemyTypes = {
   slobberfin,
   splinter,
   telden,
+  puffus,
+  shockworm,
+  kreebus,
+  grundilla,
+  poregon,
 };
 type EnemyName = keyof typeof enemyTypes;
 
+// TODO: puffus, shockworm
 const enemiesByZone: Distribution<EnemyName>[] = [
   {
     squimpy: uncommon,
     buster: common,
+    poregon: rare,
   },
   {
     squimpy: common,
@@ -77,6 +95,7 @@ const enemiesByZone: Distribution<EnemyName>[] = [
     slobberfin: ultraRare,
     splinter: uncommon,
     telden: uncommon,
+    poregon: common,
   },
   {
     squimpy: uncommon,
@@ -88,6 +107,8 @@ const enemiesByZone: Distribution<EnemyName>[] = [
     slobberfin: rare,
     splinter: common,
     telden: uncommon,
+    kreebus: rare,
+    grundilla: ultraRare,
   },
 ];
 
@@ -106,6 +127,12 @@ const weaponTypes = {
   claws,
   jackhammer,
   laserCutter,
+  axe,
+  spear,
+  taser,
+  femur,
+  bow,
+  crossbow,
 };
 type WeaponName = keyof typeof weaponTypes;
 
@@ -116,6 +143,7 @@ const weaponsByZone: Distribution<WeaponName>[] = [
     slingshot: uncommon,
     shovel: uncommon,
     hammer: rare,
+    femur: common,
   },
   {
     pickaxe: uncommon,
@@ -124,6 +152,12 @@ const weaponsByZone: Distribution<WeaponName>[] = [
     hammer: rare,
     claws: rare,
     machete: rare,
+    axe: rare,
+    spear: ultraRare,
+    taser: common,
+    femur: common,
+    bow: rare,
+    crossbow: ultraRare,
   },
   {
     pickaxe: uncommon,
@@ -134,6 +168,12 @@ const weaponsByZone: Distribution<WeaponName>[] = [
     machete: rare,
     jackhammer: rare,
     laserCutter: rare,
+    axe: rare,
+    spear: ultraRare,
+    taser: common,
+    femur: common,
+    bow: rare,
+    crossbow: ultraRare,
   },
 ];
 
@@ -188,7 +228,7 @@ type BombName = keyof typeof bombTypes;
 const bombWeights: Distribution<BombName> = {
   bomb: common,
   cherryBomb: rare,
-  ropeBomb: ultraRare,
+  ropeBomb: rare,
 };
 
 export function getRandomBomb(): Partial<ItemOptions> {

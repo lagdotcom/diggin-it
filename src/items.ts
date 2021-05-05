@@ -456,11 +456,68 @@ export const pointedStick: Partial<ItemOptions> = {
     "You have to defend yourself somehow, yet why you came armed with only a stick is a mystery even to yourself.",
 };
 
+// TODO
+export const remote: Partial<ItemOptions> = {
+  glyph: "Remote",
+  name: "remote",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
 export const staple: Partial<ItemOptions> = {
   glyph: "Staple",
   name: "staple",
   use: "staple",
   charges: 1,
+};
+
+// TODO
+export const mambele: Partial<ItemOptions> = {
+  glyph: "Mambele",
+  name: "mambele",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
+// TODO
+export const slab: Partial<ItemOptions> = {
+  glyph: "Slab",
+  name: "ancient slab",
+  article: "an",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
+// TODO
+export const ring: Partial<ItemOptions> = {
+  glyph: "Ring",
+  name: "vanish ring",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
+// TODO
+export const arrow: Partial<ItemOptions> = {
+  glyph: "Arrow",
+  name: "arrow",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
+// TODO
+export const bluePotion: Partial<ItemOptions> = {
+  glyph: "BluePotion",
+  name: "blue liquid",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
+// TODO
+export const redPotion: Partial<ItemOptions> = {
+  glyph: "RedPotion",
+  name: "red liquid",
+  lore: "This isn't implemented yet. Sorry.",
+};
+
+// TODO
+export const greenPotion: Partial<ItemOptions> = {
+  glyph: "GreenPotion",
+  name: "green liquid",
+  lore: "This isn't implemented yet. Sorry.",
 };
 
 export const medikit: Partial<ItemOptions> = {
@@ -471,9 +528,69 @@ export const medikit: Partial<ItemOptions> = {
   useArgs: [60, 80], // TODO: values
 };
 
-// TODO
-export const arrow: Partial<ItemOptions> = {
-  glyph: "Arrow",
-  name: "arrow",
-  lore: "This isn't implemented yet. Sorry.",
+export const axe: Partial<ItemOptions> = {
+  glyph: "Axe",
+  name: "axe",
+  slot: "weapon",
+  durability: 15, // TODO
+  bonus: { sp: 30 },
+  lore:
+    "An axe appearing of Mellogrinian make, but is actually just an imitation of their craftsmanship. Make no mistake, imitation or not it's sharp edge and sturdy craftsmanship makes it a worthwhile tool for defence, survival, and exploration.",
+};
+
+export const spear: Partial<ItemOptions> = {
+  glyph: "Spear",
+  name: "spear",
+  slot: "weapon",
+  durability: 15, // TODO
+  // TODO reach: 2,
+  bonus: { sp: 27 },
+  lore:
+    "Simple hunting spear, effective for both fishing and defence. It's long reach and sharp edge lends itself to slightly longer range fighting and can keep it's user safer from close range harm.",
+};
+
+export const taser: Partial<ItemOptions> = {
+  glyph: "Taser",
+  name: "taser",
+  slot: "weapon",
+  durability: 15, // TODO
+  // TODO stunChance: 25,
+  // TODO zapSelfInWater: true,
+  bonus: { sp: 25 },
+  lore:
+    "Tools for self defence against predators and thieves alike, a simple taser delivers enough of a shock to stun most targets into submission, allowing for an easier escape. This version appears modified to deliver lethal voltage.",
+};
+
+export const femur: Partial<ItemOptions> = {
+  glyph: "Bone",
+  name: "femur",
+  slot: "weapon",
+  durability: 15, // TODO
+  bonus: { sp: 20 },
+  lore:
+    "Sturdy bone fashioned into a makeshift club. It may not be the most practical weapon, but it could be used in a pinch. Strangely, it seems impossible to make out who or what this bone once belonged to.",
+};
+
+export const bow: Partial<ItemOptions> = {
+  glyph: "Bow",
+  name: "bow",
+  slot: "weapon",
+  durability: 15, // TODO
+  bonus: { sp: 25 },
+  // TODO range: 3,
+  // TODO fires: 'arrow',
+  lore:
+    "A typical hunting bow used widely across the world, it's string fashioned from typical linen or hemp and it's wood polished to a fine sheen. A true marksman needs no other partner, whether for combat, defence or sport a good sturdy bow will see to all your needs.",
+};
+
+export const crossbow: Partial<ItemOptions> = {
+  glyph: "Crossbow",
+  name: "crossbow",
+  slot: "weapon",
+  durability: 15, // TODO
+  bonus: { sp: 30 },
+  // TODO range: 3,
+  // TODO fires: 'arrow',
+  lore:
+    "Quicker aiming and with far more kickback and power than a typical bow, the crossbow is only for a true hunting enthusiast. Outlawed in many regions and countries for being too close to an actual military weapon, these tend to be quite hard to come by and are a hot commodity on various black markets.",
 };
