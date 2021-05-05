@@ -14,6 +14,7 @@
     "web": "npm run build && npm run butler:web",
     "resources:win": "copy dist\\*.* DigginItWinWrap\\Resources",
     "version:win": "node --loader ts-node/esm src/scripts/winversions.ts",
+    "update:win": "cd DigginItWinWrap && nuget restore && nuget update DigginItWinWrap.sln",
     "build:win": "msbuild -p:Configuration=Release DigginItWinWrap\\DigginItWinWrap.sln",
     "butler:win": "butler push --userversion 1.0.6 DigginItWinWrap\\bin\\Release lagdotcom/diggin-it:win",
     "status:win": "butler status lagdotcom/diggin-it:win",
