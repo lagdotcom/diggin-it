@@ -1,29 +1,28 @@
 import { RNG } from "rot-js";
 import Simplex from "rot-js/lib/noise/simplex";
 
-import Game from "./Game";
 import Hotspots from "./Hotspots";
 import Grid from "./interfaces/Grid";
 import LinearGrid from "./LinearGrid";
 import { getZone } from "./maps";
 import { log } from "./utils";
 import basics from "./vaults/basics";
-import bossrooms from "./vaults/boss";
-import eggrooms from "./vaults/egg";
+import bossRooms from "./vaults/boss";
+import eggRooms from "./vaults/egg";
 import exits from "./vaults/exits";
 import fragments from "./vaults/fragments";
-import jrooms from "./vaults/j";
-import lagrooms from "./vaults/lag";
-import morerooms from "./vaults/more";
+import jRooms from "./vaults/j";
+import lagRooms from "./vaults/lag";
+import moreRooms from "./vaults/more";
 import { areas, entrances } from "./vaults/sideAreas";
 
 const vaults = [
   ...basics,
-  ...lagrooms,
+  ...lagRooms,
   ...fragments,
-  ...jrooms,
-  ...morerooms,
-  ...eggrooms,
+  ...jRooms,
+  ...moreRooms,
+  ...eggRooms,
 ];
 
 function solidity(n: number) {
@@ -32,7 +31,7 @@ function solidity(n: number) {
   return "#";
 }
 
-function rando(end: number, start = 0) {
+function randomCols(end: number, start = 0) {
   const cols = [];
   for (let x = start; x < end; x++) cols.push(x);
   return RNG.shuffle(cols);
@@ -44,7 +43,7 @@ function isSolid(ch: string) {
 
 function findStart(map: Grid<string>, taken: Hotspots<unknown>) {
   for (let y = 1; y < map.height - 1; y++) {
-    const cols = rando(map.width - 1, 1);
+    const cols = randomCols(map.width - 1, 1);
 
     for (let i = 0; i < cols.length; i++) {
       const x = cols[i];
@@ -62,7 +61,7 @@ function findStart(map: Grid<string>, taken: Hotspots<unknown>) {
 
 function findExit(map: Grid<string>, taken: Hotspots<unknown>) {
   for (let y = map.height - 1; y > 0; y--) {
-    const cols = rando(map.width - 1, 1);
+    const cols = randomCols(map.width - 1, 1);
 
     for (let i = 0; i < cols.length; i++) {
       const x = cols[i];
@@ -84,12 +83,12 @@ function findExit(map: Grid<string>, taken: Hotspots<unknown>) {
 function getMapParameters(depth: number) {
   const width = 12 + depth * 3;
   const height = 15 + depth * 5;
-  const maxvaults = Math.floor((width * height) / 80);
-  const vaultattempts = maxvaults * 10;
+  const maxVaults = Math.floor((width * height) / 80);
+  const vaultAttempts = maxVaults * 10;
   const zone = getZone(depth) + 1;
   const hasSideArea = depth % 3 === 0;
 
-  return { width, height, maxvaults, vaultattempts, zone, hasSideArea };
+  return { width, height, maxVaults, vaultAttempts, zone, hasSideArea };
 }
 
 function toMapString(grid: Grid<string>) {
@@ -103,7 +102,7 @@ function generateBossMap(
   else seed = RNG.getSeed();
   log("map seed:", seed);
 
-  const vault = RNG.getItem(bossrooms);
+  const vault = RNG.getItem(bossRooms);
   const [map, fluid] = vault.resolve();
   return [toMapString(map), toMapString(fluid), ""];
 }
@@ -115,14 +114,8 @@ export function generateMap(
 ): [tiles: string[], fluids: string[], side: string] {
   if (depth >= 10) return generateBossMap(seed);
 
-  const {
-    width,
-    height,
-    maxvaults,
-    vaultattempts,
-    zone,
-    hasSideArea,
-  } = getMapParameters(depth);
+  const { width, height, maxVaults, vaultAttempts, zone, hasSideArea } =
+    getMapParameters(depth);
 
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
@@ -150,13 +143,13 @@ export function generateMap(
     log(`placing ${exit.name} at ${x},${y}`);
     taken.register(-1, x, y, exit.width, exit.height);
 
-    const [xmap, xfluid] = exit.resolve();
-    map.paste(xmap, x, y);
-    fluid.paste(xfluid, x, y);
+    const [exitMap, exitFluid] = exit.resolve();
+    map.paste(exitMap, x, y);
+    fluid.paste(exitFluid, x, y);
   }
 
   if (hasSideArea) {
-    for (let i = 0; i < vaultattempts; i++) {
+    for (let i = 0; i < vaultAttempts; i++) {
       const vault = RNG.getItem(entrances);
       if (vault.difficulty > zone) continue;
       if (doNotUse.includes(vault.name)) continue;
@@ -170,9 +163,9 @@ export function generateMap(
         log(`placing ${vault.name} at ${x},${y}`);
         taken.register(i, x, y, vault.width, vault.height);
 
-        const [vmap, vfluid] = vault.resolve();
-        map.paste(vmap, x, y);
-        fluid.paste(vfluid, x, y);
+        const [vaultMap, vaultFluid] = vault.resolve();
+        map.paste(vaultMap, x, y);
+        fluid.paste(vaultFluid, x, y);
 
         side = vault.name;
         break;
@@ -183,7 +176,7 @@ export function generateMap(
   }
 
   let placed = 0;
-  for (let i = 0; i < vaultattempts; i++) {
+  for (let i = 0; i < vaultAttempts; i++) {
     const vault = RNG.getItem(vaults);
     if (vault.difficulty > zone) continue;
 
@@ -196,12 +189,12 @@ export function generateMap(
       log(`placing ${vault.name} at ${x},${y}`);
       taken.register(i, x, y, vault.width, vault.height);
 
-      const [vmap, vfluid] = vault.resolve();
-      map.paste(vmap, x, y);
-      fluid.paste(vfluid, x, y);
+      const [vaultMap, vaultFluid] = vault.resolve();
+      map.paste(vaultMap, x, y);
+      fluid.paste(vaultFluid, x, y);
 
       placed++;
-      if (placed >= maxvaults) break;
+      if (placed >= maxVaults) break;
     }
   }
 

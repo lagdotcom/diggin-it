@@ -26,7 +26,9 @@ import {
   getRandomArmour,
   getRandomBomb,
   getRandomEnemy,
+  getRandomUsable,
   getRandomWeapon,
+  getSlab,
 } from "./tables";
 import Tile, { TileOptions } from "./Tile";
 import {
@@ -41,6 +43,7 @@ import {
   gas,
   inkDoor,
   ladderTile,
+  pike,
   ropeTile,
   sandDeep,
   sandMiddle,
@@ -51,24 +54,6 @@ import {
   water,
 } from "./tiles";
 import { higherOfTwo, lowerOfTwo } from "./utils";
-
-export const testMap = [
-  "!!!!!!!!!!!!!!!!",
-  "!#             !",
-  "!#< RL     O   !",
-  "!###:::^####  $!",
-  "! B   :^ Mg#1 #!",
-  "!###  :^#######!",
-  "!###1 :^       !",
-  "!######^1      !",
-  "!########      !",
-  "!A      ##   ::!",
-  "!#~~~~~~##:::::!",
-  "!#~###~~#      !",
-  "!~~~~~~~#    > !",
-  "!~~~~~~~#~~#~!#!",
-  "!!!!!!!!!!!!!!!!",
-];
 
 type Zoned<T> = (zone: number) => Partial<T>;
 
@@ -84,6 +69,7 @@ const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
   "*": vaultBrick,
   "^": ladderTile,
   "|": ropeTile,
+  "+": pike,
   "<": entrance,
   ">": exit,
   v: vaultExit,
@@ -96,17 +82,15 @@ const fluidTypes: Record<string, Partial<TileOptions>> = {
   "~": water,
 };
 
-const actorTypes: Record<
-  string,
-  Partial<ActorOptions> | Zoned<ActorOptions>
-> = {
-  "1": lowerOfTwo(getRandomEnemy, (e) => e.maxHp),
-  "2": getRandomEnemy,
-  "3": higherOfTwo(getRandomEnemy, (e) => e.maxHp),
-  O: boulder,
-  M: metal,
-  W: crate,
-};
+const actorTypes: Record<string, Partial<ActorOptions> | Zoned<ActorOptions>> =
+  {
+    "1": lowerOfTwo(getRandomEnemy, (e) => e.maxHp),
+    "2": getRandomEnemy,
+    "3": higherOfTwo(getRandomEnemy, (e) => e.maxHp),
+    O: boulder,
+    M: metal,
+    W: crate,
+  };
 
 const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   c: coin,
@@ -118,17 +102,19 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   d: diamond,
 
   A: airTank,
-  B: () => getRandomBomb(),
+  B: getRandomBomb,
   F: rations,
   G: mask,
   H: helmet,
   K: medikit,
   L: ladder,
   N: arrow,
-  // TODO P: () => getRandomPotion(),
+  // TODO P: getRandomPotion,
   R: rope,
   S: rock,
   X: specs,
+  Z: getSlab,
+  "@": getRandomUsable,
 
   "5": lowerOfTwo(getRandomWeapon, (i) => i.bonus.sp),
   "6": getRandomWeapon,
@@ -182,8 +168,8 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       }
 
       // TODO: flyweight
-      const fglyph = fluid[y][x];
-      g.mapFluid.set(x, y, new Tile(fluidTypes[fglyph]));
+      const fluidGlyph = fluid[y][x];
+      g.mapFluid.set(x, y, new Tile(fluidTypes[fluidGlyph]));
     }
   }
 

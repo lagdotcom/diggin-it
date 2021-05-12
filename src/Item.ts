@@ -19,6 +19,7 @@ export interface ItemOptions {
   colour: string;
   durability: number;
   glyph: string;
+  holdBonus: Partial<Record<Stat, number>>;
   lore: string;
   name: string;
   namePlural: string;
@@ -39,6 +40,7 @@ export default class Item {
   colour: string;
   durability: number;
   glyph: string;
+  holdBonus: Partial<Record<Stat, number>>;
   lore: string;
   name: string;
   namePlural: string;
@@ -60,6 +62,7 @@ export default class Item {
       colour = "silver",
       durability = 0,
       glyph = "?",
+      holdBonus = {},
       lore = "",
       name = glyph,
       namePlural = name + "s",
@@ -80,6 +83,7 @@ export default class Item {
     this.colour = colour;
     this.durability = durability;
     this.glyph = glyph;
+    this.holdBonus = holdBonus;
     this.lore = lore;
     this.name = name;
     this.namePlural = namePlural;

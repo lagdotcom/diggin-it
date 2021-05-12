@@ -21,8 +21,7 @@ export const squimpy: Partial<ActorOptions> = {
   sp: 15,
   dp: 6,
   experience: 25,
-  lore:
-    "Born with only a single eye to see and a mouth to eat, the Squimpy is not to be confused with its eldest evolutionary relative, the Fachan. While generally harmless, if agitated or provoked the Squimpy is known for its surprisingly potent and harmful saliva that, when left untreated, is capable of leaving severe scarring akin to that of a burn.",
+  lore: "Born with only a single eye to see and a mouth to eat, the Squimpy is not to be confused with its eldest evolutionary relative, the Fachan. While generally harmless, if agitated or provoked the Squimpy is known for its surprisingly potent and harmful saliva that, when left untreated, is capable of leaving severe scarring akin to that of a burn.",
 };
 export const buster: Partial<ActorOptions> = {
   glyph: "Buster",
@@ -33,8 +32,7 @@ export const buster: Partial<ActorOptions> = {
   sp: 18,
   dp: 8,
   experience: 20,
-  lore:
-    "These odd, toad-like creatures can be found at every corner of Gantella, but none is quite as strange as those found around Lessonus. A popular domesticated pet, the strange swirl adorning their head is not hair, but a small tail like appendage that wags when stimulated. Don't be fooled, however, in the wild a Buster earns its name by growing to the size of a large dog and throwing its own weight relentlessly at anything it sees as a threat.",
+  lore: "These odd, toad-like creatures can be found at every corner of Gantella, but none is quite as strange as those found around Lessonus. A popular domesticated pet, the strange swirl adorning their head is not hair, but a small tail like appendage that wags when stimulated. Don't be fooled, however, in the wild a Buster earns its name by growing to the size of a large dog and throwing its own weight relentlessly at anything it sees as a threat.",
 };
 export const canandra: Partial<ActorOptions> = {
   glyph: "Canandra",
@@ -46,8 +44,7 @@ export const canandra: Partial<ActorOptions> = {
   sp: 38,
   dp: 25,
   experience: 800,
-  lore:
-    "Canandras should be avoided at all costs in the wild, sporting the fifth deadliest venom in the world and a constricting grip that few escape from and fewer live to tell tales about. It's advised if you're voyaging into hot, dry areas to be always aware of your surroundings and to listen for the distinctive clacking of their quills and the sound of their territorial hiss. If bitten, seek medical attention immediately.",
+  lore: "Canandras should be avoided at all costs in the wild, sporting the fifth deadliest venom in the world and a constricting grip that few escape from and fewer live to tell tales about. It's advised if you're voyaging into hot, dry areas to be always aware of your surroundings and to listen for the distinctive clacking of their quills and the sound of their territorial hiss. If bitten, seek medical attention immediately.",
 };
 export const crim: Partial<ActorOptions> = {
   glyph: "Crim",
@@ -58,8 +55,7 @@ export const crim: Partial<ActorOptions> = {
   sp: 20,
   dp: 28,
   experience: 450,
-  lore:
-    'Also known as the "Screaming Shells" due to their rather odd facial structure, Crims are very self oriented creatures. They come out rarely to eat and then spend weeks hibernating within their shell while their food slowly digests. Crims are best left alone when encountered and tend to only become hostile when threatened or provoked.',
+  lore: 'Also known as the "Screaming Shells" due to their rather odd facial structure, Crims are very self oriented creatures. They come out rarely to eat and then spend weeks hibernating within their shell while their food slowly digests. Crims are best left alone when encountered and tend to only become hostile when threatened or provoked.',
 };
 export const flazza: Partial<ActorOptions> = {
   glyph: "Flazza",
@@ -71,8 +67,7 @@ export const flazza: Partial<ActorOptions> = {
   sp: 25,
   dp: 20,
   experience: 300,
-  lore:
-    'Tentacled flying menaces that love the dark, Flazzas are known as the "Terror Flies of the Deep". They capture any prey smaller than them by dive bombing from above attempting to break bones or outright kill their prey on the spot, should that fail they have a nasty tendency to envelop their victim within their carnivorous tentacles. They have an aversion to bright lights and thankfully keep their homes far below anywhere they\'d become a real problem.',
+  lore: 'Tentacled flying menaces that love the dark, Flazzas are known as the "Terror Flies of the Deep". They capture any prey smaller than them by dive bombing from above attempting to break bones or outright kill their prey on the spot, should that fail they have a nasty tendency to envelop their victim within their carnivorous tentacles. They have an aversion to bright lights and thankfully keep their homes far below anywhere they\'d become a real problem.',
 };
 export const glova: Partial<ActorOptions> = {
   glyph: "Glova",
@@ -84,8 +79,7 @@ export const glova: Partial<ActorOptions> = {
   sp: 20,
   dp: 18,
   experience: 80,
-  lore:
-    "Comprised of bubbly acidic slime-like globules, Glovas are only ever seen below ground. Their translucent bodies often envelop and break down material slowly, allowing them to feed on moss and other natural growths, due to the potency of their slime, however, they have a tendency to eat through many other things and are best left to themselves whenever possible.",
+  lore: "Comprised of bubbly acidic slime-like globules, Glovas are only ever seen below ground. Their translucent bodies often envelop and break down material slowly, allowing them to feed on moss and other natural growths, due to the potency of their slime, however, they have a tendency to eat through many other things and are best left to themselves whenever possible.",
 };
 export const muln: Partial<ActorOptions> = {
   glyph: "Muln",
@@ -96,8 +90,7 @@ export const muln: Partial<ActorOptions> = {
   sp: 25,
   dp: 22,
   experience: 650,
-  lore:
-    "Burrowing menaces responsible for missing crops, livestock and occasionally children, Muln cause extreme agricultural grief and property damage in many areas surrounded by mountains or cave systems. When faced with a Muln problem, it's often recommended to call in professionals to trap and relocate them to more natural habitats, and it's strongly advised to avoid Muln habitats and evacuate immediately in case of infestation.", // TODO: 'habitat' repetition
+  lore: "Burrowing menaces responsible for missing crops, livestock and occasionally children, Muln cause extreme agricultural grief and property damage in many areas surrounded by mountains or cave systems. When faced with a Muln problem, it's often recommended to call in professionals to trap and relocate them to more natural habitats, and it's strongly advised to avoid Muln habitats and evacuate immediately in case of infestation.", // TODO: 'habitat' repetition
 };
 export const slobberfin: Partial<ActorOptions> = {
   glyph: "Slobberfin",
@@ -108,8 +101,7 @@ export const slobberfin: Partial<ActorOptions> = {
   sp: 40,
   dp: 26,
   experience: 700,
-  lore:
-    "Deadly both in the water and on land, Slobberfins are the number one cause of animal related deaths across Gantella. Slobberfins are highly territorial and highly adaptable creatures, and the only thing standing between them and becoming apex predators is their extreme near sightedness and pension for living in cool and dark locales.",
+  lore: "Deadly both in the water and on land, Slobberfins are the number one cause of animal related deaths across Gantella. Slobberfins are highly territorial and highly adaptable creatures, and the only thing standing between them and becoming apex predators is their extreme near sightedness and pension for living in cool and dark locales.",
 };
 export const splinter: Partial<ActorOptions> = {
   glyph: "Splinter",
@@ -121,8 +113,7 @@ export const splinter: Partial<ActorOptions> = {
   sp: 28,
   dp: 22,
   experience: 350,
-  lore:
-    "According to religious texts recovered from Dwelvarkian ruins, Splinters are the remains of the largest tree to have ever existed, and a source from which the Dwelvarkians themselves spurned. During a war that lasted through the birth and death of the first sun to hang in the sky, a greedy and selfish race since scrubbed from history cut the tree down, taking it's limbs for themselves and fashioning their own creatures. The Splinters came not long after, seeking revenge and entangling those unfortunate enough to cross them within their roots.",
+  lore: "According to religious texts recovered from Dwelvarkian ruins, Splinters are the remains of the largest tree to have ever existed, and a source from which the Dwelvarkians themselves spurned. During a war that lasted through the birth and death of the first sun to hang in the sky, a greedy and selfish race since scrubbed from history cut the tree down, taking it's limbs for themselves and fashioning their own creatures. The Splinters came not long after, seeking revenge and entangling those unfortunate enough to cross them within their roots.",
 };
 export const telden: Partial<ActorOptions> = {
   glyph: "Telden",
@@ -134,8 +125,7 @@ export const telden: Partial<ActorOptions> = {
   sp: 25,
   dp: 18,
   experience: 500,
-  lore:
-    "Heated debates about whether Teldens originated from mammals or annelids still permeate many historical and evolutionary discussions around this bizarre creature. Regardless of which side you take, the Telden certainly won't take yours; its deadly tongue and hideous breath leave behind an odour noxious enough that it's widely considered as deadly as the thickest gasses. They are rarely seen outside of their natural dark underground habitats and should be avoided whenever possible.",
+  lore: "Heated debates about whether Teldens originated from mammals or annelids still permeate many historical and evolutionary discussions around this bizarre creature. Regardless of which side you take, the Telden certainly won't take yours; its deadly tongue and hideous breath leave behind an odour noxious enough that it's widely considered as deadly as the thickest gasses. They are rarely seen outside of their natural dark underground habitats and should be avoided whenever possible.",
 };
 export const floater: Partial<ActorOptions> = {
   glyph: "InkFloater",
@@ -149,8 +139,7 @@ export const floater: Partial<ActorOptions> = {
   dp: 23,
   experience: 800,
   obeysGravity: false,
-  lore:
-    "\"If this is not a trick or hallucination of oxygen deprived madness, this conjoined face seems to almost lament its state of being. I must stay clear of these foul things, the stench is unfathomable and I can't be sure its touch isn't fatal in some way.\"\n- Jacques Splintertooth",
+  lore: "\"If this is not a trick or hallucination of oxygen deprived madness, this conjoined face seems to almost lament its state of being. I must stay clear of these foul things, the stench is unfathomable and I can't be sure its touch isn't fatal in some way.\"\n- Jacques Splintertooth",
 };
 export const drifter: Partial<ActorOptions> = {
   glyph: "InkDrifter",
@@ -164,8 +153,7 @@ export const drifter: Partial<ActorOptions> = {
   sp: 35,
   dp: 25,
   experience: 800,
-  lore:
-    "\"I don't understand how, but this strange abomination drifts and glides about like a feather, mimicking movements of human and beast alike. It unsettles me greatly to know things like this exist in the world, but I've come too far to give up now!\"\n- Jacques Splintertooth",
+  lore: "\"I don't understand how, but this strange abomination drifts and glides about like a feather, mimicking movements of human and beast alike. It unsettles me greatly to know things like this exist in the world, but I've come too far to give up now!\"\n- Jacques Splintertooth",
 };
 export const theInk: Partial<ActorOptions> = {
   glyph: "Ink1",
@@ -179,8 +167,7 @@ export const theInk: Partial<ActorOptions> = {
   dp: 30,
   experience: 3000,
   teleportThreshold: 30,
-  lore:
-    "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Strange beasts and horrifying grotesques spurn forth endlessly from this flying yolk of terror, as if ink dripping on tarnished paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\"\n- Jacques Splintertooth",
+  lore: "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Strange beasts and horrifying grotesques spurn forth endlessly from this flying yolk of terror, as if ink dripping on tarnished paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\"\n- Jacques Splintertooth",
 };
 
 export const puffus: Partial<ActorOptions> = {
@@ -192,8 +179,7 @@ export const puffus: Partial<ActorOptions> = {
   sp: 23,
   dp: 11,
   experience: 0, // TODO
-  lore:
-    "Native to deep and cool waters, Puffus are largely content tend to feed off various algae and microscopic fish. When threatened or attacked they will swell to over double their initial size, exposing highly painful barbs that can leave tingling and numbness in the affected wound for weeks. Take care not to step on one when diving!",
+  lore: "Native to deep and cool waters, Puffus are largely content tend to feed off various algae and microscopic fish. When threatened or attacked they will swell to over double their initial size, exposing highly painful barbs that can leave tingling and numbness in the affected wound for weeks. Take care not to step on one when diving!",
 };
 
 export const shockworm: Partial<ActorOptions> = {
@@ -205,8 +191,7 @@ export const shockworm: Partial<ActorOptions> = {
   sp: 32,
   dp: 21,
   experience: 0, // TODO
-  lore:
-    'Also commonly known as "Glowtubes" and "Sparknoodles", Shockworms inhabit both fresh and salt water habitats where it\'s dark. These sea predators can send massive voltage throughout their body and the surrounding body of water, making them harmful to local wildlife and most creatures of smaller stature than them. They may be related to the Breshava Megaworm, if such a thing actually exists.',
+  lore: 'Also commonly known as "Glowtubes" and "Sparknoodles", Shockworms inhabit both fresh and salt water habitats where it\'s dark. These sea predators can send massive voltage throughout their body and the surrounding body of water, making them harmful to local wildlife and most creatures of smaller stature than them. They may be related to the Breshava Megaworm, if such a thing actually exists.',
 };
 
 export const kreebus: Partial<ActorOptions> = {
@@ -218,8 +203,7 @@ export const kreebus: Partial<ActorOptions> = {
   sp: 32,
   dp: 23,
   experience: 0, // TODO
-  lore:
-    "Descended from ancient sea dragons of ages long past, the Kreebus was first sighted in the waters of the Aelonic Ocean. It is unknown how, but these vicious mini sea dragons are capable of flight through magical property alone and are relentlessly aggressive when approached. They are capable of defending themselves with short bursts of searing flame, and as such it's recommended to be wary of unusually warm waters in locales that normally wouldn't have them.",
+  lore: "Descended from ancient sea dragons of ages long past, the Kreebus was first sighted in the waters of the Aelonic Ocean. It is unknown how, but these vicious mini sea dragons are capable of flight through magical property alone and are relentlessly aggressive when approached. They are capable of defending themselves with short bursts of searing flame, and as such it's recommended to be wary of unusually warm waters in locales that normally wouldn't have them.",
 };
 
 export const grundilla: Partial<ActorOptions> = {
@@ -232,8 +216,7 @@ export const grundilla: Partial<ActorOptions> = {
   sp: 45,
   dp: 30,
   experience: 0, // TODO
-  lore:
-    "An enraged Grundilla is said to be one of nature's most horrifying phenomena. Capable of crawling across almost any terrain and ambushing unsuspecting prey, Grundilla's evolved from a peaceful cave and forest dwelling-species into a violent powerhouse after years of over hunting. While they are still nearly extinct, their population has started to stabilize again and it's recommended to retreat as swiftly and quietly as possible should you meet one.",
+  lore: "An enraged Grundilla is said to be one of nature's most horrifying phenomena. Capable of crawling across almost any terrain and ambushing unsuspecting prey, Grundilla's evolved from a peaceful cave and forest dwelling-species into a violent powerhouse after years of over hunting. While they are still nearly extinct, their population has started to stabilize again and it's recommended to retreat as swiftly and quietly as possible should you meet one.",
 };
 
 export const poregon: Partial<ActorOptions> = {
@@ -246,8 +229,7 @@ export const poregon: Partial<ActorOptions> = {
   sp: 20,
   dp: 19,
   experience: 0, // TODO
-  lore:
-    "A strange race of creatures that are said to be pranksters, reincarnations of mischievous spirits of the past or even those that have fallen far away from home. Their mushroom like appearance hides what appear to be intentions both good and bad, some claim to have been saved in their hour of need, while others still claim to have seen hideous rituals and gruesome sights at Poregon camps. Caution is advised.",
+  lore: "A strange race of creatures that are said to be pranksters, reincarnations of mischievous spirits of the past or even those that have fallen far away from home. Their mushroom like appearance hides what appear to be intentions both good and bad, some claim to have been saved in their hour of need, while others still claim to have seen hideous rituals and gruesome sights at Poregon camps. Caution is advised.",
 };
 
 export const crate: Partial<ActorOptions> = {

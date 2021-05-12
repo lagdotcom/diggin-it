@@ -156,6 +156,9 @@ export default class Actor {
     Object.values(this.equipment).forEach((it) => {
       if (it.bonus[st]) mod += it.bonus[st];
     });
+    this.inventory.forEach((it) => {
+      if (it.holdBonus[st]) mod += it.holdBonus[st];
+    });
 
     return base + mod;
   }

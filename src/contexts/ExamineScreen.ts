@@ -4,9 +4,10 @@ import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import Thing from "../interfaces/Thing";
 import { name } from "../text";
+import Tile from "../Tile";
 
 export default class ExamineScreen implements Context {
-  constructor(public g: Game, public thing: Thing) {
+  constructor(public g: Game, public target: Thing | Tile) {
     requestAnimationFrame(() => this.render());
   }
 
@@ -36,7 +37,7 @@ export default class ExamineScreen implements Context {
   }
 
   getInfo(): string {
-    return name(this.thing) + "\n\n" + this.thing.lore;
+    return name(this.target) + "\n\n" + this.target.lore;
   }
 
   render(): void {

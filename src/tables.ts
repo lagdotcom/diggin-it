@@ -18,10 +18,14 @@ import {
   squimpy,
   telden,
 } from "./actors";
-import { ItemOptions } from "./Item";
+import Item, { ItemOptions } from "./Item";
 import {
+  airTank,
+  arrow,
   arsenalArmour,
   axe,
+  bluePotion,
+  bolas,
   bomb,
   bow,
   busterArmour,
@@ -29,23 +33,41 @@ import {
   claws,
   clothes,
   crossbow,
+  detector,
   femur,
   gildedPlate,
+  greenPotion,
   hammer,
+  helmet,
   jackhammer,
+  jetpack,
+  ladder,
   laserCutter,
   machete,
+  mambele,
+  mask,
+  medikit,
   militaryMail,
   pickaxe,
   pocketknife,
   powerDrill,
+  rations,
+  redPotion,
   reinforced,
+  remote,
+  rock,
+  rope,
   ropeBomb,
   shovel,
+  slab1,
+  slab2,
+  slab3,
   slingshot,
   spear,
+  specs,
   spelunkersKit,
   squadLeaderGear,
+  staple,
   taser,
   valkyrieSet,
   wingArmour,
@@ -231,6 +253,67 @@ const bombWeights: Distribution<BombName> = {
   ropeBomb: rare,
 };
 
-export function getRandomBomb(): Partial<ItemOptions> {
+export function getRandomBomb(zone: number): Partial<ItemOptions> {
   return bombTypes[RNG.getWeightedValue(bombWeights) as BombName];
+}
+
+const usableTypes = {
+  airTank,
+  arrow,
+  bluePotion,
+  bolas,
+  bomb,
+  cherryBomb,
+  detector,
+  greenPotion,
+  helmet,
+  jetpack,
+  ladder,
+  mambele,
+  mask,
+  medikit,
+  rations,
+  redPotion,
+  remote,
+  rock,
+  rope,
+  ropeBomb,
+  specs,
+  staple,
+};
+type UsableName = keyof typeof usableTypes;
+
+const usableWeights: Distribution<UsableName> = {
+  bomb: rare,
+  // TODO vial: common,
+  ladder: uncommon,
+  rations: uncommon,
+  airTank: rare,
+  rope: uncommon,
+  specs: ultraRare,
+  helmet: uncommon,
+  // TODO bolas: rare,
+  // TODO rock: common,
+  // TODO jetpack: ultraRare,
+  // TODO detector: rare,
+  // TODO mask: rare,
+  // TODO remote: ultraRare,
+  staple: common,
+  // TODO mambele: uncommon,
+  arrow: common,
+  // TODO bluePotion: rare,
+  // TODO redPotion: rare,
+  // TODO greenPotion: rare,
+  medikit: ultraRare,
+  ropeBomb: rare,
+  cherryBomb: rare,
+};
+
+export function getRandomUsable(zone: number): Partial<ItemOptions> {
+  return usableTypes[RNG.getWeightedValue(usableWeights) as UsableName];
+}
+
+const slabs = [slab1, slab2, slab3];
+export function getSlab(zone: number): Partial<ItemOptions> {
+  return slabs[zone];
 }

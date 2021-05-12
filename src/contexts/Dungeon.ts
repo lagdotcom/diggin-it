@@ -21,7 +21,6 @@ import Cmd, {
   UseCmd,
 } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
-import Thing from "../interfaces/Thing";
 import XY from "../interfaces/XY";
 import Item from "../Item";
 import { generateSideArea } from "../mapgen";
@@ -330,9 +329,7 @@ export default class Dungeon implements Context {
 
   handleExamine(): void {
     if (this.info.lore) {
-      this.g.contexts.push(
-        new ExamineScreen(this.g, this.info.target as Thing)
-      );
+      this.g.contexts.push(new ExamineScreen(this.g, this.info.target));
       this.rerender.stop();
     }
   }

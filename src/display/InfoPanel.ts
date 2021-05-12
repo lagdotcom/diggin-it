@@ -64,7 +64,7 @@ export default class InfoPanel {
       this.g.emit("infoOpened", {});
       this.target = tile;
       this.info = name(tile);
-      this.lore = false;
+      this.lore = !!tile.lore;
     } else this.clear();
   }
 
