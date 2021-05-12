@@ -1,3 +1,5 @@
+import { RNG } from "rot-js";
+
 import Slot from "./interfaces/Slot";
 import Stat from "./interfaces/Stat";
 import Item from "./Item";
@@ -26,13 +28,14 @@ export interface ActorOptions {
   pushable: boolean;
   vision: number;
   maxHp: number;
+  maxHpRange: number;
   hp: number;
-  maxFp: number;
-  fp: number;
   maxAp: number;
   ap: number;
   sp: number;
+  spRange: number;
   dp: number;
+  dpRange: number;
   experience: number;
   player: PlayerData;
   crushResistance: number;
@@ -63,12 +66,12 @@ export default class Actor {
   vision: number;
   maxHp: number;
   hp: number;
-  maxFp: number;
-  fp: number;
   maxAp: number;
   ap: number;
   sp: number;
+  spRange: number;
   dp: number;
+  dpRange: number;
   experience: number;
   player?: PlayerData;
   crushResistance: number;
@@ -97,14 +100,13 @@ export default class Actor {
       pushable = false,
       vision = 5,
       maxHp = 0,
-      hp = maxHp,
-      maxFp = 0,
-      fp = maxFp,
+      maxHpRange = 0,
       maxAp = 0,
-      ap = maxAp,
       sp = 0,
+      spRange = 0,
       dp = 0,
-      alive = hp > 0,
+      dpRange = 0,
+      alive = maxHp > 0,
       experience = 0,
       inventorySize = 0,
       inventory = new Array(inventorySize),
@@ -131,14 +133,11 @@ export default class Actor {
     this.pushable = pushable;
     this.vision = vision;
     this.alive = alive;
-    this.maxHp = maxHp;
-    this.hp = hp;
-    this.maxFp = maxFp;
-    this.fp = fp;
+    this.maxHp = maxHpRange ? RNG.getUniformInt(maxHp, maxHpRange) : maxHp;
+    this.hp = this.maxHp;
     this.maxAp = maxAp;
-    this.ap = ap;
-    this.sp = sp;
-    this.dp = dp;
+    this.sp = spRange ? RNG.getUniformInt(sp, spRange) : sp;
+    this.dp = dpRange ? RNG.getUniformInt(dp, dpRange) : dp;
     this.experience = experience;
     this.inventory = inventory;
     this.inventorySize = inventorySize;
@@ -166,7 +165,6 @@ export default class Actor {
   fullHeal(): void {
     this.hp = this.get("maxHp");
     this.ap = this.get("maxAp");
-    this.fp = this.get("maxFp");
     this.alive = true;
   }
 }

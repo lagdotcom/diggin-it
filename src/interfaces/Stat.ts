@@ -1,6 +1,5 @@
 type Stat =
   | "maxHp"
-  | "maxFp"
   | "maxAp"
   | "sp"
   | "dp"
