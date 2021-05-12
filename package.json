@@ -1,6 +1,6 @@
 {
   "name": "diggin-it",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "7DRL 2021",
   "main": "src/index.ts",
   "type": "module",
@@ -16,7 +16,7 @@
     "version:win": "node --loader ts-node/esm src/scripts/winversions.ts",
     "update:win": "cd DigginItWinWrap && nuget restore && nuget update DigginItWinWrap.sln",
     "build:win": "msbuild -p:Configuration=Release DigginItWinWrap\\DigginItWinWrap.sln",
-    "butler:win": "butler push --userversion 1.0.6 DigginItWinWrap\\bin\\Release lagdotcom/diggin-it:win",
+    "butler:win": "butler push --userversion 1.0.7 DigginItWinWrap\\bin\\Release lagdotcom/diggin-it:win",
     "status:win": "butler status lagdotcom/diggin-it:win",
     "win": "npm run build && npm run resources:win && npm run version:win && npm run build:win && npm run butler:win"
   },
