@@ -37,6 +37,7 @@ import Memento from "../systems/Memento";
 import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
 import TheInk from "../systems/TheInk";
+import Traps from "../systems/Traps";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { ctheName, it } from "../text";
@@ -70,6 +71,7 @@ export default class Dungeon implements Context {
   rerender: Soon;
   sand: SandCollapse;
   stats: Stats;
+  traps: Traps;
   treasure: TreasureGrabbing;
   use: UsableItems;
   vision: Vision;
@@ -91,6 +93,7 @@ export default class Dungeon implements Context {
     this.pickingup = new PickingUp(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
+    this.traps = new Traps(g);
     this.treasure = new TreasureGrabbing(g);
     this.use = new UsableItems(g);
 

@@ -12,6 +12,7 @@ export interface TileOptions {
   name: string;
   opaque: boolean;
   xrayOpaque: boolean;
+  fallOntoDamage: number;
   solid: boolean;
   lore: string;
 }
@@ -31,6 +32,7 @@ export default class Tile {
   namePlural: string;
   opaque: boolean;
   xrayOpaque: boolean;
+  fallOntoDamage: number;
   solid: boolean;
   lore: string;
 
@@ -49,6 +51,7 @@ export default class Tile {
     name = glyph,
     opaque = solid,
     xrayOpaque = indestructible,
+    fallOntoDamage = 0,
     lore = "",
   }: Partial<TileOptions> = {}) {
     this.airCost = airCost;
@@ -65,6 +68,7 @@ export default class Tile {
     this.namePlural = name;
     this.opaque = opaque;
     this.xrayOpaque = xrayOpaque;
+    this.fallOntoDamage = fallOntoDamage;
     this.solid = solid;
     this.lore = lore;
   }

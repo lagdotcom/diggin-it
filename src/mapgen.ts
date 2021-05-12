@@ -151,7 +151,7 @@ export function generateMap(
   if (hasSideArea) {
     for (let i = 0; i < vaultAttempts; i++) {
       const vault = RNG.getItem(entrances);
-      if (vault.difficulty > zone) continue;
+      if (vault.difficulty !== zone) continue;
       if (doNotUse.includes(vault.name)) continue;
 
       const x = RNG.getUniformInt(1, width - vault.width - 1);
