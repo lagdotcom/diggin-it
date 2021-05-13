@@ -88,6 +88,14 @@ export const gas: Partial<TileOptions> = {
   article: "",
   airCost: 5,
 };
+export const magma: Partial<TileOptions> = {
+  glyph: "Lava",
+  name: "magma",
+  article: "",
+  airCost: 3,
+  hpCost: 5,
+  canSwimIn: true,
+};
 
 export const entrance: Partial<TileOptions> = {
   glyph: "Entrance",
@@ -170,5 +178,6 @@ export const coral: Partial<TileOptions> = {
   glyph: "Coral",
   name: "coral",
   solid: true,
+  durability: 3,
   lore: "A simple coral structure, somehow this hardy specimen has adapted from the ocean floor and taken root in these underground corridors and caverns. ",
 };

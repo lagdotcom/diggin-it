@@ -1,3 +1,5 @@
+import { Picker, PickerOptions } from "./tables";
+
 export function manhattan(
   x1: number,
   y1: number,
@@ -18,20 +20,18 @@ export function log(...args: unknown[]): void {
   if ((window as any).showlogs) console.log(...args);
 }
 
-export const higherOfTwo = <T>(
-  gen: (zone: number) => T,
-  metric: (thing: T) => number
-) => (zone: number): T => {
-  const a = gen(zone);
-  const b = gen(zone);
-  return metric(a) > metric(b) ? a : b;
-};
+export const higherOfTwo =
+  <T>(gen: Picker<T>, metric: (thing: Partial<T>) => number) =>
+  (options: PickerOptions): Partial<T> => {
+    const a = gen(options);
+    const b = gen(options);
+    return metric(a) > metric(b) ? a : b;
+  };
 
-export const lowerOfTwo = <T>(
-  gen: (zone: number) => T,
-  metric: (thing: T) => number
-) => (zone: number): T => {
-  const a = gen(zone);
-  const b = gen(zone);
-  return metric(a) > metric(b) ? b : a;
-};
+export const lowerOfTwo =
+  <T>(gen: Picker<T>, metric: (thing: Partial<T>) => number) =>
+  (options: PickerOptions): Partial<T> => {
+    const a = gen(options);
+    const b = gen(options);
+    return metric(a) > metric(b) ? b : a;
+  };

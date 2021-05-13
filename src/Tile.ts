@@ -8,6 +8,7 @@ export interface TileOptions {
   destroyIncomingPushes: boolean;
   durability: number;
   glyph: string;
+  hpCost: number;
   indestructible: boolean;
   name: string;
   opaque: boolean;
@@ -27,6 +28,7 @@ export default class Tile {
   destroyIncomingPushes: boolean;
   durability: number;
   glyph: string;
+  hpCost: number;
   indestructible: boolean;
   name: string;
   namePlural: string;
@@ -47,6 +49,7 @@ export default class Tile {
     colour = "white",
     destroyIncomingPushes = false,
     durability = Infinity,
+    hpCost = 0,
     indestructible = false,
     name = glyph,
     opaque = solid,
@@ -63,6 +66,7 @@ export default class Tile {
     this.destroyIncomingPushes = destroyIncomingPushes;
     this.durability = durability;
     this.glyph = glyph;
+    this.hpCost = hpCost;
     this.indestructible = indestructible;
     this.name = name;
     this.namePlural = name;

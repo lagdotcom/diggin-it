@@ -17,6 +17,9 @@ import {
   rations,
   rock,
   rope,
+  slabDP,
+  slabHP,
+  slabSP,
   smallGem,
   specs,
   treasureBox,
@@ -28,12 +31,14 @@ import {
   getRandomEnemy,
   getRandomUsable,
   getRandomWeapon,
-  getSlab,
+  getSupremeItem,
+  Picker,
 } from "./tables";
 import Tile, { TileOptions } from "./Tile";
 import {
   border,
   brick,
+  coral,
   dirtDeep,
   dirtMiddle,
   dirtShallow,
@@ -43,6 +48,7 @@ import {
   gas,
   inkDoor,
   ladderTile,
+  magma,
   pike,
   ropeTile,
   sandDeep,
@@ -53,18 +59,16 @@ import {
   vaultExit,
   water,
 } from "./tiles";
-import { higherOfTwo, lowerOfTwo } from "./utils";
-
-type Zoned<T> = (zone: number) => Partial<T>;
+import { higherOfTwo, log, lowerOfTwo } from "./utils";
 
 const dirtTiles = [dirtShallow, dirtMiddle, dirtDeep];
 const sandTiles = [sandShallow, sandMiddle, sandDeep];
-const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
+const tileTypes: Record<string, Partial<TileOptions> | Picker<TileOptions>> = {
   "?": unset,
   " ": empty,
   "!": border,
-  "#": (zone) => dirtTiles[zone],
-  ":": (zone) => sandTiles[zone],
+  "#": ({ zone }) => dirtTiles[zone],
+  ":": ({ zone }) => sandTiles[zone],
   "]": brick,
   "*": vaultBrick,
   "^": ladderTile,
@@ -74,15 +78,17 @@ const tileTypes: Record<string, Partial<TileOptions> | Zoned<TileOptions>> = {
   ">": exit,
   v: vaultExit,
   f: inkDoor,
+  C: coral,
 };
 
 const fluidTypes: Record<string, Partial<TileOptions>> = {
   " ": empty,
   "%": gas,
   "~": water,
+  "&": magma,
 };
 
-const actorTypes: Record<string, Partial<ActorOptions> | Zoned<ActorOptions>> =
+const actorTypes: Record<string, Partial<ActorOptions> | Picker<ActorOptions>> =
   {
     "1": lowerOfTwo(getRandomEnemy, (e) => e.maxHp),
     "2": getRandomEnemy,
@@ -92,7 +98,7 @@ const actorTypes: Record<string, Partial<ActorOptions> | Zoned<ActorOptions>> =
     W: crate,
   };
 
-const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
+const itemTypes: Record<string, Partial<ItemOptions> | Picker<ItemOptions>> = {
   c: coin,
   b: goldBar,
   g: smallGem,
@@ -112,8 +118,11 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   // TODO P: getRandomPotion,
   R: rope,
   S: rock,
+  T: slabHP,
+  U: slabSP,
+  V: slabDP,
   X: specs,
-  Z: getSlab,
+  Z: getSupremeItem,
   "@": getRandomUsable,
 
   "5": lowerOfTwo(getRandomWeapon, (i) => i.bonus.sp),
@@ -123,6 +132,14 @@ const itemTypes: Record<string, Partial<ItemOptions> | Zoned<ItemOptions>> = {
   "9": getRandomArmour,
   "0": higherOfTwo(getRandomArmour, (i) => i.bonus.dp),
 };
+
+const validGlyph = new Set([
+  ...Object.keys(tileTypes),
+  ...Object.keys(fluidTypes),
+  ...Object.keys(fluidTypes),
+  ...Object.keys(actorTypes),
+  ...Object.keys(itemTypes),
+]);
 
 export function getZone(depth: number): 0 | 1 | 2 {
   if (depth < 4) return 0;
@@ -145,16 +162,24 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       const actor = actorTypes[glyph];
       const item = itemTypes[glyph];
       const tile = tileTypes[glyph] || empty;
+      const fluidGlyph = fluid[y][x];
+      const config = { zone, fluid: fluidGlyph };
+
+      if (!validGlyph.has(glyph)) log("invalid map glyph:", glyph);
 
       // TODO: flyweight
-      g.map.set(x, y, new Tile(typeof tile === "function" ? tile(zone) : tile));
+      g.map.set(
+        x,
+        y,
+        new Tile(typeof tile === "function" ? tile(config) : tile)
+      );
       if (item) {
         g.addItem(
-          new Item(x, y, typeof item === "function" ? item(zone) : item)
+          new Item(x, y, typeof item === "function" ? item(config) : item)
         );
       } else if (actor) {
         g.add(
-          new Actor(x, y, typeof actor === "function" ? actor(zone) : actor)
+          new Actor(x, y, typeof actor === "function" ? actor(config) : actor)
         );
       }
 
@@ -168,7 +193,6 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       }
 
       // TODO: flyweight
-      const fluidGlyph = fluid[y][x];
       g.mapFluid.set(x, y, new Tile(fluidTypes[fluidGlyph]));
     }
   }

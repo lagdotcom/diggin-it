@@ -28,6 +28,7 @@ import {
   bolas,
   bomb,
   bow,
+  bracelet,
   busterArmour,
   cherryBomb,
   claws,
@@ -53,13 +54,11 @@ import {
   redPotion,
   reinforced,
   remote,
+  ring,
   rock,
   rope,
   ropeBomb,
   shovel,
-  slabDP,
-  slabHP,
-  slabSP,
   slingshot,
   spear,
   specs,
@@ -77,6 +76,11 @@ const rare = 2;
 const ultraRare = 1;
 
 type Distribution<T extends string> = Partial<Record<T, number>>;
+export interface PickerOptions {
+  zone: 0 | 1 | 2;
+  fluid: string;
+}
+export type Picker<T> = (options: PickerOptions) => Partial<T>;
 
 const enemyTypes = {
   squimpy,
@@ -97,8 +101,7 @@ const enemyTypes = {
 };
 type EnemyName = keyof typeof enemyTypes;
 
-// TODO: puffus, shockworm
-const enemiesByZone: Distribution<EnemyName>[] = [
+const airEnemiesByZone: Distribution<EnemyName>[] = [
   {
     squimpy: uncommon,
     buster: common,
@@ -132,9 +135,16 @@ const enemiesByZone: Distribution<EnemyName>[] = [
   },
 ];
 
-export function getRandomEnemy(zone: number): Partial<ActorOptions> {
-  return enemyTypes[RNG.getWeightedValue(enemiesByZone[zone]) as EnemyName];
-}
+const waterEnemiesByZone: Distribution<EnemyName>[] = [
+  { puffus: common },
+  { puffus: common, shockworm: uncommon },
+  { puffus: common, shockworm: common },
+];
+
+export const getRandomEnemy: Picker<ActorOptions> = ({ zone, fluid }) =>
+  fluid === "~"
+    ? enemyTypes[RNG.getWeightedValue(waterEnemiesByZone[zone]) as EnemyName]
+    : enemyTypes[RNG.getWeightedValue(airEnemiesByZone[zone]) as EnemyName];
 
 const weaponTypes = {
   pickaxe,
@@ -197,9 +207,8 @@ const weaponsByZone: Distribution<WeaponName>[] = [
   },
 ];
 
-export function getRandomWeapon(zone: number): Partial<ItemOptions> {
-  return weaponTypes[RNG.getWeightedValue(weaponsByZone[zone]) as WeaponName];
-}
+export const getRandomWeapon: Picker<ItemOptions> = ({ zone }) =>
+  weaponTypes[RNG.getWeightedValue(weaponsByZone[zone]) as WeaponName];
 
 const armourTypes = {
   clothes,
@@ -238,9 +247,8 @@ const armourByZone: Distribution<ArmourName>[] = [
   },
 ];
 
-export function getRandomArmour(zone: number): Partial<ItemOptions> {
-  return armourTypes[RNG.getWeightedValue(armourByZone[zone]) as ArmourName];
-}
+export const getRandomArmour: Picker<ItemOptions> = ({ zone }) =>
+  armourTypes[RNG.getWeightedValue(armourByZone[zone]) as ArmourName];
 
 const bombTypes = { bomb, cherryBomb, ropeBomb };
 type BombName = keyof typeof bombTypes;
@@ -251,9 +259,8 @@ const bombWeights: Distribution<BombName> = {
   ropeBomb: rare,
 };
 
-export function getRandomBomb(zone: number): Partial<ItemOptions> {
-  return bombTypes[RNG.getWeightedValue(bombWeights) as BombName];
-}
+export const getRandomBomb: Picker<ItemOptions> = () =>
+  bombTypes[RNG.getWeightedValue(bombWeights) as BombName];
 
 const usableTypes = {
   airTank,
@@ -266,7 +273,6 @@ const usableTypes = {
   helmet,
   ladder,
   mambele,
-  mask,
   medikit,
   rations,
   redPotion,
@@ -274,7 +280,6 @@ const usableTypes = {
   rock,
   rope,
   ropeBomb,
-  specs,
   staple,
 };
 type UsableName = keyof typeof usableTypes;
@@ -285,11 +290,9 @@ const usableWeights: Distribution<UsableName> = {
   rations: uncommon,
   airTank: rare,
   rope: uncommon,
-  specs: ultraRare,
   helmet: uncommon,
   // TODO bolas: rare,
   // TODO rock: common,
-  // TODO mask: rare,
   // TODO remote: ultraRare,
   staple: common,
   // TODO mambele: uncommon,
@@ -302,11 +305,17 @@ const usableWeights: Distribution<UsableName> = {
   cherryBomb: rare,
 };
 
-export function getRandomUsable(zone: number): Partial<ItemOptions> {
-  return usableTypes[RNG.getWeightedValue(usableWeights) as UsableName];
-}
+export const getRandomUsable: Picker<ItemOptions> = () =>
+  usableTypes[RNG.getWeightedValue(usableWeights) as UsableName];
 
-const slabs = [slabHP, slabSP, slabDP];
-export function getSlab(zone: number): Partial<ItemOptions> {
-  return slabs[zone];
-}
+const supremeTypes = { bracelet, mask, ring, specs };
+type SupremeItemName = keyof typeof supremeTypes;
+const supremeWeights: Distribution<SupremeItemName> = {
+  bracelet: ultraRare,
+  specs: ultraRare,
+  mask: ultraRare,
+  ring: ultraRare,
+};
+
+export const getSupremeItem: Picker<ItemOptions> = () =>
+  supremeTypes[RNG.getWeightedValue(supremeWeights) as SupremeItemName];

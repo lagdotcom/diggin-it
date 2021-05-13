@@ -3,7 +3,14 @@ import Thing from "./interfaces/Thing";
 import Item from "./Item";
 import Tile from "./Tile";
 
-type DamageType = "bomb" | "combat" | "crush" | "fall" | "suffocation" | "trap";
+type DamageType =
+  | "bomb"
+  | "burning"
+  | "combat"
+  | "crush"
+  | "fall"
+  | "suffocation"
+  | "trap";
 type NoData = Record<string, never>;
 
 export interface EventMap {

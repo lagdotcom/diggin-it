@@ -24,6 +24,7 @@ export default class MainDisplay {
       this.dirtyBot = true;
       if (!info.target) this.dirtyTop = true;
     };
+    g.on("destroyed", maybeBoth);
     g.on("died", maybeBoth);
     g.on("dropped", maybeBoth);
     g.on("equipped", maybeBoth);

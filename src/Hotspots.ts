@@ -27,8 +27,8 @@ function contains(rect: Hotspot<unknown>, x: number, y: number): boolean {
 }
 
 function overlaps(a: Hotspot<unknown>, b: Hotspot<unknown>): boolean {
-  if (a.left >= b.right || b.left >= a.right) return false;
-  if (a.bottom <= b.top || b.bottom <= a.top) return false;
+  if (a.left > b.right || b.left > a.right) return false;
+  if (a.bottom < b.top || b.bottom < a.top) return false;
   return true;
 }
 

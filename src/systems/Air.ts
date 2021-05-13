@@ -20,5 +20,15 @@ export default class Air {
         type: "suffocation",
       });
     }
+
+    if (tile.hpCost && player.hp > 0) {
+      player.hp -= tile.hpCost;
+      if (player.hp > 0) log.add("You're burning!");
+      this.g.emit("damaged", {
+        victim: player,
+        amount: tile.hpCost,
+        type: "burning",
+      });
+    }
   }
 }

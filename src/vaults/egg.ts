@@ -130,7 +130,7 @@ const cauldron = new Vault(
   "cauldron",
   2,
   [" M c c cM ", "#M      M#", "#M      M#", "##M2FF2M##", " ##MMMM## "],
-  ["  ~~~~~  ", "  ~~~~~  ", "  ~~~~~  ", "  ~~~~~  ", "         "]
+  ["  ~~~~~~  ", "  ~~~~~~  ", "  ~~~~~~  ", "   ~~~~   ", "          "]
 );
 
 const rats = new Vault("rats in the walls", 2, [

@@ -1,0 +1,6 @@
+{
+  "extension": ["ts"],
+  "timeout": 5000,
+  "exit": true,
+  "require": ["esm", "ts-node/register"]
+}

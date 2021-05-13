@@ -28,7 +28,7 @@ const d2a2 = new Vault(
 const shak = new Vault(
   "shak's shak",
   1,
-  ["]  ]]]]", "LRL   ]", "]]]   ", "???]2  ", "???]] ?"],
+  ["]  ]]]]", "LRL   ]", "]]]    ", "???]2  ", "???]] ?"],
   undefined,
   zanq
 );

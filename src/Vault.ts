@@ -30,6 +30,23 @@ export default class Vault {
     this.width = this.grid.width;
     this.height = this.grid.height;
     this.transforms = transforms;
+
+    // sanity checks
+    // if (
+    //   this.grid.width !== this.fluidGrid.width ||
+    //   this.grid.height !== this.fluidGrid.height
+    // )
+    //   throw new Error(
+    //     `Vault ${name}: width/height of tiles and fluids don't match`
+    //   );
+
+    // for (let y = 0; y < this.height; y++)
+    //   for (let x = 0; x < this.width; x++) {
+    //     if (this.grid.get(x, y) === undefined)
+    //       throw new Error(`Vault ${name}: tile @${x},${y} undefined`);
+    //     if (this.fluidGrid.get(x, y) === undefined)
+    //       throw new Error(`Vault ${name}: fluid @${x},${y} undefined`);
+    //   }
   }
 
   transform(src: string, dst: string, once = true): this {
