@@ -23,7 +23,10 @@ export default class CreditsScreen implements Context {
     }
   }
   onMouse(e: MouseEvent): Cmd {
-    if (e.button === 2) return { type: "cancel" };
+    if (e.button === 2) {
+      e.preventDefault();
+      return { type: "cancel" };
+    }
   }
 
   render(): void {

@@ -134,6 +134,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Picker<ItemOptions>> = {
 };
 
 const validGlyph = new Set([
+  "4",
   ...Object.keys(tileTypes),
   ...Object.keys(fluidTypes),
   ...Object.keys(fluidTypes),

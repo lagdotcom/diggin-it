@@ -43,6 +43,10 @@ export default class GoodEndingScreen implements Context {
     }
   }
   onMouse(e: MouseEvent): Cmd {
+    if (e.button === 2) {
+      e.preventDefault();
+      return { type: "cancel" };
+    }
     if (e.type !== "mousemove") return { type: "start" };
   }
 

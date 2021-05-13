@@ -185,7 +185,10 @@ export default class Dungeon implements Context {
   onMouse(e: MouseEvent): Cmd {
     this.mouse = this.g.chars.eventToPosition(e);
     if (!this.g.player.alive) {
-      if (e.button === 2) return { type: "title" };
+      if (e.button === 2) {
+        e.preventDefault();
+        return { type: "title" };
+      }
       return;
     }
 

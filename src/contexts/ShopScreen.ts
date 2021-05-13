@@ -175,7 +175,10 @@ export default class ShopScreen implements Context {
   }
   onMouse(e: MouseEvent): Cmd {
     if (e.type === "mousemove") return;
-    if (e.button === 2) return { type: "cancel" };
+    if (e.button === 2) {
+      e.preventDefault();
+      return { type: "cancel" };
+    }
 
     if (e.button === 0) {
       const [ex, ey] = this.g.chars.eventToPosition(e);
