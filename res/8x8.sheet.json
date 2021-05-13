@@ -112,6 +112,8 @@
 
     "ScrollUp": { "row": 6, "col": 0 },
     "ScrollDown": { "row": 7, "col": 0 },
+    "ScrollRight": { "row": 7, "col": 1 },
+    "ScrollLeft": { "row": 7, "col": 2 },
 
     "bo": { "row": 0, "col": 16, "width": 3, "height": 3 },
 
@@ -172,7 +174,9 @@
     "Detector": { "row": 8, "col": 39, "width": 2, "height": 2 },
     "GasMask": { "row": 8, "col": 41, "width": 2, "height": 2 },
     "Ring": { "row": 8, "col": 43, "width": 2, "height": 2 },
-    "Slab": { "row": 8, "col": 45, "width": 2, "height": 2 },
+    "RedSlab": { "row": 8, "col": 45, "width": 2, "height": 2 },
+    "GreenSlab": { "row": 8, "col": 47, "width": 2, "height": 2 },
+    "BlueSlab": { "row": 8, "col": 49, "width": 2, "height": 2 },
 
     "Remote": { "row": 10, "col": 19, "width": 2, "height": 2 },
     "Bone": { "row": 10, "col": 21, "width": 2, "height": 2 },

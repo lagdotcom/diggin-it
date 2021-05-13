@@ -290,7 +290,7 @@ export const poregon: Partial<ActorOptions> = {
 };
 
 export const theGreenInk: Partial<ActorOptions> = {
-  glyph: "Ink1", // TODO: green
+  glyph: "GreenInk1",
   name: "ink",
   article: "the",
   colour: "green",
@@ -307,7 +307,7 @@ export const theGreenInk: Partial<ActorOptions> = {
   lore: "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Exploding younglings spurn forth endlessly from this flying yolk of terror, as if ink dripping on tarnished paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\" - Jacques Splintertooth",
 };
 export const popper: Partial<ActorOptions> = {
-  glyph: "Popper", // TODO
+  glyph: "InkPopper",
   name: "popper",
   colour: "green",
   ai: "fly", // TODO: explodes 5 turns after spawning
@@ -323,7 +323,7 @@ export const popper: Partial<ActorOptions> = {
 };
 
 export const theRedInk: Partial<ActorOptions> = {
-  glyph: "Ink1", // TODO: red
+  glyph: "RedInk1",
   name: "ink",
   article: "the",
   colour: "red",

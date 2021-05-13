@@ -18,7 +18,7 @@ import {
   squimpy,
   telden,
 } from "./actors";
-import Item, { ItemOptions } from "./Item";
+import { ItemOptions } from "./Item";
 import {
   airTank,
   arrow,
@@ -33,14 +33,12 @@ import {
   claws,
   clothes,
   crossbow,
-  detector,
   femur,
   gildedPlate,
   greenPotion,
   hammer,
   helmet,
   jackhammer,
-  jetpack,
   ladder,
   laserCutter,
   machete,
@@ -59,9 +57,9 @@ import {
   rope,
   ropeBomb,
   shovel,
-  slab1,
-  slab2,
-  slab3,
+  slabDP,
+  slabHP,
+  slabSP,
   slingshot,
   spear,
   specs,
@@ -264,10 +262,8 @@ const usableTypes = {
   bolas,
   bomb,
   cherryBomb,
-  detector,
   greenPotion,
   helmet,
-  jetpack,
   ladder,
   mambele,
   mask,
@@ -285,7 +281,6 @@ type UsableName = keyof typeof usableTypes;
 
 const usableWeights: Distribution<UsableName> = {
   bomb: rare,
-  // TODO vial: common,
   ladder: uncommon,
   rations: uncommon,
   airTank: rare,
@@ -294,8 +289,6 @@ const usableWeights: Distribution<UsableName> = {
   helmet: uncommon,
   // TODO bolas: rare,
   // TODO rock: common,
-  // TODO jetpack: ultraRare,
-  // TODO detector: rare,
   // TODO mask: rare,
   // TODO remote: ultraRare,
   staple: common,
@@ -313,7 +306,7 @@ export function getRandomUsable(zone: number): Partial<ItemOptions> {
   return usableTypes[RNG.getWeightedValue(usableWeights) as UsableName];
 }
 
-const slabs = [slab1, slab2, slab3];
+const slabs = [slabHP, slabSP, slabDP];
 export function getSlab(zone: number): Partial<ItemOptions> {
   return slabs[zone];
 }

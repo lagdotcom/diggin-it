@@ -20,6 +20,8 @@
     "Puffus": { "row": 0, "col": 16 },
     "Shockworm": { "row": 0, "col": 17 },
     "Poregon": { "row": 0, "col": 18 },
+    "RedInk": { "row": 0, "col": 19, "width": 2, "height": 2 },
+    "GreenInk": { "row": 0, "col": 21, "width": 2, "height": 2 },
 
     "Explosion": { "row": 1, "col": 0 },
     "HP": { "row": 1, "col": 1 },
@@ -38,6 +40,7 @@
     "PuffusInflated": { "row": 1, "col": 16 },
     "Kreebus": { "row": 1, "col": 17 },
     "Grundilla": { "row": 1, "col": 18 },
+    "InkPopper": { "row": 1, "col": 23 },
 
     "DP": { "row": 2, "col": 0 },
     "SP": { "row": 2, "col": 1 },
@@ -91,7 +94,9 @@
     "Detector": { "row": 4, "col": 10 },
     "GasMask": { "row": 4, "col": 11 },
     "Ring": { "row": 4, "col": 12 },
-    "Slab": { "row": 4, "col": 13 },
+    "RedSlab": { "row": 4, "col": 13 },
+    "GreenSlab": { "row": 4, "col": 14 },
+    "BlueSlab": { "row": 4, "col": 15 },
 
     "Remote": { "row": 5, "col": 0 },
     "Bone": { "row": 5, "col": 1 },
@@ -112,7 +117,13 @@
     "WaterM": { "row": 9, "col": 17, "TODO": true },
     "Water": { "row": 9, "col": 18 },
 
+    "LavaT": { "row": 10, "col": 17, "TODO": true },
+    "LavaBB": { "row": 10, "col": 18, "TODO": true },
+    "LavaW": { "row": 10, "col": 19, "TODO": true },
+
     "MetalBlock": { "row": 11, "col": 15 },
+    "LavaM": { "row": 11, "col": 17, "TODO": true },
+    "Lava": { "row": 11, "col": 18 },
 
     "Coral": { "row": 12, "col": 11 },
     "Gas": { "row": 12, "col": 14 },

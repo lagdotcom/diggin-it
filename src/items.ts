@@ -1,5 +1,7 @@
 import { ItemOptions } from "./Item";
 
+const notImplemented = "This isn't implemented yet. Sorry.";
+
 export const pocketwatch: Partial<ItemOptions> = {
   glyph: "Pocketwatch",
   name: "pocketwatch",
@@ -12,13 +14,6 @@ export const brokenPocketwatch: Partial<ItemOptions> = {
   glyph: "BrokenPocketwatch",
   name: "broken pocketwatch",
   lore: "A shattered image of what used to be and what could have been. Vague shapes stare back at you through a cracked lens, unrecognizable.",
-};
-
-// TODO
-export const detector: Partial<ItemOptions> = {
-  glyph: "Detector",
-  name: "gas detector",
-  lore: 'A small electronic beeper that tells the density of the gas in any area for as long as its battery lasts. These devices are often dubbed "canaries" by more grizzled and seasoned diggers and miners, a reference to the since banned practice of using small birds to gauge if an area was too toxic to be explored.',
 };
 
 // TODO
@@ -244,7 +239,7 @@ export const ropeBomb: Partial<ItemOptions> = {
   glyph: "RopeBomb",
   name: "rope bomb",
   charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 export const rope: Partial<ItemOptions> = {
@@ -280,14 +275,6 @@ export const bracelet: Partial<ItemOptions> = {
   lore: "Bracelet resembling magical artifacts from the island of Mellogrin. Rarities outside of the island itself, as few Mellogrinians have ever ventured away from the island, and fewer still bring pieces of their old life with them. Mellogrinian artifacts are often said to be imbued with the celebration of life, protecting wearers from the harm that the world would do to them.",
 };
 
-// TODO
-export const vial: Partial<ItemOptions> = {
-  glyph: "Vial",
-  name: "empty vial",
-  charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
-};
-
 export const airTank: Partial<ItemOptions> = {
   glyph: "Tank",
   name: "air tank",
@@ -314,13 +301,6 @@ export const helmet: Partial<ItemOptions> = {
   lore: "Patented during the great gold rush by Wilton B. Miner and named after his legacy, they vastly improved the safety of digs by providing protection from falling rocks as well as providing additional light in dark corridors and deep expanses.",
   slot: "head",
   bonus: { vision: 2, crushResistance: 0.5 },
-};
-
-// TODO
-export const jetpack: Partial<ItemOptions> = {
-  glyph: "Jetpack",
-  name: "jetpack",
-  lore: "This isn't implemented yet. Sorry.",
 };
 
 // TODO
@@ -421,7 +401,7 @@ export const remote: Partial<ItemOptions> = {
   glyph: "Remote",
   name: "remote",
   charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 export const staple: Partial<ItemOptions> = {
@@ -436,27 +416,27 @@ export const mambele: Partial<ItemOptions> = {
   glyph: "Mambele",
   name: "mambele",
   charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 // TODO
-export const slab1: Partial<ItemOptions> = {
-  glyph: "Slab", // TODO: red
+export const slabHP: Partial<ItemOptions> = {
+  glyph: "RedSlab",
   name: "ancient slab of vigour",
   article: "an",
   holdBonus: { maxHp: 10 },
   lore: '"The slab beckons as I feel words pulse in my mind as fleeting as sparks at night. I know not what it is, only that it calls to me with promises of renewed energy and hidden knowledge." - Jacques Splintertooth',
 };
-export const slab2: Partial<ItemOptions> = {
-  glyph: "Slab", // TODO: green
+export const slabSP: Partial<ItemOptions> = {
+  glyph: "GreenSlab",
   name: "ancient slab of power",
   article: "an",
   holdBonus: { sp: 5 },
   lore: '"The slab beckons as I feel a tingling course through my veins as swift as a powerful breeze. I know not what it is, only that it calls to me with promises of renewed strength and hidden knowledge." - Jacques Splintertooth',
 };
-export const slab3: Partial<ItemOptions> = {
-  glyph: "Slab", // TODO: blue
-  name: "ancient slab of power?", // TODO: real name
+export const slabDP: Partial<ItemOptions> = {
+  glyph: "BlueSlab",
+  name: "ancient slab of grit", // TODO: real name
   article: "an",
   holdBonus: { dp: 5 },
   lore: '"The slab beckons as I feel a frigid chill like the touch of a frozen hand. I know not what it is, only that it calls to me with promises of renewed fortitude and hidden knowledge." - Jacques Splintertooth',
@@ -466,7 +446,7 @@ export const slab3: Partial<ItemOptions> = {
 export const ring: Partial<ItemOptions> = {
   glyph: "Ring",
   name: "vanish ring",
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 // TODO
@@ -474,7 +454,7 @@ export const arrow: Partial<ItemOptions> = {
   glyph: "Arrow",
   name: "arrow",
   charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 // TODO
@@ -482,7 +462,7 @@ export const bluePotion: Partial<ItemOptions> = {
   glyph: "BluePotion",
   name: "blue liquid",
   charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 // TODO
@@ -490,7 +470,7 @@ export const redPotion: Partial<ItemOptions> = {
   glyph: "RedPotion",
   name: "red liquid",
   charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 // TODO
@@ -498,7 +478,7 @@ export const greenPotion: Partial<ItemOptions> = {
   glyph: "GreenPotion",
   name: "green liquid",
   charges: 1,
-  lore: "This isn't implemented yet. Sorry.",
+  lore: notImplemented,
 };
 
 export const medikit: Partial<ItemOptions> = {

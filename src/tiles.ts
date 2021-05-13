@@ -69,7 +69,7 @@ export const vaultBrick: Partial<TileOptions> = {
   glyph: "SideBrick",
   name: "brick wall",
   solid: true,
-  durability: 10,
+  durability: 20,
 };
 
 export const unset: Partial<TileOptions> = {
