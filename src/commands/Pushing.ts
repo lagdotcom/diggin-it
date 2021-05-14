@@ -33,7 +33,7 @@ export default class Pushing {
     const x = actor.x + mx;
     const y = actor.y + my;
 
-    this.g.move(actor, x, y, this.g.player);
+    this.g.move(actor, x, y, "push", this.g.player);
     this.g.log.add(`You push ${theName(actor)}.`);
     this.g.spent++;
   }

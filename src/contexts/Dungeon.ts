@@ -267,7 +267,7 @@ export default class Dungeon implements Context {
     const { player } = this.g;
 
     this.g.log.add("You climb up.");
-    this.g.move(player, x, y);
+    this.g.move(player, x, y, "climb");
     this.g.spent++;
     return this.render();
   }

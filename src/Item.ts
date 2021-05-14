@@ -32,6 +32,7 @@ export interface ItemOptions {
 }
 
 export default class Item {
+  _type: "Item";
   article: string;
   bonus: Partial<Record<string, number>>;
   canClimb: boolean;
@@ -75,6 +76,7 @@ export default class Item {
       canPickUp = treasure === 0,
     }: Partial<ItemOptions> = {}
   ) {
+    this._type = "Item";
     this.article = article;
     this.bonus = bonus;
     this.canClimb = canClimb;

@@ -14,11 +14,13 @@ export interface TileOptions {
   opaque: boolean;
   xrayOpaque: boolean;
   fallOntoDamage: number;
+  walkOntoDamage: number;
   solid: boolean;
   lore: string;
 }
 
 export default class Tile {
+  _type: "Tile";
   airCost: number;
   article: string;
   canClimb: boolean;
@@ -35,6 +37,7 @@ export default class Tile {
   opaque: boolean;
   xrayOpaque: boolean;
   fallOntoDamage: number;
+  walkOntoDamage: number;
   solid: boolean;
   lore: string;
 
@@ -55,8 +58,10 @@ export default class Tile {
     opaque = solid,
     xrayOpaque = indestructible,
     fallOntoDamage = 0,
+    walkOntoDamage = 0,
     lore = "",
   }: Partial<TileOptions> = {}) {
+    this._type = "Tile";
     this.airCost = airCost;
     this.article = article;
     this.canClimb = canClimb;
@@ -73,6 +78,7 @@ export default class Tile {
     this.opaque = opaque;
     this.xrayOpaque = xrayOpaque;
     this.fallOntoDamage = fallOntoDamage;
+    this.walkOntoDamage = walkOntoDamage;
     this.solid = solid;
     this.lore = lore;
   }

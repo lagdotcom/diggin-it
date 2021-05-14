@@ -53,7 +53,7 @@ export default class AI {
     if (move) {
       const [mx, my] = move;
       if (this.isSafeMove(actor, mx, my)) {
-        this.g.move(actor, actor.x + mx, actor.y + my);
+        this.g.move(actor, actor.x + mx, actor.y + my, "walk");
         success = true;
       }
     }
@@ -65,7 +65,7 @@ export default class AI {
       if (move2) {
         const [mx, my] = move2;
         if (this.isSafeMove(actor, mx, my)) {
-          this.g.move(actor, actor.x + mx, actor.y + my);
+          this.g.move(actor, actor.x + mx, actor.y + my, "walk");
         }
       }
     }
@@ -146,7 +146,7 @@ export default class AI {
 
     if (path.length) {
       const [x, y] = path[1];
-      this.g.move(enemy, x, y);
+      this.g.move(enemy, x, y, "walk");
     } else active = false;
 
     enemy.aiData = { active };
@@ -253,10 +253,10 @@ export default class AI {
     c: Actor,
     d: Actor
   ) {
-    this.g.move(a, x, y);
-    this.g.move(b, x + 1, y);
-    this.g.move(c, x, y + 1);
-    this.g.move(d, x + 1, y + 1);
+    this.g.move(a, x, y, "walk");
+    this.g.move(b, x + 1, y, "walk");
+    this.g.move(c, x, y + 1, "walk");
+    this.g.move(d, x + 1, y + 1, "walk");
   }
 
   private inkCanMoveHere(x: number, y: number, ignore: Actor[]) {

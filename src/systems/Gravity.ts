@@ -128,7 +128,7 @@ export default class Gravity {
 
     // TODO: damage, etc.
 
-    this.g.moveItem(thing, x, y);
+    this.g.moveItem(thing, x, y, "fall");
     this.g.emit("fell", { thing, distance });
     return true;
   }
@@ -153,7 +153,7 @@ export default class Gravity {
     x: number,
     y: number
   ): boolean {
-    this.g.move(victim, x, y);
+    this.g.move(victim, x, y, "fall");
     this.g.emit("fell", { thing: victim, distance });
     if (!victim.alive || victim.inky || this.silent) return true;
 
@@ -211,11 +211,11 @@ export default class Gravity {
     if (victim.alive) {
       y--;
       distance--;
-      if (escape) this.g.move(victim, escape[0], escape[1], attacker);
+      if (escape) this.g.move(victim, escape[0], escape[1], "crush", attacker);
       victim.reeling = true;
     }
 
-    this.g.move(attacker, x, y);
+    this.g.move(attacker, x, y, "fall");
     this.g.emit("fell", { thing: attacker, distance });
     return true;
   }

@@ -44,6 +44,7 @@ export interface ActorOptions {
 }
 
 export default class Actor {
+  _type: "Actor";
   ai?: ActorAI;
   aiData: AIData;
   alive: boolean;
@@ -116,6 +117,7 @@ export default class Actor {
       teleportThreshold = undefined,
     }: Partial<ActorOptions> = {}
   ) {
+    this._type = "Actor";
     this.ai = ai;
     this.aiData = aiData;
     this.article = article;

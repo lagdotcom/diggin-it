@@ -3,7 +3,7 @@ import Thing from "./interfaces/Thing";
 import Item from "./Item";
 import Tile from "./Tile";
 
-type DamageType =
+export type DamageType =
   | "bomb"
   | "burning"
   | "combat"
@@ -11,6 +11,7 @@ type DamageType =
   | "fall"
   | "suffocation"
   | "trap";
+export type MoveType = "walk" | "fall" | "crush" | "climb" | "push";
 type NoData = Record<string, never>;
 
 export interface EventMap {
@@ -37,7 +38,13 @@ export interface EventMap {
   left: { depth: number; zone: number };
   litBomb: { item: Item };
   mapChanged: NoData;
-  moved: { thing: Thing; mx: number; my: number; forced?: Thing };
+  moved: {
+    thing: Thing;
+    mx: number;
+    my: number;
+    type: MoveType;
+    forced?: Thing;
+  };
   noticed: { actor: Actor };
   refreshed: NoData;
   tick: NoData;

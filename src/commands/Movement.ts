@@ -48,7 +48,7 @@ export default class Movement {
     const x = player.x + mx;
     const y = player.y + my;
 
-    this.g.move(player, x, y);
+    this.g.move(player, x, y, "walk");
     this.g.spent++;
   }
 }

@@ -172,6 +172,7 @@ export const pike: Partial<TileOptions> = {
   durability: 2,
   lore: "A trick of the Poregons, or perhaps leftover hunting traps left by previous explorers, falling on these pikes would almost certainly prove quite painful, if not fatal. Be wary of where you step, and tread lightly lest your life come to a pointed end.",
   fallOntoDamage: 40,
+  walkOntoDamage: 15,
 };
 
 export const coral: Partial<TileOptions> = {

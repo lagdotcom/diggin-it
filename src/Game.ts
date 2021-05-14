@@ -7,7 +7,7 @@ import BadEndingScreen from "./contexts/BadEndingScreen";
 import Dungeon from "./contexts/Dungeon";
 import GoodEndingScreen from "./contexts/GoodEndingScreen";
 import MessageLog from "./display/MessageLog";
-import { EventMap } from "./Event";
+import { EventMap, MoveType } from "./Event";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
 import GraphicsDisplay from "./interfaces/GraphicsDisplay";
@@ -165,7 +165,13 @@ export default class Game extends EventHandler {
     );
   }
 
-  move(thing: Actor, x: number, y: number, forced?: Thing): EventMap["moved"] {
+  move(
+    thing: Actor,
+    x: number,
+    y: number,
+    type: MoveType,
+    forced?: Thing
+  ): EventMap["moved"] {
     const mx = x - thing.x,
       my = y - thing.y;
 
@@ -175,13 +181,14 @@ export default class Game extends EventHandler {
     thing.y = y;
     this.actors.set(x, y, thing);
 
-    return this.emit("moved", { thing, mx, my, forced });
+    return this.emit("moved", { thing, mx, my, type, forced });
   }
 
   moveItem(
     thing: Item,
     x: number,
     y: number,
+    type: MoveType,
     forced?: Thing
   ): EventMap["moved"] {
     const mx = x - thing.x,
@@ -194,6 +201,6 @@ export default class Game extends EventHandler {
     thing.y = y;
     this.items.update(x, y, (items) => items.concat(thing));
 
-    return this.emit("moved", { thing, mx, my, forced });
+    return this.emit("moved", { thing, mx, my, type, forced });
   }
 }
