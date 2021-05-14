@@ -133,7 +133,6 @@ const airEnemiesByZone: Distribution<EnemyName>[] = [
     slobberfin: rare,
     splinter: common,
     telden: uncommon,
-    kreebus: rare,
     grundilla: ultraRare,
   },
 ];
@@ -141,7 +140,7 @@ const airEnemiesByZone: Distribution<EnemyName>[] = [
 const waterEnemiesByZone: Distribution<EnemyName>[] = [
   { puffus: common },
   { puffus: common, shockworm: uncommon },
-  { puffus: common, shockworm: common },
+  { puffus: common, shockworm: common, kreebus: rare },
 ];
 
 export const getRandomEnemy: Picker<ActorOptions> = ({ zone, fluid }) =>
