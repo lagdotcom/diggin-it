@@ -52,6 +52,12 @@ namespace DigginItWinWrap
     private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
     {
       string path = e.Request.Uri.Substring(12);
+      if (!data.ContainsKey(path))
+      {
+        MessageBox.Show($"Bundle does not contain file: {path}", "Error");
+        return;
+      }
+
       var stream = new MemoryStream(data[path]);
 
       Debug.WriteLine($"Request: {path}");

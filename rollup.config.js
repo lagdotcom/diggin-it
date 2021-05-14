@@ -21,7 +21,7 @@ const plugins = [
   nodePolyfills(),
   json({ preferConst: true }),
   file({ output: outputDir, extensions: /\.mp3/ }),
-  url({ limit: 30 * 1024 }),
+  url({ limit: 100 * 1024 }),
   sourcemaps(),
   resolve(),
   typescript({ tsconfigDefaults: { sourceMap: true } }),
