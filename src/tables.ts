@@ -59,6 +59,9 @@ import {
   rope,
   ropeBomb,
   shovel,
+  slabDP,
+  slabHP,
+  slabSP,
   slingshot,
   spear,
   specs,
@@ -319,3 +322,6 @@ const supremeWeights: Distribution<SupremeItemName> = {
 
 export const getSupremeItem: Picker<ItemOptions> = () =>
   supremeTypes[RNG.getWeightedValue(supremeWeights) as SupremeItemName];
+
+const slabs = [slabHP, slabSP, slabDP];
+export const getSlab: Picker<ItemOptions> = ({ zone }) => slabs[zone];
