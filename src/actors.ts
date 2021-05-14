@@ -213,8 +213,8 @@ export const puffus: Partial<ActorOptions> = {
   glyph: "Puffus",
   name: "puffus",
   colour: "blue",
-  ai: "fly", // TODO: "wanderSwim"
-  obeysGravity: false,
+  ai: "wander",
+  needsWater: true,
   maxHp: 39,
   maxHpRange: 47,
   sp: 21,
@@ -229,8 +229,8 @@ export const shockworm: Partial<ActorOptions> = {
   glyph: "Shockworm",
   name: "shockworm",
   colour: "green",
-  ai: "fly", // TODO: "swim"
-  obeysGravity: false,
+  ai: "fly",
+  needsWater: true,
   maxHp: 56,
   maxHpRange: 62,
   sp: 32,

@@ -1,5 +1,6 @@
 import { RNG } from "rot-js";
 import AStar from "rot-js/lib/path/astar";
+import { PassableCallback } from "rot-js/lib/path/path";
 
 import Actor, { ActorAI, AIData } from "../Actor";
 import { drifter, floater } from "../actors";
@@ -75,8 +76,11 @@ export default class AI {
 
   canMoveDir(actor: Actor, mx: number): XY {
     const my = 0;
-
     const side = this.g.contents(actor.x + mx, actor.y);
+
+    // swimming? just do it
+    if (actor.needsWater && side.fluid.canSwimIn) return [mx, my];
+
     if (side.actor) {
       if (
         side.actor.pushable &&
@@ -134,15 +138,15 @@ export default class AI {
       return this.combat.attack(enemy, player);
     }
 
-    const astar = new AStar(
-      player.x,
-      player.y,
-      (x, y) => this.flyPassable(x, y, [player, enemy]),
-      { topology: 4 }
-    );
+    const passable: PassableCallback = enemy.needsWater
+      ? (x, y) =>
+          this.g.mapFluid.get(x, y).canSwimIn &&
+          this.flyPassable(x, y, [player, enemy])
+      : (x, y) => this.flyPassable(x, y, [player, enemy]);
 
+    const aStar = new AStar(player.x, player.y, passable, { topology: 4 });
     const path: XY[] = [];
-    astar.compute(enemy.x, enemy.y, (x, y) => path.push([x, y]));
+    aStar.compute(enemy.x, enemy.y, (x, y) => path.push([x, y]));
 
     if (path.length) {
       const [x, y] = path[1];

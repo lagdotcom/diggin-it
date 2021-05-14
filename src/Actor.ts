@@ -24,6 +24,7 @@ export interface ActorOptions {
   inventorySize: number;
   lore: string;
   name: string;
+  needsWater: boolean;
   obeysGravity: boolean;
   pushable: boolean;
   vision: number;
@@ -62,6 +63,7 @@ export default class Actor {
   lore?: string;
   name: string;
   namePlural: string;
+  needsWater: boolean;
   obeysGravity: boolean;
   pushable: boolean;
   vision: number;
@@ -97,6 +99,7 @@ export default class Actor {
       inky = false,
       lore = undefined,
       name = glyph,
+      needsWater = false,
       obeysGravity = true,
       pushable = false,
       vision = 5,
@@ -131,6 +134,7 @@ export default class Actor {
     this.lore = lore;
     this.name = name;
     this.namePlural = name;
+    this.needsWater = needsWater;
     this.obeysGravity = obeysGravity;
     this.pushable = pushable;
     this.vision = vision;
