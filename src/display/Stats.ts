@@ -1,7 +1,9 @@
-import { lightRed } from "../colours";
+import { bg, lightRed } from "../colours";
 import { drawPanel } from "../drawing";
 import Game from "../Game";
 import { pad } from "../utils";
+
+const warning = bg(lightRed);
 
 export default class Stats {
   dirty: boolean;
@@ -34,7 +36,7 @@ export default class Stats {
   }
 
   renderStat(y: number, name: string, value: number, warn = 0, x = 31): void {
-    const col = value < warn ? `%b{${lightRed}}` : "";
+    const col = value < warn ? warning : "";
     this.g.chars.drawText(x, y, `${col}${name}${pad(value, 3)}`);
   }
 
@@ -45,7 +47,7 @@ export default class Stats {
     max: number,
     warn = 0
   ): void {
-    const col = value < warn ? `%b{${lightRed}}` : "";
+    const col = value < warn ? warning : "";
     this.g.chars.drawText(
       29,
       y,

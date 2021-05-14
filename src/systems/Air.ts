@@ -1,4 +1,7 @@
+import { bg, lightRed } from "../colours";
 import Game from "../Game";
+
+const warning = bg(lightRed);
 
 export default class Air {
   constructor(public g: Game) {
@@ -13,7 +16,7 @@ export default class Air {
     if (player.ap < 1) {
       player.ap = 0;
       player.hp -= 5;
-      if (player.hp > 0) log.add("You're suffocating!");
+      if (player.hp > 0) log.add(`${warning}You're suffocating!`);
       this.g.emit("damaged", {
         victim: player,
         amount: 5,
@@ -23,7 +26,7 @@ export default class Air {
 
     if (tile.hpCost && player.hp > 0) {
       player.hp -= tile.hpCost;
-      if (player.hp > 0) log.add("You're burning!");
+      if (player.hp > 0) log.add(`${warning}You're burning!`);
       this.g.emit("damaged", {
         victim: player,
         amount: tile.hpCost,

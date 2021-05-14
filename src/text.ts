@@ -1,4 +1,4 @@
-import { lightBlue, lightGold, lightGreen, lightRed } from "./colours";
+import { fg, lightBlue, lightGold, lightGreen, lightRed } from "./colours";
 
 type Entity = {
   alive?: boolean;
@@ -14,10 +14,10 @@ type Entity = {
 
 export function colour(thing: Entity): string {
   if (thing.name === "you") return "";
-  if (thing.alive) return `%c{${lightRed}}`;
-  if (thing.slot) return `%c{${lightGreen}}`;
-  if (thing.use) return `%c{${lightBlue}}`;
-  if (thing.treasure) return `%c{${lightGold}}`;
+  if (thing.alive) return fg(lightRed);
+  if (thing.slot) return fg(lightGreen);
+  if (thing.use) return fg(lightBlue);
+  if (thing.treasure) return fg(lightGold);
   return "";
 }
 
@@ -33,7 +33,7 @@ export function name(thing: Entity, capitalize = false): string {
 }
 
 export function cname(thing: Entity, capitalize = false): string {
-  return colour(thing) + name(thing, capitalize) + "%c{}";
+  return colour(thing) + name(thing, capitalize) + fg();
 }
 
 export function theName(thing: Entity, capitalize = false): string {
@@ -42,7 +42,7 @@ export function theName(thing: Entity, capitalize = false): string {
 }
 
 export function ctheName(thing: Entity, capitalize = false): string {
-  return colour(thing) + theName(thing, capitalize) + "%c{}";
+  return colour(thing) + theName(thing, capitalize) + fg();
 }
 
 export function it(thing: Entity): string {
