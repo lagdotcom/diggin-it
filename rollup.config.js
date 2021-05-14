@@ -24,8 +24,8 @@ const plugins = [
   url({ limit: 100 * 1024 }),
   sourcemaps(),
   resolve(),
-  typescript({ tsconfigDefaults: { sourceMap: true } }),
   commonjs(),
+  typescript({ tsconfigDefaults: { sourceMap: true } }),
 ];
 if (!production) {
   output.push({
