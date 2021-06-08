@@ -1,6 +1,7 @@
 {
   "extension": ["ts"],
+  "spec": ["src/**/*.spec.ts"],
   "timeout": 5000,
   "exit": true,
-  "require": ["esm", "ts-node/register"]
+  "require": ["./src/test/compiler.js"]
 }
