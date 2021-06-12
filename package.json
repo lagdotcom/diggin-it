@@ -1,6 +1,6 @@
 {
   "name": "diggin-it",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "7DRL 2021",
   "main": "src/index.ts",
   "scripts": {
@@ -27,6 +27,7 @@
   "license": "ISC",
   "dependencies": {
     "@lagdotcom/simple-inputs": "git+https://github.com/lagdotcom/simple-inputs.git",
+    "bresenham": "0.0.4",
     "rot-js": "git+https://github.com/lagdotcom/rot.js.git"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-url": "^6.0.0",
     "@types/assert": "^1.5.4",
+    "@types/bresenham": "0.0.0",
     "@types/mocha": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",

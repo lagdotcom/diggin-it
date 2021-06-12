@@ -1,3 +1,4 @@
+import bresenham from "bresenham";
 import { RNG } from "rot-js";
 
 import Game from "../Game";
@@ -271,10 +272,22 @@ export default class UsableItems {
     const { actors, player } = this.g;
     const [distance] = item.useArgs;
 
-    // TODO: this allows throwing through walls
-    return actors.diamond(player.x, player.y, distance).filter((pos) => {
-      const blocker = actors.get(pos[0], pos[1]);
-      return blocker && blocker.alive && !blocker.player;
+    return actors.diamond(player.x, player.y, distance).filter((target) => {
+      const victim = actors.get(target[0], target[1]);
+      if (!victim || !victim.alive || victim.player) return false;
+
+      const path = bresenham(player.x, player.y, target[0], target[1]);
+      for (let i = 0; i < path.length; i++) {
+        const pos = path[i];
+        const { actor, tile } = this.g.contents(pos.x, pos.y);
+
+        if (tile.solid) return false;
+        if (actor === victim) return true;
+
+        if (actor && actor.alive && !actor.player) return false;
+      }
+
+      return true;
     });
   }
 
