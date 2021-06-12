@@ -7,6 +7,8 @@ import XY from "../interfaces/XY";
 import Soon from "../Soon";
 import Dungeon from "./Dungeon";
 
+const targetColour = "rgba(255,255,255,0.5)";
+
 export default class Targeting implements Context {
   hotspots: Hotspots<number>;
   mouse: XY;
@@ -54,6 +56,7 @@ export default class Targeting implements Context {
       const spot = this.hotspots.resolve(x, y);
       if (spot) {
         this.g.contexts.pop();
+        this.parent.rerender.start();
         this.parent.handle(this.cmd.callback([x, y]));
         return;
       }
@@ -83,7 +86,7 @@ export default class Targeting implements Context {
       const tx = x + xmod,
         ty = y + ymod;
 
-      drawPanel(chars, tx * 2, ty * 2, 2, 2);
+      drawPanel(chars, tx * 2, ty * 2, 2, 2, false, targetColour);
     });
   }
 }

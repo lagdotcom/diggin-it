@@ -5,11 +5,12 @@ export default interface Grid<T> {
   height: number;
 
   contains(x: number, y: number): boolean;
+  diamond(x: number, y: number, size: number): XY[];
   fill(value: T): Grid<T>;
-  mirror(): Grid<T>;
   get(x: number, y: number): T;
   includes(value: T): boolean;
   index(x: number, y: number): number;
+  mirror(): Grid<T>;
   neighbours(sx: number, sy: number): XY[];
   paste(grid: Grid<T>, x: number, y: number): boolean;
   positions(): XY[];

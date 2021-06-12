@@ -294,7 +294,7 @@ const usableWeights: Distribution<UsableName> = {
   rope: uncommon,
   helmet: uncommon,
   // TODO bolas: rare,
-  // TODO rock: common,
+  rock: common,
   // TODO remote: ultraRare,
   staple: common,
   // TODO mambele: uncommon,

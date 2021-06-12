@@ -137,4 +137,23 @@ export default class LinearGrid<T> implements Grid<T> {
   includes(value: T): boolean {
     return this.items.includes(value);
   }
+
+  diamond(x: number, y: number, size: number): XY[] {
+    const queue: XY[] = [[x, y]];
+    const pending: XY[] = [];
+    const locations: XY[] = [];
+    let distance = 0;
+
+    while (distance < size) {
+      queue.forEach((pos) => {
+        locations.push(pos);
+        pending.push(...this.neighbours(pos[0], pos[1]));
+      });
+
+      distance++;
+      queue.splice(0, queue.length, ...pending.splice(0, pending.length));
+    }
+
+    return locations;
+  }
 }

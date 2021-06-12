@@ -303,10 +303,11 @@ export const helmet: Partial<ItemOptions> = {
   bonus: { vision: 2, crushResistance: 0.5 },
 };
 
-// TODO
 export const rock: Partial<ItemOptions> = {
   glyph: "Rock",
   name: "rock",
+  use: "throw",
+  useArgs: [5, 3],
   charges: 1,
   lore: "Made for throwing, skipping, looking at, having lonely existential conversations with, and so much more!\n...Not a good meal, though.",
 };
@@ -449,12 +450,13 @@ export const ring: Partial<ItemOptions> = {
   lore: notImplemented,
 };
 
-// TODO
 export const arrow: Partial<ItemOptions> = {
   glyph: "Arrow",
   name: "arrow",
+  use: "throw",
+  useArgs: [5, 15],
   charges: 1,
-  lore: notImplemented,
+  lore: "Arrows manufactured for use with crossbows and longbows, skilled hands and keen eyes can even throw these by themselves, though it's not recommended.",
 };
 
 // TODO

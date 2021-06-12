@@ -33,6 +33,8 @@ export function drawPanel(
   width: number,
   height: number,
   fill = false,
+  fg = "transparent",
+  bg = "transparent",
   tiles = panelTiles
 ): void {
   for (let y = 0; y < height; y++) {
@@ -43,7 +45,7 @@ export function drawPanel(
       const tile = tiles[row][col];
       if (tile === "bo5" && !fill) continue;
 
-      chars.draw(sx + x, sy + y, tile, "transparent", "transparent");
+      chars.draw(sx + x, sy + y, tile, fg, bg);
     }
   }
 }

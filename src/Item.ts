@@ -8,7 +8,8 @@ export type ItemUse =
   | "ladder"
   | "memento"
   | "rope"
-  | "staple";
+  | "staple"
+  | "throw";
 
 export interface ItemOptions {
   article: string;

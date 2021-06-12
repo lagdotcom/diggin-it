@@ -5,6 +5,7 @@ import Cmd from "../interfaces/Cmd";
 import XY from "../interfaces/XY";
 import Item, { ItemUse } from "../Item";
 import { litBomb } from "../temps";
+import { ctheName, theName } from "../text";
 import Tile from "../Tile";
 import {
   ladderTile,
@@ -23,7 +24,7 @@ interface SimpleUseFn {
 interface TargetedUseFn {
   type: "target";
   use(item: Item, x: number, y: number): undefined | string | Cmd;
-  targets(): XY[];
+  targets(item: Item): XY[];
 }
 type UseData = SimpleUseFn | TargetedUseFn;
 
@@ -51,6 +52,10 @@ export default class UsableItems {
         this.useStaple.bind(this),
         this.getStapleTargets.bind(this)
       ),
+      throw: targeted(
+        this.useThrow.bind(this),
+        this.getThrowTargets.bind(this)
+      ),
     };
   }
 
@@ -61,7 +66,7 @@ export default class UsableItems {
     const data = this.mapping[item.use];
     if (data.type === "target") {
       if (!at) {
-        const targets = data.targets();
+        const targets = data.targets(item);
         if (targets.length === 0) return "No room.";
         if (targets.length > 1)
           return {
@@ -260,5 +265,37 @@ export default class UsableItems {
       default:
         return "It's barely holding together.";
     }
+  }
+
+  getThrowTargets(item: Item): XY[] {
+    const { actors, player } = this.g;
+    const [distance] = item.useArgs;
+
+    // TODO: this allows throwing through walls
+    return actors.diamond(player.x, player.y, distance).filter((pos) => {
+      const blocker = actors.get(pos[0], pos[1]);
+      return blocker && blocker.alive && !blocker.player;
+    });
+  }
+
+  useThrow(item: Item, x: number, y: number): undefined {
+    const [, damage] = item.useArgs;
+    const { actors, player: attacker } = this.g;
+
+    const victim = actors.get(x, y);
+    const amount =
+      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"));
+    const iname = theName(item);
+    const vname = ctheName(victim);
+
+    this.g.emit("attacked", { attacker, victim });
+    this.g.log.add(`You throw ${iname} at ${vname} for ${amount} damage.`);
+    victim.hp -= amount;
+    this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
+
+    this.g.emit("used", { actor: attacker, item });
+    item.charges--;
+    this.g.spent++;
+    return undefined;
   }
 }
