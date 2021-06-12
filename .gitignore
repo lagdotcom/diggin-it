@@ -5,6 +5,7 @@
 /dist/*.png
 /dist/bundle.*
 /node_modules
+/redbean.com
 
 /DigginItWinWrap/bin
 /DigginItWinWrap/obj
