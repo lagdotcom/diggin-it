@@ -7,6 +7,7 @@ export default interface Grid<T> {
   contains(x: number, y: number): boolean;
   diamond(x: number, y: number, size: number): XY[];
   fill(value: T): Grid<T>;
+  fromIndex(index: number): XY;
   get(x: number, y: number): T;
   includes(value: T): boolean;
   index(x: number, y: number): number;

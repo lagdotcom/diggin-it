@@ -10,6 +10,7 @@ export default class LinearGrid<T> implements Grid<T> {
     public uninitialised: (x: number, y: number) => T
   ) {
     this.items = [];
+    this.fromIndex = this.fromIndex.bind(this);
     for (let y = 0; y < height; y++)
       for (let x = 0; x < width; x++) this.items.push(uninitialised(x, y));
   }
@@ -26,6 +27,12 @@ export default class LinearGrid<T> implements Grid<T> {
 
   index(x: number, y: number): number {
     return y * this.width + x;
+  }
+
+  fromIndex(index: number): XY {
+    const y = Math.floor(index / this.width);
+    const x = index % this.width;
+    return [x, y];
   }
 
   fill(value: T): this {
@@ -141,19 +148,19 @@ export default class LinearGrid<T> implements Grid<T> {
   diamond(x: number, y: number, size: number): XY[] {
     const queue: XY[] = [[x, y]];
     const pending: XY[] = [];
-    const locations: XY[] = [];
+    const locations = new Set<number>();
     let distance = 0;
 
     while (distance < size) {
-      queue.forEach((pos) => {
-        locations.push(pos);
-        pending.push(...this.neighbours(pos[0], pos[1]));
+      queue.forEach(([x, y]) => {
+        locations.add(this.index(x, y));
+        pending.push(...this.neighbours(x, y));
       });
 
       distance++;
       queue.splice(0, queue.length, ...pending.splice(0, pending.length));
     }
 
-    return locations;
+    return Array.from(locations, this.fromIndex);
   }
 }
