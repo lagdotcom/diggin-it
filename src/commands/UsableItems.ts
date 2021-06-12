@@ -67,7 +67,7 @@ export default class UsableItems {
     if (data.type === "target") {
       if (!at) {
         const targets = data.targets(item);
-        if (targets.length === 0) return "No room.";
+        if (targets.length === 0) return item.useFail || "No valid target.";
         if (targets.length > 1)
           return {
             type: "target",

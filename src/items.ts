@@ -248,6 +248,7 @@ export const rope: Partial<ItemOptions> = {
   use: "rope",
   charges: 1,
   useArgs: [4],
+  useFail: "No room.",
   lore: "Made for always letting you down, but not in a bad way.",
 };
 
@@ -257,6 +258,7 @@ export const ladder: Partial<ItemOptions> = {
   use: "ladder",
   charges: 1,
   useArgs: [4],
+  useFail: "No room.",
   lore: "Always here to lift you up when you need it most!",
 };
 
@@ -308,6 +310,7 @@ export const rock: Partial<ItemOptions> = {
   name: "rock",
   use: "throw",
   useArgs: [5, 3],
+  useFail: "Nothing to aim at.",
   charges: 1,
   lore: "Made for throwing, skipping, looking at, having lonely existential conversations with, and so much more!\n...Not a good meal, though.",
 };
@@ -455,6 +458,7 @@ export const arrow: Partial<ItemOptions> = {
   name: "arrow",
   use: "throw",
   useArgs: [5, 15],
+  useFail: "Nothing to aim at.",
   charges: 1,
   lore: "Arrows manufactured for use with crossbows and longbows, skilled hands and keen eyes can even throw these by themselves, though it's not recommended.",
 };

@@ -30,6 +30,7 @@ export interface ItemOptions {
   treasure: number;
   use: ItemUse;
   useArgs: number[];
+  useFail: string;
 }
 
 export default class Item {
@@ -52,6 +53,7 @@ export default class Item {
   treasure: number;
   use?: ItemUse;
   useArgs: number[];
+  useFail?: string;
 
   constructor(
     public x: number,
@@ -74,6 +76,7 @@ export default class Item {
       treasure = 0,
       use = undefined,
       useArgs = [],
+      useFail = undefined,
       canPickUp = treasure === 0,
     }: Partial<ItemOptions> = {}
   ) {
@@ -96,5 +99,6 @@ export default class Item {
     this.treasure = treasure;
     this.use = use;
     this.useArgs = useArgs;
+    this.useFail = useFail;
   }
 }
