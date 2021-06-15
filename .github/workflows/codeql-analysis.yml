@@ -52,9 +52,11 @@ jobs:
           # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
       - run: npm ci
+      - run: npm run build
 
-      - run: npm run update:win
-      - run: npm run prepare:win
+      # TODO: get windows builds working?
+      # - run: npm run update:win
+      # - run: npm run prepare:win
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v1
