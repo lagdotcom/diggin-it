@@ -1,7 +1,5 @@
 import Actor from "./Actor";
-import { player, theInk } from "./actors";
-import Game from "./Game";
-import Item from "./Item";
+import { theInk } from "./entities/enemies";
 import {
   airTank,
   ladder,
@@ -10,7 +8,10 @@ import {
   rags,
   rations,
   rope,
-} from "./items";
+} from "./entities/items";
+import { player } from "./entities/player";
+import Game from "./Game";
+import Item from "./Item";
 
 export function getNewPlayer(): Actor {
   const weapon = new Item(0, 0, pointedStick);

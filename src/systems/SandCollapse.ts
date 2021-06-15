@@ -1,7 +1,7 @@
+import { empty } from "../entities/tiles";
 import Game from "../Game";
 import LinearGrid from "../LinearGrid";
 import Tile from "../Tile";
-import { empty } from "../tiles";
 
 export default class SandCollapse {
   constructor(public g: Game) {

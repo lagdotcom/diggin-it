@@ -1,4 +1,4 @@
-import { ItemOptions } from "./Item";
+import { ItemOptions } from "../Item";
 
 const notImplemented = "This isn't implemented yet. Sorry.";
 

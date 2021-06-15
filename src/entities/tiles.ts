@@ -1,4 +1,4 @@
-import { TileOptions } from "./Tile";
+import { TileOptions } from "../Tile";
 
 export const border: Partial<TileOptions> = {
   glyph: "Bedrock",

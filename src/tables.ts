@@ -17,8 +17,7 @@ import {
   splinter,
   squimpy,
   telden,
-} from "./actors";
-import { ItemOptions } from "./Item";
+} from "./entities/enemies";
 import {
   airTank,
   arrow,
@@ -71,7 +70,8 @@ import {
   taser,
   valkyrieSet,
   wingArmour,
-} from "./items";
+} from "./entities/items";
+import { ItemOptions } from "./Item";
 
 const common = 10;
 const uncommon = 5;

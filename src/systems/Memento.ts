@@ -1,7 +1,7 @@
 import Actor from "../Actor";
+import { brokenPocketwatch } from "../entities/items";
 import Game from "../Game";
 import Item from "../Item";
-import { brokenPocketwatch } from "../items";
 
 export default class Memento {
   constructor(public g: Game) {

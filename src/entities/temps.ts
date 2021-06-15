@@ -1,4 +1,4 @@
-import { ItemOptions } from "./Item";
+import { ItemOptions } from "../Item";
 
 export const litBomb: Partial<ItemOptions> = {
   glyph: "Bomb",

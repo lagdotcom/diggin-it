@@ -1,13 +1,7 @@
 import bresenham from "bresenham";
 import { RNG } from "rot-js";
 
-import Game from "../Game";
-import Cmd from "../interfaces/Cmd";
-import XY from "../interfaces/XY";
-import Item, { ItemUse } from "../Item";
-import { litBomb } from "../temps";
-import { ctheName, theName } from "../text";
-import Tile from "../Tile";
+import { litBomb } from "../entities/temps";
 import {
   ladderTile,
   ladderTileBottom,
@@ -16,7 +10,13 @@ import {
   ropeTileBottom,
   ropeTileTop,
   stapleTile,
-} from "../tiles";
+} from "../entities/tiles";
+import Game from "../Game";
+import Cmd from "../interfaces/Cmd";
+import XY from "../interfaces/XY";
+import Item, { ItemUse } from "../Item";
+import { ctheName, theName } from "../text";
+import Tile from "../Tile";
 
 interface SimpleUseFn {
   type: "simple";

@@ -1,7 +1,4 @@
 import Actor, { ActorOptions } from "./Actor";
-import { boulder, crate, metal } from "./actors";
-import Game from "./Game";
-import Item, { ItemOptions } from "./Item";
 import {
   airTank,
   arrow,
@@ -20,19 +17,8 @@ import {
   smallGem,
   specs,
   treasureBox,
-} from "./items";
-import { addTheInk } from "./prefabs";
-import {
-  getRandomArmour,
-  getRandomBomb,
-  getRandomEnemy,
-  getRandomUsable,
-  getRandomWeapon,
-  getSlab,
-  getSupremeItem,
-  Picker,
-} from "./tables";
-import Tile, { TileOptions } from "./Tile";
+} from "./entities/items";
+import { boulder, crate, metal } from "./entities/movables";
 import {
   border,
   brick,
@@ -56,7 +42,21 @@ import {
   vaultBrick,
   vaultExit,
   water,
-} from "./tiles";
+} from "./entities/tiles";
+import Game from "./Game";
+import Item, { ItemOptions } from "./Item";
+import { addTheInk } from "./prefabs";
+import {
+  getRandomArmour,
+  getRandomBomb,
+  getRandomEnemy,
+  getRandomUsable,
+  getRandomWeapon,
+  getSlab,
+  getSupremeItem,
+  Picker,
+} from "./tables";
+import Tile, { TileOptions } from "./Tile";
 import { higherOfTwo, log, lowerOfTwo } from "./utils";
 
 const dirtTiles = [dirtShallow, dirtMiddle, dirtDeep];

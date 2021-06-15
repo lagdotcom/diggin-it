@@ -1,10 +1,5 @@
 import PickingUp from "../commands/PickingUp";
 import { drawMulti, drawPanel } from "../drawing";
-import Game from "../Game";
-import Hotspots from "../Hotspots";
-import Cmd, { BuyCmd, CancelCmd } from "../interfaces/Cmd";
-import Context from "../interfaces/Context";
-import Item, { ItemOptions } from "../Item";
 import {
   airTank,
   bomb,
@@ -21,7 +16,12 @@ import {
   shovel,
   spelunkersKit,
   squadLeaderGear,
-} from "../items";
+} from "../entities/items";
+import Game from "../Game";
+import Hotspots from "../Hotspots";
+import Cmd, { BuyCmd, CancelCmd } from "../interfaces/Cmd";
+import Context from "../interfaces/Context";
+import Item, { ItemOptions } from "../Item";
 import { pad } from "../utils";
 
 type OfferType = "stat" | "use" | "weapon" | "armour";

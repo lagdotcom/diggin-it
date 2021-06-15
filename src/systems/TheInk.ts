@@ -1,8 +1,8 @@
+import { fragment } from "../entities/items";
+import { empty } from "../entities/tiles";
 import Game from "../Game";
 import Item from "../Item";
-import { fragment } from "../items";
 import Tile from "../Tile";
-import { empty } from "../tiles";
 
 export default class TheInk {
   constructor(public g: Game) {

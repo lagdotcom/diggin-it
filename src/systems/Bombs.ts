@@ -1,8 +1,8 @@
+import { explosion } from "../entities/temps";
+import { empty } from "../entities/tiles";
 import Game from "../Game";
 import Item from "../Item";
-import { explosion } from "../temps";
 import Tile from "../Tile";
-import { empty } from "../tiles";
 
 export default class Bombs {
   bombs: Item[];

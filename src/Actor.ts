@@ -37,6 +37,7 @@ export interface ActorOptions {
   spRange: number;
   dp: number;
   dpRange: number;
+  attackRange: number;
   experience: number;
   player: PlayerData;
   crushResistance: number;
@@ -75,6 +76,7 @@ export default class Actor {
   spRange: number;
   dp: number;
   dpRange: number;
+  attackRange: number;
   experience: number;
   player?: PlayerData;
   crushResistance: number;
@@ -111,6 +113,7 @@ export default class Actor {
       dp = 0,
       dpRange = 0,
       alive = maxHp > 0,
+      attackRange = 1,
       experience = 0,
       inventorySize = 0,
       inventory = new Array(inventorySize),
@@ -144,6 +147,7 @@ export default class Actor {
     this.maxAp = maxAp;
     this.sp = spRange ? RNG.getUniformInt(sp, spRange) : sp;
     this.dp = dpRange ? RNG.getUniformInt(dp, dpRange) : dp;
+    this.attackRange = attackRange;
     this.experience = experience;
     this.inventory = inventory;
     this.inventorySize = inventorySize;

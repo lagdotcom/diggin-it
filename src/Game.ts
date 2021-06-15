@@ -7,6 +7,7 @@ import BadEndingScreen from "./contexts/BadEndingScreen";
 import Dungeon from "./contexts/Dungeon";
 import GoodEndingScreen from "./contexts/GoodEndingScreen";
 import MessageLog from "./display/MessageLog";
+import { unset } from "./entities/tiles";
 import { EventMap, MoveType } from "./Event";
 import EventHandler from "./EventHandler";
 import Context from "./interfaces/Context";
@@ -22,7 +23,6 @@ import { generateMap } from "./mapgen";
 import { getZone, loadMap } from "./maps";
 import { getNewPlayer } from "./prefabs";
 import Tile from "./Tile";
-import { unset } from "./tiles";
 import { log } from "./utils";
 
 export default class Game extends EventHandler {

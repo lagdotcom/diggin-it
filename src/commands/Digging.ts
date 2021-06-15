@@ -1,8 +1,8 @@
+import { empty } from "../entities/tiles";
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import { theName } from "../text";
 import Tile from "../Tile";
-import { empty } from "../tiles";
 
 export default class Digging {
   constructor(public g: Game) {}

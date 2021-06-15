@@ -3,8 +3,8 @@ import AStar from "rot-js/lib/path/astar";
 import { PassableCallback } from "rot-js/lib/path/path";
 
 import Actor, { ActorAI, AIData } from "../Actor";
-import { drifter, floater } from "../actors";
 import Movement from "../commands/Movement";
+import { drifter, floater } from "../entities/enemies";
 import Game from "../Game";
 import XY from "../interfaces/XY";
 import { cname } from "../text";
