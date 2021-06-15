@@ -1,8 +1,8 @@
 import fs from "fs";
 
-const src = "DigginItWinWrap\\";
+const src = "DigginItWinWrap/";
 
-const asm = src + "Properties\\AssemblyInfo.cs";
+const asm = src + "Properties/AssemblyInfo.cs";
 function updateAssemblyInfo(ver: string) {
   const lines = fs.readFileSync(asm, { encoding: "utf8" }).split("\r\n");
   const code = [
@@ -16,7 +16,7 @@ function updateAssemblyInfo(ver: string) {
   console.log("updated:", asm);
 }
 
-const res = src + "Properties\\Resources.resx";
+const res = src + "Properties/Resources.resx";
 function updateResources(ver: string) {
   const raw = fs.readFileSync(res, { encoding: "utf8" });
   const i = raw.indexOf('<data name="Version" xml:space="preserve">');
