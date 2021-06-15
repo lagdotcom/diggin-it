@@ -3,6 +3,7 @@
   "version": "1.0.9",
   "description": "7DRL 2021",
   "main": "src/index.ts",
+  "type": "module",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -cw",
@@ -19,7 +20,8 @@
     "build:win": "msbuild -p:Configuration=Release DigginItWinWrap\\DigginItWinWrap.sln",
     "butler:win": "butler push --userversion 1.0.8 DigginItWinWrap\\bin\\Release lagdotcom/diggin-it:win",
     "status:win": "butler status lagdotcom/diggin-it:win",
-    "win": "npm run build && npm run resources:win && npm run version:win && npm run build:win && npm run butler:win",
+    "prepare:win": "npm run build && npm run resources:win && npm run version:win && npm run build:win",
+    "win": "npm run prepare:win && npm run butler:win",
     "bean:fresh": "curl https://justine.lol/redbean/redbean-latest.com >redbean.com",
     "bean": "zip -uj redbean.com .init.lua dist\\*"
   },
