@@ -53,6 +53,7 @@ jobs:
 
       - run: npm ci
 
+      - run: npm run update:win
       - run: npm run prepare:win
 
       - name: Perform CodeQL Analysis
