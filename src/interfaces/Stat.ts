@@ -4,6 +4,7 @@ type Stat =
   | "sp"
   | "dp"
   | "vision"
+  | "championChance"
   | "crushResistance"
   | "xrayVision";
 export default Stat;

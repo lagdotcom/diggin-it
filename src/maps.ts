@@ -148,6 +148,7 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
   let px = 0,
     py = 0;
 
+  const championChance = g.player.get("championChance");
   const height = map.length;
   const width = map[0].length;
   const zone = getZone(g.depth);
@@ -160,7 +161,7 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       const item = itemTypes[glyph];
       const tile = tileTypes[glyph] || empty;
       const fluidGlyph = fluid[y][x];
-      const config = { zone, fluid: fluidGlyph };
+      const config = { championChance, zone, fluid: fluidGlyph };
 
       if (!validGlyph.has(glyph)) log("invalid map glyph:", glyph);
 
@@ -171,13 +172,13 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
         new Tile(typeof tile === "function" ? tile(config) : tile)
       );
       if (item) {
-        g.addItem(
-          new Item(x, y, typeof item === "function" ? item(config) : item)
-        );
+        const e = typeof item === "function" ? item(config) : item;
+        console.log(x, y, e.name);
+        g.addItem(new Item(x, y, e));
       } else if (actor) {
-        g.add(
-          new Actor(x, y, typeof actor === "function" ? actor(config) : actor)
-        );
+        const e = typeof actor === "function" ? actor(config) : actor;
+        console.log(x, y, e.name);
+        g.add(new Actor(x, y, e));
       }
 
       if (glyph === "4") {

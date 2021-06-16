@@ -2,6 +2,23 @@ import { RNG } from "rot-js";
 
 import { ActorOptions } from "./Actor";
 import {
+  busterChampion,
+  canandraChampion,
+  crimChampion,
+  flazzaChampion,
+  glovaChampion,
+  grundillaChampion,
+  kreebusChampion,
+  mulnChampion,
+  poregonChampion,
+  puffusChampion,
+  shockwormChampion,
+  slobberfinChampion,
+  splinterChampion,
+  squimpyChampion,
+  teldenChampion,
+} from "./entities/champions";
+import {
   buster,
   canandra,
   crim,
@@ -82,10 +99,11 @@ type Distribution<T extends string> = Partial<Record<T, number>>;
 export interface PickerOptions {
   zone: 0 | 1 | 2;
   fluid: string;
+  championChance: number;
 }
 export type Picker<T> = (options: PickerOptions) => Partial<T>;
 
-const enemyTypes = {
+const enemies = {
   squimpy,
   buster,
   canandra,
@@ -102,7 +120,25 @@ const enemyTypes = {
   grundilla,
   poregon,
 };
-type EnemyName = keyof typeof enemyTypes;
+type EnemyName = keyof typeof enemies;
+
+const champions: Record<EnemyName, Partial<ActorOptions>> = {
+  buster: busterChampion,
+  canandra: canandraChampion,
+  crim: crimChampion,
+  flazza: flazzaChampion,
+  glova: glovaChampion,
+  grundilla: grundillaChampion,
+  kreebus: kreebusChampion,
+  muln: mulnChampion,
+  poregon: poregonChampion,
+  puffus: puffusChampion,
+  shockworm: shockwormChampion,
+  slobberfin: slobberfinChampion,
+  splinter: splinterChampion,
+  squimpy: squimpyChampion,
+  telden: teldenChampion,
+};
 
 const airEnemiesByZone: Distribution<EnemyName>[] = [
   {
@@ -143,10 +179,19 @@ const waterEnemiesByZone: Distribution<EnemyName>[] = [
   { puffus: common, shockworm: common, kreebus: rare },
 ];
 
-export const getRandomEnemy: Picker<ActorOptions> = ({ zone, fluid }) =>
-  fluid === "~"
-    ? enemyTypes[RNG.getWeightedValue(waterEnemiesByZone[zone]) as EnemyName]
-    : enemyTypes[RNG.getWeightedValue(airEnemiesByZone[zone]) as EnemyName];
+export const getRandomEnemy: Picker<ActorOptions> = ({
+  championChance,
+  zone,
+  fluid,
+}) => {
+  const name =
+    fluid === "~"
+      ? (RNG.getWeightedValue(waterEnemiesByZone[zone]) as EnemyName)
+      : (RNG.getWeightedValue(airEnemiesByZone[zone]) as EnemyName);
+
+  if (RNG.getPercentage() <= championChance) return champions[name];
+  return enemies[name];
+};
 
 const weaponTypes = {
   pickaxe,

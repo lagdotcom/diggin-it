@@ -423,26 +423,25 @@ export const mambele: Partial<ItemOptions> = {
   lore: notImplemented,
 };
 
-// TODO
 export const slabHP: Partial<ItemOptions> = {
   glyph: "RedSlab",
   name: "ancient slab of vigour",
   article: "an",
-  holdBonus: { maxHp: 10 },
+  holdBonus: { maxHp: 10, championChance: 5 },
   lore: '"The slab beckons as I feel words pulse in my mind as fleeting as sparks at night. I know not what it is, only that it calls to me with promises of renewed energy and hidden knowledge." - Jacques Splintertooth',
 };
 export const slabSP: Partial<ItemOptions> = {
   glyph: "GreenSlab",
   name: "ancient slab of power",
   article: "an",
-  holdBonus: { sp: 5 },
+  holdBonus: { sp: 5, championChance: 5 },
   lore: '"The slab beckons as I feel a tingling course through my veins as swift as a powerful breeze. I know not what it is, only that it calls to me with promises of renewed strength and hidden knowledge." - Jacques Splintertooth',
 };
 export const slabDP: Partial<ItemOptions> = {
   glyph: "BlueSlab",
   name: "ancient slab of grit", // TODO: real name
   article: "an",
-  holdBonus: { dp: 5 },
+  holdBonus: { dp: 5, championChance: 5 },
   lore: '"The slab beckons as I feel a frigid chill like the touch of a frozen hand. I know not what it is, only that it calls to me with promises of renewed fortitude and hidden knowledge." - Jacques Splintertooth',
 };
 

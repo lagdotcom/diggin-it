@@ -23,6 +23,7 @@ export function getNewPlayer(): Actor {
   const canisters = new Item(0, 0, airTank);
   return new Actor(0, 0, {
     ...player,
+    championChance: 5, // TODO
     player: { stats: 0 },
     equipment: { weapon, armour },
     inventory: [weapon, armour, trinket, ropes, ladders, ration, canisters],

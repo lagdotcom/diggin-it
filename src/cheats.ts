@@ -1,4 +1,3 @@
-import Game from "./Game";
 import {
   artifact,
   coin,
@@ -7,7 +6,8 @@ import {
   goldBar,
   smallGem,
   treasureBox,
-} from "./items";
+} from "./entities/items";
+import Game from "./Game";
 import { generateMap } from "./mapgen";
 
 function testTheInk() {
@@ -113,6 +113,7 @@ function gatherAllStats(count = 100) {
 
 export function initCheats(): void {
   /* eslint-disable @typescript-eslint/no-explicit-any */
+  (window as any).g = Game.INSTANCE;
   (window as any).idclvl = testChangeLevel;
   (window as any).keepyourselfalive = testGodMode;
   (window as any).theboss = testTheInk;

@@ -13,6 +13,7 @@ export interface ActorOptions {
   aiData: AIData;
   alive: boolean;
   article: string;
+  championChance: number;
   canClimb: boolean;
   colour: string;
   durability: number;
@@ -52,6 +53,7 @@ export default class Actor {
   alive: boolean;
   article: string;
   canClimb: boolean;
+  championChance: number;
   colour: string;
   durability: number;
   equipment: Partial<Record<Slot, Item>>;
@@ -119,6 +121,7 @@ export default class Actor {
       inventory = new Array(inventorySize),
       player = undefined,
       crushResistance = 0,
+      championChance = 0,
       xrayVision = 0,
       teleportThreshold = undefined,
     }: Partial<ActorOptions> = {}
@@ -152,6 +155,7 @@ export default class Actor {
     this.inventory = inventory;
     this.inventorySize = inventorySize;
     this.player = player;
+    this.championChance = championChance;
     this.crushResistance = crushResistance;
     this.xrayVision = xrayVision;
     this.reeling = false;
