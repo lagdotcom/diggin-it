@@ -4,6 +4,12 @@ import Stat from "./interfaces/Stat";
 export type ItemUse =
   | "air"
   | "bomb"
+  | "cureBleed"
+  | "curePoison"
+  | "cureStun"
+  | "gainDP"
+  | "gainHP"
+  | "gainSP"
   | "heal"
   | "ladder"
   | "memento"

@@ -38,6 +38,9 @@ const targeted = (
   targets: TargetedUseFn["targets"]
 ): TargetedUseFn => ({ type: "target", use, targets });
 
+const getPotionAmount = (min: number, max: number) =>
+  (RNG.getPercentage() > 50 ? 1 : -1) * RNG.getUniformInt(min, max);
+
 export default class UsableItems {
   mapping: Record<ItemUse, UseData>;
 
@@ -45,6 +48,12 @@ export default class UsableItems {
     this.mapping = {
       air: simple(this.useAirTank.bind(this)),
       bomb: simple(this.useBomb.bind(this)),
+      cureBleed: simple(this.cureBleed.bind(this)),
+      curePoison: simple(this.curePoison.bind(this)),
+      cureStun: simple(this.cureStun.bind(this)),
+      gainDP: simple(this.useGainDP.bind(this)),
+      gainHP: simple(this.useGainHP.bind(this)),
+      gainSP: simple(this.useGainSP.bind(this)),
       heal: simple(this.useHeal.bind(this)),
       ladder: simple(this.useLadder.bind(this)),
       memento: simple(this.useMemento.bind(this)),
@@ -310,5 +319,87 @@ export default class UsableItems {
     item.charges--;
     this.g.spent++;
     return undefined;
+  }
+
+  useGainDP(item: Item): undefined {
+    const { player: actor } = this.g;
+    const [min, max] = item.useArgs;
+    const amount = getPotionAmount(min, max);
+
+    this.g.player.dp += amount;
+    this.g.log.add(`You feel ${amount < 0 ? "frailer" : "sturdier"}.`);
+
+    this.g.emit("used", { actor, item });
+    item.charges--;
+    this.g.spent++;
+    return undefined;
+  }
+
+  useGainHP(item: Item): undefined {
+    const { player: actor } = this.g;
+    const [min, max] = item.useArgs;
+    const amount = getPotionAmount(min, max);
+
+    this.g.player.hp += amount;
+    this.g.log.add(`You feel ${amount < 0 ? "sicker" : "healthier"}.`);
+
+    this.g.emit("used", { actor, item });
+    item.charges--;
+    this.g.spent++;
+    return undefined;
+  }
+
+  useGainSP(item: Item): undefined {
+    const { player: actor } = this.g;
+    const [min, max] = item.useArgs;
+    const amount = getPotionAmount(min, max);
+
+    this.g.player.sp += amount;
+    this.g.log.add(`You feel ${amount < 0 ? "weaker" : "stronger"}.`);
+
+    this.g.emit("used", { actor, item });
+    item.charges--;
+    this.g.spent++;
+    return undefined;
+  }
+
+  cureBleed(item: Item): string | undefined {
+    const { player: actor } = this.g;
+
+    if (!actor.bleedAmount) return "You're not bleeding.";
+
+    actor.bleedAmount = 0;
+    actor.bleedTimer = 0;
+    this.g.log.add("You're no longer bleeding.");
+    this.g.emit("used", { actor, item });
+    this.g.emit("statusRemoved", { actor, type: "bleed" });
+    item.charges--;
+    this.g.spent++;
+  }
+
+  curePoison(item: Item): string | undefined {
+    const { player: actor } = this.g;
+
+    if (!actor.poisoned) return "You're not poisoned.";
+
+    actor.poisoned = false;
+    this.g.log.add("You're no longer poisoned.");
+    this.g.emit("used", { actor, item });
+    this.g.emit("statusRemoved", { actor, type: "poison" });
+    item.charges--;
+    this.g.spent++;
+  }
+
+  cureStun(item: Item): string | undefined {
+    const { player: actor } = this.g;
+
+    if (!actor.stunTimer) return "You're not stunned.";
+
+    actor.stunTimer = 0;
+    this.g.log.add("You're no longer stunned.");
+    this.g.emit("used", { actor, item });
+    this.g.emit("statusRemoved", { actor, type: "stun" });
+    item.charges--;
+    this.g.spent++;
   }
 }

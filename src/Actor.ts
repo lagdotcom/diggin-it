@@ -1,12 +1,15 @@
 import { RNG } from "rot-js";
 
-import Slot from "./interfaces/Slot";
-import Stat from "./interfaces/Stat";
-import Item from "./Item";
+import type Slot from "./interfaces/Slot";
+import type Stat from "./interfaces/Stat";
+import type Item from "./Item";
+import type { EnemyName } from "./tables";
 
 export type ActorAI = "wander" | "fly" | "ink";
 export type AIData = { active?: boolean; dir?: number; spawn?: number };
 export type PlayerData = { stats: number };
+
+type ScreamTarget = "" | "tier" | EnemyName;
 
 export interface ActorOptions {
   ai: ActorAI;
@@ -44,6 +47,20 @@ export interface ActorOptions {
   crushResistance: number;
   xrayVision: number;
   teleportThreshold: number;
+  poisoned: boolean;
+  bleedAmount: number;
+  bleedTimer: number;
+  stunTimer: number;
+  poisonChance: number;
+  bleedChance: number;
+  stunChance: number;
+  knockBackChance: number; // TODO
+  destroyChance: number; // TODO
+  finalBombChance: number; // TODO
+  finalGasChance: number; // TODO
+  finalScreamChance: number; // TODO
+  finalScreamTarget: ScreamTarget;
+  finalScreamCount: [min: number, max: number];
 }
 
 export default class Actor {
@@ -86,6 +103,20 @@ export default class Actor {
   reeling: boolean;
   teleportThreshold?: number;
   teleportTracking: number;
+  poisoned: boolean;
+  bleedAmount: number;
+  bleedTimer: number;
+  stunTimer: number;
+  poisonChance: number;
+  bleedChance: number;
+  stunChance: number;
+  knockBackChance: number;
+  destroyChance: number;
+  finalBombChance: number;
+  finalGasChance: number;
+  finalScreamChance: number;
+  finalScreamTarget: ScreamTarget;
+  finalScreamCount: [min: number, max: number];
 
   constructor(
     public x: number,
@@ -124,6 +155,20 @@ export default class Actor {
       championChance = 0,
       xrayVision = 0,
       teleportThreshold = undefined,
+      poisoned = false,
+      bleedAmount = 0,
+      bleedTimer = 0,
+      stunTimer = 0,
+      poisonChance = 0,
+      bleedChance = 0,
+      stunChance = 0,
+      knockBackChance = 0,
+      destroyChance = 0,
+      finalBombChance = 0,
+      finalGasChance = 0,
+      finalScreamChance = 0,
+      finalScreamTarget = "",
+      finalScreamCount = [0, 0],
     }: Partial<ActorOptions> = {}
   ) {
     this._type = "Actor";
@@ -161,6 +206,20 @@ export default class Actor {
     this.reeling = false;
     this.teleportThreshold = teleportThreshold;
     this.teleportTracking = 0;
+    this.poisoned = poisoned;
+    this.bleedAmount = bleedAmount;
+    this.bleedTimer = bleedTimer;
+    this.stunTimer = stunTimer;
+    this.poisonChance = poisonChance;
+    this.bleedChance = bleedChance;
+    this.stunChance = stunChance;
+    this.knockBackChance = knockBackChance;
+    this.destroyChance = destroyChance;
+    this.finalBombChance = finalBombChance;
+    this.finalGasChance = finalGasChance;
+    this.finalScreamChance = finalScreamChance;
+    this.finalScreamTarget = finalScreamTarget;
+    this.finalScreamCount = finalScreamCount;
   }
 
   get(st: Stat): number {

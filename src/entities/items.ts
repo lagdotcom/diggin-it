@@ -1,5 +1,6 @@
 import { ItemOptions } from "../Item";
 
+const noAim = "Nothing to aim at.";
 const notImplemented = "This isn't implemented yet. Sorry.";
 
 export const pocketwatch: Partial<ItemOptions> = {
@@ -283,7 +284,7 @@ export const airTank: Partial<ItemOptions> = {
   article: "an",
   use: "air",
   charges: 1,
-  useArgs: [100, 100],
+  useArgs: [90, 100],
   lore: "Underground air across Gantella is notorious for noxious gases and densely packed spaces where air barely creeps through. Spare oxygen canisters are a must for anyone looking to dive into even the most shallow of caverns.",
 };
 
@@ -310,7 +311,7 @@ export const rock: Partial<ItemOptions> = {
   name: "rock",
   use: "throw",
   useArgs: [3, 3],
-  useFail: "Nothing to aim at.",
+  useFail: noAim,
   charges: 1,
   lore: "Made for throwing, skipping, looking at, having lonely existential conversations with, and so much more!\n...Not a good meal, though.",
 };
@@ -415,12 +416,14 @@ export const staple: Partial<ItemOptions> = {
   charges: 1,
 };
 
-// TODO
 export const mambele: Partial<ItemOptions> = {
   glyph: "Mambele",
   name: "mambele",
+  use: "throw",
+  useArgs: [3, 23], // TODO: range?
+  useFail: noAim,
   charges: 1,
-  lore: notImplemented,
+  lore: "A hooked weapon that's equal parts axe and knife, Mambeles are usually found native to islander and Melogrin culture as they share a common ancestry. Finding one in the deep caverns of Lessonus is at least a little baffling, but all the same, with a good throwing arm a Mambele can do devastating damage and protect against even the most vicious predators.",
 };
 
 export const slabHP: Partial<ItemOptions> = {
@@ -441,7 +444,7 @@ export const slabDP: Partial<ItemOptions> = {
   glyph: "BlueSlab",
   name: "ancient slab of grit", // TODO: real name
   article: "an",
-  holdBonus: { dp: 5, championChance: 5 },
+  holdBonus: { dp: 5, championChance: 10 },
   lore: '"The slab beckons as I feel a frigid chill like the touch of a frozen hand. I know not what it is, only that it calls to me with promises of renewed fortitude and hidden knowledge." - Jacques Splintertooth',
 };
 
@@ -457,33 +460,36 @@ export const arrow: Partial<ItemOptions> = {
   name: "arrow",
   use: "throw",
   useArgs: [3, 15],
-  useFail: "Nothing to aim at.",
+  useFail: noAim,
   charges: 1,
   lore: "Arrows manufactured for use with crossbows and longbows, skilled hands and keen eyes can even throw these by themselves, though it's not recommended.",
 };
 
-// TODO
 export const bluePotion: Partial<ItemOptions> = {
   glyph: "BluePotion",
   name: "blue liquid",
   charges: 1,
-  lore: notImplemented,
+  lore: "A mysterious blue liquid. The bottle is cool to the touch and uncorking it reveals a strong, musky scent.",
+  use: "gainDP",
+  useArgs: [1, 3],
 };
 
-// TODO
 export const redPotion: Partial<ItemOptions> = {
   glyph: "RedPotion",
   name: "red liquid",
   charges: 1,
-  lore: notImplemented,
+  lore: "A mysterious red liquid. The bottle is warm to the touch and uncorking it reveals an alcoholic cinnamon scent.",
+  use: "gainHP",
+  useArgs: [5, 10],
 };
 
-// TODO
 export const greenPotion: Partial<ItemOptions> = {
   glyph: "GreenPotion",
   name: "green liquid",
   charges: 1,
-  lore: notImplemented,
+  use: "gainSP",
+  useArgs: [1, 3],
+  lore: "A mysterious green liquid. The bottle feels oddly heavy and uncorking it reveals a powerful citrussy scent.",
 };
 
 export const medikit: Partial<ItemOptions> = {
@@ -491,7 +497,8 @@ export const medikit: Partial<ItemOptions> = {
   name: "emergency kit",
   use: "heal",
   charges: 1,
-  useArgs: [500, 500], // TODO: values
+  useArgs: [50, 60],
+  lore: "Field medical kit provided by the Green Clover Medical Group. No hospital or warzone is left ungraced by it's presence, and most homes contain at least one of these for extreme emergencies.",
 };
 
 export const axe: Partial<ItemOptions> = {
@@ -553,4 +560,57 @@ export const crossbow: Partial<ItemOptions> = {
   // TODO range: 3,
   // TODO fires: 'arrow',
   lore: "Quicker aiming and with far more kickback and power than a typical bow, the crossbow is only for a true hunting enthusiast. Outlawed in many regions and countries for being too close to an actual military weapon, these tend to be quite hard to come by and are a hot commodity on various black markets.",
+};
+
+export const greenloaf: Partial<ItemOptions> = {
+  glyph: "Greenloaf",
+  name: "stale greenloaf",
+  use: "heal",
+  charges: 1,
+  useArgs: [10, 15],
+  lore: "Greenloaf bread is native to Lessonus and created with local wheat and various other ingredients. Most notable for it's rather hard texture and excellent flavor, Greenloaf should be eaten and enjoyed within one week of baking, lest it go stale and stiff as a board.",
+};
+
+export const serum: Partial<ItemOptions> = {
+  glyph: "Serum",
+  name: "serum",
+  use: "curePoison",
+  charges: 1,
+  lore: "Medical serum capable of purging the most potent of poisons. A notable achievement in the medical field, this cure-all was a massive breakthrough after renowned trapper Meridith Grynn was able to ensnare an Abyssal Canandra and collect it's venom unharmed.",
+};
+
+export const adrenaline: Partial<ItemOptions> = {
+  glyph: "Adrenaline",
+  name: "adrenaline",
+  article: "a vial of ",
+  use: "cureStun",
+  charges: 1,
+  lore: "Supposedly strong enough to raise the dead, a small dose of adrenaline will get even the stiffest joints back in motion. Used specifically in the medical profession, a number of adrenaline addicts manage to circulate a rather large supply through back alley black market outfits. Adrenaline addiction has become increasingly common in athletic events and physically taxing labour.",
+};
+
+export const suture: Partial<ItemOptions> = {
+  glyph: "Suture",
+  name: "suture",
+  use: "cureBleed",
+  charges: 1,
+  lore: '"No suture? Suit yourself!"\nMade for quick stitching of deep wounds and stopping bleeding.',
+};
+
+export const breathTablet: Partial<ItemOptions> = {
+  glyph: "BreathTablet",
+  name: "breath tablet",
+  use: "air",
+  charges: 1,
+  useArgs: [20, 25],
+  lore: "Not to be confused with a breath mint, these ingestible tablets contain a unique formula to improve breathing and instantly clear sinus ailments. Perfect for the intrepid hiker and budding explorer.",
+};
+
+export const airGum: Partial<ItemOptions> = {
+  glyph: "AirGum",
+  name: "air gum",
+  article: "a pack of",
+  use: "air",
+  charges: 1,
+  useArgs: [40, 50],
+  lore: "A long lasting chew with a minty after taste! It's like chewing a tooth-paste that helps you breathe better.",
 };

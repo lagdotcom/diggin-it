@@ -36,6 +36,7 @@ import Gravity from "../systems/Gravity";
 import Memento from "../systems/Memento";
 import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
+import StatusEffects from "../systems/StatusEffects";
 import TheInk from "../systems/TheInk";
 import Traps from "../systems/Traps";
 import TreasureGrabbing from "../systems/TreasureGrabbing";
@@ -71,6 +72,7 @@ export default class Dungeon implements Context {
   rerender: Soon;
   sand: SandCollapse;
   stats: Stats;
+  status: StatusEffects;
   traps: Traps;
   treasure: TreasureGrabbing;
   use: UsableItems;
@@ -93,6 +95,7 @@ export default class Dungeon implements Context {
     this.pickingup = new PickingUp(g);
     this.pushing = new Pushing(g);
     this.sand = new SandCollapse(g);
+    this.status = new StatusEffects(g);
     this.traps = new Traps(g);
     this.treasure = new TreasureGrabbing(g);
     this.use = new UsableItems(g);
@@ -265,6 +268,11 @@ export default class Dungeon implements Context {
 
   handleClimb({ x, y }: ClimbCmd): void {
     const { player } = this.g;
+
+    if (player.stunTimer > 0) {
+      this.g.log.add("You're stunned.");
+      return this.render();
+    }
 
     this.g.log.add("You climb up.");
     this.g.move(player, x, y, "climb");

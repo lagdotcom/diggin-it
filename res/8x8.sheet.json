@@ -182,6 +182,13 @@
     "Bone": { "row": 10, "col": 21, "width": 2, "height": 2 },
     "GreenPotion": { "row": 10, "col": 23, "width": 2, "height": 2 },
     "RedPotion": { "row": 10, "col": 25, "width": 2, "height": 2 },
-    "BluePotion": { "row": 10, "col": 27, "width": 2, "height": 2 }
+    "BluePotion": { "row": 10, "col": 27, "width": 2, "height": 2 },
+    "Greenloaf": { "row": 10, "col": 29, "width": 2, "height": 2 },
+
+    "Serum": { "row": 11, "col": 19, "width": 2, "height": 2 },
+    "Adrenaline": { "row": 11, "col": 21, "width": 2, "height": 2 },
+    "Suture": { "row": 11, "col": 23, "width": 2, "height": 2 },
+    "BreathTablet": { "row": 11, "col": 25, "width": 2, "height": 2 },
+    "AirGum": { "row": 11, "col": 27, "width": 2, "height": 2 }
   }
 }

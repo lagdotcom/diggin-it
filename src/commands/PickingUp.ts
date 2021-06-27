@@ -8,6 +8,7 @@ export default class PickingUp {
 
   getItems(): undefined | string {
     const { player } = this.g;
+    if (player.stunTimer > 0) return "You're stunned.";
 
     const { items } = this.g.contents(player.x, player.y);
     if (!items.length) return "There's nothing here.";

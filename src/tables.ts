@@ -36,6 +36,8 @@ import {
   telden,
 } from "./entities/enemies";
 import {
+  adrenaline,
+  airGum,
   airTank,
   arrow,
   arsenalArmour,
@@ -45,6 +47,7 @@ import {
   bomb,
   bow,
   bracelet,
+  breathTablet,
   busterArmour,
   cherryBomb,
   claws,
@@ -52,6 +55,7 @@ import {
   crossbow,
   femur,
   gildedPlate,
+  greenloaf,
   greenPotion,
   hammer,
   helmet,
@@ -74,6 +78,7 @@ import {
   rock,
   rope,
   ropeBomb,
+  serum,
   shovel,
   slabDP,
   slabHP,
@@ -84,6 +89,7 @@ import {
   spelunkersKit,
   squadLeaderGear,
   staple,
+  suture,
   taser,
   valkyrieSet,
   wingArmour,
@@ -120,7 +126,7 @@ const enemies = {
   grundilla,
   poregon,
 };
-type EnemyName = keyof typeof enemies;
+export type EnemyName = keyof typeof enemies;
 
 const champions: Record<EnemyName, Partial<ActorOptions>> = {
   buster: busterChampion,
@@ -310,11 +316,14 @@ export const getRandomBomb: Picker<ItemOptions> = () =>
   bombTypes[RNG.getWeightedValue(bombWeights) as BombName];
 
 const usableTypes = {
+  adrenaline,
+  airGum,
   airTank,
   arrow,
   bluePotion,
   bolas,
   bomb,
+  breathTablet,
   cherryBomb,
   greenPotion,
   helmet,
@@ -327,7 +336,9 @@ const usableTypes = {
   rock,
   rope,
   ropeBomb,
+  serum,
   staple,
+  suture,
 };
 type UsableName = keyof typeof usableTypes;
 
@@ -342,11 +353,11 @@ const usableWeights: Distribution<UsableName> = {
   rock: common,
   // TODO remote: ultraRare,
   staple: common,
-  // TODO mambele: uncommon,
+  mambele: uncommon,
   arrow: common,
-  // TODO bluePotion: rare,
-  // TODO redPotion: rare,
-  // TODO greenPotion: rare,
+  bluePotion: rare,
+  redPotion: rare,
+  greenPotion: rare,
   medikit: ultraRare,
   ropeBomb: rare,
   cherryBomb: rare,
@@ -369,3 +380,7 @@ export const getSupremeItem: Picker<ItemOptions> = () =>
 
 const slabs = [slabHP, slabSP, slabDP];
 export const getSlab: Picker<ItemOptions> = ({ zone }) => slabs[zone];
+
+const potionTypes = [bluePotion, greenPotion, redPotion];
+export const getRandomPotion: Picker<ItemOptions> = () =>
+  RNG.getItem(potionTypes);

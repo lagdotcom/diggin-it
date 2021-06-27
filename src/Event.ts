@@ -9,9 +9,11 @@ export type DamageType =
   | "combat"
   | "crush"
   | "fall"
+  | "status"
   | "suffocation"
   | "trap";
 export type MoveType = "walk" | "fall" | "crush" | "climb" | "push";
+export type StatusType = "bleed" | "poison" | "stun";
 type NoData = Record<string, never>;
 
 export interface EventMap {
@@ -47,6 +49,8 @@ export interface EventMap {
   };
   noticed: { actor: Actor };
   refreshed: NoData;
+  statusApplied: { attacker?: Actor; victim: Actor; type: StatusType };
+  statusRemoved: { actor: Actor; type: StatusType };
   tick: NoData;
   used: { actor: Actor; item: Item };
 }

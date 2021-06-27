@@ -7,9 +7,9 @@ export default class Inventory {
   constructor(
     public g: Game,
     public x = 28,
-    public y = 10,
+    public y = 12,
     public width = 12,
-    public height = 12
+    public height = 10
   ) {
     this.dirty = true;
 

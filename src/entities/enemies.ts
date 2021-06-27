@@ -27,6 +27,7 @@ export const buster: Partial<ActorOptions> = {
   dp: 6,
   dpRange: 9,
   experience: 20,
+  stunChance: 5,
   lore: "These toadish creatures can be found at every corner of Gantella, and yet this unique variant is native to the Lessonus region. A popular domesticated pet, the strange swirl adorning their head is not hair, but a small tail like appendage that wags when stimulated. In the wild, a Buster earns it's name by growing to the size of a large dog and throwing it's own weight relentlessly at anything it sees as a threat.",
 };
 export const canandra: Partial<ActorOptions> = {
@@ -42,6 +43,7 @@ export const canandra: Partial<ActorOptions> = {
   dp: 22,
   dpRange: 26,
   experience: 800,
+  poisonChance: 30,
   lore: "Canandras sport the fifth deadliest venom in the world and a constricting grip that few escape from and fewer live to tell tales about. If you're voyaging into hot, dry areas, always be aware of your surroundings and listen for the distinctive clacking of their quills and the sound of their territorial hiss. If bitten, seek medical attention immediately.",
 };
 export const crim: Partial<ActorOptions> = {
@@ -71,6 +73,7 @@ export const flazza: Partial<ActorOptions> = {
   dp: 18,
   dpRange: 21,
   experience: 300,
+  stunChance: 15,
   lore: 'Tentacled flying menaces that love the dark, Flazzas are known as the "Terror Flies of the Deep". They capture any prey smaller than them by dive bombing from above and attempting to break bones or outright kill their prey on the spot, should that fail they have a nasty tendency to envelop their victim within their carnivorous tentacles. They have an aversion to bright lights and thusly keep their homes far from that of modern civilization.',
 };
 export const glova: Partial<ActorOptions> = {
@@ -86,6 +89,7 @@ export const glova: Partial<ActorOptions> = {
   dp: 15,
   dpRange: 19,
   experience: 80,
+  destroyChance: 1,
   lore: "Comprised of bubbly, acidic slime-like globules, Glovas are cave-dwelling omnivores. Their translucent bodies envelop and break down most materials, allowing them to feed on moss, small animals, and unsuspecting lost wanderers.",
 };
 export const muln: Partial<ActorOptions> = {
@@ -100,6 +104,7 @@ export const muln: Partial<ActorOptions> = {
   dp: 20,
   dpRange: 24,
   experience: 650,
+  bleedChance: 10,
   lore: "Burrowing menaces responsible for missing crops, livestock and occasionally children, Muln often cause extreme agricultural grief and property damages in many areas surrounded by mountains or cave systems. If faced with a Muln infestation, it's recommended to evacuate immediately. Once you are somewhere safe, call professional trappers to capture and relocate them to more natural habitats.",
 };
 export const slobberfin: Partial<ActorOptions> = {
@@ -114,6 +119,7 @@ export const slobberfin: Partial<ActorOptions> = {
   dp: 24,
   dpRange: 28,
   experience: 700,
+  bleedChance: 30,
   lore: "Deadly creatures capable of treading both water and land, Slobberfins are the number one cause of animal related deaths across Gantella. Highly territorial and adaptable creatures, the only thing standing between them and becoming apex predators is their extreme near sightedness and pension for living in cool and dark locales.",
 };
 export const splinter: Partial<ActorOptions> = {
@@ -130,6 +136,7 @@ export const splinter: Partial<ActorOptions> = {
   dpRange: 26,
   attackRange: 3,
   experience: 500,
+  stunChance: 20,
   lore: "According to religious texts recovered from Dwelvarkian ruins, Splinters are the remains of the largest tree to have ever existed, and a source from which the Dwelvarkians themselves spurned. During a war that lasted through the birth and death of the first sun to hang in the sky, a greedy and selfish race cut the tree down, taking it's limbs for themselves and fashioning living dolls in their image. The Splinters came not long after, seeking revenge and entangling unfortunate victims within their roots.",
 };
 export const telden: Partial<ActorOptions> = {
@@ -146,6 +153,8 @@ export const telden: Partial<ActorOptions> = {
   dpRange: 19,
   attackRange: 2,
   experience: 500,
+  poisonChance: 15,
+  finalGasChance: 100,
   lore: "Heated debates about whether Teldens originated from mammals or annelids still permeate many historical and evolutionary discussions around this bizarre creature. Regardless of which side you take, the Telden certainly won't take yours. A Telden's deadly tongue and hideous breath leave behind an odour so noxious that it is considered to be a deadly gas.",
 };
 export const floater: Partial<ActorOptions> = {
@@ -214,6 +223,7 @@ export const puffus: Partial<ActorOptions> = {
   dp: 10,
   dpRange: 13,
   experience: 45,
+  stunChance: 10,
   lore: "Native to deep and cool waters, Puffus are largely content tend to feed off various algaes and small microscopic fish. When threatened or attacked they will swell to over double their initial size, exposing highly painful barbs that can leave tingling and numbness in the affected wound for weeks.",
 };
 
@@ -231,6 +241,7 @@ export const shockworm: Partial<ActorOptions> = {
   dpRange: 24,
   attackRange: 3,
   experience: 600,
+  stunChance: 30,
   lore: 'Also commonly known as "Glowtubes" and "Sparknoodles", Shockworms inhabit dark fresh and salt water habitats. A carnivorous predator that can send massive voltage throughout their body and the surrounding body of water, they are harmful to local wildlife and most creatures of smaller stature than them. Shockworms may have relation to the ancient Breshava Trenchworms, if such a thing ever actually existed.',
 };
 
@@ -281,6 +292,7 @@ export const poregon: Partial<ActorOptions> = {
   dpRange: 20,
   attackRange: 2,
   experience: 350,
+  finalBombChance: 5,
   lore: "A strange race of creatures that are said to be pranksters, reincarnations of mischievous spirits of the past or even those that have fallen far away from home. Their mushroom like appearance hides what appear to be intentions both good and bad, some claim to have been saved in their hour of need, while others still claim to have seen hideous rituals and gruesome sights at Poregon camps. Caution is advised.",
 };
 

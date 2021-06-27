@@ -50,6 +50,7 @@ import {
   getRandomArmour,
   getRandomBomb,
   getRandomEnemy,
+  getRandomPotion,
   getRandomUsable,
   getRandomWeapon,
   getSlab,
@@ -113,7 +114,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Picker<ItemOptions>> = {
   K: medikit,
   L: ladder,
   N: arrow,
-  // TODO P: getRandomPotion,
+  P: getRandomPotion,
   R: rope,
   S: rock,
   T: getSlab,
@@ -173,11 +174,9 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       );
       if (item) {
         const e = typeof item === "function" ? item(config) : item;
-        console.log(x, y, e.name);
         g.addItem(new Item(x, y, e));
       } else if (actor) {
         const e = typeof actor === "function" ? actor(config) : actor;
-        console.log(x, y, e.name);
         g.add(new Actor(x, y, e));
       }
 
