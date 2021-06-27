@@ -11,7 +11,7 @@
     "lint": "eslint --fix src",
     "test": "mocha",
     "test:watch": "mocha --watch",
-    "butler:web": "butler push  --userversion 1.0.11 dist lagdotcom/diggin-it:web",
+    "butler:web": "butler push --userversion 1.0.11 dist lagdotcom/diggin-it:web",
     "status:web": "butler status lagdotcom/diggin-it:web",
     "web": "npm run build && npm run butler:web",
     "resources:win": "shx cp dist/*.* DigginItWinWrap/Resources",
