@@ -1,3 +1,1 @@
-export const zanq = [
-  { src: "?", dst: "######:::::    cO".split(""), once: false },
-];
+export const zanq = [{ src: "?", dst: "######:::::O".split(""), once: false }];

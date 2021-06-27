@@ -224,7 +224,7 @@ export const bomb: Partial<ItemOptions> = {
   charges: 1,
   use: "bomb",
   useArgs: [4, -1, -1, 3, 3, 30],
-  lore: "Powerful, effective, extremely dangerous. Capable of clearing vast swaths of dirt, rock and metals like but has a high chance to leave rubble in its wake, bombs are generally not used at dig sites any more due to their pension for causing cave-ins and ireversible damage. Use great caution and safe thinking when using these explosives.",
+  lore: "Powerful, effective, extremely dangerous. Capable of clearing vast swaths of dirt, rock and metals like but has a high chance to leave rubble in its wake, bombs are generally not used at dig sites any more due to their pension for causing cave-ins and irreversible damage. Use great caution and safe thinking when using these explosives.",
 };
 
 export const cherryBomb: Partial<ItemOptions> = {
@@ -232,7 +232,9 @@ export const cherryBomb: Partial<ItemOptions> = {
   name: "cherry bomb",
   charges: 1,
   use: "bomb",
-  useArgs: [4, -1, -1, 3, 3, 15], // TODO: values
+  useArgs: [6, 0, 0, 1, 1, 15],
+  // TODO: throwable
+  lore: "Tiny bombs with long fuses and small blasts, Cherry Bombs are rarely, if ever used for digging. A well placed or thrown Cherry Bomb is often enough to frighten or harm small creatures, but it's small blast radius and unusually long fuse make it highly impractical as little more than a prankster's tool.",
 };
 
 // TODO
@@ -275,7 +277,8 @@ export const rations: Partial<ItemOptions> = {
 export const bracelet: Partial<ItemOptions> = {
   glyph: "Bracelet",
   name: "Mellogrinian bracelet",
-  lore: "Bracelet resembling magical artifacts from the island of Mellogrin. Rarities outside of the island itself, as few Mellogrinians have ever ventured away from the island, and fewer still bring pieces of their old life with them. Mellogrinian artifacts are often said to be imbued with the celebration of life, protecting wearers from the harm that the world would do to them.",
+  holdBonus: { sp: 3, dp: -3 },
+  lore: '"Placing the clasp upon my wrist, I feel a wealth of energy shoot through me. My arms feel as if they could rend stone, and yet my body feels all too brittle."\n- Jacques Splintertooth',
 };
 
 export const airTank: Partial<ItemOptions> = {
@@ -414,6 +417,7 @@ export const staple: Partial<ItemOptions> = {
   name: "staple",
   use: "staple",
   charges: 1,
+  lore: "Often used as a quick leg up when a ladder isn't handy, Wall Staples allow for safe traversal up and down at user's leisure. A rather odd invention, as securing these massive steel staples can be quite a chore, but no adventurer's kit would be complete without a few.",
 };
 
 export const mambele: Partial<ItemOptions> = {
@@ -582,7 +586,7 @@ export const serum: Partial<ItemOptions> = {
 export const adrenaline: Partial<ItemOptions> = {
   glyph: "Adrenaline",
   name: "adrenaline",
-  article: "a vial of ",
+  article: "a vial of",
   use: "cureStun",
   charges: 1,
   lore: "Supposedly strong enough to raise the dead, a small dose of adrenaline will get even the stiffest joints back in motion. Used specifically in the medical profession, a number of adrenaline addicts manage to circulate a rather large supply through back alley black market outfits. Adrenaline addiction has become increasingly common in athletic events and physically taxing labour.",

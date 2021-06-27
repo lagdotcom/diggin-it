@@ -340,6 +340,7 @@ export default class UsableItems {
     const [min, max] = item.useArgs;
     const amount = getPotionAmount(min, max);
 
+    this.g.player.maxHp += amount;
     this.g.player.hp += amount;
     this.g.log.add(`You feel ${amount < 0 ? "sicker" : "healthier"}.`);
 

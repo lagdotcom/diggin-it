@@ -98,8 +98,8 @@
     "GreenSlab": { "row": 4, "col": 14 },
     "BlueSlab": { "row": 4, "col": 15 },
     "ChampionPuffus": { "row": 4, "col": 16 },
-    "ChampionKreebus": { "row": 4, "col": 17 },
-    "ChampionGrundilla": { "row": 4, "col": 18 },
+    "ChampionShockworm": { "row": 4, "col": 17 },
+    "ChampionPoregon": { "row": 4, "col": 18 },
 
     "Remote": { "row": 5, "col": 0 },
     "Bone": { "row": 5, "col": 1 },
@@ -119,8 +119,8 @@
     "ChampionCanandra": { "row": 5, "col": 14 },
     "ChampionGlova": { "row": 5, "col": 15 },
     "ChampionPuffusInflated": { "row": 5, "col": 16 },
-    "ChampionShockworm": { "row": 5, "col": 17 },
-    "ChampionPoregon": { "row": 5, "col": 18 },
+    "ChampionKreebus": { "row": 5, "col": 17 },
+    "ChampionGrundilla": { "row": 5, "col": 18 },
 
     "Serum": { "row": 6, "col": 0 },
     "Adrenaline": { "row": 6, "col": 1 },

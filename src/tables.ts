@@ -41,6 +41,7 @@ import {
   airTank,
   arrow,
   arsenalArmour,
+  artifact,
   axe,
   bluePotion,
   bolas,
@@ -52,9 +53,13 @@ import {
   cherryBomb,
   claws,
   clothes,
+  coin,
+  coinBag,
   crossbow,
+  diamond,
   femur,
   gildedPlate,
+  goldBar,
   greenloaf,
   greenPotion,
   hammer,
@@ -84,6 +89,7 @@ import {
   slabHP,
   slabSP,
   slingshot,
+  smallGem,
   spear,
   specs,
   spelunkersKit,
@@ -91,6 +97,7 @@ import {
   staple,
   suture,
   taser,
+  treasureBox,
   valkyrieSet,
   wingArmour,
 } from "./entities/items";
@@ -199,6 +206,9 @@ export const getRandomEnemy: Picker<ActorOptions> = ({
   return enemies[name];
 };
 
+export const getRandomChampion: Picker<ActorOptions> = ({ zone, fluid }) =>
+  getRandomEnemy({ championChance: 100, zone, fluid });
+
 const weaponTypes = {
   pickaxe,
   powerDrill,
@@ -303,6 +313,18 @@ const armourByZone: Distribution<ArmourName>[] = [
 export const getRandomArmour: Picker<ItemOptions> = ({ zone }) =>
   armourTypes[RNG.getWeightedValue(armourByZone[zone]) as ArmourName];
 
+const airTypes = { breathTablet, airGum, airTank };
+type AirName = keyof typeof airTypes;
+
+const airWeights: Distribution<AirName> = {
+  breathTablet: common,
+  airGum: uncommon,
+  airTank: rare,
+};
+
+export const getRandomAirItem: Picker<ItemOptions> = () =>
+  airTypes[RNG.getWeightedValue(airWeights) as AirName];
+
 const bombTypes = { bomb, cherryBomb, ropeBomb };
 type BombName = keyof typeof bombTypes;
 
@@ -315,6 +337,55 @@ const bombWeights: Distribution<BombName> = {
 export const getRandomBomb: Picker<ItemOptions> = () =>
   bombTypes[RNG.getWeightedValue(bombWeights) as BombName];
 
+const foodTypes = { rations, medikit };
+type FoodName = keyof typeof foodTypes;
+
+const foodWeights: Distribution<FoodName> = {
+  // TODO scraps: common,
+  rations: uncommon,
+  medikit: rare,
+};
+
+export const getRandomFood: Picker<ItemOptions> = () =>
+  foodTypes[RNG.getWeightedValue(foodWeights) as FoodName];
+
+const climbingTypes = { staple, ladder, rope };
+type ClimbingName = keyof typeof climbingTypes;
+
+const climbingWeights: Distribution<ClimbingName> = {
+  staple: common,
+  ladder: uncommon,
+  rope: uncommon,
+};
+
+export const getRandomClimbingTool: Picker<ItemOptions> = () =>
+  climbingTypes[RNG.getWeightedValue(climbingWeights) as ClimbingName];
+
+const cureTypes = { serum, adrenaline, suture };
+type CureName = keyof typeof cureTypes;
+
+const cureWeights: Distribution<CureName> = {
+  serum: common,
+  adrenaline: common,
+  suture: common,
+};
+
+export const getRandomCure: Picker<ItemOptions> = () =>
+  cureTypes[RNG.getWeightedValue(cureWeights) as CureName];
+
+const projectileTypes = { rock, mambele, arrow, bolas };
+type ProjectileName = keyof typeof projectileTypes;
+
+const projectileWeights: Distribution<ProjectileName> = {
+  rock: common,
+  mambele: uncommon,
+  arrow: common,
+  // bolas: uncommon,
+};
+
+export const getRandomProjectile: Picker<ItemOptions> = () =>
+  projectileTypes[RNG.getWeightedValue(projectileWeights) as ProjectileName];
+
 const usableTypes = {
   adrenaline,
   airGum,
@@ -326,6 +397,7 @@ const usableTypes = {
   breathTablet,
   cherryBomb,
   greenPotion,
+  greenloaf,
   helmet,
   ladder,
   mambele,
@@ -348,10 +420,8 @@ const usableWeights: Distribution<UsableName> = {
   rations: uncommon,
   airTank: rare,
   rope: uncommon,
-  helmet: uncommon,
   // TODO bolas: rare,
   rock: common,
-  // TODO remote: ultraRare,
   staple: common,
   mambele: uncommon,
   arrow: common,
@@ -361,18 +431,26 @@ const usableWeights: Distribution<UsableName> = {
   medikit: ultraRare,
   ropeBomb: rare,
   cherryBomb: rare,
+  greenloaf: common,
+  serum: uncommon,
+  adrenaline: uncommon,
+  suture: uncommon,
+  breathTablet: uncommon,
+  airGum: uncommon,
 };
 
 export const getRandomUsable: Picker<ItemOptions> = () =>
   usableTypes[RNG.getWeightedValue(usableWeights) as UsableName];
 
-const supremeTypes = { bracelet, mask, ring, specs };
+const supremeTypes = { bracelet, helmet, mask, remote, ring, specs };
 type SupremeItemName = keyof typeof supremeTypes;
 const supremeWeights: Distribution<SupremeItemName> = {
   bracelet: ultraRare,
+  helmet: ultraRare,
   specs: ultraRare,
-  mask: ultraRare,
-  ring: ultraRare,
+  // TODO mask: ultraRare,
+  // TODO remote: ultraRare,
+  // TODO ring: ultraRare,
 };
 
 export const getSupremeItem: Picker<ItemOptions> = () =>
@@ -384,3 +462,27 @@ export const getSlab: Picker<ItemOptions> = ({ zone }) => slabs[zone];
 const potionTypes = [bluePotion, greenPotion, redPotion];
 export const getRandomPotion: Picker<ItemOptions> = () =>
   RNG.getItem(potionTypes);
+
+const smallTreasures = [coin, smallGem, goldBar];
+export const getSmallTreasure: Picker<ItemOptions> = () =>
+  RNG.getItem(smallTreasures);
+
+const mediumTreasures = [coinBag, artifact];
+export const getMediumTreasure: Picker<ItemOptions> = () =>
+  RNG.getItem(mediumTreasures);
+
+const bigTreasures = [treasureBox, diamond];
+export const getBigTreasure: Picker<ItemOptions> = () =>
+  RNG.getItem(bigTreasures);
+
+const allTreasures = [
+  coin,
+  smallGem,
+  goldBar,
+  coinBag,
+  artifact,
+  treasureBox,
+  diamond,
+];
+export const getRandomTreasure: Picker<ItemOptions> = () =>
+  RNG.getItem(allTreasures);

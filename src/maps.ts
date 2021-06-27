@@ -1,23 +1,4 @@
 import Actor, { ActorOptions } from "./Actor";
-import {
-  airTank,
-  arrow,
-  artifact,
-  coin,
-  coinBag,
-  diamond,
-  goldBar,
-  helmet,
-  ladder,
-  mask,
-  medikit,
-  rations,
-  rock,
-  rope,
-  smallGem,
-  specs,
-  treasureBox,
-} from "./entities/items";
 import { boulder, crate, metal } from "./entities/movables";
 import {
   border,
@@ -47,13 +28,23 @@ import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
 import { addTheInk } from "./prefabs";
 import {
+  getBigTreasure,
+  getMediumTreasure,
+  getRandomAirItem,
   getRandomArmour,
   getRandomBomb,
+  getRandomChampion,
+  getRandomClimbingTool,
+  getRandomCure,
   getRandomEnemy,
+  getRandomFood,
   getRandomPotion,
+  getRandomProjectile,
+  getRandomTreasure,
   getRandomUsable,
   getRandomWeapon,
   getSlab,
+  getSmallTreasure,
   getSupremeItem,
   Picker,
 } from "./tables";
@@ -68,6 +59,7 @@ const tileTypes: Record<string, Partial<TileOptions> | Picker<TileOptions>> = {
   "!": border,
   "#": ({ zone }) => dirtTiles[zone],
   ":": ({ zone }) => sandTiles[zone],
+  "[": brick, // lol
   "]": brick,
   "*": vaultBrick,
   "^": ladderTile,
@@ -92,42 +84,34 @@ const actorTypes: Record<string, Partial<ActorOptions> | Picker<ActorOptions>> =
     "1": lowerOfTwo(getRandomEnemy, (e) => e.maxHp),
     "2": getRandomEnemy,
     "3": higherOfTwo(getRandomEnemy, (e) => e.maxHp),
+    // "4": theInk,
+    // TODO "5": theBlot,
+    "8": getRandomChampion,
+
     O: boulder,
     M: metal,
     W: crate,
   };
 
 const itemTypes: Record<string, Partial<ItemOptions> | Picker<ItemOptions>> = {
-  c: coin,
-  b: goldBar,
-  g: smallGem,
-  $: coinBag,
-  a: artifact,
-  x: treasureBox,
-  d: diamond,
+  c: getSmallTreasure,
+  x: getMediumTreasure,
+  d: getBigTreasure,
+  $: getRandomTreasure,
 
-  A: airTank,
-  B: getRandomBomb,
-  F: rations,
-  G: mask,
-  H: helmet,
-  K: medikit,
-  L: ladder,
-  N: arrow,
-  P: getRandomPotion,
-  R: rope,
-  S: rock,
-  T: getSlab,
-  X: specs,
-  Z: getSupremeItem,
   "@": getRandomUsable,
+  A: getRandomAirItem,
+  B: getRandomBomb,
+  F: getRandomFood,
+  P: getRandomPotion,
+  R: getRandomClimbingTool,
+  S: getRandomCure,
+  T: getRandomProjectile,
+  Z: getSupremeItem,
 
-  "5": lowerOfTwo(getRandomWeapon, (i) => i.bonus.sp),
-  "6": getRandomWeapon,
-  "7": higherOfTwo(getRandomWeapon, (i) => i.bonus.sp),
-  "8": lowerOfTwo(getRandomArmour, (i) => i.bonus.dp),
-  "9": getRandomArmour,
-  "0": higherOfTwo(getRandomArmour, (i) => i.bonus.dp),
+  "6": getRandomArmour,
+  "7": getRandomWeapon,
+  "9": getSlab,
 };
 
 const validGlyph = new Set([
