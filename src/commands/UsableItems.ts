@@ -39,7 +39,7 @@ const targeted = (
 ): TargetedUseFn => ({ type: "target", use, targets });
 
 const getPotionAmount = (min: number, max: number) =>
-  (RNG.getPercentage() > 50 ? 1 : -1) * RNG.getUniformInt(min, max);
+  (RNG.getPercentage() > 40 ? 1 : -1) * RNG.getUniformInt(min, max);
 
 export default class UsableItems {
   mapping: Record<ItemUse, UseData>;

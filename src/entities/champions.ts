@@ -266,5 +266,5 @@ export const poregonChampion: Partial<ActorOptions> = {
   experience: 600,
   poisonChance: 10,
   finalGasChance: 100,
-  lore: 'More sinister than their mischievous peers, Poregon Shamans preach omens of a world coated in dripping black clouds. Translated texts from their ancient language tell of the mountain Isole, far across the charted reaches of the Aelonic Ocean and beyond the arid deserts of Ziyadima, where the everyone\'s deepest wishes and nightmares play out endlessly within "The Great Orobourus" born of dishonest desires and sprouted from the ancient "Neverseed."',
+  lore: 'More sinister than their mischievous peers, Poregon Shamans preach omens of a world coated in dripping black clouds. Translated texts from their ancient language tell of the mountain Isole, far across the charted reaches of the Aelonic Ocean and beyond the arid deserts of Ziyadima, where everyone\'s deepest wishes and nightmares play out endlessly within "The Great Orobourus" born of dishonest desires and sprouted from the ancient "Neverseed."',
 };

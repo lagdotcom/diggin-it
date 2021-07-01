@@ -57,7 +57,7 @@ const boss3 =
     ]
   );
 
-// TODO
+// TODO the blot
 const blotBoss =
   new Vault(
     "blot boss",

@@ -17,7 +17,7 @@ export const brokenPocketwatch: Partial<ItemOptions> = {
   lore: "A shattered image of what used to be and what could have been. Vague shapes stare back at you through a cracked lens, unrecognizable.",
 };
 
-// TODO
+// TODO mask
 export const mask: Partial<ItemOptions> = {
   glyph: "GasMask",
   name: "gas mask",
@@ -237,7 +237,7 @@ export const cherryBomb: Partial<ItemOptions> = {
   lore: "Tiny bombs with long fuses and small blasts, Cherry Bombs are rarely, if ever used for digging. A well placed or thrown Cherry Bomb is often enough to frighten or harm small creatures, but it's small blast radius and unusually long fuse make it highly impractical as little more than a prankster's tool.",
 };
 
-// TODO
+// TODO ropeBomb
 export const ropeBomb: Partial<ItemOptions> = {
   glyph: "RopeBomb",
   name: "rope bomb",
@@ -319,7 +319,7 @@ export const rock: Partial<ItemOptions> = {
   lore: "Made for throwing, skipping, looking at, having lonely existential conversations with, and so much more!\n...Not a good meal, though.",
 };
 
-// TODO
+// TODO bolas
 export const bolas: Partial<ItemOptions> = {
   glyph: "Bolas",
   name: "bolas",
@@ -404,7 +404,7 @@ export const pointedStick: Partial<ItemOptions> = {
   lore: "You have to defend yourself somehow, yet why you came armed with only a stick is a mystery even to yourself.",
 };
 
-// TODO
+// TODO remote
 export const remote: Partial<ItemOptions> = {
   glyph: "Remote",
   name: "remote",
@@ -452,7 +452,7 @@ export const slabDP: Partial<ItemOptions> = {
   lore: '"The slab beckons as I feel a frigid chill like the touch of a frozen hand. I know not what it is, only that it calls to me with promises of renewed fortitude and hidden knowledge." - Jacques Splintertooth',
 };
 
-// TODO
+// TODO vanish ring
 export const ring: Partial<ItemOptions> = {
   glyph: "Ring",
   name: "vanish ring",
