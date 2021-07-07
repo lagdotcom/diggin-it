@@ -37,7 +37,7 @@
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-url": "^6.0.0",
-    "@types/assert": "^1.5.4",
+    "@types/assert": "^1.5.5",
     "@types/bresenham": "0.0.0",
     "@types/mocha": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
