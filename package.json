@@ -39,7 +39,7 @@
     "@rollup/plugin-url": "^6.0.0",
     "@types/assert": "^1.5.5",
     "@types/bresenham": "0.0.0",
-    "@types/mocha": "^8.2.3",
+    "@types/mocha": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
     "assert": "^2.0.0",
