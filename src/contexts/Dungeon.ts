@@ -209,6 +209,14 @@ export default class Dungeon implements Context {
         if (item) {
           e.preventDefault();
           if (e.button === 0) {
+            // allow bows to be used when equipped
+            if (
+              item.slot &&
+              item.use &&
+              this.g.player.equipment[item.slot] === item
+            )
+              return { type: "use", index };
+
             if (item.slot) return { type: "equip", index };
             else return { type: "use", index };
           }

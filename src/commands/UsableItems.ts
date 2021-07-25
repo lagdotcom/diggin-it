@@ -15,7 +15,7 @@ import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import XY from "../interfaces/XY";
 import Item, { ItemUse } from "../Item";
-import { ctheName, theName } from "../text";
+import { cname, ctheName } from "../text";
 import Tile from "../Tile";
 
 interface SimpleUseFn {
@@ -25,7 +25,7 @@ interface SimpleUseFn {
 interface TargetedUseFn {
   type: "target";
   use(item: Item, x: number, y: number): undefined | string | Cmd;
-  targets(item: Item): XY[];
+  targets(item: Item): XY[] | string;
 }
 type UseData = SimpleUseFn | TargetedUseFn;
 
@@ -56,6 +56,10 @@ export default class UsableItems {
       gainSP: simple(this.useGainSP.bind(this)),
       heal: simple(this.useHeal.bind(this)),
       ladder: simple(this.useLadder.bind(this)),
+      launcher: targeted(
+        this.useLauncher.bind(this),
+        this.getLauncherTargets.bind(this)
+      ),
       memento: simple(this.useMemento.bind(this)),
       rope: targeted(this.useRope.bind(this), this.getRopeTargets.bind(this)),
       staple: targeted(
@@ -77,7 +81,7 @@ export default class UsableItems {
     if (data.type === "target") {
       if (!at) {
         const targets = data.targets(item);
-        if (targets.length === 0) return item.useFail || "No valid target.";
+        if (typeof targets === "string") return targets;
         if (targets.length > 1)
           return {
             type: "target",
@@ -119,7 +123,7 @@ export default class UsableItems {
     }
 
     const length = player.y - y;
-    if (length < 1) return "There's no room.";
+    if (length < 1) return "No room.";
 
     for (let ly = player.y; ly >= y; ly--) {
       map.set(
@@ -139,7 +143,7 @@ export default class UsableItems {
     this.g.spent++;
   }
 
-  getRopeTargets(): XY[] {
+  getRopeTargets(): XY[] | string {
     const { map, player } = this.g;
     const possibilities: XY[] = [];
 
@@ -157,7 +161,7 @@ export default class UsableItems {
       possibilities.push([x, y]);
     }
 
-    return possibilities;
+    return possibilities.length ? possibilities : "No room.";
   }
 
   useRope(item: Item, x: number, y: number): undefined {
@@ -277,27 +281,31 @@ export default class UsableItems {
     }
   }
 
-  getThrowTargets(item: Item): XY[] {
+  getThrowTargets(item: Item): XY[] | string {
     const { actors, player } = this.g;
     const [distance] = item.useArgs;
 
-    return actors.diamond(player.x, player.y, distance).filter((target) => {
-      const victim = actors.get(target[0], target[1]);
-      if (!victim || !victim.alive || victim.player) return false;
+    const possibilities = actors
+      .diamond(player.x, player.y, distance)
+      .filter((target) => {
+        const victim = actors.get(target[0], target[1]);
+        if (!victim || !victim.alive || victim.player) return false;
 
-      const path = bresenham(player.x, player.y, target[0], target[1]);
-      for (let i = 0; i < path.length; i++) {
-        const pos = path[i];
-        const { actor, tile } = this.g.contents(pos.x, pos.y);
+        const path = bresenham(player.x, player.y, target[0], target[1]);
+        for (let i = 0; i < path.length; i++) {
+          const pos = path[i];
+          const { actor, tile } = this.g.contents(pos.x, pos.y);
 
-        if (tile.solid) return false;
-        if (actor === victim) return true;
+          if (tile.solid) return false;
+          if (actor === victim) return true;
 
-        if (actor && actor.alive && !actor.player) return false;
-      }
+          if (actor && actor.alive && !actor.player) return false;
+        }
 
-      return true;
-    });
+        return true;
+      });
+
+    return possibilities.length ? possibilities : "Nothing to aim at.";
   }
 
   useThrow(item: Item, x: number, y: number): undefined {
@@ -307,7 +315,7 @@ export default class UsableItems {
     const victim = actors.get(x, y);
     const amount =
       attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"));
-    const iname = theName(item);
+    const iname = cname(item, false, true);
     const vname = ctheName(victim);
 
     this.g.emit("attacked", { attacker, victim });
@@ -402,5 +410,43 @@ export default class UsableItems {
     this.g.emit("statusRemoved", { actor, type: "stun" });
     item.charges--;
     this.g.spent++;
+  }
+
+  useLauncher(item: Item, x: number, y: number): string {
+    const [, damage] = item.useArgs;
+    const { actors, player: attacker } = this.g;
+    const ammo = attacker.inventory.find((i) => i.glyph === "Arrow");
+
+    const victim = actors.get(x, y);
+    const amount =
+      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"));
+    const iname = cname(ammo, false, true);
+    const vname = ctheName(victim);
+
+    this.g.emit("attacked", { attacker, victim });
+    this.g.log.add(`You fire ${iname} at ${vname} for ${amount} damage.`);
+    victim.hp -= amount;
+    this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
+
+    this.g.emit("used", { actor: attacker, item });
+    ammo.charges--;
+    if (ammo.charges < 1) {
+      const index = attacker.inventory.indexOf(ammo);
+      delete attacker.inventory[index];
+    }
+
+    this.g.spent++;
+    return undefined;
+  }
+
+  getLauncherTargets(item: Item): XY[] | string {
+    const equipped = this.g.player.equipment[item.slot];
+    if (equipped !== item) return "Equip it first.";
+
+    // TODO fragile
+    const ammo = this.g.player.inventory.find((i) => i?.glyph === "Arrow");
+    if (!ammo || ammo.charges < 1) return "Need an arrow.";
+
+    return this.getThrowTargets(item);
   }
 }

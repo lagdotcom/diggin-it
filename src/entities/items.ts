@@ -1,6 +1,5 @@
 import { ItemOptions } from "../Item";
 
-const noAim = "Nothing to aim at.";
 const notImplemented = "This isn't implemented yet. Sorry.";
 
 export const pocketwatch: Partial<ItemOptions> = {
@@ -251,7 +250,6 @@ export const rope: Partial<ItemOptions> = {
   use: "rope",
   charges: 1,
   useArgs: [4],
-  useFail: "No room.",
   lore: "Made for always letting you down, but not in a bad way.",
 };
 
@@ -261,7 +259,6 @@ export const ladder: Partial<ItemOptions> = {
   use: "ladder",
   charges: 1,
   useArgs: [4],
-  useFail: "No room.",
   lore: "Always here to lift you up when you need it most!",
 };
 
@@ -314,7 +311,6 @@ export const rock: Partial<ItemOptions> = {
   name: "rock",
   use: "throw",
   useArgs: [3, 3],
-  useFail: noAim,
   charges: 1,
   lore: "Made for throwing, skipping, looking at, having lonely existential conversations with, and so much more!\n...Not a good meal, though.",
 };
@@ -425,7 +421,6 @@ export const mambele: Partial<ItemOptions> = {
   name: "mambele",
   use: "throw",
   useArgs: [3, 23], // TODO: range?
-  useFail: noAim,
   charges: 1,
   lore: "A hooked weapon that's equal parts axe and knife, Mambeles are usually found native to islander and Melogrin culture as they share a common ancestry. Finding one in the deep caverns of Lessonus is at least a little baffling, but all the same, with a good throwing arm a Mambele can do devastating damage and protect against even the most vicious predators.",
 };
@@ -463,8 +458,8 @@ export const arrow: Partial<ItemOptions> = {
   glyph: "Arrow",
   name: "arrow",
   use: "throw",
+  article: "an",
   useArgs: [3, 15],
-  useFail: noAim,
   charges: 1,
   lore: "Arrows manufactured for use with crossbows and longbows, skilled hands and keen eyes can even throw these by themselves, though it's not recommended.",
 };
@@ -549,9 +544,10 @@ export const bow: Partial<ItemOptions> = {
   name: "bow",
   slot: "weapon",
   durability: 15, // TODO
-  bonus: { sp: 25 },
-  // TODO range: 3,
-  // TODO fires: 'arrow',
+  // bonus: { sp: 25 },
+  charges: Infinity,
+  use: "launcher",
+  useArgs: [3, 25],
   lore: "A typical hunting bow used widely across the world, it's string fashioned from typical linen or hemp and it's wood polished to a fine sheen. A true marksman needs no other partner, whether for combat, defence or sport a good sturdy bow will see to all your needs.",
 };
 
@@ -560,9 +556,10 @@ export const crossbow: Partial<ItemOptions> = {
   name: "crossbow",
   slot: "weapon",
   durability: 15, // TODO
-  bonus: { sp: 30 },
-  // TODO range: 3,
-  // TODO fires: 'arrow',
+  // bonus: { sp: 30 },
+  charges: Infinity,
+  use: "launcher",
+  useArgs: [3, 30],
   lore: "Quicker aiming and with far more kickback and power than a typical bow, the crossbow is only for a true hunting enthusiast. Outlawed in many regions and countries for being too close to an actual military weapon, these tend to be quite hard to come by and are a hot commodity on various black markets.",
 };
 

@@ -21,32 +21,56 @@ export function colour(thing: Entity): string {
   return "";
 }
 
-function iname(thing: Entity, article = thing.article): string {
-  if (thing.charges > 1) return `${thing.charges} ${thing.namePlural}`;
+function iname(
+  thing: Entity,
+  article = thing.article,
+  singular = false
+): string {
+  if (hasAmount(thing, singular)) return `${thing.charges} ${thing.namePlural}`;
   if (thing.article) return `${article} ${thing.name}`;
   return thing.name;
 }
 
-export function name(thing: Entity, capitalize = false): string {
-  const n = iname(thing);
+export function name(
+  thing: Entity,
+  capitalize = false,
+  singular = false
+): string {
+  const n = iname(thing, thing.article, singular);
   return capitalize ? cap(n) : n;
 }
 
-export function cname(thing: Entity, capitalize = false): string {
-  return colour(thing) + name(thing, capitalize) + fg();
+export function cname(
+  thing: Entity,
+  capitalize = false,
+  singular = false
+): string {
+  return colour(thing) + name(thing, capitalize, singular) + fg();
 }
 
-export function theName(thing: Entity, capitalize = false): string {
-  const n = iname(thing, "the");
+export function theName(
+  thing: Entity,
+  capitalize = false,
+  singular = false
+): string {
+  const n = iname(thing, "the", singular);
   return capitalize ? cap(n) : n;
 }
 
-export function ctheName(thing: Entity, capitalize = false): string {
-  return colour(thing) + theName(thing, capitalize) + fg();
+export function ctheName(
+  thing: Entity,
+  capitalize = false,
+  singular = false
+): string {
+  return colour(thing) + theName(thing, capitalize, singular) + fg();
+}
+
+export function hasAmount(thing: Entity, singular = false): boolean {
+  return thing.charges > 1 && thing.charges < Infinity && !singular;
 }
 
 export function it(thing: Entity): string {
-  return thing.plural || thing.charges > 1 ? "them" : "it";
+  return thing.plural || hasAmount(thing) ? "them" : "it";
 }
 
 export function cap(n: string): string {

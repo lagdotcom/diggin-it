@@ -1,5 +1,8 @@
 import { drawPanel } from "../drawing";
 import Game from "../Game";
+import { hasAmount } from "../text";
+
+const equippedColour = "rgba(255,255,0,0.1)";
 
 export default class Inventory {
   dirty: boolean;
@@ -15,6 +18,7 @@ export default class Inventory {
 
     const dirty = () => (this.dirty = true);
     g.on("dropped", dirty);
+    g.on("equipped", dirty);
     g.on("got", dirty);
     g.on("refreshed", dirty);
     g.on("used", dirty);
@@ -37,14 +41,17 @@ export default class Inventory {
         // TODO: this sucks
         drawPanel(chars, x, y, 2, 2);
       } else {
-        chars.draw(x, y, item.glyph + "1");
-        chars.draw(x + 1, y, item.glyph + "2");
+        const equipped = item.slot && player.equipment[item.slot] === item;
+        const eqBg = equipped ? equippedColour : undefined;
+
+        chars.draw(x, y, item.glyph + "1", undefined, eqBg);
+        chars.draw(x + 1, y, item.glyph + "2", undefined, eqBg);
         const bl = [item.glyph + "3"];
         const br = [item.glyph + "4"];
         const fg = ["transparent", "transparent"];
-        const bg = ["black", "transparent"];
+        const bg = [equipped ? eqBg : "black", "transparent"];
 
-        if (item.charges > 1) {
+        if (hasAmount(item)) {
           const amount = Math.min(99, item.charges);
           const tens = Math.floor(amount / 10).toString();
           const digits = (amount % 10).toString();
