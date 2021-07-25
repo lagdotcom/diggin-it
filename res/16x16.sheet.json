@@ -136,10 +136,13 @@
     "WaterT": { "row": 8, "col": 17, "TODO": true },
     "WaterBB": { "row": 8, "col": 18, "TODO": true },
     "WaterW": { "row": 8, "col": 19, "TODO": true },
+    "DarkWaterT": { "row": 8, "col": 20, "TODO": true },
 
     "Boulder": { "row": 9, "col": 15 },
     "WaterM": { "row": 9, "col": 17, "TODO": true },
     "Water": { "row": 9, "col": 18 },
+    "Targeting": { "row": 9, "col": 20, "TODO": true },
+    "DarkWater": { "row": 9, "col": 20 },
 
     "LavaT": { "row": 10, "col": 17, "TODO": true },
     "LavaBB": { "row": 10, "col": 18, "TODO": true },

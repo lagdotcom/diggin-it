@@ -1,4 +1,3 @@
-import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
 import Cmd, { TargetCmd } from "../interfaces/Cmd";
@@ -7,7 +6,8 @@ import XY from "../interfaces/XY";
 import Soon from "../Soon";
 import Dungeon from "./Dungeon";
 
-const targetColour = "rgba(255,255,255,0.5)";
+const targetColour = "rgba(255,255,0,0.5)";
+const targetTile = "Targeting";
 
 export default class Targeting implements Context {
   hotspots: Hotspots<number>;
@@ -25,6 +25,7 @@ export default class Targeting implements Context {
     this.mouse = [-1, -1];
     parent.rerender.stop();
     g.log.add("Targeting... (ESC/r-click to cancel)");
+    g.emit("refreshed", {});
     this.rerender.start();
   }
 
@@ -78,15 +79,12 @@ export default class Targeting implements Context {
   }
 
   render(): void {
-    const { chars } = this.g;
-    const [xmod, ymod] = this.parent.display.getOffset();
-
-    this.parent.render();
-    this.cmd.possibilities.forEach(([x, y]) => {
-      const tx = x + xmod,
-        ty = y + ymod;
-
-      drawPanel(chars, tx * 2, ty * 2, 2, 2, false, targetColour);
+    this.parent.render((data) => {
+      if (this.hotspots.resolve(data.x, data.y)) {
+        data.glyphs.unshift(targetTile);
+        data.fg = targetColour;
+      }
+      return data;
     });
   }
 }

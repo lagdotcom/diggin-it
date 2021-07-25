@@ -3,6 +3,17 @@ import XY from "../interfaces/XY";
 import Vision from "../systems/Vision";
 import InfoPanel from "./InfoPanel";
 
+interface TileRender {
+  x: number;
+  y: number;
+  glyphs: string[];
+  fg: string;
+  bg: string;
+}
+export type TileRenderCallback = (data: TileRender) => TileRender;
+
+const noChange: TileRenderCallback = (data: TileRender) => data;
+
 export default class MainDisplay {
   dirtyBot: boolean;
   dirtyTop: boolean;
@@ -36,19 +47,19 @@ export default class MainDisplay {
     g.on("infoClosed", () => (this.dirtyTop = true));
   }
 
-  render(): void {
-    if (this.dirtyBot) this.renderBot();
-    if (this.dirtyTop) this.renderTop();
+  render(renderCb: TileRenderCallback = noChange): void {
+    if (this.dirtyBot) this.renderBot(renderCb);
+    if (this.dirtyTop) this.renderTop(renderCb);
   }
 
-  renderBot(): void {
+  renderBot(renderCb: TileRenderCallback): void {
     this.dirtyBot = false;
-    this.renderTiles(this.x, this.topHeight, this.width, this.height);
+    this.renderTiles(this.x, this.topHeight, this.width, this.height, renderCb);
   }
 
-  renderTop(): void {
+  renderTop(renderCb: TileRenderCallback): void {
     this.dirtyTop = false;
-    this.renderTiles(this.x, this.y, this.width, this.topHeight);
+    this.renderTiles(this.x, this.y, this.width, this.topHeight, renderCb);
   }
 
   getOffset(): XY {
@@ -60,7 +71,13 @@ export default class MainDisplay {
     return [xmod, ymod];
   }
 
-  private renderTiles(sx: number, sy: number, ex: number, ey: number) {
+  private renderTiles(
+    sx: number,
+    sy: number,
+    ex: number,
+    ey: number,
+    renderCb: TileRenderCallback
+  ) {
     const { memory, tiles } = this.g;
     const vision = this.vision.get();
     const [xmod, ymod] = this.getOffset();
@@ -85,9 +102,16 @@ export default class MainDisplay {
         if (actor && inFov) glyphs.push(actor.glyph);
         if (fluid.glyph) glyphs.unshift(fluid.glyph);
 
-        const fgs = new Array<string>(glyphs.length).fill(colour);
-        const bgs = new Array<string>(glyphs.length).fill("transparent");
-        tiles.draw(x, y, glyphs, fgs, bgs);
+        const render = renderCb({
+          x: tx,
+          y: ty,
+          glyphs,
+          fg: colour,
+          bg: "transparent",
+        });
+        const fgs = new Array<string>(render.glyphs.length).fill(render.fg);
+        const bgs = new Array<string>(render.glyphs.length).fill(render.bg);
+        tiles.draw(x, y, render.glyphs, fgs, bgs);
       }
     }
   }

@@ -5,7 +5,7 @@ import Pushing from "../commands/Pushing";
 import UsableItems from "../commands/UsableItems";
 import InfoPanel from "../display/InfoPanel";
 import Inventory from "../display/Inventory";
-import MainDisplay from "../display/MainDisplay";
+import MainDisplay, { TileRenderCallback } from "../display/MainDisplay";
 import Stats from "../display/Stats";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
@@ -485,13 +485,13 @@ export default class Dungeon implements Context {
     } else this.info.clear();
   }
 
-  render(): void {
+  render(renderCb?: TileRenderCallback): void {
     this.updateInfo();
 
     // TODO: this is dumb lol
     this.systems();
 
-    this.display.render();
+    this.display.render(renderCb);
     this.stats.render();
     this.inventory.render();
     this.info.render();
