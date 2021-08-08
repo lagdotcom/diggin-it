@@ -1,7 +1,11 @@
 import Actor from "../Actor";
 import Game from "../Game";
 import Item from "../Item";
-import { cname, hasAmount } from "../text";
+import { cname } from "../text";
+
+function hasCharges(item: Item): boolean {
+  return item.charges > 0 && item.charges < Infinity;
+}
 
 export default class PickingUp {
   constructor(public g: Game) {}
@@ -52,7 +56,7 @@ export default class PickingUp {
   }
 
   static getFreeSlot(actor: Actor, item: Item): [pos: number, mix: boolean] {
-    if (hasAmount(item))
+    if (hasCharges(item))
       for (let i = 0; i < actor.inventorySize; i++) {
         if (actor.inventory[i]?.name === item.name) return [i, true];
       }
