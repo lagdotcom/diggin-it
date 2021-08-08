@@ -27,6 +27,7 @@ export default class ExpandedLog implements Context {
       case "Escape":
       case "Backspace":
       case "n":
+      case "N":
         return { type: "cancel" };
     }
   }

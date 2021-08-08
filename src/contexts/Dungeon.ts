@@ -127,6 +127,7 @@ export default class Dungeon implements Context {
         case "Escape":
         case "Backspace":
         case "n":
+        case "N":
           return { type: "title" };
       }
 
@@ -161,6 +162,7 @@ export default class Dungeon implements Context {
         if (shift) return { type: "dig", x: x, y: y + 1 };
         return { type: "move", x: 0, y: 1 };
       case "g":
+      case "G":
       case ",":
         e.preventDefault();
         return { type: "get" };

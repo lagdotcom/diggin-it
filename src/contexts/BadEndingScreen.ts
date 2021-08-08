@@ -36,6 +36,7 @@ export default class BadEndingScreen implements Context {
       case "Escape":
       case "Backspace":
       case "n":
+      case "N":
         return { type: "cancel" };
 
       default:

@@ -19,6 +19,7 @@ export default class CreditsScreen implements Context {
       case "Escape":
       case "Backspace":
       case "n":
+      case "N":
         return { type: "cancel" };
     }
   }
