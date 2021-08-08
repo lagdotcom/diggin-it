@@ -1,9 +1,19 @@
 import Game from "../Game";
 import { ctheName } from "../text";
 
-export default class TreasureGrabbing {
+export default class Experience {
   constructor(public g: Game) {
+    g.on("left", ({ depth }) => this.getBonusXP(depth));
     g.on("moved", () => this.getTreasure());
+  }
+
+  getBonusXP(depth: number): void {
+    const { player } = this.g;
+
+    let bonus = 500;
+    if (depth % 3 === 0) bonus += 1000;
+
+    player.experience += bonus;
   }
 
   getTreasure(): void {

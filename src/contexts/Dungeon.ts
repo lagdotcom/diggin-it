@@ -33,6 +33,7 @@ import Bombs from "../systems/Bombs";
 import Combat from "../systems/Combat";
 import Death from "../systems/Death";
 import Effects from "../systems/Effects";
+import Experience from "../systems/Experience";
 import Gravity from "../systems/Gravity";
 import Memento from "../systems/Memento";
 import Music from "../systems/Music";
@@ -40,7 +41,6 @@ import SandCollapse from "../systems/SandCollapse";
 import StatusEffects from "../systems/StatusEffects";
 import TheInk from "../systems/TheInk";
 import Traps from "../systems/Traps";
-import TreasureGrabbing from "../systems/TreasureGrabbing";
 import Vision from "../systems/Vision";
 import { ctheName, it } from "../text";
 import ExamineScreen from "./ExamineScreen";
@@ -76,7 +76,7 @@ export default class Dungeon implements Context {
   stats: Stats;
   status: StatusEffects;
   traps: Traps;
-  treasure: TreasureGrabbing;
+  xp: Experience;
   use: UsableItems;
   vision: Vision;
 
@@ -100,8 +100,8 @@ export default class Dungeon implements Context {
     this.sand = new SandCollapse(g);
     this.status = new StatusEffects(g);
     this.traps = new Traps(g);
-    this.treasure = new TreasureGrabbing(g);
     this.use = new UsableItems(g);
+    this.xp = new Experience(g);
 
     this.info = new InfoPanel(g);
     this.inventory = new Inventory(g);
