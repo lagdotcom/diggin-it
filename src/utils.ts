@@ -1,3 +1,5 @@
+import { RNG } from "rot-js";
+
 import { Picker, PickerOptions } from "./tables";
 
 export function manhattan(
@@ -35,3 +37,8 @@ export const lowerOfTwo =
     const b = gen(options);
     return metric(a) > metric(b) ? b : a;
   };
+
+export type Distribution<T extends string> = Partial<Record<T, number>>;
+
+export const pickByWeight = <T extends string>(weights: Distribution<T>): T =>
+  RNG.getWeightedValue(weights) as T;
