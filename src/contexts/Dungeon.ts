@@ -197,7 +197,10 @@ export default class Dungeon implements Context {
 
     this.rerender.start();
     if (!this.canMove) return;
-    if (e.type === "mousemove") return;
+    if (e.type === "mousemove") {
+      this.inventory.useMouse(this.mouse);
+      return;
+    }
 
     // TODO: other click events?
     const spot = this.getMouseSpot();

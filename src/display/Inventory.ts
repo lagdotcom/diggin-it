@@ -1,11 +1,17 @@
 import { drawPanel } from "../drawing";
 import Game from "../Game";
+import Hotspots from "../Hotspots";
+import XY from "../interfaces/XY";
 import { hasAmount } from "../text";
 
-const equippedColour = "rgba(255,255,0,0.1)";
+const colourEq = "rgba(255,255,0,0.1)";
+const colourSel = "rgba(255,255,255,0.2)";
+const colourEqSel = "rgba(255,255,0,0.3)";
 
 export default class Inventory {
   dirty: boolean;
+  selected?: number;
+  spots: Hotspots<number>;
 
   constructor(
     public g: Game,
@@ -22,6 +28,38 @@ export default class Inventory {
     g.on("got", dirty);
     g.on("refreshed", dirty);
     g.on("used", dirty);
+
+    this.createHotspots();
+  }
+
+  private createHotspots() {
+    this.spots = new Hotspots();
+    let x = 29,
+      y = 13;
+    for (let i = 0; i < this.g.player.inventorySize; i++) {
+      this.spots.register(i, x, y, 2, 2);
+
+      x += 2;
+      if (i % 5 === 4) {
+        y += 2;
+        x = 29;
+      }
+    }
+  }
+
+  useMouse(mouse: XY): void {
+    const spot = this.getHover(mouse);
+    if (spot !== this.selected) {
+      this.selected = spot;
+      this.dirty = true;
+    }
+  }
+
+  getHover(mouse?: XY): number | undefined {
+    if (mouse) {
+      const spot = this.spots.resolve(...mouse);
+      return spot ? spot[0] : undefined;
+    }
   }
 
   render(): void {
@@ -42,14 +80,21 @@ export default class Inventory {
         drawPanel(chars, x, y, 2, 2);
       } else {
         const equipped = item.slot && player.equipment[item.slot] === item;
-        const eqBg = equipped ? equippedColour : undefined;
+        const selected = this.selected === i;
+        const tileBg = equipped
+          ? selected
+            ? colourEqSel
+            : colourEq
+          : selected
+          ? colourSel
+          : undefined;
 
-        chars.draw(x, y, item.glyph + "1", undefined, eqBg);
-        chars.draw(x + 1, y, item.glyph + "2", undefined, eqBg);
+        chars.draw(x, y, item.glyph + "1", undefined, tileBg);
+        chars.draw(x + 1, y, item.glyph + "2", undefined, tileBg);
         const bl = [item.glyph + "3"];
         const br = [item.glyph + "4"];
         const fg = ["transparent", "transparent"];
-        const bg = [equipped ? eqBg : "black", "transparent"];
+        const bg = [tileBg ? tileBg : "black", "transparent"];
 
         if (hasAmount(item)) {
           const amount = Math.min(99, item.charges);

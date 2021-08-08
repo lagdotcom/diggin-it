@@ -45,7 +45,7 @@ export default class Hotspots<T = string> {
     return spot;
   }
 
-  resolve(x: number, y: number): [name: T, ox: number, oy: number] {
+  resolve(x: number, y: number): [name: T, ox: number, oy: number] | undefined {
     for (let i = 0; i < this.spots.length; i++) {
       const spot = this.spots[i];
       if (contains(spot, x, y))
