@@ -10,6 +10,7 @@ import MessageLog from "./display/MessageLog";
 import { unset } from "./entities/tiles";
 import { EventMap, MoveType } from "./Event";
 import EventHandler from "./EventHandler";
+import Hotspots from "./Hotspots";
 import Context from "./interfaces/Context";
 import GraphicsDisplay from "./interfaces/GraphicsDisplay";
 import Grid from "./interfaces/Grid";
@@ -43,6 +44,7 @@ export default class Game extends EventHandler {
   memory: Grid<boolean>;
   player: Actor;
   sideArea: string;
+  vaults: Hotspots;
   visitedAreas: string[];
   spent: number;
   title: HTMLImageElement;
@@ -101,10 +103,15 @@ export default class Game extends EventHandler {
   }
 
   nextMap(seed?: number): void {
-    const [map, fluid, side] = generateMap(this.depth, this.visitedAreas, seed);
+    const [map, fluid, side, vaults] = generateMap(
+      this.depth,
+      this.visitedAreas,
+      seed
+    );
     log(map.join("\n"));
     this.useMap(map, fluid, false);
     this.sideArea = side;
+    this.vaults = vaults;
   }
 
   useMap(map: string[], fluid: string[], isSideArea: boolean): void {

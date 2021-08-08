@@ -2,6 +2,7 @@ import Digging from "../commands/Digging";
 import Movement from "../commands/Movement";
 import PickingUp from "../commands/PickingUp";
 import Pushing from "../commands/Pushing";
+import Querying from "../commands/Querying";
 import UsableItems from "../commands/UsableItems";
 import InfoPanel from "../display/InfoPanel";
 import Inventory from "../display/Inventory";
@@ -69,6 +70,7 @@ export default class Dungeon implements Context {
   music: Music;
   pickingup: PickingUp;
   pushing: Pushing;
+  query: Querying;
   rerender: Soon;
   sand: SandCollapse;
   stats: Stats;
@@ -94,6 +96,7 @@ export default class Dungeon implements Context {
     this.music = new Music(g);
     this.pickingup = new PickingUp(g);
     this.pushing = new Pushing(g);
+    this.query = new Querying(g);
     this.sand = new SandCollapse(g);
     this.status = new StatusEffects(g);
     this.traps = new Traps(g);
@@ -182,6 +185,9 @@ export default class Dungeon implements Context {
 
       case "?":
         return { type: "help" };
+
+      case "@":
+        return { type: "query" };
     }
   }
 
@@ -258,6 +264,8 @@ export default class Dungeon implements Context {
         return this.handleMove(cmd);
       case "push":
         return this.handlePush(cmd);
+      case "query":
+        return this.handleQuery();
       case "target":
         return this.handleTarget(cmd);
       case "title":
@@ -415,6 +423,11 @@ export default class Dungeon implements Context {
     if (poss) this.g.log.add(poss);
     else this.pushing.apply(actor, mx, my);
     return this.render();
+  }
+
+  handleQuery(): void {
+    this.query.apply();
+    this.render();
   }
 
   handleTarget(cmd: TargetCmd): void {

@@ -75,6 +75,10 @@ export interface PushCmd {
   my: number;
 }
 
+export interface QueryCmd {
+  type: "query";
+}
+
 export interface StartGameCmd {
   type: "start";
 }
@@ -115,6 +119,7 @@ type Cmd =
   | HelpCmd
   | MoveCmd
   | PushCmd
+  | QueryCmd
   | StartGameCmd
   | TargetCmd
   | TitleCmd

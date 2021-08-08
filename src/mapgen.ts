@@ -95,23 +95,31 @@ function toMapString(grid: Grid<string>) {
   return grid.toArray().map((row) => row.join(""));
 }
 
-function generateBossMap(
-  seed?: number
-): [tiles: string[], fluids: string[], side: string] {
+type MapgenResult = [
+  tiles: string[],
+  fluids: string[],
+  side: string,
+  vaults: Hotspots
+];
+
+function generateBossMap(seed?: number): MapgenResult {
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
   log("map seed:", seed);
 
   const vault = RNG.getItem(bossRooms);
   const [map, fluid] = vault.resolve();
-  return [toMapString(map), toMapString(fluid), ""];
+
+  const taken = new Hotspots();
+  taken.register(vault.name, 0, 0, vault.width, vault.height);
+  return [toMapString(map), toMapString(fluid), "", taken];
 }
 
 export function generateMap(
   depth: number,
   doNotUse: string[] = [],
   seed?: number
-): [tiles: string[], fluids: string[], side: string] {
+): MapgenResult {
   if (depth >= 10) return generateBossMap(seed);
 
   const { width, height, maxVaults, vaultAttempts, zone, hasSideArea } =
@@ -122,7 +130,7 @@ export function generateMap(
   log("map seed:", seed);
 
   const noise = new Simplex();
-  const taken = new Hotspots<number>();
+  const taken = new Hotspots<string>();
   const map = new LinearGrid(width, height, () => "!");
   const fluid = new LinearGrid(width, height, () => " ");
   let side = "";
@@ -141,7 +149,7 @@ export function generateMap(
     const x = RNG.getUniformInt(1, width - exit.width - 1);
     const y = height - exit.height - 1;
     log(`placing ${exit.name} at ${x},${y}`);
-    taken.register(-1, x, y, exit.width, exit.height);
+    taken.register(exit.name, x, y, exit.width, exit.height);
 
     const [exitMap, exitFluid] = exit.resolve();
     map.paste(exitMap, x, y);
@@ -161,7 +169,7 @@ export function generateMap(
       const spot = taken.overlap(x, y, vault.width, vault.height);
       if (!spot) {
         log(`placing ${vault.name} at ${x},${y}`);
-        taken.register(i, x, y, vault.width, vault.height);
+        taken.register(vault.name, x, y, vault.width, vault.height);
 
         const [vaultMap, vaultFluid] = vault.resolve();
         map.paste(vaultMap, x, y);
@@ -187,7 +195,7 @@ export function generateMap(
     const spot = taken.overlap(x, y, vault.width, vault.height);
     if (!spot) {
       log(`placing ${vault.name} at ${x},${y}`);
-      taken.register(i, x, y, vault.width, vault.height);
+      taken.register(vault.name, x, y, vault.width, vault.height);
 
       const [vaultMap, vaultFluid] = vault.resolve();
       map.paste(vaultMap, x, y);
@@ -208,7 +216,7 @@ export function generateMap(
     map.set(ex, ey, ">");
   }
 
-  return [toMapString(map), toMapString(fluid), side];
+  return [toMapString(map), toMapString(fluid), side, taken];
 }
 
 export function generateSideArea(
