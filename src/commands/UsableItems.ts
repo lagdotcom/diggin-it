@@ -256,7 +256,11 @@ export default class UsableItems {
     const { log, player } = this.g;
     const { useArgs } = item;
 
-    const lit = new Item(player.x, player.y, { ...litBomb, useArgs });
+    const lit = new Item(player.x, player.y, {
+      ...litBomb,
+      useArgs,
+      glyph: item.glyph,
+    });
     this.g.addItem(lit);
 
     log.add(`You light the bomb.`);
