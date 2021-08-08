@@ -161,7 +161,7 @@ export default class Gravity {
       if (victim.player) this.g.log.add(`You fall into ${name(tile)}!`);
     } else if (tile.canClimb) {
       if (victim.player) this.g.log.add(`You grab onto ${name(tile)}.`);
-    } else if (distance > 2 && !tile.canSwimIn) {
+    } else if (distance > 3) {
       const amount = distance * 5;
       victim.hp -= amount;
 
