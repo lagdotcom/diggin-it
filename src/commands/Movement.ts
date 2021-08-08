@@ -32,7 +32,10 @@ export default class Movement {
       return "It's too tough to dig.";
     }
 
-    if (player.stunTimer > 0) return "You're stunned.";
+    if (player.stunTimer > 0) {
+      if (player.stunTimer >= 3) return "You feel totally numb.";
+      return "You can almost move again.";
+    }
 
     if (my === -1 && !tile.canClimb && !fluid.canSwimIn)
       return "Nothing to climb.";
