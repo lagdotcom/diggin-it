@@ -317,15 +317,16 @@ export default class UsableItems {
     const { actors, player: attacker } = this.g;
 
     const victim = actors.get(x, y);
-    const amount =
-      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"));
+    const amount = Math.floor(
+      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"))
+    );
     const iname = cname(item, false, true);
     const vname = ctheName(victim);
 
-    this.g.emit("attacked", { attacker, victim });
     this.g.log.add(`You throw ${iname} at ${vname} for ${amount} damage.`);
     victim.hp -= amount;
     this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
+    this.g.emit("attacked", { attacker, victim, item });
 
     this.g.emit("used", { actor: attacker, item });
     item.charges--;
@@ -419,18 +420,19 @@ export default class UsableItems {
   useLauncher(item: Item, x: number, y: number): string {
     const [, damage] = item.useArgs;
     const { actors, player: attacker } = this.g;
-    const ammo = attacker.inventory.find((i) => i.glyph === "Arrow");
+    const ammo = attacker.inventory.find((i) => i?.glyph === item.useAmmo);
 
     const victim = actors.get(x, y);
-    const amount =
-      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"));
+    const amount = Math.floor(
+      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"))
+    );
     const iname = cname(ammo, false, true);
     const vname = ctheName(victim);
 
-    this.g.emit("attacked", { attacker, victim });
     this.g.log.add(`You fire ${iname} at ${vname} for ${amount} damage.`);
     victim.hp -= amount;
     this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
+    this.g.emit("attacked", { attacker, victim, item }); // TODO ammo properties?
 
     this.g.emit("used", { actor: attacker, item });
     ammo.charges--;
@@ -447,9 +449,8 @@ export default class UsableItems {
     const equipped = this.g.player.equipment[item.slot];
     if (equipped !== item) return "Equip it first.";
 
-    // TODO fragile
-    const ammo = this.g.player.inventory.find((i) => i?.glyph === "Arrow");
-    if (!ammo || ammo.charges < 1) return "Need an arrow.";
+    const ammo = this.g.player.inventory.find((i) => i?.glyph === item.useAmmo);
+    if (!ammo || ammo.charges < 1) return "No ammo.";
 
     return this.getThrowTargets(item);
   }

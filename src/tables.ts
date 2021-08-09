@@ -43,6 +43,8 @@ import {
   arsenalArmour,
   artifact,
   axe,
+  blowdart,
+  blowgun,
   bluePotion,
   bolas,
   bomb,
@@ -116,7 +118,7 @@ export interface PickerOptions {
 }
 export type Picker<T> = (options: PickerOptions) => Partial<T>;
 
-const items = {
+export const items = {
   adrenaline,
   airGum,
   airTank,
@@ -125,6 +127,8 @@ const items = {
   artifact,
   axe,
   bluePotion,
+  blowdart,
+  blowgun,
   bolas,
   bomb,
   bow,
@@ -285,6 +289,8 @@ const weaponsByZone: Distribution<ItemName>[] = [
     shovel: uncommon,
     hammer: rare,
     femur: common,
+    blowdart: uncommon,
+    blowgun: ultraRare,
   },
   {
     pickaxe: uncommon,
@@ -299,6 +305,8 @@ const weaponsByZone: Distribution<ItemName>[] = [
     femur: common,
     bow: rare,
     crossbow: ultraRare,
+    blowdart: uncommon,
+    blowgun: ultraRare,
   },
   {
     pickaxe: uncommon,
@@ -315,6 +323,8 @@ const weaponsByZone: Distribution<ItemName>[] = [
     femur: common,
     bow: rare,
     crossbow: ultraRare,
+    blowdart: uncommon,
+    blowgun: ultraRare,
   },
 ];
 
@@ -396,7 +406,7 @@ const projectileWeights: Distribution<ItemName> = {
   rock: common,
   mambele: uncommon,
   arrow: common,
-  // bolas: uncommon,
+  bolas: uncommon,
 };
 
 export const getRandomProjectile: Picker<ItemOptions> = () =>
@@ -408,7 +418,7 @@ const usableWeights: Distribution<ItemName> = {
   rations: uncommon,
   airTank: rare,
   rope: uncommon,
-  // TODO bolas: rare,
+  bolas: rare,
   rock: common,
   staple: common,
   mambele: uncommon,

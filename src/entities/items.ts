@@ -27,8 +27,8 @@ export const pickaxe: Partial<ItemOptions> = {
   glyph: "Pickaxe",
   name: "pickaxe",
   slot: "weapon",
-  durability: 10,
   bonus: { sp: 26 },
+  bleedChance: 15,
   lore: "A digger's best friend, its function as a mining and exploration tool as well as a weapon is not to be underestimated. Many have abandoned them in recent times as the sparks from mining have a tendency to ignite gas, creating explosions and doing extreme harm to people and history alike.",
 };
 
@@ -36,8 +36,9 @@ export const powerDrill: Partial<ItemOptions> = {
   glyph: "PowerDrill",
   name: "power drill",
   slot: "weapon",
-  durability: 18,
   bonus: { sp: 42 },
+  bleedChance: 30,
+  knockBackChance: 20,
   lore: "Originally only used at quarries to grind down harder materials, the portable power drill became a staple of deep digs for its ability to quickly bore through almost anything. A flaw in the manufacturing process left many models with a pension for jamming, and it's a flaw that has yet to be addressed.",
 };
 
@@ -46,8 +47,8 @@ export const pocketknife: Partial<ItemOptions> = {
   name: "pocket knife",
   namePlural: "pocket knives",
   slot: "weapon",
-  durability: 15,
   bonus: { sp: 15 },
+  bleedChance: 5,
   lore: "Good at opening cans, cutting strings and all manner of small but useful things, a pocket knife might not be much to look at or terribly handy in a fight, but is always a bread and butter survival tool that no explorer should leave home without.",
 };
 
@@ -55,8 +56,12 @@ export const slingshot: Partial<ItemOptions> = {
   glyph: "Slingshot",
   name: "slingshot",
   slot: "weapon",
-  durability: 12,
-  bonus: { sp: 18 },
+  bonus: { sp: 10 },
+  charges: Infinity,
+  use: "launcher",
+  useAmmo: "Rock",
+  useArgs: [3, 18],
+  stunChance: 5,
   lore: "This simple tool may seem like a children's toy, but is actually quite handy for protection against small creatures. An easy tool to make as well, requiring only elastic bands and a well carved stick, fables tell of a legendary prankster whose sling never broke, a fabled marksman among gods until he tragically put his own eye out.",
 };
 
@@ -64,8 +69,9 @@ export const shovel: Partial<ItemOptions> = {
   glyph: "Shovel",
   name: "shovel",
   slot: "weapon",
-  durability: 12,
   bonus: { sp: 22 },
+  stunChance: 10,
+  knockBackChance: 5,
   lore: "Can you dig it? This simple question has been the start of many excavations and great adventures, and so too is it the start of yours!",
 };
 
@@ -73,8 +79,9 @@ export const hammer: Partial<ItemOptions> = {
   glyph: "Hammer",
   name: "hammer",
   slot: "weapon",
-  durability: 13,
   bonus: { sp: 28 },
+  stunChance: 20,
+  knockBackChance: 25,
   lore: "Every swing of the trusty hammer is guaranteed to be a smashing success, or so the guarantee says. While these are manufactured for stubborn rocks, they can also be handy for stubborn creatures and other dangers.",
 };
 
@@ -82,8 +89,8 @@ export const machete: Partial<ItemOptions> = {
   glyph: "Machete",
   name: "machete",
   slot: "weapon",
-  durability: 11,
   bonus: { sp: 35 },
+  bleedChance: 35,
   lore: "A choice item of bandits and intrepid explorers alike for entirely different reasons. Its large blade is thorough at sweeping through thick foliage and just as good at keeping one safe from the myriad dangers a deep cavern can hold.",
 };
 
@@ -93,8 +100,8 @@ export const claws: Partial<ItemOptions> = {
   article: "some",
   plural: true,
   slot: "weapon",
-  durability: 8,
   bonus: { sp: 32 },
+  bleedChance: 25,
   lore: "After studying how Muln moved underground for over a decade, the Finelli & Sons corporation were able to utilize what they learned and produce digging claws. Surprisingly practical for quickly manoeuvring through soft dirt, they also serve for self-protection should the need arise; this first run is not very sturdy, however and complaints of shattered claws are common.",
 };
 
@@ -102,8 +109,9 @@ export const jackhammer: Partial<ItemOptions> = {
   glyph: "Jackhammer",
   name: "jackhammer",
   slot: "weapon",
-  durability: 18,
   bonus: { sp: 45 },
+  stunChance: 35,
+  knockBackChance: 50,
   lore: "Outlawed in most mining sites due to the severe noise deafening many of its users, a handful still turn up where you least expect them. Jackhammers are nothing if not effective and are capable of chewing through the hardiest of things with ease, just make sure to bring earplugs.",
 };
 
@@ -111,8 +119,9 @@ export const laserCutter: Partial<ItemOptions> = {
   glyph: "LaserCutter",
   name: "laser cutter",
   slot: "weapon",
-  durability: 1000, // TODO: explode chance
+  // TODO: explode chance
   bonus: { sp: 50 },
+  poisonChance: 20,
   lore: "The ultimate in rock-cutting and digging technology, they were never actually released to market due to the danger its faulty battery presented. In seven out of every ten tests, the cutter was shown to explode after repeated use rendering them highly dangerous. How one found its way here is almost more mysterious than the depths themselves.",
 };
 
@@ -122,7 +131,6 @@ export const clothes: Partial<ItemOptions> = {
   article: "some",
   plural: true,
   slot: "armour",
-  durability: 10,
   bonus: { maxHp: 5, dp: 8 },
   lore: "Tailored to be hardy for long hikes and short digs, this basic attire allows for very freeform movement and has tons of breathing room making it an ideal take along for any trip.",
 };
@@ -132,7 +140,6 @@ export const reinforced: Partial<ItemOptions> = {
   name: "reinforced attire",
   article: "some",
   slot: "armour",
-  durability: 12,
   bonus: { maxHp: 8, dp: 12 },
   lore: "Longer hikes and deeper digs require safer gear, but in a strange twist of fate these reinforced rags were picked up by fashionable youths and now sell for exorbitant sums of money.",
 };
@@ -141,7 +148,6 @@ export const spelunkersKit: Partial<ItemOptions> = {
   glyph: "ArmourC",
   name: "spelunker's kit",
   slot: "armour",
-  durability: 16,
   bonus: { maxHp: 12, dp: 15 },
   lore: "Lightly armoured and generally the preferred kit for the serious explorer, a common Spelunker's Kit will protect from small slips, general hazards and minor harmful substances.",
 };
@@ -151,7 +157,6 @@ export const militaryMail: Partial<ItemOptions> = {
   name: "military mail",
   article: "some",
   slot: "armour",
-  durability: 16,
   bonus: { maxHp: 15, dp: 16 },
   lore: "Usually only issued to military personnel, various pieces can still be rented for exceptionally dangerous expeditions. The design is slightly unwieldy for exploring, but the medium weight and thick plates make it decent protection from all manner of harm.",
 };
@@ -161,7 +166,6 @@ export const squadLeaderGear: Partial<ItemOptions> = {
   name: "squad leader's gear",
   article: "some",
   slot: "armour",
-  durability: 15,
   bonus: { maxHp: 18, dp: 18 },
   lore: "A strange find, as squad leader military gear is never used for expeditions and tends to only be found on the front lines during times of war or during military operations.\nPerhaps a stranded squadron once holed up in these deep tunnels.",
 };
@@ -171,7 +175,6 @@ export const busterArmour: Partial<ItemOptions> = {
   name: "buster armour",
   article: "some",
   slot: "armour",
-  durability: 18,
   bonus: { maxHp: 21, dp: 18 },
   lore: "Named after the loveable and obnoxious frog like creatures that seem to turn up everywhere, the Buster Armour is actually a relic from a nameless warrior race. Expert historians theorize the armour was made for rushing head first into battle, much like a feral Buster does when threatened.",
 };
@@ -181,7 +184,6 @@ export const wingArmour: Partial<ItemOptions> = {
   name: "wing armour",
   article: "some",
   slot: "armour",
-  durability: 18,
   bonus: { maxHp: 22, dp: 19 },
   lore: "Once used by a proud and nameless warrior race from forgotten times, it earned its nickname as those entering battles were said to move with the swiftness of a soaring bird. These armours are rarely excavated, and often not in a usable condition, a rare find indeed!",
 };
@@ -191,7 +193,6 @@ export const gildedPlate: Partial<ItemOptions> = {
   name: "gilded plate",
   article: "some",
   slot: "armour",
-  durability: 16,
   bonus: { maxHp: 24, dp: 20 },
   lore: "Associated with ancient royalty and long forgotten civilizations, these plates are extremely rare and were only given to a King or Queen's most loyal and trusted guard. To wear these plates was to willingly be ready to give your life at any moment or reason for your people.",
 };
@@ -200,7 +201,6 @@ export const valkyrieSet: Partial<ItemOptions> = {
   glyph: "ArmourI",
   name: "valkyrie set",
   slot: "armour",
-  durability: 19,
   bonus: { maxHp: 25, dp: 22 },
   // TODO: allows flight?
   lore: "Among the most elite of elite warriors from the time of ancient rulers were those dubbed as Valkyries. A set of personal guards hand picked by a King or Queen from among the gilded elite based on combat prowess, it is said that no Valkyrie was ever defeated in combat.",
@@ -211,7 +211,6 @@ export const arsenalArmour: Partial<ItemOptions> = {
   name: "arsenal armour",
   article: "some",
   slot: "armour",
-  durability: 20,
   bonus: { maxHp: 30, dp: 25 },
   // TODO: slows user?
   lore: "Heavy machine armour made for Lessonus military operations. Its plating and arsenal of weaponry makes movement unwieldly, but leaves its user highly protected from most manner of harm.\n...You can't help but wonder how or why it got down here, though.",
@@ -311,15 +310,18 @@ export const rock: Partial<ItemOptions> = {
   name: "rock",
   use: "throw",
   useArgs: [3, 3],
+  stunChance: 1,
   charges: 1,
   lore: "Made for throwing, skipping, looking at, having lonely existential conversations with, and so much more!\n...Not a good meal, though.",
 };
 
-// TODO bolas
 export const bolas: Partial<ItemOptions> = {
   glyph: "Bolas",
   name: "bolas",
   namePlural: "bolases",
+  use: "throw",
+  useArgs: [3, 1],
+  stunChance: 100,
   charges: 1,
   lore: "Initially used by hunters to ensnare game, the Bolas persisted as a go-to for those with a skilled hand as a tool of the trade in both exploration and digging. Ensnaring creatures on the attack can be the difference between life and death, but should be used with caution and care all the same.",
 };
@@ -387,7 +389,6 @@ export const rags: Partial<ItemOptions> = {
   article: "some",
   plural: true,
   slot: "armour",
-  durability: 10,
   bonus: { maxHp: 0, dp: 5 },
   lore: "You've been wearing these for a bit too long and it's starting to show; these old rags are barely protecting you from the heat and cold, let alone whatever may lurk around the corner.",
 };
@@ -395,8 +396,10 @@ export const pointedStick: Partial<ItemOptions> = {
   glyph: "Stick",
   name: "pointed stick",
   slot: "weapon",
-  durability: 10,
   bonus: { sp: 12 },
+  stunChance: 1,
+  bleedChance: 1,
+  knockBackChance: 1,
   lore: "You have to defend yourself somehow, yet why you came armed with only a stick is a mystery even to yourself.",
 };
 
@@ -464,6 +467,16 @@ export const arrow: Partial<ItemOptions> = {
   lore: "Arrows manufactured for use with crossbows and longbows, skilled hands and keen eyes can even throw these by themselves, though it's not recommended.",
 };
 
+export const blowdart: Partial<ItemOptions> = {
+  glyph: "Blowdart",
+  name: "blow dart",
+  use: "throw",
+  useArgs: [3, 10],
+  poisonChance: 10,
+  charges: 1,
+  lore: "Darts crafted by hunters, Poregons, and ancient native tribes alike. Their small size makes them very easy to carry in large quantities, and a puncture wound leaves nary a trace of evidence.",
+};
+
 export const bluePotion: Partial<ItemOptions> = {
   glyph: "BluePotion",
   name: "blue liquid",
@@ -504,8 +517,10 @@ export const axe: Partial<ItemOptions> = {
   glyph: "Axe",
   name: "axe",
   slot: "weapon",
-  durability: 15, // TODO
+  // TODO reach: 2,
   bonus: { sp: 30 },
+  bleedChance: 25,
+  knockBackChance: 15,
   lore: "An axe appearing of Mellogrinian make, but is actually just an imitation of their craftsmanship. Make no mistake, imitation or not it's sharp edge and sturdy craftsmanship makes it a worthwhile tool for defence, survival, and exploration.",
 };
 
@@ -513,9 +528,10 @@ export const spear: Partial<ItemOptions> = {
   glyph: "Spear",
   name: "spear",
   slot: "weapon",
-  durability: 15, // TODO
-  // TODO reach: 2,
+  // TODO reach: 3,
   bonus: { sp: 27 },
+  bleedChance: 10,
+  knockBackChance: 10,
   lore: "Simple hunting spear, effective for both fishing and defence. It's long reach and sharp edge lends itself to slightly longer range fighting and can keep it's user safer from close range harm.",
 };
 
@@ -523,10 +539,9 @@ export const taser: Partial<ItemOptions> = {
   glyph: "Taser",
   name: "taser",
   slot: "weapon",
-  durability: 15, // TODO
-  // TODO stunChance: 25,
   // TODO zapSelfInWater: true,
   bonus: { sp: 25 },
+  stunChance: 35,
   lore: "Tools for self defence against predators and thieves alike, a simple taser delivers enough of a shock to stun most targets into submission, allowing for an easier escape. This version appears modified to deliver lethal voltage.",
 };
 
@@ -534,8 +549,9 @@ export const femur: Partial<ItemOptions> = {
   glyph: "Bone",
   name: "femur",
   slot: "weapon",
-  durability: 15, // TODO
   bonus: { sp: 20 },
+  stunChance: 5,
+  knockBackChance: 35,
   lore: "Sturdy bone fashioned into a makeshift club. It may not be the most practical weapon, but it could be used in a pinch. Strangely, it seems impossible to make out who or what this bone once belonged to.",
 };
 
@@ -543,11 +559,12 @@ export const bow: Partial<ItemOptions> = {
   glyph: "Bow",
   name: "bow",
   slot: "weapon",
-  durability: 15, // TODO
-  // bonus: { sp: 25 },
+  bonus: { sp: 10 },
   charges: Infinity,
   use: "launcher",
-  useArgs: [3, 25],
+  useAmmo: "Arrow",
+  useArgs: [5, 32],
+  bleedChance: 10,
   lore: "A typical hunting bow used widely across the world, it's string fashioned from typical linen or hemp and it's wood polished to a fine sheen. A true marksman needs no other partner, whether for combat, defence or sport a good sturdy bow will see to all your needs.",
 };
 
@@ -555,11 +572,12 @@ export const crossbow: Partial<ItemOptions> = {
   glyph: "Crossbow",
   name: "crossbow",
   slot: "weapon",
-  durability: 15, // TODO
-  // bonus: { sp: 30 },
+  bonus: { sp: 10 },
   charges: Infinity,
   use: "launcher",
-  useArgs: [3, 30],
+  useAmmo: "Arrow",
+  useArgs: [3, 36],
+  bleedChance: 15,
   lore: "Quicker aiming and with far more kickback and power than a typical bow, the crossbow is only for a true hunting enthusiast. Outlawed in many regions and countries for being too close to an actual military weapon, these tend to be quite hard to come by and are a hot commodity on various black markets.",
 };
 
@@ -614,4 +632,17 @@ export const airGum: Partial<ItemOptions> = {
   charges: 1,
   useArgs: [40, 50],
   lore: "A long lasting chew with a minty after taste! It's like chewing a tooth-paste that helps you breathe better.",
+};
+
+export const blowgun: Partial<ItemOptions> = {
+  glyph: "Blowgun",
+  name: "blowdart gun",
+  slot: "weapon",
+  bonus: { sp: 5 },
+  charges: Infinity,
+  use: "launcher",
+  useAmmo: "Blowdart",
+  useArgs: [3, 25],
+  poisonChance: 30,
+  lore: "A tool of the poregons and ancient native hunters driven from their homes during the Great Invasion. Blow Darts are a handy tool in the hands of assassins and hunters alike, utilizing sharply tipped darts coated in various animal venoms, ranging from those that cause minor numbness to those that can kill in an instant.",
 };

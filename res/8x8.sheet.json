@@ -189,6 +189,8 @@
     "Adrenaline": { "row": 12, "col": 21, "width": 2, "height": 2 },
     "Suture": { "row": 12, "col": 23, "width": 2, "height": 2 },
     "BreathTablet": { "row": 12, "col": 25, "width": 2, "height": 2 },
-    "AirGum": { "row": 12, "col": 27, "width": 2, "height": 2 }
+    "AirGum": { "row": 12, "col": 27, "width": 2, "height": 2 },
+    "Blowgun": { "row": 12, "col": 29, "width": 2, "height": 2 },
+    "Blowdart": { "row": 12, "col": 31, "width": 2, "height": 2 }
   }
 }

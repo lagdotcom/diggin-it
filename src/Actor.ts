@@ -24,7 +24,7 @@ export interface ActorOptions {
   glyph: string;
   heavy: boolean;
   inky: boolean;
-  inventory: Item[];
+  inventory: (Item | undefined)[];
   inventorySize: number;
   lore: string;
   name: string;

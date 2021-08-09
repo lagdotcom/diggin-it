@@ -8,7 +8,10 @@ import {
   treasureBox,
 } from "./entities/items";
 import Game from "./Game";
+import Item from "./Item";
 import { generateMap } from "./mapgen";
+import { ItemName, items as AllItems } from "./tables";
+import { name } from "./text";
 
 function testTheInk() {
   const g = Game.INSTANCE;
@@ -111,6 +114,21 @@ function gatherAllStats(count = 100) {
   return lines.join("\n");
 }
 
+function spawnItem(typ: ItemName, qty = 1) {
+  const g = Game.INSTANCE;
+
+  if (typ in AllItems) {
+    const item = new Item(g.player.x, g.player.y, AllItems[typ]);
+    if (item.charges) item.charges = qty;
+    g.addItem(item);
+
+    g.log.add(`${name(item, true)} appears at your feet.`);
+  } else g.log.add(`What the heck is a ${typ}?`);
+
+  g.emit("refreshed", {});
+  g.contexts.top.render();
+}
+
 export function initCheats(): void {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   (window as any).g = Game.INSTANCE;
@@ -118,5 +136,6 @@ export function initCheats(): void {
   (window as any).keepyourselfalive = testGodMode;
   (window as any).theboss = testTheInk;
   (window as any).gather = gatherAllStats;
+  (window as any).gimme = spawnItem;
   /* eslint-enable @typescript-eslint/no-explicit-any */
 }

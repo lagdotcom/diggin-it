@@ -24,7 +24,7 @@ export default class StatusEffects {
           log.add(
             victim.player
               ? warning + "You feel very ill."
-              : `${theName(victim)} looks ill.`
+              : `${theName(victim, true)} looks ill.`
           );
         }
         return;
@@ -34,13 +34,13 @@ export default class StatusEffects {
           log.add(
             victim.player
               ? warning + "You're rooted in place."
-              : `${theName(victim)} is rooted in place.`
+              : `${theName(victim, true)} is rooted in place.`
           );
         else
           log.add(
             victim.player
               ? warning + "Your legs stiffen further."
-              : `${theName(victim)} looks even stiffer.`
+              : `${theName(victim, true)} looks even stiffer.`
           );
         victim.stunTimer += RNG.getUniformInt(3, 6);
         return;
@@ -60,7 +60,7 @@ export default class StatusEffects {
         log.add(
           victim.player
             ? warning + "You start bleeding."
-            : `${theName(victim)} starts bleeding.`
+            : `${theName(victim, true)} starts bleeding.`
         );
         victim.bleedAmount = 1;
         return;
@@ -69,7 +69,7 @@ export default class StatusEffects {
         log.add(
           victim.player
             ? warning + "Your cut is worse now."
-            : `${theName(victim)} starts bleeding more.`
+            : `${theName(victim, true)} starts bleeding more.`
         );
         victim.bleedAmount = 3;
         return;
@@ -78,7 +78,7 @@ export default class StatusEffects {
         log.add(
           victim.player
             ? warning + "You're losing a lot of blood."
-            : `${theName(victim)} starts bleeding badly.`
+            : `${theName(victim, true)} starts bleeding badly.`
         );
         victim.bleedAmount = 5;
         return;
@@ -87,7 +87,7 @@ export default class StatusEffects {
         log.add(
           victim.player
             ? warning + "You're losing pints of blood!"
-            : `${theName(victim)} starts bleeding fatally.`
+            : `${theName(victim, true)} starts bleeding fatally.`
         );
         victim.bleedAmount = 10;
     }
@@ -110,7 +110,7 @@ export default class StatusEffects {
           log.add(
             victim.player
               ? "You can move again."
-              : `${theName(victim)} can move again.`
+              : `${theName(victim, true)} can move again.`
           );
         }
       }

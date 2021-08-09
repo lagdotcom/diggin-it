@@ -127,6 +127,8 @@
     "Suture": { "row": 6, "col": 2 },
     "BreathTablet": { "row": 6, "col": 3 },
     "AirGum": { "row": 6, "col": 4 },
+    "Blowgun": { "row": 6, "col": 5 },
+    "Blowdart": { "row": 6, "col": 6 },
 
     "SandS": { "row": 7, "col": 11 },
     "SandM": { "row": 7, "col": 12 },
@@ -175,13 +177,22 @@
     "DirtD": { "row": 15, "col": 13 },
     "Entrance": { "row": 15, "col": 15 },
     "RopeTileB": { "row": 15, "col": 17 },
+    "HugeDoor": { "row": 15, "col": 19, "width": 2, "height": 2, "TODO": true },
     "LadderTileB": { "row": 15, "col": 21 },
 
     "SideExit": { "row": 16, "col": 15 },
+    "HugeDoorOpen": {
+      "row": 16,
+      "col": 21,
+      "width": 2,
+      "height": 2,
+      "TODO": true
+    },
 
     "Bedrock": { "row": 17, "col": 11 },
     "Exit": { "row": 17, "col": 15 },
     "InkDoor": { "row": 17, "col": 17 },
+    "InkDoorOpen": { "row": 17, "col": 18, "TODO": true },
     "StapleTile": { "row": 17, "col": 20 }
   }
 }

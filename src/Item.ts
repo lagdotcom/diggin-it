@@ -25,7 +25,6 @@ export interface ItemOptions {
   canPickUp: boolean;
   charges: number;
   colour: string;
-  durability: number;
   glyph: string;
   holdBonus: Partial<Record<Stat, number>>;
   lore: string;
@@ -36,7 +35,12 @@ export interface ItemOptions {
   slot: Slot;
   treasure: number;
   use: ItemUse;
+  useAmmo?: string;
   useArgs: number[];
+  poisonChance: number;
+  bleedChance: number;
+  stunChance: number;
+  knockBackChance: number; // TODO knockBackChance
 }
 
 export default class Item {
@@ -47,7 +51,6 @@ export default class Item {
   canPickUp: boolean;
   charges: number;
   colour: string;
-  durability: number;
   glyph: string;
   holdBonus: Partial<Record<Stat, number>>;
   lore: string;
@@ -58,7 +61,12 @@ export default class Item {
   slot?: Slot;
   treasure: number;
   use?: ItemUse;
+  useAmmo?: string;
   useArgs: number[];
+  poisonChance: number;
+  bleedChance: number;
+  stunChance: number;
+  knockBackChance: number;
 
   constructor(
     public x: number,
@@ -69,7 +77,6 @@ export default class Item {
       canClimb = false,
       charges = 0,
       colour = "silver",
-      durability = 0,
       glyph = "?",
       holdBonus = {},
       lore = "",
@@ -80,8 +87,13 @@ export default class Item {
       slot = undefined,
       treasure = 0,
       use = undefined,
+      useAmmo = undefined,
       useArgs = [],
       canPickUp = treasure === 0,
+      poisonChance = 0,
+      bleedChance = 0,
+      stunChance = 0,
+      knockBackChance = 0,
     }: Partial<ItemOptions> = {}
   ) {
     this._type = "Item";
@@ -91,7 +103,6 @@ export default class Item {
     this.canPickUp = canPickUp;
     this.charges = charges;
     this.colour = colour;
-    this.durability = durability;
     this.glyph = glyph;
     this.holdBonus = holdBonus;
     this.lore = lore;
@@ -102,6 +113,11 @@ export default class Item {
     this.slot = slot;
     this.treasure = treasure;
     this.use = use;
+    this.useAmmo = useAmmo;
     this.useArgs = useArgs;
+    this.poisonChance = poisonChance;
+    this.bleedChance = bleedChance;
+    this.stunChance = stunChance;
+    this.knockBackChance = knockBackChance;
   }
 }

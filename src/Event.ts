@@ -17,7 +17,7 @@ export type StatusType = "bleed" | "poison" | "stun";
 type NoData = Record<string, never>;
 
 export interface EventMap {
-  attacked: { attacker: Actor; victim: Actor };
+  attacked: { attacker: Actor; victim: Actor; item?: Item };
   collapsed: { x: number; y: number };
   damaged: {
     attacker?: Actor;
