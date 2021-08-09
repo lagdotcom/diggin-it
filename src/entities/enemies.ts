@@ -74,6 +74,7 @@ export const flazza: Partial<ActorOptions> = {
   dpRange: 21,
   experience: 300,
   stunChance: 15,
+  knockBackChance: 10,
   lore: 'Tentacled flying menaces that love the dark, Flazzas are known as the "Terror Flies of the Deep". They capture any prey smaller than them by dive bombing from above and attempting to break bones or outright kill their prey on the spot, should that fail they have a nasty tendency to envelop their victim within their carnivorous tentacles. They have an aversion to bright lights and thusly keep their homes far from that of modern civilization.',
 };
 export const glova: Partial<ActorOptions> = {
@@ -105,6 +106,7 @@ export const muln: Partial<ActorOptions> = {
   dpRange: 24,
   experience: 650,
   bleedChance: 10,
+  knockBackChance: 15,
   lore: "Burrowing menaces responsible for missing crops, livestock and occasionally children, Muln often cause extreme agricultural grief and property damages in many areas surrounded by mountains or cave systems. If faced with a Muln infestation, it's recommended to evacuate immediately. Once you are somewhere safe, call professional trappers to capture and relocate them to more natural habitats.",
 };
 export const slobberfin: Partial<ActorOptions> = {
@@ -137,6 +139,7 @@ export const splinter: Partial<ActorOptions> = {
   attackRange: 3,
   experience: 500,
   stunChance: 20,
+  knockBackChance: 10,
   lore: "According to religious texts recovered from Dwelvarkian ruins, Splinters are the remains of the largest tree to have ever existed, and a source from which the Dwelvarkians themselves spurned. During a war that lasted through the birth and death of the first sun to hang in the sky, a greedy and selfish race cut the tree down, taking it's limbs for themselves and fashioning living dolls in their image. The Splinters came not long after, seeking revenge and entangling unfortunate victims within their roots.",
 };
 export const telden: Partial<ActorOptions> = {
@@ -164,7 +167,6 @@ export const floater: Partial<ActorOptions> = {
   ai: "fly",
   obeysGravity: false,
   inky: true,
-  // TODO: mimic random flying enemy
   maxHp: 75,
   maxHpRange: 85,
   sp: 32,
@@ -182,13 +184,13 @@ export const drifter: Partial<ActorOptions> = {
   ai: "wander",
   inky: true,
   canClimb: true,
-  // TODO: mimic random ground enemy
   maxHp: 80,
   maxHpRange: 90,
   sp: 32,
   spRange: 35,
   dp: 25,
   dpRange: 28,
+  knockBackChance: 20,
   experience: 800,
   lore: "\"I don't understand how, but this strange abomination drifts and glides about like a feather, mimicking movements of human and beast alike. It unsettles me greatly to know things like this exist in the world, but I've come too far to give up now!\"\n- Jacques Splintertooth",
 };
@@ -205,12 +207,14 @@ export const theInk: Partial<ActorOptions> = {
   spRange: 48,
   dp: 28,
   dpRange: 32,
+  knockBackChance: 15,
   experience: 3000,
   teleportThreshold: 30,
   lore: "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Strange beasts and horrifying grotesques spurn forth endlessly from this flying yolk of terror, as if ink dripping on tarnished paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\"\n- Jacques Splintertooth",
 };
 
 export const puffus: Partial<ActorOptions> = {
+  // TODO inflated form
   glyph: "Puffus",
   name: "puffus",
   colour: "blue",
@@ -274,6 +278,7 @@ export const grundilla: Partial<ActorOptions> = {
   spRange: 50,
   dp: 30,
   dpRange: 35,
+  knockBackChance: 35,
   experience: 950,
   lore: "Once faced with near-extinction due to over hunting, Grundillas soon evolved from a docile forest and cave-dwelling species into violent territorial beasts. They became capable of lifting six times their own weight, and as a result are able to climb almost any terrain with ease. From hunted to hunters, an encounter with a wild Grundilla is almost always fatal; do not approach these creatures under any circumstances.",
 };
@@ -291,6 +296,7 @@ export const poregon: Partial<ActorOptions> = {
   dp: 16,
   dpRange: 20,
   attackRange: 2,
+  knockBackChance: 10,
   experience: 350,
   finalBombChance: 5,
   lore: "A strange race of creatures that are said to be pranksters, reincarnations of mischievous spirits of the past or even those that have fallen far away from home. Their mushroom like appearance hides what appear to be intentions both good and bad, some claim to have been saved in their hour of need, while others still claim to have seen hideous rituals and gruesome sights at Poregon camps. Caution is advised.",
@@ -309,6 +315,7 @@ export const theGreenInk: Partial<ActorOptions> = {
   spRange: 42,
   dp: 25,
   dpRange: 29,
+  knockBackChance: 25,
   experience: 3000,
   teleportThreshold: 30,
   lore: "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Exploding younglings spurn forth endlessly from this flying yolk of terror, as if ink dripping on tarnished paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\" - Jacques Splintertooth",
@@ -343,6 +350,7 @@ export const theRedInk: Partial<ActorOptions> = {
   dp: 33,
   dpRange: 36,
   attackRange: 3,
+  knockBackChance: 5,
   experience: 3000,
   teleportThreshold: 30,
   // TODO: leaves fire when teleporting
