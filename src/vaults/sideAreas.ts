@@ -462,7 +462,8 @@ const hellfire =
       "                          ",
       "                          ",
       "                          ",
-    ]
+    ],
+    zanq
   );
 
 export const entrances =

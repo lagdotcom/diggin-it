@@ -70,6 +70,7 @@ const tileTypes: Record<string, Partial<TileOptions> | Picker<TileOptions>> = {
   v: vaultExit,
   f: inkDoor,
   C: coral,
+  // TODO H: hugeDoor,
 };
 
 const fluidTypes: Record<string, Partial<TileOptions>> = {

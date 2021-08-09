@@ -102,7 +102,7 @@ function gatherAllStats(count = 100) {
   const freqs = floors.map((n) => gatherStats(count, n));
   const keys = getUniqueKeys(freqs);
 
-  const lines = ["floor\tmoney\t" + keys.join("\t")];
+  const lines = ["F\t$$$\t" + keys.join("\t")];
   freqs.forEach((floor, n) => {
     const parts = [
       n + 1,
