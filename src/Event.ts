@@ -12,12 +12,14 @@ export type DamageType =
   | "status"
   | "suffocation"
   | "trap";
+export type DigType = "dig" | "bomb";
 export type MoveType = "walk" | "fall" | "crush" | "climb" | "push";
 export type StatusType = "bleed" | "poison" | "stun";
 type NoData = Record<string, never>;
 
 export interface EventMap {
   attacked: { attacker: Actor; victim: Actor; item?: Item };
+  chipped: { attacker: Actor; victim?: Actor; tile?: Tile };
   collapsed: { x: number; y: number };
   damaged: {
     attacker?: Actor;
@@ -27,7 +29,7 @@ export interface EventMap {
   };
   destroyed: { attacker: Actor; victim: Actor };
   died: { attacker: Actor; victim: Actor };
-  digged: { tile: Tile; x: number; y: number };
+  digged: { tile: Tile; x: number; y: number; type: DigType };
   dropped: { actor: Actor; item: Item };
   effect: { effect: Item; duration: number };
   entered: { depth: number; zone: number; isSideArea: boolean };

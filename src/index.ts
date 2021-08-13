@@ -3,6 +3,7 @@ import { Display } from "rot-js";
 import { initCheats } from "./cheats";
 import Game from "./Game";
 import getMusicLibrary from "./music";
+import getSoundBank from "./sfx";
 import getGraphicsDisplay, { loadChars, loadTiles } from "./sheets";
 
 async function getCanvas(
@@ -47,8 +48,9 @@ async function getCanvas(
 window.addEventListener("load", async () => {
   const root = document.getElementById("root");
   const music = await getMusicLibrary();
+  const sfx = await getSoundBank();
   const { tiles, chars, graphics } = await getCanvas(root);
 
-  new Game(music, tiles, chars, graphics);
+  new Game(music, sfx, tiles, chars, graphics);
   initCheats();
 });

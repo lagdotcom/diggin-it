@@ -39,6 +39,7 @@ export default class Digging {
       }
 
       log.add(`You chip at ${theName(actor)}.`);
+      this.g.emit("chipped", { attacker: player, victim: actor });
       return;
     }
 
@@ -46,11 +47,12 @@ export default class Digging {
     if (tile.durability < 1) {
       log.add(`You dig through ${theName(tile)}.`);
       map.set(x, y, new Tile(empty));
-      this.g.emit("digged", { tile, x, y });
+      this.g.emit("digged", { tile, x, y, type: "dig" });
       this.g.emit("mapChanged", {});
       return;
     }
 
     log.add(`You chip at ${theName(tile)}.`);
+    this.g.emit("chipped", { attacker: player, tile });
   }
 }

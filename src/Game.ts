@@ -15,6 +15,7 @@ import Context from "./interfaces/Context";
 import GraphicsDisplay from "./interfaces/GraphicsDisplay";
 import Grid from "./interfaces/Grid";
 import MusicLibrary from "./interfaces/MusicLibrary";
+import SfxLibrary from "./interfaces/SfxLibrary";
 import Stack from "./interfaces/Stack";
 import Thing from "./interfaces/Thing";
 import TileDisplay from "./interfaces/TileDisplay";
@@ -53,6 +54,7 @@ export default class Game extends EventHandler {
 
   constructor(
     public music: MusicLibrary,
+    public sfx: SfxLibrary,
     public tiles: TileDisplay,
     public chars: TileDisplay,
     public graphics: GraphicsDisplay

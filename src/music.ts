@@ -6,27 +6,7 @@ import mysteryUrl from "../res/mystery-sting.mp3";
 import inkUrl from "../res/sealed-in-ink.mp3";
 import shinyUrl from "../res/shiny-sting.mp3";
 import MusicLibrary, { MusicName } from "./interfaces/MusicLibrary";
-import { log } from "./utils";
-
-function fetchMusic(url: string, loop = false): Promise<HTMLAudioElement> {
-  return new Promise((resolve, reject) => {
-    const aud = document.createElement("audio");
-    aud.addEventListener("canplay", () => {
-      log("partially loaded:", url);
-      resolve(aud);
-    });
-    aud.addEventListener("canplaythrough", () => {
-      log("fully loaded:", url);
-    });
-    aud.addEventListener("error", () => {
-      log("couldn't load:", url);
-      reject(aud);
-    });
-    aud.loop = loop;
-    aud.src = url;
-    log("started fetching:", url);
-  });
-}
+import { fetchAudio } from "./utils";
 
 class Player implements MusicLibrary {
   playing?: MusicName;
@@ -73,23 +53,16 @@ class Player implements MusicLibrary {
 }
 
 export default async function getMusicLibrary(): Promise<MusicLibrary> {
-  const [
-    shallow,
-    medium,
-    deep,
-    mystery,
-    shiny,
-    ink,
-    consolation,
-  ] = await Promise.all([
-    fetchMusic(shallowUrl, true),
-    fetchMusic(mediumUrl, true),
-    fetchMusic(deepUrl, true),
-    fetchMusic(mysteryUrl),
-    fetchMusic(shinyUrl),
-    fetchMusic(inkUrl, true),
-    fetchMusic(consolationUrl),
-  ]);
+  const [shallow, medium, deep, mystery, shiny, ink, consolation] =
+    await Promise.all([
+      fetchAudio(shallowUrl, true),
+      fetchAudio(mediumUrl, true),
+      fetchAudio(deepUrl, true),
+      fetchAudio(mysteryUrl),
+      fetchAudio(shinyUrl),
+      fetchAudio(inkUrl, true),
+      fetchAudio(consolationUrl),
+    ]);
 
   return new Player({
     shallow,

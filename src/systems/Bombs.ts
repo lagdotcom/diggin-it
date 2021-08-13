@@ -57,7 +57,7 @@ export default class Bombs {
     if (tile.solid && !tile.indestructible) {
       // TODO: create rock?
       map.set(x, y, new Tile(empty));
-      this.g.emit("digged", { tile, x, y });
+      this.g.emit("digged", { tile, x, y, type: "bomb" });
     }
 
     const effect = new Item(x, y, explosion);

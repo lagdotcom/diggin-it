@@ -20,7 +20,7 @@ const output = [];
 const plugins = [
   nodePolyfills(),
   json({ preferConst: true }),
-  file({ output: outputDir, extensions: /\.mp3/ }),
+  file({ output: outputDir, extensions: /\.(mp3|wav)/ }),
   url({ limit: 100 * 1024 }),
   sourcemaps(),
   resolve(),

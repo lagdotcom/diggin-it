@@ -38,6 +38,7 @@ import Gravity from "../systems/Gravity";
 import Memento from "../systems/Memento";
 import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
+import Sound from "../systems/Sound";
 import StatusEffects from "../systems/StatusEffects";
 import TheInk from "../systems/TheInk";
 import Traps from "../systems/Traps";
@@ -73,6 +74,7 @@ export default class Dungeon implements Context {
   query: Querying;
   rerender: Soon;
   sand: SandCollapse;
+  sound: Sound;
   stats: Stats;
   status: StatusEffects;
   traps: Traps;
@@ -98,6 +100,7 @@ export default class Dungeon implements Context {
     this.pushing = new Pushing(g);
     this.query = new Querying(g);
     this.sand = new SandCollapse(g);
+    this.sound = new Sound(g);
     this.status = new StatusEffects(g);
     this.traps = new Traps(g);
     this.use = new UsableItems(g);
@@ -474,41 +477,44 @@ export default class Dungeon implements Context {
     // not even on the canvas
     if (ex === -1) return this.info.clear();
 
-    const { player } = this.g;
     const spot = this.getMouseSpot();
     if (spot) {
       const [area, ox, oy] = spot;
       switch (area) {
         case "display":
-          const [xmod, ymod] = this.display.getOffset();
-          const x = ox - xmod,
-            y = oy - ymod;
-          if (!this.vision.visible(x, y)) return this.info.clear();
-
-          const { actor, items, tile, fluid } = this.g.contents(x, y);
-          if (actor) {
-            this.info.useActor(actor);
-          } else if (items.length) {
-            this.info.useItem(items[0]);
-          } else if (fluid.glyph && fluid.glyph !== " ") {
-            this.info.useTile(fluid);
-          } else {
-            this.info.useTile(tile);
-          }
-          break;
-
+          return this.updateDisplayInfo(ox, oy);
         case "inventory":
-          const index = oy * 5 + ox;
-          const item = player.inventory[index];
-          if (item) {
-            this.info.useItem(item);
-          } else {
-            this.info.clear();
-          }
-
-          break;
+          return this.updateInventoryInfo(ox, oy);
       }
     } else this.info.clear();
+  }
+
+  private updateDisplayInfo(ox: number, oy: number) {
+    const [xmod, ymod] = this.display.getOffset();
+    const x = ox - xmod,
+      y = oy - ymod;
+    if (!this.vision.visible(x, y)) return this.info.clear();
+
+    const { actor, items, tile, fluid } = this.g.contents(x, y);
+    if (actor) {
+      this.info.useActor(actor);
+    } else if (items.length) {
+      this.info.useItem(items[0]);
+    } else if (fluid.glyph && fluid.glyph !== " ") {
+      this.info.useTile(fluid);
+    } else {
+      this.info.useTile(tile);
+    }
+  }
+
+  private updateInventoryInfo(ox: number, oy: number) {
+    const index = oy * 5 + ox;
+    const item = this.g.player.inventory[index];
+    if (item) {
+      this.info.useItem(item);
+    } else {
+      this.info.clear();
+    }
   }
 
   render(renderCb?: TileRenderCallback): void {

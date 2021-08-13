@@ -1,8 +1,10 @@
 /demo/*.mp3
 /demo/*.png
+/demo/*.wav
 /demo/bundle.*
 /dist/*.mp3
 /dist/*.png
+/dist/*.wav
 /dist/bundle.*
 /node_modules
 /redbean.com
