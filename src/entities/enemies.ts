@@ -7,12 +7,12 @@ export const squimpy: Partial<ActorOptions> = {
   ai: "wander",
   maxHp: 24,
   maxHpRange: 28,
-  sp: 13,
-  spRange: 16,
+  sp: 15,
+  spRange: 18,
   dp: 4,
   dpRange: 7,
   attackRange: 2,
-  experience: 25,
+  experience: 80,
   lore: "Born with only a single eye to see and a mouth to eat, the Squimpy is not to be confused with it's eldest evolutionary relative, the Fachan. While generally harmless, if agitated or provoked the Squimpy is known for it's surprisingly potent and harmful saliva that is capable of leaving severe scarring akin to that of a burn.",
 };
 export const buster: Partial<ActorOptions> = {
@@ -26,7 +26,7 @@ export const buster: Partial<ActorOptions> = {
   spRange: 20,
   dp: 6,
   dpRange: 9,
-  experience: 20,
+  experience: 100,
   stunChance: 5,
   lore: "These toadish creatures can be found at every corner of Gantella, and yet this unique variant is native to the Lessonus region. A popular domesticated pet, the strange swirl adorning their head is not hair, but a small tail like appendage that wags when stimulated. In the wild, a Buster earns it's name by growing to the size of a large dog and throwing it's own weight relentlessly at anything it sees as a threat.",
 };
@@ -226,7 +226,7 @@ export const puffus: Partial<ActorOptions> = {
   spRange: 24,
   dp: 10,
   dpRange: 13,
-  experience: 45,
+  experience: 210,
   stunChance: 10,
   lore: "Native to deep and cool waters, Puffus are largely content tend to feed off various algaes and small microscopic fish. When threatened or attacked they will swell to over double their initial size, exposing highly painful barbs that can leave tingling and numbness in the affected wound for weeks.",
 };

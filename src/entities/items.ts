@@ -102,7 +102,7 @@ export const claws: Partial<ItemOptions> = {
   slot: "weapon",
   bonus: { sp: 32 },
   bleedChance: 25,
-  lore: "After studying how Muln moved underground for over a decade, the Finelli & Sons corporation were able to utilize what they learned and produce digging claws. Surprisingly practical for quickly manoeuvring through soft dirt, they also serve for self-protection should the need arise; this first run is not very sturdy, however and complaints of shattered claws are common.",
+  lore: "After studying how Muln moved underground for over a decade, the Finelli & Sons corporation were able to utilize what they learned and produce digging claws. Surprisingly practical for quickly maneuvering through soft dirt, they also serve for self-protection should the need arise.",
 };
 
 export const jackhammer: Partial<ItemOptions> = {
@@ -202,7 +202,6 @@ export const valkyrieSet: Partial<ItemOptions> = {
   name: "valkyrie set",
   slot: "armour",
   bonus: { maxHp: 25, dp: 22 },
-  // TODO: allows flight?
   lore: "Among the most elite of elite warriors from the time of ancient rulers were those dubbed as Valkyries. A set of personal guards hand picked by a King or Queen from among the gilded elite based on combat prowess, it is said that no Valkyrie was ever defeated in combat.",
 };
 
@@ -272,9 +271,9 @@ export const rations: Partial<ItemOptions> = {
 
 export const bracelet: Partial<ItemOptions> = {
   glyph: "Bracelet",
-  name: "Mellogrinian bracelet",
-  holdBonus: { sp: 3, dp: -3 },
-  lore: '"Placing the clasp upon my wrist, I feel a wealth of energy shoot through me. My arms feel as if they could rend stone, and yet my body feels all too brittle."\n- Jacques Splintertooth',
+  name: "Melogrini bracelet",
+  holdBonus: { sp: 5, dp: -5 },
+  lore: "A dignified mark of Melogrini trappers, this clasp is a symbol of strength and strong character. How this clasp came to rest miles below Lessonus soil remains a great mystery, as Melogrin has mysteriously kept it's borders closed to outsiders for decades. ...Perhaps, long ago, the shy and cautious Melogrini once inhabited a far greater portion of Gantella.",
 };
 
 export const airTank: Partial<ItemOptions> = {
@@ -430,7 +429,7 @@ export const mambele: Partial<ItemOptions> = {
 
 export const slabHP: Partial<ItemOptions> = {
   glyph: "RedSlab",
-  name: "ancient slab of vigour",
+  name: "ancient slab of vigor",
   article: "an",
   holdBonus: { maxHp: 10, championChance: 5 },
   sting: "slab",
@@ -446,7 +445,7 @@ export const slabSP: Partial<ItemOptions> = {
 };
 export const slabDP: Partial<ItemOptions> = {
   glyph: "BlueSlab",
-  name: "ancient slab of grit", // TODO: real name
+  name: "ancient slab of grit",
   article: "an",
   holdBonus: { dp: 5, championChance: 10 },
   sting: "slab",
@@ -524,7 +523,7 @@ export const axe: Partial<ItemOptions> = {
   bonus: { sp: 30 },
   bleedChance: 25,
   knockBackChance: 15,
-  lore: "An axe appearing of Mellogrinian make, but is actually just an imitation of their craftsmanship. Make no mistake, imitation or not it's sharp edge and sturdy craftsmanship makes it a worthwhile tool for defence, survival, and exploration.",
+  lore: "An axe appearing of Melogrini make, but is actually just an imitation of their craftsmanship. Make no mistake, imitation or not it's sharp edge and sturdy craftsmanship makes it a worthwhile tool for defence, survival, and exploration.",
 };
 
 export const spear: Partial<ItemOptions> = {
@@ -620,11 +619,11 @@ export const suture: Partial<ItemOptions> = {
 
 export const breathTablet: Partial<ItemOptions> = {
   glyph: "BreathTablet",
-  name: "breath tablet",
+  name: "breath mint",
   use: "air",
   charges: 1,
   useArgs: [20, 25],
-  lore: "Not to be confused with a breath mint, these ingestible tablets contain a unique formula to improve breathing and instantly clear sinus ailments. Perfect for the intrepid hiker and budding explorer.",
+  lore: "Not to be confused with a breath tablet, these ingestible mints contain a unique formula to improve breathing and instantly clear sinus ailments. Perfect for the intrepid hiker and budding explorer.",
 };
 
 export const airGum: Partial<ItemOptions> = {
