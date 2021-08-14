@@ -41,6 +41,8 @@ export default class AI {
       return;
     }
 
+    if (actor.stunTimer > 0) return;
+
     let { dir } = data;
     if (!dir) dir = RNG.getItem([-1, 1]);
 
@@ -119,41 +121,43 @@ export default class AI {
     return true;
   }
 
-  flyingAi(enemy: Actor, data: AIData): void {
-    if (enemy.reeling) {
-      enemy.reeling = false;
+  flyingAi(actor: Actor, data: AIData): void {
+    if (actor.reeling) {
+      actor.reeling = false;
       return;
     }
 
+    if (actor.stunTimer > 0) return;
+
     let { active } = data;
     if (!active) {
-      if (this.vision.visible(enemy.x, enemy.y)) {
+      if (this.vision.visible(actor.x, actor.y)) {
         active = true;
-        this.g.emit("noticed", { actor: enemy });
+        this.g.emit("noticed", { actor });
       } else return;
     }
 
     const { player } = this.g;
-    if (player.alive && manhattan(player.x, player.y, enemy.x, enemy.y) < 2) {
-      return this.combat.attack(enemy, player);
+    if (player.alive && manhattan(player.x, player.y, actor.x, actor.y) < 2) {
+      return this.combat.attack(actor, player);
     }
 
-    const passable: PassableCallback = enemy.needsWater
+    const passable: PassableCallback = actor.needsWater
       ? (x, y) =>
           this.g.mapFluid.get(x, y).canSwimIn &&
-          this.flyPassable(x, y, [player, enemy])
-      : (x, y) => this.flyPassable(x, y, [player, enemy]);
+          this.flyPassable(x, y, [player, actor])
+      : (x, y) => this.flyPassable(x, y, [player, actor]);
 
     const aStar = new AStar(player.x, player.y, passable, { topology: 4 });
     const path: XY[] = [];
-    aStar.compute(enemy.x, enemy.y, (x, y) => path.push([x, y]));
+    aStar.compute(actor.x, actor.y, (x, y) => path.push([x, y]));
 
     if (path.length) {
       const [x, y] = path[1];
-      this.g.move(enemy, x, y, "walk");
+      this.g.move(actor, x, y, "walk");
     } else active = false;
 
-    enemy.aiData = { active };
+    actor.aiData = { active };
   }
 
   inkAi(a: Actor, data: AIData): void {
@@ -176,6 +180,14 @@ export default class AI {
       d.reeling = false;
       return;
     }
+
+    if (
+      a.stunTimer > 0 ||
+      b.stunTimer > 0 ||
+      c.stunTimer > 0 ||
+      d.stunTimer > 0
+    )
+      return;
 
     spawn++;
     if (spawn >= 10) {
