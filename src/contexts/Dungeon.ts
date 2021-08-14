@@ -373,7 +373,7 @@ export default class Dungeon implements Context {
   }
 
   handleExit(): void {
-    const { log, map, player, sideArea } = this.g;
+    const { log, map, music, player, sideArea } = this.g;
     const tile = map.get(player.x, player.y);
 
     if (tile.glyph === "Exit") this.leaveArea();
@@ -384,6 +384,7 @@ export default class Dungeon implements Context {
       const [map, fluid] = generateSideArea(sideArea);
       this.g.visitedAreas.push(sideArea);
       this.g.useMap(map, fluid, true);
+      music.play("vault");
     }
   }
 

@@ -33,6 +33,7 @@ export interface ItemOptions {
   obeysGravity: boolean;
   plural: boolean;
   slot: Slot;
+  sting?: string;
   treasure: number;
   use: ItemUse;
   useAmmo?: string;
@@ -59,6 +60,7 @@ export default class Item {
   obeysGravity: boolean;
   plural: boolean;
   slot?: Slot;
+  sting?: string;
   treasure: number;
   use?: ItemUse;
   useAmmo?: string;
@@ -94,6 +96,7 @@ export default class Item {
       bleedChance = 0,
       stunChance = 0,
       knockBackChance = 0,
+      sting = undefined,
     }: Partial<ItemOptions> = {}
   ) {
     this._type = "Item";
@@ -119,5 +122,6 @@ export default class Item {
     this.bleedChance = bleedChance;
     this.stunChance = stunChance;
     this.knockBackChance = knockBackChance;
+    this.sting = sting;
   }
 }

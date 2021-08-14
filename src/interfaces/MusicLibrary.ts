@@ -5,9 +5,13 @@ export type MusicName =
   | "ink"
   | "mystery"
   | "shiny"
-  | "consolation";
+  | "consolation"
+  | "vault"
+  | "vaultComplete";
 
 export default interface MusicLibrary {
+  playing?: MusicName;
+
   fadeOut(): Promise<void>;
   play(track: MusicName): void;
   stop(): void;

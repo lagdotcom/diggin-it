@@ -5,6 +5,8 @@ import shallowUrl from "../res/lost-in-lessonus.mp3";
 import mysteryUrl from "../res/mystery-sting.mp3";
 import inkUrl from "../res/sealed-in-ink.mp3";
 import shinyUrl from "../res/shiny-sting.mp3";
+import vaultCompleteUrl from "../res/slab-plus.mp3";
+import vaultUrl from "../res/youve-strayed.mp3";
 import MusicLibrary, { MusicName } from "./interfaces/MusicLibrary";
 import { fetchAudio } from "./utils";
 
@@ -53,16 +55,27 @@ class Player implements MusicLibrary {
 }
 
 export default async function getMusicLibrary(): Promise<MusicLibrary> {
-  const [shallow, medium, deep, mystery, shiny, ink, consolation] =
-    await Promise.all([
-      fetchAudio(shallowUrl, true),
-      fetchAudio(mediumUrl, true),
-      fetchAudio(deepUrl, true),
-      fetchAudio(mysteryUrl),
-      fetchAudio(shinyUrl),
-      fetchAudio(inkUrl, true),
-      fetchAudio(consolationUrl),
-    ]);
+  const [
+    shallow,
+    medium,
+    deep,
+    mystery,
+    shiny,
+    ink,
+    consolation,
+    vault,
+    vaultComplete,
+  ] = await Promise.all([
+    fetchAudio(shallowUrl, true),
+    fetchAudio(mediumUrl, true),
+    fetchAudio(deepUrl, true),
+    fetchAudio(mysteryUrl),
+    fetchAudio(shinyUrl),
+    fetchAudio(inkUrl, true),
+    fetchAudio(consolationUrl),
+    fetchAudio(vaultUrl, true),
+    fetchAudio(vaultCompleteUrl),
+  ]);
 
   return new Player({
     shallow,
@@ -72,5 +85,7 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     shiny,
     ink,
     consolation,
+    vault,
+    vaultComplete,
   });
 }

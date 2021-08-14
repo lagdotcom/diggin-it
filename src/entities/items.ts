@@ -433,6 +433,7 @@ export const slabHP: Partial<ItemOptions> = {
   name: "ancient slab of vigour",
   article: "an",
   holdBonus: { maxHp: 10, championChance: 5 },
+  sting: "slab",
   lore: '"The slab beckons as I feel words pulse in my mind as fleeting as sparks at night. I know not what it is, only that it calls to me with promises of renewed energy and hidden knowledge." - Jacques Splintertooth',
 };
 export const slabSP: Partial<ItemOptions> = {
@@ -440,6 +441,7 @@ export const slabSP: Partial<ItemOptions> = {
   name: "ancient slab of power",
   article: "an",
   holdBonus: { sp: 5, championChance: 5 },
+  sting: "slab",
   lore: '"The slab beckons as I feel a tingling course through my veins as swift as a powerful breeze. I know not what it is, only that it calls to me with promises of renewed strength and hidden knowledge." - Jacques Splintertooth',
 };
 export const slabDP: Partial<ItemOptions> = {
@@ -447,6 +449,7 @@ export const slabDP: Partial<ItemOptions> = {
   name: "ancient slab of grit", // TODO: real name
   article: "an",
   holdBonus: { dp: 5, championChance: 10 },
+  sting: "slab",
   lore: '"The slab beckons as I feel a frigid chill like the touch of a frozen hand. I know not what it is, only that it calls to me with promises of renewed fortitude and hidden knowledge." - Jacques Splintertooth',
 };
 

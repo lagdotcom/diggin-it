@@ -20,5 +20,10 @@ export default class Music {
     g.on("left", ({ depth }) => {
       if (depth === 3 || depth === 6 || depth === 9) g.music.play("mystery");
     });
+
+    g.on("got", ({ item }) => {
+      if (item.sting === "slab" && g.music.playing === "vault")
+        g.music.play("vaultComplete");
+    });
   }
 }
