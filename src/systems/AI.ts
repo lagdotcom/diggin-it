@@ -207,6 +207,7 @@ export default class AI {
         const [x, y] = RNG.getItem(destinations);
         this.moveInk(x, y, a, b, c, d);
         this.g.log.add(`The ink suddenly vanishes!`);
+        this.g.sfx.play("inkTeleport");
         return;
       }
     }

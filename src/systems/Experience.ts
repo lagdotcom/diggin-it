@@ -18,6 +18,7 @@ export default class Experience {
 
   getTreasure(): void {
     const { player } = this.g;
+    let found = false;
 
     this.g.items
       .get(player.x, player.y)
@@ -34,7 +35,9 @@ export default class Experience {
             if (item?.use === "memento") good = true;
           });
           this.g.showEnding(good);
-        }
+        } else found = true;
       });
+
+    if (found) this.g.sfx.play("money");
   }
 }

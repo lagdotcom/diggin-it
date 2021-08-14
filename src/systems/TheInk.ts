@@ -17,11 +17,12 @@ export default class TheInk {
     g.on("died", ({ victim }) => {
       if (victim.inkParts) {
         victim.inkParts.forEach((part) => g.remove(part));
+        g.music.fadeOut();
+        g.sfx.play("inkDead");
 
         for (let y = 0; y < g.map.height; y++)
           for (let x = 0; x < g.map.width; x++) {
             if (g.map.get(x, y).glyph === "InkDoor") {
-              g.music.fadeOut();
               g.map.set(x, y, new Tile(empty));
               g.log.add("You hear a door open.");
               g.addItem(new Item(x, y, fragment));

@@ -11,7 +11,10 @@ export default class Music {
     });
 
     g.on("noticed", ({ actor }) => {
-      if (actor.glyph === "Ink1") g.music.play("ink");
+      if (actor.glyph === "Ink1") {
+        g.music.play("ink");
+        g.sfx.play("inkTeleport");
+      }
     });
 
     g.on("left", ({ depth }) => {
