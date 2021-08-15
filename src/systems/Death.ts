@@ -19,7 +19,10 @@ export default class Death {
       this.g.emit("died", { attacker, victim });
 
       if (!victim.player) this.g.player.experience += victim.experience;
-      else this.g.music.play("consolation");
+      else {
+        this.g.music.play("consolation");
+        this.g.sfx.play("dead");
+      }
     }
   }
 

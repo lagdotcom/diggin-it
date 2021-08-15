@@ -28,6 +28,7 @@ export default class PickingUp {
       if (!spent) {
         spent = true;
         this.g.spent++;
+        this.g.sfx.play("itemGet");
       }
     }
 

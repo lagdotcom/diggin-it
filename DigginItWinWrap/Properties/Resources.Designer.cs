@@ -63,6 +63,16 @@ namespace DigginItWinWrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] airWarn_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("airWarn.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] bundle_min_js {
             get {
                 object obj = ResourceManager.GetObject("bundle.min.js", resourceCulture);
@@ -73,9 +83,99 @@ namespace DigginItWinWrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] championSight_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("championSight.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] chip_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("chip.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] consolation_sting_mp3 {
             get {
                 object obj = ResourceManager.GetObject("consolation-sting.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] damageImpact_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("damageImpact.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] damageShock_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("damageShock.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] damageTaser_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("damageTaser.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] dead_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("dead.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] digDirt_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("digDirt.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] digSand_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("digSand.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] explode_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("explode.mp3", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -103,9 +203,49 @@ namespace DigginItWinWrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] growlSight_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("growlSight.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] grumbles_mp3 {
             get {
                 object obj = ResourceManager.GetObject("grumbles.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] gulp_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("gulp.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] heartbeat_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("heartbeat.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] hurt_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("hurt.mp3", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -123,6 +263,46 @@ namespace DigginItWinWrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] inkDead_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("inkDead.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] inkTeleport_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("inkTeleport.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] itemGet_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("itemGet.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] itemSelect_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("itemSelect.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] lost_in_lessonus_mp3 {
             get {
                 object obj = ResourceManager.GetObject("lost-in-lessonus.mp3", resourceCulture);
@@ -133,9 +313,39 @@ namespace DigginItWinWrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] money_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("money.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] mystery_sting_mp3 {
             get {
                 object obj = ResourceManager.GetObject("mystery-sting.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] projectile_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("projectile.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] rockSmash_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("rockSmash.mp3", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -161,11 +371,51 @@ namespace DigginItWinWrap.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.0.1.
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] slab_plus_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("slab_plus.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] smallDead_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("smallDead.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] smash_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("smash.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.0.16.
         /// </summary>
         internal static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] youve_strayed_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("youve_strayed.mp3", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

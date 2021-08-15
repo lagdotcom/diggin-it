@@ -147,6 +147,33 @@
   <ItemGroup>
     <None Include="Resources\shiny-sting.mp3" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\airWarn.mp3" />
+    <Content Include="Resources\championSight.mp3" />
+    <Content Include="Resources\chip.mp3" />
+    <Content Include="Resources\damageImpact.mp3" />
+    <Content Include="Resources\damageShock.mp3" />
+    <Content Include="Resources\damageTaser.mp3" />
+    <Content Include="Resources\dead.mp3" />
+    <Content Include="Resources\digDirt.mp3" />
+    <Content Include="Resources\digSand.mp3" />
+    <Content Include="Resources\explode.mp3" />
+    <Content Include="Resources\growlSight.mp3" />
+    <Content Include="Resources\gulp.mp3" />
+    <Content Include="Resources\heartbeat.mp3" />
+    <Content Include="Resources\hurt.mp3" />
+    <Content Include="Resources\inkDead.mp3" />
+    <Content Include="Resources\inkTeleport.mp3" />
+    <Content Include="Resources\itemGet.mp3" />
+    <Content Include="Resources\itemSelect.mp3" />
+    <Content Include="Resources\money.mp3" />
+    <Content Include="Resources\projectile.mp3" />
+    <Content Include="Resources\rockSmash.mp3" />
+    <Content Include="Resources\slab-plus.mp3" />
+    <Content Include="Resources\smallDead.mp3" />
+    <Content Include="Resources\smash.mp3" />
+    <Content Include="Resources\youve-strayed.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\Microsoft.Web.WebView2.1.0.864.35\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.864.35\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

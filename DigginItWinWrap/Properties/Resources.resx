@@ -118,11 +118,41 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="airWarn.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\airWarn.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="bundle.min.js" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bundle.min.js;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="championSight.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\championSight.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="chip.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\chip.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="consolation-sting.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\consolation-sting.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="damageImpact.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\damageImpact.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="damageShock.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\damageShock.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="damageTaser.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\damageTaser.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="dead.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dead.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="digDirt.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\digDirt.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="digSand.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\digSand.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="explode.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\explode.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="favicon.ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\favicon.ico;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,17 +160,50 @@
   <data name="flowstone-flood.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flowstone-flood.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="growlSight.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\growlSight.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="grumbles.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\grumbles.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="gulp.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gulp.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="heartbeat.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\heartbeat.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="hurt.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hurt.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="index.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\index.html;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="inkDead.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inkDead.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="inkTeleport.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inkTeleport.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="itemGet.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\itemGet.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="itemSelect.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\itemSelect.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="lost-in-lessonus.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lost-in-lessonus.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="money.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\money.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="mystery-sting.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mystery-sting.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="projectile.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\projectile.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="rockSmash.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rockSmash.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="sealed-in-ink.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sealed-in-ink.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -148,7 +211,19 @@
   <data name="shiny-sting.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\shiny-sting.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="slab_plus.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\slab-plus.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="smallDead.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smallDead.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="smash.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\smash.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Version" xml:space="preserve">
-    <value>1.0.15</value>
+    <value>1.0.16</value>
+  </data>
+  <data name="youve_strayed.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\youve-strayed.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
