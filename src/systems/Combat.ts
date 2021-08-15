@@ -34,9 +34,9 @@ export default class Combat {
     // don't add insult to injury
     if (victim.hp <= 0) return;
 
-    const stun = attacker.stunChance + item?.stunChance;
-    const poison = attacker.poisonChance + item?.poisonChance;
-    const bleed = attacker.bleedChance + item?.bleedChance;
+    const stun = attacker.stunChance + (item?.stunChance || 0);
+    const poison = attacker.poisonChance + (item?.poisonChance || 0);
+    const bleed = attacker.bleedChance + (item?.bleedChance || 0);
 
     if (RNG.getPercentage() <= stun)
       this.g.emit("statusApplied", { attacker, victim, type: "stun" });
