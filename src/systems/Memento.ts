@@ -43,6 +43,7 @@ export default class Memento {
         return true;
       default:
         this.g.log.add("You hear a quiet smashing sound.");
+        this.g.sfx.play("smash");
         return false;
     }
   }

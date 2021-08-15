@@ -16,6 +16,7 @@ import moneyUrl from "../res/sfx/Money Grab Cropped MP3d.mp3";
 import digSandUrl from "../res/sfx/Sand Dig Cropped MP3d.mp3";
 import smallDeadUrl from "../res/sfx/Small Enemy Defeat Maybe Cropped MP3d.mp3";
 import damageTaserUrl from "../res/sfx/Taser Zap or Shock 2 Cropped MP3d.mp3";
+import smashUrl from "../res/sfx/Watch Smash Cropped MP3d.mp3";
 import SfxLibrary, { SfxName } from "./interfaces/SfxLibrary";
 import { fetchAudio } from "./utils";
 
@@ -53,6 +54,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     money,
     projectile,
     smallDead,
+    smash,
   ] = await Promise.all([
     fetchAudio(airWarnUrl),
     fetchAudio(championSightUrl),
@@ -72,6 +74,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     fetchAudio(moneyUrl),
     fetchAudio(projectileUrl),
     fetchAudio(smallDeadUrl),
+    fetchAudio(smashUrl),
   ]);
 
   return new SoundBank({
@@ -93,5 +96,6 @@ export default async function getSoundBank(): Promise<SoundBank> {
     money,
     projectile,
     smallDead,
+    smash,
   });
 }

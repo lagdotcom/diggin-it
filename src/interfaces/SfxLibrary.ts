@@ -16,6 +16,7 @@ export type SfxName =
   | "item"
   | "money"
   | "projectile"
+  | "smash"
   | "smallDead";
 
 export default interface SfxLibrary {
