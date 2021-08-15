@@ -1,9 +1,5 @@
 import Actor from "./Actor";
-import { 
-  theInk,
-  theGreenInk,
-  theRedInk,
-} from "./entities/enemies";
+import { theGreenInk, theInk, theRedInk } from "./entities/enemies";
 import {
   airTank,
   ladder,
@@ -53,9 +49,9 @@ export function addTheInk(g: Game, x: number, y: number): void {
 
 export function addTheGreenInk(g: Game, x: number, y: number): void {
   const tl = new Actor(x, y, { ...theGreenInk, ai: "ink" });
-  const tr = new Actor(x + 1, y, { ...theGreenInk, glyph: "Ink2" });
-  const bl = new Actor(x, y + 1, { ...theGreenInk, glyph: "Ink3" });
-  const br = new Actor(x + 1, y + 1, { ...theGreenInk, glyph: "Ink4" });
+  const tr = new Actor(x + 1, y, { ...theGreenInk, glyph: "GreenInk2" });
+  const bl = new Actor(x, y + 1, { ...theGreenInk, glyph: "GreenInk3" });
+  const br = new Actor(x + 1, y + 1, { ...theGreenInk, glyph: "GreenInk4" });
 
   tl.inkParts = [tr, bl, br];
   tr.inkParts = [tl, bl, br];
@@ -70,9 +66,9 @@ export function addTheGreenInk(g: Game, x: number, y: number): void {
 
 export function addTheRedInk(g: Game, x: number, y: number): void {
   const tl = new Actor(x, y, { ...theRedInk, ai: "ink" });
-  const tr = new Actor(x + 1, y, { ...theRedInk, glyph: "Ink2" });
-  const bl = new Actor(x, y + 1, { ...theRedInk, glyph: "Ink3" });
-  const br = new Actor(x + 1, y + 1, { ...theRedInk, glyph: "Ink4" });
+  const tr = new Actor(x + 1, y, { ...theRedInk, glyph: "RedInk2" });
+  const bl = new Actor(x, y + 1, { ...theRedInk, glyph: "RedInk3" });
+  const br = new Actor(x + 1, y + 1, { ...theRedInk, glyph: "RedInk4" });
 
   tl.inkParts = [tr, bl, br];
   tr.inkParts = [tl, bl, br];

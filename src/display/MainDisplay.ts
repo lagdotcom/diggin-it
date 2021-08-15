@@ -3,7 +3,7 @@ import XY from "../interfaces/XY";
 import Vision from "../systems/Vision";
 import InfoPanel from "./InfoPanel";
 
-interface TileRender {
+export interface TileRender {
   x: number;
   y: number;
   glyphs: string[];

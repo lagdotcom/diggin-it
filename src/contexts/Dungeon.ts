@@ -7,6 +7,7 @@ import UsableItems from "../commands/UsableItems";
 import InfoPanel from "../display/InfoPanel";
 import Inventory from "../display/Inventory";
 import MainDisplay, { TileRenderCallback } from "../display/MainDisplay";
+import RangeOverlay from "../display/RangeOverlay";
 import Stats from "../display/Stats";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
@@ -69,6 +70,7 @@ export default class Dungeon implements Context {
   mouse: XY;
   movement: Movement;
   music: Music;
+  overlay: RangeOverlay;
   pickingup: PickingUp;
   pushing: Pushing;
   query: Querying;
@@ -106,8 +108,9 @@ export default class Dungeon implements Context {
     this.use = new UsableItems(g);
     this.xp = new Experience(g);
 
+    this.overlay = new RangeOverlay(g);
     this.info = new InfoPanel(g);
-    this.inventory = new Inventory(g);
+    this.inventory = new Inventory(g, this.overlay);
     this.display = new MainDisplay(g, this.info, this.vision);
     this.stats = new Stats(g);
 
@@ -524,9 +527,9 @@ export default class Dungeon implements Context {
     // TODO: this is dumb lol
     this.systems();
 
-    this.display.render(renderCb);
-    this.stats.render();
     this.inventory.render();
+    this.display.render(renderCb || this.overlay.renderCb);
+    this.stats.render();
     this.info.render();
     this.g.log.render();
   }

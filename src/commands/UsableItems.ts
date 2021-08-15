@@ -1,4 +1,3 @@
-import bresenham from "bresenham";
 import { RNG } from "rot-js";
 
 import { litBomb } from "../entities/temps";
@@ -17,6 +16,7 @@ import XY from "../interfaces/XY";
 import Item, { ItemUse } from "../Item";
 import { cname, ctheName } from "../text";
 import Tile from "../Tile";
+import { traceline } from "../utils";
 
 interface SimpleUseFn {
   type: "simple";
@@ -294,19 +294,16 @@ export default class UsableItems {
       .filter((target) => {
         const victim = actors.get(target[0], target[1]);
         if (!victim || !victim.alive || victim.player) return false;
-
-        const path = bresenham(player.x, player.y, target[0], target[1]);
-        for (let i = 0; i < path.length; i++) {
-          const pos = path[i];
-          const { actor, tile } = this.g.contents(pos.x, pos.y);
-
-          if (tile.solid) return false;
-          if (actor === victim) return true;
-
-          if (actor && actor.alive && !actor.player) return false;
-        }
-
-        return true;
+        return (
+          traceline(
+            this.g,
+            player.x,
+            player.y,
+            target[0],
+            target[1],
+            player
+          ) === victim
+        );
       });
 
     return possibilities.length ? possibilities : "Nothing to aim at.";
@@ -343,6 +340,7 @@ export default class UsableItems {
     this.g.log.add(`You feel ${amount < 0 ? "frailer" : "sturdier"}.`);
 
     this.g.emit("used", { actor, item });
+    this.g.sfx.play("gulp");
     item.charges--;
     this.g.spent++;
     return undefined;
@@ -358,6 +356,7 @@ export default class UsableItems {
     this.g.log.add(`You feel ${amount < 0 ? "sicker" : "healthier"}.`);
 
     this.g.emit("used", { actor, item });
+    this.g.sfx.play("gulp");
     item.charges--;
     this.g.spent++;
     return undefined;
@@ -372,6 +371,7 @@ export default class UsableItems {
     this.g.log.add(`You feel ${amount < 0 ? "weaker" : "stronger"}.`);
 
     this.g.emit("used", { actor, item });
+    this.g.sfx.play("gulp");
     item.charges--;
     this.g.spent++;
     return undefined;

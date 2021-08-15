@@ -3,6 +3,7 @@ import Game from "../Game";
 import Hotspots from "../Hotspots";
 import XY from "../interfaces/XY";
 import { hasAmount } from "../text";
+import RangeOverlay from "./RangeOverlay";
 
 const colourEq = "rgba(255,255,0,0.1)";
 const colourSel = "rgba(255,255,255,0.2)";
@@ -15,6 +16,7 @@ export default class Inventory {
 
   constructor(
     public g: Game,
+    public overlay: RangeOverlay,
     public x = 28,
     public y = 12,
     public width = 12,
@@ -52,6 +54,10 @@ export default class Inventory {
     if (spot !== this.selected) {
       this.selected = spot;
       this.dirty = true;
+
+      const item =
+        typeof spot === "number" ? this.g.player.inventory[spot] : undefined;
+      this.overlay.useItem(item);
     }
   }
 

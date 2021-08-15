@@ -1,6 +1,10 @@
+import bresenham from "bresenham";
 import { RNG } from "rot-js";
 
+import Actor from "./Actor";
+import Game from "./Game";
 import { Picker, PickerOptions } from "./tables";
+import Tile from "./Tile";
 
 export function manhattan(
   x1: number,
@@ -64,4 +68,22 @@ export function fetchAudio(
     aud.src = url;
     log("started fetching:", url);
   });
+}
+
+export function traceline(
+  g: Game,
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+  ...ignore: Actor[]
+): Actor | Tile | undefined {
+  const path = bresenham(x0, y0, x1, y1);
+  for (let i = 0; i < path.length; i++) {
+    const pos = path[i];
+    const { actor, tile } = g.contents(pos.x, pos.y);
+
+    if (tile.solid) return tile;
+    if (actor && actor.alive && !ignore.includes(actor)) return actor;
+  }
 }

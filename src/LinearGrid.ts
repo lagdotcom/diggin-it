@@ -151,7 +151,7 @@ export default class LinearGrid<T> implements Grid<T> {
     const locations = new Set<number>();
     let distance = 0;
 
-    while (distance < size) {
+    while (distance <= size) {
       queue.forEach(([x, y]) => {
         locations.add(this.index(x, y));
         pending.push(...this.neighbours(x, y));

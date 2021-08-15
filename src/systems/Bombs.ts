@@ -22,6 +22,7 @@ export default class Bombs {
         remove.push(bomb);
         this.g.log.add("There is a large explosion!");
         this.g.removeItem(bomb);
+        this.g.sfx.play("explode");
 
         for (let yo = 0; yo < h; yo++) {
           for (let xo = 0; xo < w; xo++) {

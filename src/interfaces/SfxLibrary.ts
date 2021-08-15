@@ -9,6 +9,7 @@ export type SfxName =
   | "digSand"
   | "explode"
   | "growlSight"
+  | "gulp"
   | "heartbeat"
   | "hurt"
   | "inkDead"
@@ -16,8 +17,9 @@ export type SfxName =
   | "item"
   | "money"
   | "projectile"
-  | "smash"
-  | "smallDead";
+  | "rockSmash"
+  | "smallDead"
+  | "smash";
 
 export default interface SfxLibrary {
   play(sfx: SfxName): void;

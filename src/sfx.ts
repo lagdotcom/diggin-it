@@ -5,6 +5,7 @@ import damageImpactUrl from "../res/sfx/Damage Impact Cropped MP3d.mp3";
 import digDirtUrl from "../res/sfx/Dirt Dig Sound Cropped MP3d.mp3";
 import damageShockUrl from "../res/sfx/Electric Shock Cropped MP3d.mp3";
 import explodeUrl from "../res/sfx/Explosion Cropped MP3d.mp3";
+import gulpUrl from "../res/sfx/Gulp_Cropped_MP3d.mp3";
 import heartbeatUrl from "../res/sfx/Huge Heartbeat Blot Cropped MP3d.mp3";
 import airWarnUrl from "../res/sfx/I_m sorry it_s the oxygen is low alarm cropped MP3d.mp3";
 import inkDeadUrl from "../res/sfx/Ink _ Blot Defeat Cropped MP3d.mp3";
@@ -13,6 +14,7 @@ import itemUrl from "../res/sfx/Item Click Blip Cropped MP3d.mp3";
 import hurtUrl from "../res/sfx/Jacques Hurt Cropped MP3d.mp3";
 import growlSightUrl from "../res/sfx/Low Growl Slobberfin _ Grundilla Sighting Cropped MP3d.mp3";
 import moneyUrl from "../res/sfx/Money Grab Cropped MP3d.mp3";
+import rockSmashUrl from "../res/sfx/Rock_Smash_Cropped_MP3d.mp3";
 import digSandUrl from "../res/sfx/Sand Dig Cropped MP3d.mp3";
 import smallDeadUrl from "../res/sfx/Small Enemy Defeat Maybe Cropped MP3d.mp3";
 import damageTaserUrl from "../res/sfx/Taser Zap or Shock 2 Cropped MP3d.mp3";
@@ -46,6 +48,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     digSand,
     explode,
     growlSight,
+    gulp,
     heartbeat,
     hurt,
     inkDead,
@@ -53,6 +56,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     item,
     money,
     projectile,
+    rockSmash,
     smallDead,
     smash,
   ] = await Promise.all([
@@ -66,6 +70,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     fetchAudio(digSandUrl),
     fetchAudio(explodeUrl),
     fetchAudio(growlSightUrl),
+    fetchAudio(gulpUrl),
     fetchAudio(heartbeatUrl),
     fetchAudio(hurtUrl),
     fetchAudio(inkDeadUrl),
@@ -73,6 +78,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     fetchAudio(itemUrl),
     fetchAudio(moneyUrl),
     fetchAudio(projectileUrl),
+    fetchAudio(rockSmashUrl),
     fetchAudio(smallDeadUrl),
     fetchAudio(smashUrl),
   ]);
@@ -88,6 +94,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     digSand,
     explode,
     growlSight,
+    gulp,
     heartbeat,
     hurt,
     inkDead,
@@ -95,6 +102,7 @@ export default async function getSoundBank(): Promise<SoundBank> {
     item,
     money,
     projectile,
+    rockSmash,
     smallDead,
     smash,
   });

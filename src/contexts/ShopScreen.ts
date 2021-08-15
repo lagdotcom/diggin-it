@@ -157,7 +157,7 @@ export default class ShopScreen implements Context {
   }
 
   getStatCost(): number {
-    return 50 * (this.g.player.player.stats + 1);
+    return 100 * (this.g.player.player.stats + 1);
   }
 
   recalculateStatOffers(): void {

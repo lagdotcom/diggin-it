@@ -8,14 +8,14 @@ export default class Sound {
       if (victim.player) g.sfx.play("hurt");
     });
 
+    g.on("destroyed", () => g.sfx.play("rockSmash"));
+
     g.on("digged", ({ tile, type }) => {
       if (type === "dig") {
         if (tile.name === "sand") return g.sfx.play("digSand");
         return g.sfx.play("digDirt");
       }
     });
-
-    g.on("exploded", () => g.sfx.play("explode"));
 
     g.on("used", ({ item }) => {
       if (item.use === "throw") g.sfx.play("projectile");
