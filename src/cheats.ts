@@ -122,7 +122,8 @@ function spawnItem(typ: ItemName, qty = 1) {
     if (item.charges) item.charges = qty;
     g.addItem(item);
 
-    g.log.add(`${name(item, true)} appears at your feet.`);
+    const s = item.charges > 1 || item.plural ? "" : "s";
+    g.log.add(`${name(item, true)} appear${s} at your feet.`);
   } else g.log.add(`What the heck is a ${typ}?`);
 
   g.emit("refreshed", {});
