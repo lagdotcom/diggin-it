@@ -221,7 +221,7 @@
     <value>..\Resources\smash.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>1.0.16</value>
+    <value>1.0.17</value>
   </data>
   <data name="youve_strayed.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\youve-strayed.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
