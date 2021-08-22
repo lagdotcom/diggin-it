@@ -15,6 +15,7 @@ export type ItemUse =
   | "launcher"
   | "memento"
   | "rope"
+  | "ropeBomb"
   | "staple"
   | "throw";
 

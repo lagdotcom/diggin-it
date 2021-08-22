@@ -157,6 +157,7 @@ export const inkDoor: Partial<TileOptions> = {
   glyph: "InkDoor",
   name: "mysterious door",
   colour: "purple",
+  destroyIncomingPushes: true,
 };
 
 export const stapleTile: Partial<TileOptions> = {

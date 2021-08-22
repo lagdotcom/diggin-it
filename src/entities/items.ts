@@ -233,12 +233,13 @@ export const cherryBomb: Partial<ItemOptions> = {
   lore: "Tiny bombs with long fuses and small blasts, Cherry Bombs are rarely, if ever used for digging. A well placed or thrown Cherry Bomb is often enough to frighten or harm small creatures, but it's small blast radius and unusually long fuse make it highly impractical as little more than a prankster's tool.",
 };
 
-// TODO ropeBomb
 export const ropeBomb: Partial<ItemOptions> = {
   glyph: "RopeBomb",
   name: "rope bomb",
   charges: 1,
-  lore: notImplemented,
+  use: "ropeBomb",
+  useArgs: [-2, -2, 5, 5],
+  lore: "Whether as a prank or a practicality, someone once had the idea to take the explosive might of a bomb and the hardiness of a strong rope and decided to marry them. The result is the Rope Bomb, a device that sends ropes flying throughout a room like confetti. Some explorers swear by the random usefulness of such objects, while many still count them as more hazard than help.",
 };
 
 export const rope: Partial<ItemOptions> = {

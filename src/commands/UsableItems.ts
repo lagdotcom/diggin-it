@@ -62,6 +62,7 @@ export default class UsableItems {
       ),
       memento: simple(this.useMemento.bind(this)),
       rope: targeted(this.useRope.bind(this), this.getRopeTargets.bind(this)),
+      ropeBomb: simple(this.useRopeBomb.bind(this)),
       staple: targeted(
         this.useStaple.bind(this),
         this.getStapleTargets.bind(this)
@@ -461,5 +462,38 @@ export default class UsableItems {
     if (!ammo || ammo.charges < 1) return "No ammo.";
 
     return this.getThrowTargets(item);
+  }
+
+  useRopeBomb(item: Item): string {
+    const { log, map, player } = this.g;
+
+    let successes = 0;
+    const [xm, ym, w, h] = item.useArgs;
+    for (let yo = 0; yo < h; yo++) {
+      for (let xo = 0; xo < w; xo++) {
+        const x = player.x + xm + xo;
+        const y = player.y + ym + yo;
+
+        const { fluid, tile } = this.g.contents(x, y);
+
+        // don't make ropes in lava
+        if (fluid.hpCost) continue;
+
+        // don't overwrite important stuff
+        if (tile.solid || tile.destroyIncomingPushes) continue;
+
+        // don't re-ladder
+        if (tile.canClimb) return;
+
+        successes++;
+        map.set(x, y, new Tile(ropeTile));
+      }
+    }
+
+    if (successes) {
+      this.g.emit("mapChanged", {});
+      log.add("The rope bomb throws ropes all over!");
+      item.charges--;
+    } else log.add("There's no room.");
   }
 }
