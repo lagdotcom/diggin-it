@@ -8,7 +8,7 @@ import { drifter, floater } from "../entities/enemies";
 import Game from "../Game";
 import XY from "../interfaces/XY";
 import { cname } from "../text";
-import { manhattan } from "../utils";
+import { manhattan, traceline } from "../utils";
 import Combat from "./Combat";
 import Vision from "./Vision";
 
@@ -35,6 +35,17 @@ export default class AI {
     });
   }
 
+  canAttack(actor: Actor, victim: Actor): boolean {
+    if (!victim.alive) return false;
+
+    const reach = this.g.map.diamond(actor.x, actor.y, actor.attackRange);
+    if (!reach.find(([x, y]) => x === victim.x && y === victim.y)) return false;
+
+    return (
+      traceline(this.g, actor.x, actor.y, victim.x, victim.y, actor) === victim
+    );
+  }
+
   wanderAi(actor: Actor, data: AIData): void {
     if (actor.reeling) {
       actor.reeling = false;
@@ -47,9 +58,7 @@ export default class AI {
     if (!dir) dir = RNG.getItem([-1, 1]);
 
     const { player } = this.g;
-    if (player.alive && manhattan(player.x, player.y, actor.x, actor.y) < 2) {
-      return this.combat.attack(actor, player);
-    }
+    if (this.canAttack(actor, player)) return this.combat.attack(actor, player);
 
     let success = false;
     const move = this.canMoveDir(actor, dir);
@@ -138,9 +147,7 @@ export default class AI {
     }
 
     const { player } = this.g;
-    if (player.alive && manhattan(player.x, player.y, actor.x, actor.y) < 2) {
-      return this.combat.attack(actor, player);
-    }
+    if (this.canAttack(actor, player)) return this.combat.attack(actor, player);
 
     const passable: PassableCallback = actor.needsWater
       ? (x, y) =>
