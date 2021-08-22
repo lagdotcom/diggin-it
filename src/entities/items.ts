@@ -228,9 +228,8 @@ export const cherryBomb: Partial<ItemOptions> = {
   glyph: "CherryBomb",
   name: "cherry bomb",
   charges: 1,
-  use: "bomb",
-  useArgs: [6, 0, 0, 1, 1, 15],
-  // TODO: throwable
+  use: "throw",
+  useArgs: [3, 15],
   lore: "Tiny bombs with long fuses and small blasts, Cherry Bombs are rarely, if ever used for digging. A well placed or thrown Cherry Bomb is often enough to frighten or harm small creatures, but it's small blast radius and unusually long fuse make it highly impractical as little more than a prankster's tool.",
 };
 

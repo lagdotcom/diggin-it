@@ -1,6 +1,6 @@
 import { RNG } from "rot-js";
 
-import { litBomb } from "../entities/temps";
+import { explosion, litBomb } from "../entities/temps";
 import {
   ladderTile,
   ladderTileBottom,
@@ -328,6 +328,14 @@ export default class UsableItems {
     this.g.emit("used", { actor: attacker, item });
     item.charges--;
     this.g.spent++;
+
+    // TODO lol
+    if (item.glyph === "CherryBomb") {
+      const effect = new Item(x, y, explosion);
+      this.g.addItem(effect);
+      this.g.emit("effect", { effect, duration: 2 });
+    }
+
     return undefined;
   }
 
