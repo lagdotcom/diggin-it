@@ -1,10 +1,11 @@
 import { RNG } from "rot-js";
 
+import { Distribution } from "./utils";
+
 import type Slot from "./interfaces/Slot";
 import type Stat from "./interfaces/Stat";
 import type Item from "./Item";
 import type { EnemyName } from "./tables";
-
 export type ActorAI = "wander" | "fly" | "ink";
 export type AIData = { active?: boolean; dir?: number; spawn?: number };
 export type PlayerData = { stats: number };
@@ -19,6 +20,9 @@ export interface ActorOptions {
   championChance: number;
   canClimb: boolean;
   colour: string;
+  dropChance: number;
+  drops: Distribution<string>;
+  dropQty: Record<string, [number, number]>;
   durability: number;
   equipment: Partial<Record<Slot, Item>>;
   glyph: string;
@@ -72,6 +76,9 @@ export default class Actor {
   canClimb: boolean;
   championChance: number;
   colour: string;
+  dropChance: number;
+  drops: Distribution<string>;
+  dropQty: Record<string, [number, number]>;
   durability: number;
   equipment: Partial<Record<Slot, Item>>;
   glyph: string;
@@ -169,6 +176,9 @@ export default class Actor {
       finalScreamChance = 0,
       finalScreamTarget = "",
       finalScreamCount = [0, 0],
+      dropChance = 0,
+      drops = {},
+      dropQty = {},
     }: Partial<ActorOptions> = {}
   ) {
     this._type = "Actor";
@@ -220,6 +230,9 @@ export default class Actor {
     this.finalScreamChance = finalScreamChance;
     this.finalScreamTarget = finalScreamTarget;
     this.finalScreamCount = finalScreamCount;
+    this.dropChance = dropChance;
+    this.drops = drops;
+    this.dropQty = dropQty;
   }
 
   get(st: Stat): number {

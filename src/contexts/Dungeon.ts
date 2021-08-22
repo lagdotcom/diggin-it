@@ -33,6 +33,7 @@ import Air from "../systems/Air";
 import Bombs from "../systems/Bombs";
 import Combat from "../systems/Combat";
 import Death from "../systems/Death";
+import Drops from "../systems/Drops";
 import Effects from "../systems/Effects";
 import Experience from "../systems/Experience";
 import Gravity from "../systems/Gravity";
@@ -60,6 +61,7 @@ export default class Dungeon implements Context {
   death: Death;
   digging: Digging;
   display: MainDisplay;
+  drops: Drops;
   effects: Effects;
   gravity: Gravity;
   hotspots: Hotspots;
@@ -92,6 +94,7 @@ export default class Dungeon implements Context {
     this.bombs = new Bombs(g);
     this.death = new Death(g);
     this.digging = new Digging(g);
+    this.drops = new Drops(g);
     this.effects = new Effects(g);
     this.gravity = new Gravity(g);
     this.ink = new TheInk(g);

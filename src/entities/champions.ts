@@ -1,5 +1,7 @@
 import { ActorOptions } from "../Actor";
 
+const drops = { "@": 2, "6": 1, "7": 1 };
+
 export const squimpyChampion: Partial<ActorOptions> = {
   glyph: "ChampionSquimpy",
   name: "boulder squimp",
@@ -14,6 +16,8 @@ export const squimpyChampion: Partial<ActorOptions> = {
   attackRange: 2,
   knockBackChance: 15,
   experience: 130,
+  dropChance: 100,
+  drops,
   lore: 'Grey, thick skinned cousins of the usual Squimpy often referred to as the Boulder Squimp. Oddly popular among teenage culture for their grim expression and jagged hide, the appearance of a Boulder Squimp is often used when promoting the fuzzy guitar-laden music genre known as "Gray-Blast". ',
 };
 
@@ -30,6 +34,8 @@ export const busterChampion: Partial<ActorOptions> = {
   dpRange: 13,
   knockBackChance: 25,
   experience: 150,
+  dropChance: 100,
+  drops,
   stunChance: 20,
   lore: "Feral evolutionary relatives of the more common domesticated Buster, a Horned Buster is often seen as an omen of bad spirits or demons. Shamans of ancient tribes would hollow out their horns, blowing into them like an instrument to call to the other side for assistance with deeds both fair and foul.",
 };
@@ -47,6 +53,8 @@ export const canandraChampion: Partial<ActorOptions> = {
   dp: 26,
   dpRange: 32,
   experience: 1500,
+  dropChance: 100,
+  drops,
   poisonChance: 50,
   stunChance: 25,
   lore: "Sporting two heads and countless rigid spines, an Abyssal Canandra is a rare phenomena. Often, a conjoined Canandra will die not long after it emerges from it's mother's egg, yet a small handful survive and grow to become vicious and skilled hunters. There are no known survivors of a physical encounter with an Abyssal Canandra.",
@@ -64,6 +72,8 @@ export const crimChampion: Partial<ActorOptions> = {
   dp: 23,
   dpRange: 26,
   experience: 650,
+  dropChance: 100,
+  drops,
   stunChance: 50,
   finalScreamChance: 100,
   finalScreamTarget: "tier",
@@ -84,6 +94,8 @@ export const flazzaChampion: Partial<ActorOptions> = {
   dp: 22,
   dpRange: 25,
   experience: 500,
+  dropChance: 100,
+  drops,
   poisonChance: 20,
   finalBombChance: 100,
   lore: "When a Flazza becomes old enough, it will cocoon within it's tentacles for a few weeks before emerging as the Stinging Flazza. Unlike their counterparts, Stinging Flazzas are a menace to anything around them, and are capable of living in both light and dark environments and have rapidly been spreading to regions well beyond their native environments. Rarely, allergic reactions to their stings can cause substantial harm.",
@@ -101,6 +113,8 @@ export const glovaChampion: Partial<ActorOptions> = {
   dp: 20,
   dpRange: 23,
   experience: 150,
+  dropChance: 100,
+  drops,
   destroyChance: 15,
   lore: "Under unique circumstances, a Glova that eats more meat than plant life can begin developing flesh like characteristics and become known as a Carrion Glova. They most often resemble faces, developing mouths to feed with when they become too dense with viscera. Carrion Glovas move in an unsettling fashion resembling congealed blood given sentience.",
 };
@@ -118,6 +132,8 @@ export const mulnChampion: Partial<ActorOptions> = {
   dpRange: 28,
   knockBackChance: 30,
   experience: 850,
+  dropChance: 100,
+  drops,
   bleedChance: 30,
   stunChance: 30,
   lore: "Distinguishable from a regular Muln by the pattern on their chest and distinct color, Crested Muln are even more of a menace than a regular one. They are known for their high level of intelligence, often creating fake burrows to lure farmers and predators away from their actual tunnels. Rumours have it a pack of Crested Muln once sank the lost kingdom of Malteen into the depths of the earth, never to be seen again.",
@@ -136,6 +152,8 @@ export const slobberfinChampion: Partial<ActorOptions> = {
   dpRange: 33,
   knockBackChance: 15,
   experience: 1100,
+  dropChance: 100,
+  drops,
   bleedChance: 75,
   lore: "Razorback Slobberfins are born without sight, relying on a keen sense of hearing and jaws that can shatter bones and rend metals to eviscerate prey and survive. A hungry Razorback is a deadly Razorback, and while significantly less active than their counterparts they are unstoppable once they leave their den to feast.",
 };
@@ -155,6 +173,8 @@ export const splinterChampion: Partial<ActorOptions> = {
   attackRange: 3,
   knockBackChance: 25,
   experience: 800,
+  dropChance: 100,
+  drops,
   stunChance: 40,
   // TODO: real values
   finalScreamChance: 50,
@@ -178,6 +198,8 @@ export const teldenChampion: Partial<ActorOptions> = {
   attackRange: 2,
   knockBackChance: 5,
   experience: 500,
+  dropChance: 100,
+  drops,
   poisonChance: 30,
   finalGasChance: 100,
   lore: "Furthering the annelid or mammal debate, Exo Teldens are a rare species that have an exposed skeletal structure. A tell-tale sign when one approaches is an extremely loud clattering and low guttural growl reminiscent of the sound a large hollow pipe struggling to drain it's contents would make. They are every bit as dangerous and noxious as their flesh and blood relatives. ",
@@ -196,6 +218,8 @@ export const puffusChampion: Partial<ActorOptions> = {
   dp: 15,
   dpRange: 23,
   experience: 320,
+  dropChance: 100,
+  drops,
   stunChance: 25,
   poisonChance: 50,
   lore: "Exotic stripes and beautiful patterns betray the Poison Puffus of it's actual danger. Coated in a light poison that causes a burning sensation, a threatened Poison Puffus will also inflate to almost double it's size, baring sharp fangs capable of causing severe lacerations. Poison Puffus are considered a delicacy in many dishes, and if prepared wrong they can cause a complete body shutdown when ingested.",
@@ -215,6 +239,8 @@ export const shockwormChampion: Partial<ActorOptions> = {
   dpRange: 26,
   attackRange: 3,
   experience: 1000,
+  dropChance: 100,
+  drops,
   stunChance: 75,
   lore: "Found at deeper depths than even the Shockworm, the Deep Shockworm is also deadlier. The amplitude of their voltage is far higher, and their presence is immediately known if a tingling sensation is felt when entering any body of water. Deep Shockworms are further proof for theorists towards the existence of Breshava Trenchworms, bearing a similar eye like mouth described in the legends as that of the trenchworms.",
 };
@@ -233,6 +259,8 @@ export const kreebusChampion: Partial<ActorOptions> = {
   dpRange: 29,
   attackRange: 2,
   experience: 1200,
+  dropChance: 100,
+  drops,
   lore: "An elongated snout and ability to produce searing heat reaching temperatures reminiscent to that of volcanic magma distinguishes the Kreebus Prime from the regular Kreebus. Generally, the Kreebus Prime is observed to be non-aggressive, and yet close contact is impossible due to their extreme body heat. Perhaps their very existence is punishment for the crimes dragon-kind once committed upon the world, doomed to a life of lonely drifting.",
 };
 
@@ -250,6 +278,8 @@ export const grundillaChampion: Partial<ActorOptions> = {
   dpRange: 38,
   knockBackChance: 45,
   experience: 1600,
+  dropChance: 100,
+  drops,
   stunChance: 20,
   finalScreamChance: 10,
   finalScreamTarget: "grundilla",
@@ -272,6 +302,8 @@ export const poregonChampion: Partial<ActorOptions> = {
   attackRange: 2,
   knockBackChance: 20,
   experience: 600,
+  dropChance: 100,
+  drops,
   poisonChance: 10,
   finalGasChance: 100,
   lore: 'More sinister than their mischievous peers, Poregon Shamans preach omens of a world coated in dripping black clouds. Translated texts from their ancient language tell of the mountain Isole, far across the charted reaches of the Aelonic Ocean and beyond the arid deserts of Ziyadima, where everyone\'s deepest wishes and nightmares play out endlessly within "The Great Orobourus" born of dishonest desires and sprouted from the ancient "Neverseed."',
