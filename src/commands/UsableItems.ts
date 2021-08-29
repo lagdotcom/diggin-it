@@ -483,7 +483,7 @@ export default class UsableItems {
         if (tile.solid || tile.destroyIncomingPushes) continue;
 
         // don't re-ladder
-        if (tile.canClimb) return;
+        if (tile.canClimb) continue;
 
         successes++;
         map.set(x, y, new Tile(ropeTile));
@@ -494,6 +494,6 @@ export default class UsableItems {
       this.g.emit("mapChanged", {});
       log.add("The rope bomb throws ropes all over!");
       item.charges--;
-    } else log.add("There's no room.");
+    } else return "There's no room.";
   }
 }
