@@ -21,7 +21,7 @@ type ShopItem = {
   cost: number;
 };
 
-const isBrokenMemento = (i: Item) => i.glyph === "BrokenPocketwatch";
+const isBrokenMemento = (i?: Item) => i?.glyph === "BrokenPocketwatch";
 
 const ixNone = -1;
 const ixScrollUp = -100;

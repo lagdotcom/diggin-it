@@ -16,19 +16,12 @@ export default class Death {
     const { attacker, victim } = data;
 
     if (victim.hp < 1) {
-      this.g.log.add(this.getDeathString(data));
       victim.alive = false;
-      this.g.remove(victim);
-      this.g.emit("died", { attacker, victim });
-
-      if (!victim.player) this.g.player.experience += victim.experience;
-      else {
-        this.g.music.play("consolation");
-        this.g.sfx.play("dead");
-      }
 
       const bomb = victim.finalBombChance;
-      if (RNG.getPercentage() <= bomb)
+      if (RNG.getPercentage() <= bomb) {
+        data.type = "autoExplosion";
+
         this.bombs.runExplosion(
           victim.x,
           victim.y,
@@ -39,6 +32,17 @@ export default class Death {
           30,
           !victim.inky
         );
+      }
+
+      this.g.log.add(this.getDeathString(data));
+      this.g.remove(victim);
+      this.g.emit("died", { attacker, victim });
+
+      if (!victim.player) this.g.player.experience += victim.experience;
+      else {
+        this.g.music.play("consolation");
+        this.g.sfx.play("dead");
+      }
     }
   }
 
@@ -53,6 +57,9 @@ export default class Death {
 
       case "suffocation":
         return `${vname} ran out of air.`;
+
+      case "autoExplosion":
+        return `${vname} violently explodes!`;
 
       default:
         return `${vname} die${s}!`;

@@ -4,6 +4,7 @@ import Item from "./Item";
 import Tile from "./Tile";
 
 export type DamageType =
+  | "autoExplosion"
   | "bomb"
   | "burning"
   | "combat"
