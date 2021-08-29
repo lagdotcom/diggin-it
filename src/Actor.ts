@@ -68,7 +68,7 @@ export interface ActorOptions {
   stunChance: number;
   knockBackChance: number; // TODO knockBackChance
   destroyChance: number; // TODO destroyChance
-  finalBombChance: number; // TODO finalBombChance
+  finalBombChance: number;
   finalGasChance: number; // TODO finalGasChance
   finalScreamChance: number; // TODO finalScreamChance
   finalScreamTarget: ScreamTarget;

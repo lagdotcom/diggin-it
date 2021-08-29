@@ -63,11 +63,7 @@ export default class AI {
       this.g.sfx.play("explode");
 
       const [xm, ym, w, h, dmg] = [-1, -1, 3, 3, 30];
-      for (let yo = 0; yo < h; yo++) {
-        for (let xo = 0; xo < w; xo++) {
-          this.bombs.explode(x + xm + xo, y + ym + yo, dmg, false);
-        }
-      }
+      this.bombs.runExplosion(x, y, xm, ym, w, h, dmg, !actor.inky);
 
       return true;
     }

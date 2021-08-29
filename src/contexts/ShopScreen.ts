@@ -265,6 +265,7 @@ export default class ShopScreen implements Context {
     const { player } = this.g;
 
     if (cmd.type === "cancel") {
+      this.rerender.stop();
       this.g.depth++;
       this.g.nextMap();
       return;

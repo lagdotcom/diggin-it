@@ -1,11 +1,14 @@
+import { RNG } from "rot-js";
+
 import { EventMap } from "../Event";
 import Game from "../Game";
 import { cname } from "../text";
+import Bombs from "./Bombs";
 
 type DamagedData = EventMap["damaged"];
 
 export default class Death {
-  constructor(public g: Game) {
+  constructor(public g: Game, public bombs: Bombs) {
     g.on("damaged", this.damaged.bind(this));
   }
 
@@ -23,6 +26,19 @@ export default class Death {
         this.g.music.play("consolation");
         this.g.sfx.play("dead");
       }
+
+      const bomb = victim.finalBombChance;
+      if (RNG.getPercentage() <= bomb)
+        this.bombs.runExplosion(
+          victim.x,
+          victim.y,
+          -1,
+          -1,
+          3,
+          3,
+          30,
+          !victim.inky
+        );
     }
   }
 

@@ -24,12 +24,7 @@ export default class Bombs {
         this.g.removeItem(bomb);
         this.g.sfx.play("explode");
 
-        for (let yo = 0; yo < h; yo++) {
-          for (let xo = 0; xo < w; xo++) {
-            this.explode(bomb.x + xm + xo, bomb.y + ym + yo, dmg);
-          }
-        }
-
+        this.runExplosion(bomb.x, bomb.y, xm, ym, w, h, dmg);
         return;
       }
 
@@ -37,6 +32,23 @@ export default class Bombs {
     });
 
     this.bombs = this.bombs.filter((bomb) => !remove.includes(bomb));
+  }
+
+  runExplosion(
+    x: number,
+    y: number,
+    xm: number,
+    ym: number,
+    w: number,
+    h: number,
+    dmg: number,
+    hitsInk = true
+  ): void {
+    for (let yo = 0; yo < h; yo++) {
+      for (let xo = 0; xo < w; xo++) {
+        this.explode(x + xm + xo, y + ym + yo, dmg, hitsInk);
+      }
+    }
   }
 
   explode(x: number, y: number, dmg: number, hitsInk = true): void {

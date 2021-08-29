@@ -92,7 +92,7 @@ export default class Dungeon implements Context {
     this.bombs = new Bombs(g);
     this.ai = new AI(g, this.bombs, this.combat, this.vision);
     this.air = new Air(g);
-    this.death = new Death(g);
+    this.death = new Death(g, this.bombs);
     this.digging = new Digging(g);
     this.drops = new Drops(g);
     this.effects = new Effects(g);
