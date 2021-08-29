@@ -7,6 +7,8 @@ import Tile from "../Tile";
 export default class TheInk {
   constructor(public g: Game) {
     g.on("damaged", ({ amount, victim }) => {
+      victim.teleportTracking += amount;
+
       if (victim.inkParts)
         victim.inkParts.forEach((part) => {
           part.hp -= amount;

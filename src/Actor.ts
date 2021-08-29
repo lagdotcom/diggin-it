@@ -11,6 +11,8 @@ export type AIData = { active?: boolean; dir?: number; spawn?: number };
 export type PlayerData = { stats: number };
 
 type ScreamTarget = "" | "tier" | EnemyName;
+type InkSpawnLocation = "player" | "random";
+type InkTeleportType = "fire";
 
 export interface ActorOptions {
   ai: ActorAI;
@@ -25,9 +27,15 @@ export interface ActorOptions {
   dropQty: Record<string, [number, number]>;
   durability: number;
   equipment: Partial<Record<Slot, Item>>;
+  explodeTimer: number;
   glyph: string;
   heavy: boolean;
   inky: boolean;
+  inkSpawn: EnemyName[];
+  inkSpawnAmount: [number, number];
+  inkSpawnLocation: InkSpawnLocation;
+  inkSpawnTimer: number;
+  inkTeleportType: InkTeleportType;
   inventory: (Item | undefined)[];
   inventorySize: number;
   lore: string;
@@ -81,10 +89,16 @@ export default class Actor {
   dropQty: Record<string, [number, number]>;
   durability: number;
   equipment: Partial<Record<Slot, Item>>;
+  explodeTimer: number;
   glyph: string;
   heavy: boolean;
   inky: boolean;
-  inkParts: Actor[];
+  inkParts?: Actor[];
+  inkSpawn: EnemyName[];
+  inkSpawnAmount: [number, number];
+  inkSpawnLocation?: InkSpawnLocation;
+  inkSpawnTimer: number;
+  inkTeleportType?: InkTeleportType;
   inventory: Item[];
   inventorySize: number;
   lore?: string;
@@ -136,9 +150,15 @@ export default class Actor {
       colour = "silver",
       durability = Infinity,
       equipment = {},
+      explodeTimer = Infinity,
       glyph = "?",
       heavy = false,
       inky = false,
+      inkSpawn = [],
+      inkSpawnAmount = [0, 0],
+      inkSpawnLocation = undefined,
+      inkSpawnTimer = Infinity,
+      inkTeleportType = undefined,
       lore = undefined,
       name = glyph,
       needsWater = false,
@@ -192,6 +212,12 @@ export default class Actor {
     this.glyph = glyph;
     this.heavy = heavy;
     this.inky = inky;
+    this.inkSpawn = inkSpawn;
+    this.inkSpawnAmount = inkSpawnAmount;
+    this.inkSpawnLocation = inkSpawnLocation;
+    this.inkSpawnTimer = inkSpawnTimer;
+    this.inkTeleportType = inkTeleportType;
+    this.explodeTimer = explodeTimer;
     this.lore = lore;
     this.name = name;
     this.namePlural = name;

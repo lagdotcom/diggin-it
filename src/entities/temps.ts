@@ -9,6 +9,14 @@ export const litBomb: Partial<ItemOptions> = {
 export const explosion: Partial<ItemOptions> = {
   glyph: "Explosion",
   name: "explosion",
+  article: "an",
   canPickUp: false,
   obeysGravity: false,
+};
+
+export const fire: Partial<ItemOptions> = {
+  glyph: "Fire",
+  name: "fire",
+  article: "some",
+  canPickUp: false,
 };

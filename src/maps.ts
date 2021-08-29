@@ -1,3 +1,5 @@
+import { RNG } from "rot-js";
+
 import Actor, { ActorOptions } from "./Actor";
 import { boulder, crate, metal } from "./entities/movables";
 import {
@@ -26,7 +28,7 @@ import {
 } from "./entities/tiles";
 import Game from "./Game";
 import Item, { ItemOptions } from "./Item";
-import { addTheInk } from "./prefabs";
+import { addTheGreenInk, addTheInk, addTheRedInk } from "./prefabs";
 import {
   getBigTreasure,
   getMediumTreasure,
@@ -166,7 +168,8 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       }
 
       if (glyph === "4") {
-        addTheInk(g, x, y);
+        const spawnInk = RNG.getItem([addTheInk, addTheGreenInk, addTheRedInk]);
+        spawnInk(g, x, y);
       }
 
       if (glyph === "<") {

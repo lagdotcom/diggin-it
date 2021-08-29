@@ -9,9 +9,10 @@ export default class Air {
   }
 
   run(): void {
-    const { log, mapFluid, player } = this.g;
-    const tile = mapFluid.get(player.x, player.y);
-    player.ap -= tile.airCost;
+    const { log, player } = this.g;
+    const { items, fluid } = this.g.contents(player.x, player.y);
+
+    player.ap -= fluid.airCost;
 
     if (player.ap < 1) {
       player.ap = 0;
@@ -24,12 +25,18 @@ export default class Air {
       });
     }
 
-    if (tile.hpCost && player.hp > 0) {
-      player.hp -= tile.hpCost;
+    let burnDamage = 0;
+
+    if (fluid.hpCost && player.hp > 0) burnDamage += fluid.hpCost;
+    // TODO a bit fragile
+    if (items.find((i) => i.glyph === "Fire")) burnDamage += 3;
+
+    if (burnDamage > 0) {
+      player.hp -= burnDamage;
       if (player.hp > 0) log.add(`${warning}You're burning!`);
       this.g.emit("damaged", {
         victim: player,
-        amount: tile.hpCost,
+        amount: burnDamage,
         type: "burning",
       });
     }

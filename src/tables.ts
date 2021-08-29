@@ -22,11 +22,14 @@ import {
   buster,
   canandra,
   crim,
+  drifter,
   flazza,
+  floater,
   glova,
   grundilla,
   kreebus,
   muln,
+  popper,
   poregon,
   puffus,
   shockworm,
@@ -188,7 +191,7 @@ export const items = {
 };
 export type ItemName = keyof typeof items;
 
-const enemies = {
+export const enemies = {
   squimpy,
   buster,
   canandra,
@@ -204,10 +207,13 @@ const enemies = {
   kreebus,
   grundilla,
   poregon,
+  floater,
+  drifter,
+  popper,
 };
 export type EnemyName = keyof typeof enemies;
 
-const champions: Record<EnemyName, Partial<ActorOptions>> = {
+const champions: Record<string, Partial<ActorOptions>> = {
   buster: busterChampion,
   canandra: canandraChampion,
   crim: crimChampion,
@@ -274,7 +280,8 @@ export const getRandomEnemy: Picker<ActorOptions> = ({
       ? pickByWeight(waterEnemiesByZone[zone])
       : pickByWeight(airEnemiesByZone[zone]);
 
-  if (RNG.getPercentage() <= championChance) return champions[name];
+  const champ = champions[name];
+  if (champ && RNG.getPercentage() <= championChance) return champ;
   return enemies[name];
 };
 

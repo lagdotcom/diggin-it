@@ -25,7 +25,8 @@ export default class RangeOverlay {
     this.renderCb = this.renderCb.bind(this);
   }
 
-  useActor(actor: Actor): void {
+  useActor(actor?: Actor): void {
+    // TODO: this does not work well with the red ink
     if (actor !== this.actor) {
       this.actor = actor;
       this.item = undefined;

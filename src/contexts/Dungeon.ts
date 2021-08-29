@@ -89,9 +89,9 @@ export default class Dungeon implements Context {
   constructor(public g: Game) {
     this.combat = new Combat(g);
     this.vision = new Vision(g);
-    this.ai = new AI(g, this.combat, this.vision);
-    this.air = new Air(g);
     this.bombs = new Bombs(g);
+    this.ai = new AI(g, this.bombs, this.combat, this.vision);
+    this.air = new Air(g);
     this.death = new Death(g);
     this.digging = new Digging(g);
     this.drops = new Drops(g);

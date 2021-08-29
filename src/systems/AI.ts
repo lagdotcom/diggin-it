@@ -4,18 +4,26 @@ import { PassableCallback } from "rot-js/lib/path/path";
 
 import Actor, { ActorAI, AIData } from "../Actor";
 import Movement from "../commands/Movement";
-import { drifter, floater } from "../entities/enemies";
+import { fire } from "../entities/temps";
 import Game from "../Game";
 import XY from "../interfaces/XY";
+import Item from "../Item";
+import { enemies } from "../tables";
 import { cname } from "../text";
-import { manhattan, traceline } from "../utils";
+import { traceline } from "../utils";
+import Bombs from "./Bombs";
 import Combat from "./Combat";
 import Vision from "./Vision";
 
 export default class AI {
   functions: Record<ActorAI, (actor: Actor, data: AIData) => void>;
 
-  constructor(public g: Game, public combat: Combat, public vision: Vision) {
+  constructor(
+    public g: Game,
+    public bombs: Bombs,
+    public combat: Combat,
+    public vision: Vision
+  ) {
     this.functions = {
       wander: this.wanderAi.bind(this),
       fly: this.flyingAi.bind(this),
@@ -46,6 +54,25 @@ export default class AI {
     );
   }
 
+  doesExplode(actor: Actor): boolean {
+    actor.explodeTimer--;
+    if (actor.explodeTimer < 1) {
+      const { x, y } = actor;
+      this.g.log.add(`${cname(actor, true)} suddenly explodes!`);
+      this.g.remove(actor);
+      this.g.sfx.play("explode");
+
+      const [xm, ym, w, h, dmg] = [-1, -1, 3, 3, 30];
+      for (let yo = 0; yo < h; yo++) {
+        for (let xo = 0; xo < w; xo++) {
+          this.bombs.explode(x + xm + xo, y + ym + yo, dmg, false);
+        }
+      }
+
+      return true;
+    }
+  }
+
   wanderAi(actor: Actor, data: AIData): void {
     if (actor.reeling) {
       actor.reeling = false;
@@ -53,6 +80,7 @@ export default class AI {
     }
 
     if (actor.stunTimer > 0) return;
+    if (this.doesExplode(actor)) return;
 
     let { dir } = data;
     if (!dir) dir = RNG.getItem([-1, 1]);
@@ -137,6 +165,7 @@ export default class AI {
     }
 
     if (actor.stunTimer > 0) return;
+    if (this.doesExplode(actor)) return;
 
     let { active } = data;
     if (!active) {
@@ -179,6 +208,7 @@ export default class AI {
 
     const [b, c, d] = a.inkParts;
     const allInk = [a, b, c, d];
+    const { player } = this.g;
 
     if (a.reeling || b.reeling || c.reeling || d.reeling) {
       a.reeling = false;
@@ -197,21 +227,25 @@ export default class AI {
       return;
 
     spawn++;
-    if (spawn >= 10) {
-      const destinations = this.g.map
-        .positions()
-        .filter(([x, y]) => this.flyPassable(x, y, allInk));
-      if (destinations.length) {
-        spawn = 0;
-        const [x, y] = RNG.getItem(destinations);
-        const baby = new Actor(
-          x,
-          y,
-          RNG.getPercentage() > 50 ? floater : drifter
-        );
-        this.g.add(baby);
-        this.g.log.add(`${cname(baby, true)} splits from the ink!`);
-        this.g.emit("mapChanged", {});
+    if (spawn >= a.inkSpawnTimer) {
+      const amount = RNG.getUniformInt(...a.inkSpawnAmount);
+
+      for (let i = 0; i < amount; i++) {
+        const prefer =
+          a.inkSpawnLocation === "player"
+            ? this.g.map.diamond(player.x, player.y, 4)
+            : this.g.map.positions();
+
+        const destinations = prefer.filter(([x, y]) => this.flyPassable(x, y));
+        if (destinations.length) {
+          spawn = 0;
+          const [x, y] = RNG.getItem(destinations);
+          const babyType = RNG.getItem(a.inkSpawn);
+          const baby = new Actor(x, y, enemies[babyType]);
+          this.g.add(baby);
+          this.g.log.add(`${cname(baby, true)} splits from the ink!`);
+          this.g.emit("mapChanged", {});
+        }
       }
     }
 
@@ -222,6 +256,17 @@ export default class AI {
         .positions()
         .filter(([x, y]) => this.inkCanMoveHere(x, y, allInk));
       if (destinations.length) {
+        if (a.inkTeleportType === "fire") {
+          this.g.log.add(`The ink emits a wave of fire.`);
+          const fire1 = new Item(a.x, a.y, fire);
+          const fire2 = new Item(a.x + 1, a.y, fire);
+
+          this.g.emit("effect", { effect: fire1, duration: 10 });
+          this.g.addItem(fire1);
+          this.g.emit("effect", { effect: fire2, duration: 10 });
+          this.g.addItem(fire2);
+        }
+
         a.teleportTracking = 0;
         const [x, y] = RNG.getItem(destinations);
         this.moveInk(x, y, a, b, c, d);
@@ -231,13 +276,12 @@ export default class AI {
       }
     }
 
-    const { player } = this.g;
     if (
       player.alive &&
-      (manhattan(player.x, player.y, a.x, a.y) < 2 ||
-        manhattan(player.x, player.y, b.x, b.y) < 2 ||
-        manhattan(player.x, player.y, c.x, c.y) < 2 ||
-        manhattan(player.x, player.y, d.x, d.y) < 2)
+      (this.canAttack(a, player) ||
+        this.canAttack(b, player) ||
+        this.canAttack(c, player) ||
+        this.canAttack(d, player))
     ) {
       return this.combat.attack(a, player);
     }

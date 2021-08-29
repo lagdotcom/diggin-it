@@ -12,6 +12,7 @@ export default class Effects {
     g.on("effect", ({ effect, duration }) => {
       this.effects.push(effect);
       this.durations.push(duration);
+      g.emit("mapChanged", {});
     });
     g.on("tick", () => this.run());
   }
@@ -27,6 +28,7 @@ export default class Effects {
       if (duration < 1) {
         remove.unshift(i);
         this.g.removeItem(effect);
+        this.g.emit("mapChanged", {});
         continue;
       }
 

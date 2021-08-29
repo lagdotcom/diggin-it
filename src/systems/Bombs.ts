@@ -39,11 +39,11 @@ export default class Bombs {
     this.bombs = this.bombs.filter((bomb) => !remove.includes(bomb));
   }
 
-  explode(x: number, y: number, dmg: number): void {
+  explode(x: number, y: number, dmg: number, hitsInk = true): void {
     const { map, player } = this.g;
 
     const { actor, items, tile } = this.g.contents(x, y);
-    if (actor?.alive) {
+    if (actor?.alive && (hitsInk || !actor.inky)) {
       actor.hp -= dmg;
       this.g.emit("damaged", {
         attacker: player,
