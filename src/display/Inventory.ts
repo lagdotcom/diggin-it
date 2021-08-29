@@ -16,7 +16,7 @@ export default class Inventory {
 
   constructor(
     public g: Game,
-    public overlay: RangeOverlay,
+    public overlay?: RangeOverlay,
     public x = 28,
     public y = 12,
     public width = 12,
@@ -57,7 +57,7 @@ export default class Inventory {
 
       const item =
         typeof spot === "number" ? this.g.player.inventory[spot] : undefined;
-      this.overlay.useItem(item);
+      this.overlay?.useItem(item);
     }
   }
 

@@ -56,13 +56,15 @@ export function drawMulti(
   sy: number,
   width: number,
   height: number,
-  glyph: string
+  glyph: string,
+  fg?: string,
+  bg?: string
 ): void {
   let i = 0;
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       i++;
-      display.draw(sx + x, sy + y, glyph + i.toString());
+      display.draw(sx + x, sy + y, glyph + i.toString(), fg, bg);
     }
   }
 }

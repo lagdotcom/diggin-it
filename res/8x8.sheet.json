@@ -110,8 +110,8 @@
     "qty8": { "row": 6, "col": 9 },
     "qty9": { "row": 6, "col": 10 },
 
-    "ScrollUp": { "row": 6, "col": 0 },
-    "ScrollDown": { "row": 7, "col": 0 },
+    "ScrollDown": { "row": 6, "col": 0 },
+    "ScrollUp": { "row": 7, "col": 0 },
     "ScrollRight": { "row": 7, "col": 1 },
     "ScrollLeft": { "row": 7, "col": 2 },
 

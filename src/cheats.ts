@@ -1,3 +1,4 @@
+import ShopScreen from "./contexts/ShopScreen";
 import {
   artifact,
   coin,
@@ -130,6 +131,13 @@ function spawnItem(typ: ItemName, qty = 1) {
   g.contexts.top.render();
 }
 
+function gotoShop() {
+  const g = Game.INSTANCE;
+
+  g.contexts.push(new ShopScreen(g));
+  g.contexts.top.render();
+}
+
 export function initCheats(): void {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   (window as any).g = Game.INSTANCE;
@@ -138,5 +146,6 @@ export function initCheats(): void {
   (window as any).theboss = testTheInk;
   (window as any).gather = gatherAllStats;
   (window as any).gimme = spawnItem;
+  (window as any).spendmoremoney = gotoShop;
   /* eslint-enable @typescript-eslint/no-explicit-any */
 }

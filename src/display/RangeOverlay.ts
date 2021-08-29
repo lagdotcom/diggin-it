@@ -1,4 +1,5 @@
 import Actor from "../Actor";
+import { targetColour } from "../colours";
 import Game from "../Game";
 import XY from "../interfaces/XY";
 import Item from "../Item";
@@ -74,7 +75,7 @@ export default class RangeOverlay {
     const tag = asTag([data.x, data.y]);
     if (this.range.has(tag)) {
       data.glyphs.unshift("Targeting");
-      data.fg = "rgba(255,255,0,0.5)";
+      data.fg = targetColour;
     }
 
     return data;

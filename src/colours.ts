@@ -7,5 +7,7 @@ export const darkGreen = "rgba(0,170,0,0.4)";
 export const lightGold = "rgba(255,255,85,0.4)";
 export const darkGold = "rgba(170,170,0,0.4)";
 
+export const targetColour = "rgba(255,255,0,0.5)";
+
 export const bg = (colour = ""): string => `%b{${colour}}`;
 export const fg = (colour = ""): string => `%c{${colour}}`;

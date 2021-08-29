@@ -1,3 +1,4 @@
+import { targetColour } from "../colours";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
 import Cmd, { TargetCmd } from "../interfaces/Cmd";
@@ -6,7 +7,6 @@ import XY from "../interfaces/XY";
 import Soon from "../Soon";
 import Dungeon from "./Dungeon";
 
-const targetColour = "rgba(255,255,0,0.5)";
 const targetTile = "Targeting";
 
 export default class Targeting implements Context {
