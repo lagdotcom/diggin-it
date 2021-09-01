@@ -329,49 +329,49 @@ export const coin: Partial<ItemOptions> = {
   glyph: "Coin",
   name: "coin",
   colour: "yellow",
-  treasure: 50,
+  treasure: 30,
   lore: "Dropped out of pocket by a wayward adventurer, there's nothing too special about it, a lucky find and nothing more.",
 };
 export const goldBar: Partial<ItemOptions> = {
   glyph: "GoldBar",
   name: "gold bar",
   colour: "yellow",
-  treasure: 100,
+  treasure: 80,
   lore: "When first dug out by early explorers, gold became a feverish commodity the world over. Used as a sign of wealth, dignity, and beauty it sent many young travelers abroad in search of glory and grandeur and sent far more to their own demise. These days a gold bar is barely worth a small grocery run, but it's money all the same.",
 };
 export const smallGem: Partial<ItemOptions> = {
   glyph: "Gem",
   name: "small gem",
   colour: "blue",
-  treasure: 200,
+  treasure: 180,
   lore: "Seen on brooches, bracelets and jewellery the world over, these beautiful glistening gemstones make for wonderful gifts and are often exchanged amongst partners and significant others when making vows and promises.",
 };
 export const coinBag: Partial<ItemOptions> = {
   glyph: "CoinBag",
   name: "coin bag",
   colour: "yellow",
-  treasure: 300,
+  treasure: 270,
   lore: "While not uncommon to bring a satchel for storing valuables, it's surprisingly common that these bags are used for storing currency. Unauthorized looters and ill prepared travelers often bring these in hopes of fast money and easy riches.",
 };
 export const artifact: Partial<ItemOptions> = {
   glyph: "Artifact",
   name: "artifact",
   colour: "red",
-  treasure: 500,
+  treasure: 430,
   lore: "Mysterious artifacts that have cropped up through many points in history, legitimate ones have become quite valuable. A vast counterfeit market has made sceptics of many folks that they were ever real to begin with, and carbon dating has only deepened the mystery as no two artifacts appear to be from the same era.",
 };
 export const treasureBox: Partial<ItemOptions> = {
   glyph: "TreasureBox",
   name: "treasure box",
   colour: "brown",
-  treasure: 800,
+  treasure: 700,
   lore: "Whether left behind and buried by earlier intrepid explorers or relics left by forgotten civilizations, whatever's inside must surely be of value.",
 };
 export const diamond: Partial<ItemOptions> = {
   glyph: "Diamond",
   name: "diamond",
   colour: "pink",
-  treasure: 1000,
+  treasure: 900,
   lore: "The rarest of materials, diamonds are only found in the deepest trenches Gantella can muster. Raw diamond is extremely sought after by many explorers looking to turn their lot in life around, and just as sought after by those looking to make an extravagant statement about the size of their fortune.",
 };
 export const fragment: Partial<ItemOptions> = {
