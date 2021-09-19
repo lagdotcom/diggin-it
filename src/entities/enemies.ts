@@ -12,7 +12,7 @@ export const squimpy: Partial<ActorOptions> = {
   dp: 4,
   dpRange: 7,
   attackRange: 2,
-  experience: 80,
+  experience: 110,
   lore: "Born with only a single eye to see and a mouth to eat, the Squimpy is not to be confused with it's eldest evolutionary relative, the Fachan. While generally harmless, if agitated or provoked the Squimpy is known for it's surprisingly potent and harmful saliva that is capable of leaving severe scarring akin to that of a burn.",
 };
 export const buster: Partial<ActorOptions> = {
@@ -26,7 +26,7 @@ export const buster: Partial<ActorOptions> = {
   spRange: 20,
   dp: 6,
   dpRange: 9,
-  experience: 100,
+  experience: 150,
   stunChance: 5,
   lore: "These toadish creatures can be found at every corner of Gantella, and yet this unique variant is native to the Lessonus region. A popular domesticated pet, the strange swirl adorning their head is not hair, but a small tail like appendage that wags when stimulated. In the wild, a Buster earns it's name by growing to the size of a large dog and throwing it's own weight relentlessly at anything it sees as a threat.",
 };
@@ -230,7 +230,7 @@ export const puffus: Partial<ActorOptions> = {
   spRange: 24,
   dp: 10,
   dpRange: 13,
-  experience: 210,
+  experience: 250,
   stunChance: 10,
   lore: "Native to deep and cool waters, Puffus are largely content tend to feed off various algaes and small microscopic fish. When threatened or attacked they will swell to over double their initial size, exposing highly painful barbs that can leave tingling and numbness in the affected wound for weeks.",
 };
@@ -295,13 +295,13 @@ export const poregon: Partial<ActorOptions> = {
   canClimb: true,
   maxHp: 32,
   maxHpRange: 37,
-  sp: 18,
-  spRange: 22,
-  dp: 16,
-  dpRange: 20,
+  sp: 15,
+  spRange: 19,
+  dp: 14,
+  dpRange: 18,
   attackRange: 2,
   knockBackChance: 10,
-  experience: 350,
+  experience: 380,
   finalBombChance: 5,
   lore: "A strange race of creatures that are said to be pranksters, reincarnations of mischievous spirits of the past or even those that have fallen far away from home. Their mushroom like appearance hides what appear to be intentions both good and bad, some claim to have been saved in their hour of need, while others still claim to have seen hideous rituals and gruesome sights at Poregon camps. Caution is advised.",
 };
