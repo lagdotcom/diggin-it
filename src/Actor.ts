@@ -13,6 +13,12 @@ export type PlayerData = { stats: number };
 type ScreamTarget = "" | "tier" | EnemyName;
 type InkSpawnLocation = "player" | "random";
 type InkTeleportType = "fire";
+type ActorSpecialType =
+  | "beginFinalBattle"
+  | "blotHeart"
+  | "blotEye"
+  | "blotHand"
+  | "ink";
 
 export interface ActorOptions {
   ai: ActorAI;
@@ -30,6 +36,7 @@ export interface ActorOptions {
   explodeTimer: number;
   glyph: string;
   heavy: boolean;
+  special: ActorSpecialType;
   inky: boolean;
   inkSpawn: EnemyName[];
   inkSpawnAmount: [number, number];
@@ -92,8 +99,9 @@ export default class Actor {
   explodeTimer: number;
   glyph: string;
   heavy: boolean;
+  special?: ActorSpecialType;
+  parts?: Actor[];
   inky: boolean;
-  inkParts?: Actor[];
   inkSpawn: EnemyName[];
   inkSpawnAmount: [number, number];
   inkSpawnLocation?: InkSpawnLocation;
@@ -153,6 +161,7 @@ export default class Actor {
       explodeTimer = Infinity,
       glyph = "?",
       heavy = false,
+      special = undefined,
       inky = false,
       inkSpawn = [],
       inkSpawnAmount = [0, 0],
@@ -211,6 +220,7 @@ export default class Actor {
     this.equipment = equipment;
     this.glyph = glyph;
     this.heavy = heavy;
+    this.special = special;
     this.inky = inky;
     this.inkSpawn = inkSpawn;
     this.inkSpawnAmount = inkSpawnAmount;

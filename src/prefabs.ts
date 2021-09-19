@@ -1,4 +1,5 @@
 import Actor from "./Actor";
+import { fakeHeart } from "./entities/endGame";
 import { theGreenInk, theInk, theRedInk } from "./entities/enemies";
 import {
   airTank,
@@ -38,10 +39,10 @@ export function addTheInk(g: Game, x: number, y: number): void {
   const bl = new Actor(x, y + 1, { ...theInk, glyph: "Ink3" });
   const br = new Actor(x + 1, y + 1, { ...theInk, glyph: "Ink4" });
 
-  tl.inkParts = [tr, bl, br];
-  tr.inkParts = [tl, bl, br];
-  bl.inkParts = [tl, tr, br];
-  br.inkParts = [tl, tr, bl];
+  tl.parts = [tr, bl, br];
+  tr.parts = [tl, bl, br];
+  bl.parts = [tl, tr, br];
+  br.parts = [tl, tr, bl];
 
   g.add(tl);
   g.add(tr);
@@ -55,10 +56,10 @@ export function addTheGreenInk(g: Game, x: number, y: number): void {
   const bl = new Actor(x, y + 1, { ...theGreenInk, glyph: "GreenInk3" });
   const br = new Actor(x + 1, y + 1, { ...theGreenInk, glyph: "GreenInk4" });
 
-  tl.inkParts = [tr, bl, br];
-  tr.inkParts = [tl, bl, br];
-  bl.inkParts = [tl, tr, br];
-  br.inkParts = [tl, tr, bl];
+  tl.parts = [tr, bl, br];
+  tr.parts = [tl, bl, br];
+  bl.parts = [tl, tr, br];
+  br.parts = [tl, tr, bl];
 
   g.add(tl);
   g.add(tr);
@@ -72,10 +73,10 @@ export function addTheRedInk(g: Game, x: number, y: number): void {
   const bl = new Actor(x, y + 1, { ...theRedInk, glyph: "RedInk3" });
   const br = new Actor(x + 1, y + 1, { ...theRedInk, glyph: "RedInk4" });
 
-  tl.inkParts = [tr, bl, br];
-  tr.inkParts = [tl, bl, br];
-  bl.inkParts = [tl, tr, br];
-  br.inkParts = [tl, tr, bl];
+  tl.parts = [tr, bl, br];
+  tr.parts = [tl, bl, br];
+  bl.parts = [tl, tr, br];
+  br.parts = [tl, tr, bl];
 
   g.add(tl);
   g.add(tr);
@@ -94,4 +95,20 @@ export function addHugeDoor(g: Game, x: number, y: number): void {
   g.map.set(x + 1, y - 1, tr);
   g.map.set(x, y, bl);
   g.map.set(x + 1, y, br);
+}
+
+export function addFakeHeart(g: Game, x: number, y: number): void {
+  const tl = new Actor(x, y, { ...fakeHeart, glyph: "BlotHeart1" });
+  const tr = new Actor(x + 1, y, { ...fakeHeart, glyph: "BlotHeart2" });
+  const ml = new Actor(x, y + 1, { ...fakeHeart, glyph: "BlotHeart3" });
+  const mr = new Actor(x + 1, y + 1, { ...fakeHeart, glyph: "BlotHeart4" });
+  const bl = new Actor(x, y + 2, { ...fakeHeart, glyph: "BlotHeart5" });
+  const br = new Actor(x + 1, y + 2, { ...fakeHeart, glyph: "BlotHeart6" });
+
+  g.add(tl);
+  g.add(tr);
+  g.add(ml);
+  g.add(mr);
+  g.add(bl);
+  g.add(br);
 }

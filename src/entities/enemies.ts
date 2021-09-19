@@ -199,6 +199,7 @@ export const theInk: Partial<ActorOptions> = {
   name: "ink",
   article: "the",
   colour: "purple",
+  special: "ink",
   inky: true,
   inkSpawn: ["floater", "drifter"],
   inkSpawnAmount: [1, 1],
@@ -311,6 +312,7 @@ export const theGreenInk: Partial<ActorOptions> = {
   name: "ink",
   article: "the",
   colour: "green",
+  special: "ink",
   inky: true,
   inkSpawn: ["popper"],
   inkSpawnAmount: [2, 3],
@@ -350,6 +352,7 @@ export const theRedInk: Partial<ActorOptions> = {
   name: "ink",
   article: "the",
   colour: "red",
+  special: "ink",
   inky: true,
   inkTeleportType: "fire",
   obeysGravity: false,
@@ -366,5 +369,3 @@ export const theRedInk: Partial<ActorOptions> = {
   // TODO: leaves fire when teleporting
   lore: "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Extreme heat emanates all around this flying yolk of terror, all while it parades a legion of faces that sag like ink saturated paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\" - Jacques Splintertooth",
 };
-
-// TODO: the blot

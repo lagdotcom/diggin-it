@@ -185,6 +185,7 @@
     "HugeDoor": { "row": 15, "col": 19, "width": 2, "height": 2 },
     "LadderTileB": { "row": 15, "col": 21 },
 
+    "BlotHeart": { "row": 16, "col": 0, "width": 2, "height": 3 },
     "DirtF": { "row": 16, "col": 11 },
     "SideExit": { "row": 16, "col": 15 },
     "HugeDoorOpen": { "row": 16, "col": 21, "width": 2, "height": 2 },
@@ -194,6 +195,8 @@
     "Exit": { "row": 17, "col": 15 },
     "InkDoor": { "row": 17, "col": 17 },
     "InkDoorOpen": { "row": 17, "col": 18 },
-    "StapleTile": { "row": 17, "col": 20 }
+    "StapleTile": { "row": 17, "col": 20 },
+
+    "BlotHead": { "row": 28, "col": 0, "width": 4, "height": 10 }
   }
 }

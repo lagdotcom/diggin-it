@@ -35,6 +35,7 @@ import XY from "./interfaces/XY";
 import { getZone, Zoned } from "./interfaces/Zone";
 import Item, { ItemOptions } from "./Item";
 import {
+  addFakeHeart,
   addHugeDoor,
   addTheGreenInk,
   addTheInk,
@@ -99,7 +100,6 @@ const tileTypes: Record<string, Partial<TileOptions> | Picker<TileOptions>> = {
   v: vaultExit,
   f: inkDoor,
   C: coral,
-  // TODO H: hugeDoor,
 };
 
 const fluidTypes: Record<string, Partial<TileOptions>> = {
@@ -146,8 +146,9 @@ const itemTypes: Record<string, Partial<ItemOptions> | Picker<ItemOptions>> = {
 };
 
 const validGlyph = new Set([
-  "4",
-  "H",
+  "4", // the ink
+  "H", // slab door
+  "D", // fake blot heart
   ...Object.keys(tileTypes),
   ...Object.keys(fluidTypes),
   ...Object.keys(fluidTypes),
@@ -159,6 +160,7 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
   let px = 0,
     py = 0;
   let hugeDoorLocation: XY = undefined;
+  let fakeHeartLocation: XY = undefined;
 
   const championChance = g.player.get("championChance");
   const height = map.length;
@@ -194,15 +196,13 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
       if (glyph === "4") {
         const spawnInk = RNG.getItem([addTheInk, addTheGreenInk, addTheRedInk]);
         spawnInk(g, x, y);
-      }
-
-      if (glyph === "<") {
+      } else if (glyph === "D") {
+        if (!fakeHeartLocation) fakeHeartLocation = [x, y];
+      } else if (glyph === "<") {
         px = x;
         py = y;
-      }
-
-      if (glyph === "H") {
-        hugeDoorLocation = [x, y];
+      } else if (glyph === "H") {
+        if (!hugeDoorLocation) hugeDoorLocation = [x, y];
       }
 
       // TODO: flyweight
@@ -210,6 +210,7 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
     }
   }
 
+  if (fakeHeartLocation) addFakeHeart(g, ...fakeHeartLocation);
   if (hugeDoorLocation) addHugeDoor(g, ...hugeDoorLocation);
 
   g.player.x = px;

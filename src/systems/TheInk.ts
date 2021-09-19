@@ -7,16 +7,16 @@ export default class TheInk {
     g.on("damaged", ({ amount, victim }) => {
       victim.teleportTracking += amount;
 
-      if (victim.inkParts)
-        victim.inkParts.forEach((part) => {
+      if (victim.parts)
+        victim.parts.forEach((part) => {
           part.hp -= amount;
           part.teleportTracking += amount;
         });
     });
 
     g.on("died", ({ victim }) => {
-      if (victim.inkParts) {
-        victim.inkParts.forEach((part) => g.remove(part));
+      if (victim.special === "ink") {
+        victim.parts.forEach((part) => g.remove(part));
         g.music.fadeOut();
         g.sfx.play("inkDead");
 

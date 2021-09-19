@@ -9,7 +9,7 @@ import { log } from "./utils";
 import basics from "./vaults/basics";
 import bossRooms from "./vaults/boss";
 import eggRooms from "./vaults/egg";
-import { artery } from "./vaults/end";
+import { artery } from "./vaults/endGame";
 import allExits from "./vaults/exits";
 import fragments from "./vaults/fragments";
 import jRooms from "./vaults/j";

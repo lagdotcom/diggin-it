@@ -12,7 +12,8 @@ export default class EndGame {
 
   tryOpen(): string | undefined {
     const { allActors, map, player } = this.g;
-    if (allActors.find((a) => a.inkParts)) return "You're in too much danger!";
+    if (allActors.find((a) => a.special === "ink"))
+      return "You're in too much danger!";
 
     const slabs = player.inventory.filter((i) => i?.sting === "slab");
     const count = slabs.length;

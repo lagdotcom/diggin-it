@@ -202,7 +202,7 @@ export default class AI {
     }
     if (!spawn) spawn = 0;
 
-    const [b, c, d] = a.inkParts;
+    const [b, c, d] = a.parts;
     const allInk = [a, b, c, d];
     const { player } = this.g;
 
@@ -295,7 +295,7 @@ export default class AI {
   }
 
   private getInkMove(player: Actor, part: Actor, ox: number, oy: number) {
-    const ignore = [player, part, ...part.inkParts];
+    const ignore = [player, part, ...part.parts];
 
     const astar = new AStar(
       player.x,
