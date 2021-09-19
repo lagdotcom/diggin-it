@@ -61,6 +61,8 @@
     "Spear": { "row": 2, "col": 16 },
     "Axe": { "row": 2, "col": 17 },
     "Crossbow": { "row": 2, "col": 18 },
+    "Doppelganger": { "row": 2, "col": 21 },
+    "BlotHandA": { "row": 2, "col": 22, "width": 2, "height": 2 },
 
     "Bomb": { "row": 3, "col": 0 },
     "Rope": { "row": 3, "col": 1 },
@@ -133,6 +135,7 @@
     "Path28": { "row": 6, "col": 7, "TODO": true },
     "Path19": { "row": 6, "col": 7, "TODO": true },
     "Path37": { "row": 6, "col": 7, "TODO": true },
+    "BlotHandB": { "row": 6, "col": 19, "width": 2, "height": 2 },
 
     "SandS": { "row": 7, "col": 11 },
     "SandM": { "row": 7, "col": 12 },
@@ -197,6 +200,8 @@
     "InkDoorOpen": { "row": 17, "col": 18 },
     "StapleTile": { "row": 17, "col": 20 },
 
-    "BlotHead": { "row": 28, "col": 0, "width": 4, "height": 10 }
+    "BlotHead": { "row": 28, "col": 0, "width": 4, "height": 11 },
+
+    "BlotEye": { "row": 33, "col": 2 }
   }
 }

@@ -157,6 +157,7 @@ export const water: Partial<TileOptions> = {
 };
 export const darkWater = {
   ...water,
+  name: "",
   glyph: "DarkWater",
   colour: "black",
   airCost: 1, // TODO dark water air cost

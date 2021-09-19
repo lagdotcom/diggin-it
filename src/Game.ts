@@ -112,12 +112,16 @@ export default class Game extends EventHandler {
       seed
     );
     log(map.join("\n"));
-    this.useMap(map, fluid, false);
-    this.sideArea = side;
-    this.vaults = vaults;
+    this.useMap(map, fluid, false, side, vaults);
   }
 
-  useMap(map: string[], fluid: string[], isSideArea: boolean): void {
+  useMap(
+    map: string[],
+    fluid: string[],
+    isSideArea: boolean,
+    side: string,
+    vaults: Hotspots<string>
+  ): void {
     this.removeAllListeners();
     this.log.attach();
     // this.player.fullHeal();
@@ -133,6 +137,9 @@ export default class Game extends EventHandler {
     this.tiles.clear();
     this.chars.clear();
     this.contexts.top.render();
+
+    this.sideArea = side;
+    this.vaults = vaults;
   }
 
   initMap(width: number, height: number): void {

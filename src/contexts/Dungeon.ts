@@ -1,9 +1,9 @@
 import Digging from "../commands/Digging";
-import EndGame from "../commands/EndGame";
 import Movement from "../commands/Movement";
 import PickingUp from "../commands/PickingUp";
 import Pushing from "../commands/Pushing";
 import Querying from "../commands/Querying";
+import SlabDoor from "../commands/SlabDoor";
 import UsableItems from "../commands/UsableItems";
 import InfoPanel from "../display/InfoPanel";
 import Inventory from "../display/Inventory";
@@ -43,6 +43,7 @@ import Music from "../systems/Music";
 import SandCollapse from "../systems/SandCollapse";
 import Sound from "../systems/Sound";
 import StatusEffects from "../systems/StatusEffects";
+import TheBlot from "../systems/TheBlot";
 import TheInk from "../systems/TheInk";
 import Traps from "../systems/Traps";
 import Vision from "../systems/Vision";
@@ -57,6 +58,7 @@ import Targeting from "./Targeting";
 export default class Dungeon implements Context {
   ai: AI;
   air: Air;
+  blot: TheBlot;
   bombs: Bombs;
   combat: Combat;
   death: Death;
@@ -64,7 +66,6 @@ export default class Dungeon implements Context {
   display: MainDisplay;
   drops: Drops;
   effects: Effects;
-  endGame: EndGame;
   gravity: Gravity;
   hotspots: Hotspots;
   info: InfoPanel;
@@ -80,6 +81,7 @@ export default class Dungeon implements Context {
   query: Querying;
   rerender: Soon;
   sand: SandCollapse;
+  slabDoor: SlabDoor;
   sound: Sound;
   stats: Stats;
   status: StatusEffects;
@@ -94,11 +96,11 @@ export default class Dungeon implements Context {
     this.bombs = new Bombs(g);
     this.ai = new AI(g, this.bombs, this.combat, this.vision);
     this.air = new Air(g);
+    this.blot = new TheBlot(g);
     this.death = new Death(g, this.bombs);
     this.digging = new Digging(g);
     this.drops = new Drops(g);
     this.effects = new Effects(g);
-    this.endGame = new EndGame(g);
     this.gravity = new Gravity(g);
     this.ink = new TheInk(g);
     this.memento = new Memento(g);
@@ -108,6 +110,7 @@ export default class Dungeon implements Context {
     this.pushing = new Pushing(g);
     this.query = new Querying(g);
     this.sand = new SandCollapse(g);
+    this.slabDoor = new SlabDoor(g);
     this.sound = new Sound(g);
     this.status = new StatusEffects(g);
     this.traps = new Traps(g);
@@ -390,15 +393,15 @@ export default class Dungeon implements Context {
     } else if (tile.exit === "side" && sideArea) {
       log.add(`You enter the strange doorway...`);
 
-      const [map, fluid] = generateSideArea(sideArea);
+      const [map, fluid, side, vaults] = generateSideArea(sideArea);
       this.g.visitedAreas.push(sideArea);
-      this.g.useMap(map, fluid, true);
+      this.g.useMap(map, fluid, true, side, vaults);
       music.play("vault");
     } else if (tile.exit === "closed") {
       log.add("It's sealed shut.");
       return this.render();
     } else if (tile.exit === "slabs") {
-      const msg = this.endGame.tryOpen();
+      const msg = this.slabDoor.tryOpen();
       if (msg) log.add(msg);
       return this.render();
     } else {
@@ -527,7 +530,7 @@ export default class Dungeon implements Context {
       this.overlay.useActor(actor);
     } else if (items.length) {
       this.info.useItem(items[0]);
-    } else if (fluid.glyph && fluid.glyph !== " ") {
+    } else if (fluid.name) {
       this.info.useTile(fluid);
     } else {
       this.info.useTile(tile);

@@ -1,4 +1,6 @@
+import Actor from "./Actor";
 import ShopScreen from "./contexts/ShopScreen";
+import { fakeHeart } from "./entities/endGame";
 import {
   artifact,
   coin,
@@ -20,6 +22,18 @@ function testTheInk() {
   g.log.add("You fall into a black hole!");
   g.depth = 10;
   g.nextMap();
+}
+
+function testTheBlot() {
+  const g = Game.INSTANCE;
+
+  g.log.add("You fall into a black hole!");
+  g.depth = 11;
+
+  const heart = new Actor(0, 0, fakeHeart);
+  g.emit("damaged", { victim: heart, amount: 1, type: "trap" });
+  g.emit("refreshed", {});
+  g.contexts.top.render();
 }
 
 function testGodMode() {
@@ -144,6 +158,7 @@ export function initCheats(): void {
   (window as any).idclvl = testChangeLevel;
   (window as any).keepyourselfalive = testGodMode;
   (window as any).theboss = testTheInk;
+  (window as any).thenewboss = testTheBlot;
   (window as any).gather = gatherAllStats;
   (window as any).gimme = spawnItem;
   (window as any).spendmoremoney = gotoShop;

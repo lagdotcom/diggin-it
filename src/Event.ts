@@ -14,7 +14,13 @@ export type DamageType =
   | "suffocation"
   | "trap";
 export type DigType = "dig" | "bomb";
-export type MoveType = "walk" | "fall" | "crush" | "climb" | "push";
+export type MoveType =
+  | "walk"
+  | "fall"
+  | "crush"
+  | "climb"
+  | "push"
+  | "teleport";
 export type StatusType = "bleed" | "poison" | "stun";
 type NoData = Record<string, never>;
 

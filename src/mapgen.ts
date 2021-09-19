@@ -6,10 +6,11 @@ import Grid from "./interfaces/Grid";
 import { getZone } from "./interfaces/Zone";
 import LinearGrid from "./LinearGrid";
 import { log } from "./utils";
+import Vault from "./Vault";
 import basics from "./vaults/basics";
 import bossRooms from "./vaults/boss";
 import eggRooms from "./vaults/egg";
-import { artery } from "./vaults/endGame";
+import { artery, finalArena } from "./vaults/endGame";
 import allExits from "./vaults/exits";
 import fragments from "./vaults/fragments";
 import jRooms from "./vaults/j";
@@ -103,7 +104,7 @@ type MapgenResult = [
   vaults: Hotspots
 ];
 
-function generateBossMap(seed?: number): MapgenResult {
+function generateInkMap(seed?: number): MapgenResult {
   if (typeof seed === "number") RNG.setSeed(seed);
   else seed = RNG.getSeed();
   log("map seed:", seed);
@@ -121,7 +122,7 @@ export function generateMap(
   doNotUse: string[] = [],
   seed?: number
 ): MapgenResult {
-  if (depth === 10) return generateBossMap(seed);
+  if (depth === 10) return generateInkMap(seed);
 
   const { width, height, maxVaults, vaultAttempts, zone, hasSideArea } =
     getMapParameters(depth);
@@ -213,7 +214,7 @@ export function generateMap(
     map.set(px, py, "<");
   }
 
-  if (!map.includes(">")) {
+  if (!map.includes(">") && depth < 10) {
     const [ex, ey] = findExit(map, taken);
     map.set(ex, ey, ">");
   }
@@ -221,10 +222,15 @@ export function generateMap(
   return [toMapString(map), toMapString(fluid), side, taken];
 }
 
-export function generateSideArea(
-  name: string
-): [tiles: string[], fluids: string[]] {
-  const vault = areas[name];
+function generateMapFromVault(vault: Vault): MapgenResult {
   const [tiles, fluids] = vault.resolve();
-  return [toMapString(tiles), toMapString(fluids)];
+
+  const taken = new Hotspots();
+  taken.register(vault.name, 0, 0, vault.width, vault.height);
+  return [toMapString(tiles), toMapString(fluids), "", taken];
 }
+
+export const generateSideArea = (name: string): MapgenResult =>
+  generateMapFromVault(areas[name]);
+export const generateBlotMap = (): MapgenResult =>
+  generateMapFromVault(finalArena);

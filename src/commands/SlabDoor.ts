@@ -7,7 +7,7 @@ const hugeDoorTiles: Record<string, string> = {
   HugeDoor4: "HugeDoorOpen4",
 };
 
-export default class EndGame {
+export default class SlabDoor {
   constructor(public g: Game) {}
 
   tryOpen(): string | undefined {

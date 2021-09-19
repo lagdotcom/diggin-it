@@ -1,5 +1,5 @@
 import Actor from "./Actor";
-import { fakeHeart } from "./entities/endGame";
+import { blotEye, blotHead, fakeHeart } from "./entities/endGame";
 import { theGreenInk, theInk, theRedInk } from "./entities/enemies";
 import {
   airTank,
@@ -13,6 +13,7 @@ import {
 import { player } from "./entities/player";
 import { hugeDoor } from "./entities/tiles";
 import Game from "./Game";
+import XY from "./interfaces/XY";
 import Item from "./Item";
 import Tile from "./Tile";
 
@@ -111,4 +112,28 @@ export function addFakeHeart(g: Game, x: number, y: number): void {
   g.add(mr);
   g.add(bl);
   g.add(br);
+}
+
+export function addBlotHead(g: Game, sx: number, sy: number): XY[] {
+  const positions: XY[] = [];
+  let i = 0;
+
+  for (let oy = 0; oy < 11; oy++) {
+    const y = sy + oy;
+    for (let ox = 0; ox < 4; ox++) {
+      const x = sx + ox;
+      i++;
+
+      if (i === 23) g.add(new Actor(x, y, blotEye));
+      else {
+        const glyph = `BlotHead${i}`;
+        const solid = ![1, 2, 3, 4, 7, 8, 11, 12, 16, 20, 24].includes(i);
+        const tile = new Tile({ ...blotHead, glyph, solid });
+        g.map.set(x, y, tile);
+        positions.push([x, y]);
+      }
+    }
+  }
+
+  return positions;
 }

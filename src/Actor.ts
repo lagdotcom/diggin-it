@@ -18,6 +18,7 @@ type ActorSpecialType =
   | "blotHeart"
   | "blotEye"
   | "blotHand"
+  | "doppelganger"
   | "ink";
 
 export interface ActorOptions {
@@ -49,6 +50,7 @@ export interface ActorOptions {
   name: string;
   needsWater: boolean;
   obeysGravity: boolean;
+  obeysTiles: boolean;
   pushable: boolean;
   vision: number;
   maxHp: number;
@@ -114,6 +116,7 @@ export default class Actor {
   namePlural: string;
   needsWater: boolean;
   obeysGravity: boolean;
+  obeysTiles: boolean;
   pushable: boolean;
   vision: number;
   maxHp: number;
@@ -172,6 +175,7 @@ export default class Actor {
       name = glyph,
       needsWater = false,
       obeysGravity = true,
+      obeysTiles = true,
       pushable = false,
       vision = 5,
       maxHp = 0,
@@ -233,6 +237,7 @@ export default class Actor {
     this.namePlural = name;
     this.needsWater = needsWater;
     this.obeysGravity = obeysGravity;
+    this.obeysTiles = obeysTiles;
     this.pushable = pushable;
     this.vision = vision;
     this.alive = alive;

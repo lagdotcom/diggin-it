@@ -18,25 +18,39 @@ export const artery =
     ]
   );
 
-// TODO the blot
 export const finalArena =
   new Vault(
     "the end of it all",
     4,
     [
       "!!!!!!!!!!!!!!!!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
+      "!              !",
       "!!!!!!!!!!!!!!!!",
+    ],
+    [
+      "                ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      " IIIIIIIIIIIIII ",
+      "                ",
     ]
   );
 /* eslint-enable radar/no-duplicate-string */

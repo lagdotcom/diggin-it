@@ -174,11 +174,13 @@ export default class AI {
     const { player } = this.g;
     if (this.canAttack(actor, player)) return this.combat.attack(actor, player);
 
-    const passable: PassableCallback = actor.needsWater
-      ? (x, y) =>
-          this.g.mapFluid.get(x, y).canSwimIn &&
-          this.flyPassable(x, y, [player, actor])
-      : (x, y) => this.flyPassable(x, y, [player, actor]);
+    const passable: PassableCallback = actor.obeysTiles
+      ? actor.needsWater
+        ? (x, y) =>
+            this.g.mapFluid.get(x, y).canSwimIn &&
+            this.flyPassable(x, y, [player, actor])
+        : (x, y) => this.flyPassable(x, y, [player, actor])
+      : (x, y) => this.g.map.contains(x, y);
 
     const aStar = new AStar(player.x, player.y, passable, { topology: 4 });
     const path: XY[] = [];
