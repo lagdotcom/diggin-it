@@ -10,8 +10,10 @@ import {
   rope,
 } from "./entities/items";
 import { player } from "./entities/player";
+import { hugeDoor } from "./entities/tiles";
 import Game from "./Game";
 import Item from "./Item";
+import Tile from "./Tile";
 
 export function getNewPlayer(): Actor {
   const weapon = new Item(0, 0, pointedStick);
@@ -79,4 +81,17 @@ export function addTheRedInk(g: Game, x: number, y: number): void {
   g.add(tr);
   g.add(bl);
   g.add(br);
+}
+
+// x/y selects bottom left
+export function addHugeDoor(g: Game, x: number, y: number): void {
+  const tl = new Tile({ ...hugeDoor, glyph: "HugeDoor1" });
+  const tr = new Tile({ ...hugeDoor, glyph: "HugeDoor2" });
+  const bl = new Tile({ ...hugeDoor, glyph: "HugeDoor3" });
+  const br = new Tile({ ...hugeDoor, glyph: "HugeDoor4" });
+
+  g.map.set(x, y - 1, tl);
+  g.map.set(x + 1, y - 1, tr);
+  g.map.set(x, y, bl);
+  g.map.set(x + 1, y, br);
 }

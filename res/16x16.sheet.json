@@ -139,6 +139,7 @@
     "SandD": { "row": 7, "col": 13 },
     "Crate": { "row": 7, "col": 15 },
 
+    "SandF": { "row": 8, "col": 11 },
     "WaterT": { "row": 8, "col": 17, "TODO": true },
     "WaterBB": { "row": 8, "col": 18, "TODO": true },
     "WaterW": { "row": 8, "col": 19, "TODO": true },
@@ -147,7 +148,7 @@
     "Boulder": { "row": 9, "col": 15 },
     "WaterM": { "row": 9, "col": 17, "TODO": true },
     "Water": { "row": 9, "col": 18 },
-    "Targeting": { "row": 9, "col": 20, "TODO": true },
+    "Targeting": { "row": 9, "col": 20 },
     "DarkWater": { "row": 9, "col": 20 },
 
     "LavaT": { "row": 10, "col": 17, "TODO": true },
@@ -181,22 +182,18 @@
     "DirtD": { "row": 15, "col": 13 },
     "Entrance": { "row": 15, "col": 15 },
     "RopeTileB": { "row": 15, "col": 17 },
-    "HugeDoor": { "row": 15, "col": 19, "width": 2, "height": 2, "TODO": true },
+    "HugeDoor": { "row": 15, "col": 19, "width": 2, "height": 2 },
     "LadderTileB": { "row": 15, "col": 21 },
 
+    "DirtF": { "row": 16, "col": 11 },
     "SideExit": { "row": 16, "col": 15 },
-    "HugeDoorOpen": {
-      "row": 16,
-      "col": 21,
-      "width": 2,
-      "height": 2,
-      "TODO": true
-    },
+    "HugeDoorOpen": { "row": 16, "col": 21, "width": 2, "height": 2 },
 
     "Bedrock": { "row": 17, "col": 11 },
+    "BedrockF": { "row": 17, "col": 14 },
     "Exit": { "row": 17, "col": 15 },
     "InkDoor": { "row": 17, "col": 17 },
-    "InkDoorOpen": { "row": 17, "col": 18, "TODO": true },
+    "InkDoorOpen": { "row": 17, "col": 18 },
     "StapleTile": { "row": 17, "col": 20 }
   }
 }

@@ -3,13 +3,14 @@ import Simplex from "rot-js/lib/noise/simplex";
 
 import Hotspots from "./Hotspots";
 import Grid from "./interfaces/Grid";
+import { getZone } from "./interfaces/Zone";
 import LinearGrid from "./LinearGrid";
-import { getZone } from "./maps";
 import { log } from "./utils";
 import basics from "./vaults/basics";
 import bossRooms from "./vaults/boss";
 import eggRooms from "./vaults/egg";
-import exits from "./vaults/exits";
+import { artery } from "./vaults/end";
+import allExits from "./vaults/exits";
 import fragments from "./vaults/fragments";
 import jRooms from "./vaults/j";
 import lagRooms from "./vaults/lag";
@@ -120,7 +121,7 @@ export function generateMap(
   doNotUse: string[] = [],
   seed?: number
 ): MapgenResult {
-  if (depth >= 10) return generateBossMap(seed);
+  if (depth === 10) return generateBossMap(seed);
 
   const { width, height, maxVaults, vaultAttempts, zone, hasSideArea } =
     getMapParameters(depth);
@@ -129,6 +130,7 @@ export function generateMap(
   else seed = RNG.getSeed();
   log("map seed:", seed);
 
+  const exits = depth > 10 ? [artery] : allExits;
   const noise = new Simplex();
   const taken = new Hotspots<string>();
   const map = new LinearGrid(width, height, () => "!");

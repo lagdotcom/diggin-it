@@ -106,6 +106,7 @@ import {
   valkyrieSet,
   wingArmour,
 } from "./entities/items";
+import Zone, { Zoned } from "./interfaces/Zone";
 import { ItemOptions } from "./Item";
 import { Distribution, pickByWeight } from "./utils";
 
@@ -115,7 +116,7 @@ const rare = 2;
 const ultraRare = 1;
 
 export interface PickerOptions {
-  zone: 0 | 1 | 2;
+  zone: Zone;
   fluid: string;
   championChance: number;
 }
@@ -231,7 +232,7 @@ const champions: Record<string, Partial<ActorOptions>> = {
   telden: teldenChampion,
 };
 
-const airEnemiesByZone: Distribution<EnemyName>[] = [
+const airEnemiesByZone: Zoned<Distribution<EnemyName>> = [
   {
     squimpy: uncommon,
     buster: common,
@@ -262,11 +263,24 @@ const airEnemiesByZone: Distribution<EnemyName>[] = [
     telden: uncommon,
     grundilla: ultraRare,
   },
+  {
+    squimpy: uncommon,
+    canandra: uncommon,
+    crim: uncommon,
+    flazza: uncommon,
+    glova: common,
+    muln: uncommon,
+    slobberfin: rare,
+    splinter: common,
+    telden: uncommon,
+    grundilla: ultraRare,
+  },
 ];
 
-const waterEnemiesByZone: Distribution<EnemyName>[] = [
+const waterEnemiesByZone: Zoned<Distribution<EnemyName>> = [
   { puffus: common },
   { puffus: common, shockworm: uncommon },
+  { puffus: common, shockworm: common, kreebus: rare },
   { puffus: common, shockworm: common, kreebus: rare },
 ];
 
@@ -288,7 +302,7 @@ export const getRandomEnemy: Picker<ActorOptions> = ({
 export const getRandomChampion: Picker<ActorOptions> = ({ zone, fluid }) =>
   getRandomEnemy({ championChance: 100, zone, fluid });
 
-const weaponsByZone: Distribution<ItemName>[] = [
+const weaponsByZone: Zoned<Distribution<ItemName>> = [
   {
     pickaxe: uncommon,
     pocketknife: common,
@@ -333,12 +347,30 @@ const weaponsByZone: Distribution<ItemName>[] = [
     blowdart: uncommon,
     blowgun: ultraRare,
   },
+  {
+    pickaxe: uncommon,
+    pocketknife: common,
+    shovel: uncommon,
+    hammer: rare,
+    powerDrill: rare,
+    machete: rare,
+    jackhammer: rare,
+    laserCutter: rare,
+    axe: rare,
+    spear: ultraRare,
+    taser: common,
+    femur: common,
+    bow: rare,
+    crossbow: ultraRare,
+    blowdart: uncommon,
+    blowgun: ultraRare,
+  },
 ];
 
 export const getRandomWeapon: Picker<ItemOptions> = ({ zone }) =>
   items[pickByWeight(weaponsByZone[zone])];
 
-const armourByZone: Distribution<ItemName>[] = [
+const armourByZone: Zoned<Distribution<ItemName>> = [
   {
     clothes: uncommon,
     reinforced: common,
@@ -351,6 +383,13 @@ const armourByZone: Distribution<ItemName>[] = [
     squadLeaderGear: uncommon,
     busterArmour: rare,
     wingArmour: ultraRare,
+  },
+  {
+    busterArmour: uncommon,
+    wingArmour: uncommon,
+    gildedPlate: uncommon,
+    valkyrieSet: rare,
+    arsenalArmour: ultraRare,
   },
   {
     busterArmour: uncommon,

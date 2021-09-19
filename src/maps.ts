@@ -4,9 +4,12 @@ import Actor, { ActorOptions } from "./Actor";
 import { boulder, crate, metal } from "./entities/movables";
 import {
   border,
+  borderFinal,
   brick,
   coral,
+  darkWater,
   dirtDeep,
+  dirtFinal,
   dirtMiddle,
   dirtShallow,
   empty,
@@ -19,6 +22,7 @@ import {
   pike,
   ropeTile,
   sandDeep,
+  sandFinal,
   sandMiddle,
   sandShallow,
   unset,
@@ -27,8 +31,15 @@ import {
   water,
 } from "./entities/tiles";
 import Game from "./Game";
+import XY from "./interfaces/XY";
+import { getZone, Zoned } from "./interfaces/Zone";
 import Item, { ItemOptions } from "./Item";
-import { addTheGreenInk, addTheInk, addTheRedInk } from "./prefabs";
+import {
+  addHugeDoor,
+  addTheGreenInk,
+  addTheInk,
+  addTheRedInk,
+} from "./prefabs";
 import {
   getBigTreasure,
   getMediumTreasure,
@@ -53,12 +64,28 @@ import {
 import Tile, { TileOptions } from "./Tile";
 import { higherOfTwo, log, lowerOfTwo } from "./utils";
 
-const dirtTiles = [dirtShallow, dirtMiddle, dirtDeep];
-const sandTiles = [sandShallow, sandMiddle, sandDeep];
+const borderTiles: Zoned<Partial<TileOptions>> = [
+  border,
+  border,
+  border,
+  borderFinal,
+];
+const dirtTiles: Zoned<Partial<TileOptions>> = [
+  dirtShallow,
+  dirtMiddle,
+  dirtDeep,
+  dirtFinal,
+];
+const sandTiles: Zoned<Partial<TileOptions>> = [
+  sandShallow,
+  sandMiddle,
+  sandDeep,
+  sandFinal,
+];
 const tileTypes: Record<string, Partial<TileOptions> | Picker<TileOptions>> = {
   "?": unset,
   " ": empty,
-  "!": border,
+  "!": ({ zone }) => borderTiles[zone],
   "#": ({ zone }) => dirtTiles[zone],
   ":": ({ zone }) => sandTiles[zone],
   "[": brick, // lol
@@ -79,6 +106,7 @@ const fluidTypes: Record<string, Partial<TileOptions>> = {
   " ": empty,
   "%": gas,
   "~": water,
+  I: darkWater,
   "&": magma,
 };
 
@@ -119,6 +147,7 @@ const itemTypes: Record<string, Partial<ItemOptions> | Picker<ItemOptions>> = {
 
 const validGlyph = new Set([
   "4",
+  "H",
   ...Object.keys(tileTypes),
   ...Object.keys(fluidTypes),
   ...Object.keys(fluidTypes),
@@ -126,15 +155,10 @@ const validGlyph = new Set([
   ...Object.keys(itemTypes),
 ]);
 
-export function getZone(depth: number): 0 | 1 | 2 {
-  if (depth < 4) return 0;
-  if (depth < 7) return 1;
-  return 2;
-}
-
 export function loadMap(g: Game, map: string[], fluid: string[]): void {
   let px = 0,
     py = 0;
+  let hugeDoorLocation: XY = undefined;
 
   const championChance = g.player.get("championChance");
   const height = map.length;
@@ -177,10 +201,16 @@ export function loadMap(g: Game, map: string[], fluid: string[]): void {
         py = y;
       }
 
+      if (glyph === "H") {
+        hugeDoorLocation = [x, y];
+      }
+
       // TODO: flyweight
       g.mapFluid.set(x, y, new Tile(fluidTypes[fluidGlyph]));
     }
   }
+
+  if (hugeDoorLocation) addHugeDoor(g, ...hugeDoorLocation);
 
   g.player.x = px;
   g.player.y = py;

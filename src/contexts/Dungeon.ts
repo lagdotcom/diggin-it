@@ -1,4 +1,5 @@
 import Digging from "../commands/Digging";
+import EndGame from "../commands/EndGame";
 import Movement from "../commands/Movement";
 import PickingUp from "../commands/PickingUp";
 import Pushing from "../commands/Pushing";
@@ -24,9 +25,9 @@ import Cmd, {
 } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
+import { getZone } from "../interfaces/Zone";
 import Item from "../Item";
 import { generateSideArea } from "../mapgen";
-import { getZone } from "../maps";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
@@ -63,6 +64,7 @@ export default class Dungeon implements Context {
   display: MainDisplay;
   drops: Drops;
   effects: Effects;
+  endGame: EndGame;
   gravity: Gravity;
   hotspots: Hotspots;
   info: InfoPanel;
@@ -96,6 +98,7 @@ export default class Dungeon implements Context {
     this.digging = new Digging(g);
     this.drops = new Drops(g);
     this.effects = new Effects(g);
+    this.endGame = new EndGame(g);
     this.gravity = new Gravity(g);
     this.ink = new TheInk(g);
     this.memento = new Memento(g);
@@ -382,22 +385,37 @@ export default class Dungeon implements Context {
     const { log, map, music, player, sideArea } = this.g;
     const tile = map.get(player.x, player.y);
 
-    if (tile.glyph === "Exit") this.leaveArea();
-
-    if (tile.glyph === "SideExit" && sideArea) {
+    if (tile.exit === "normal") {
+      this.leaveArea();
+    } else if (tile.exit === "side" && sideArea) {
       log.add(`You enter the strange doorway...`);
 
       const [map, fluid] = generateSideArea(sideArea);
       this.g.visitedAreas.push(sideArea);
       this.g.useMap(map, fluid, true);
       music.play("vault");
+    } else if (tile.exit === "closed") {
+      log.add("It's sealed shut.");
+      return this.render();
+    } else if (tile.exit === "slabs") {
+      const msg = this.endGame.tryOpen();
+      if (msg) log.add(msg);
+      return this.render();
+    } else {
+      log.add("There's no exit here.");
+      return this.render();
     }
   }
 
   leaveArea(): void {
     const { depth } = this.g;
     this.g.emit("left", { depth, zone: getZone(depth) });
-    this.g.contexts.push(new ShopScreen(this.g));
+
+    if (depth < 10) this.g.contexts.push(new ShopScreen(this.g));
+    else {
+      this.g.depth++;
+      this.g.nextMap();
+    }
   }
 
   handleExpandLog(): void {

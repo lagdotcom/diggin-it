@@ -1,8 +1,6 @@
 import { fragment } from "../entities/items";
-import { empty } from "../entities/tiles";
 import Game from "../Game";
 import Item from "../Item";
-import Tile from "../Tile";
 
 export default class TheInk {
   constructor(public g: Game) {
@@ -24,8 +22,13 @@ export default class TheInk {
 
         for (let y = 0; y < g.map.height; y++)
           for (let x = 0; x < g.map.width; x++) {
-            if (g.map.get(x, y).glyph === "InkDoor") {
-              g.map.set(x, y, new Tile(empty));
+            const tile = g.map.get(x, y);
+
+            if (tile.glyph === "InkDoor") {
+              tile.glyph = "InkDoorOpen";
+              tile.exit = undefined;
+              g.emit("mapChanged", {});
+
               g.log.add("You hear a door open.");
               g.addItem(new Item(x, y, fragment));
               return;

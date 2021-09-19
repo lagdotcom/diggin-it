@@ -2,8 +2,8 @@ import { RNG } from "rot-js";
 
 import Actor from "../Actor";
 import Game from "../Game";
+import { getZone } from "../interfaces/Zone";
 import Item from "../Item";
-import { getZone } from "../maps";
 import {
   getRandomArmour,
   getRandomUsable,

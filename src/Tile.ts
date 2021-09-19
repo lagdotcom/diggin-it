@@ -1,3 +1,5 @@
+type ExitType = "normal" | "side" | "closed" | "slabs";
+
 export interface TileOptions {
   airCost: number;
   article: string;
@@ -7,6 +9,7 @@ export interface TileOptions {
   colour: string;
   destroyIncomingPushes: boolean;
   durability: number;
+  exit: ExitType;
   glyph: string;
   hpCost: number;
   indestructible: boolean;
@@ -29,6 +32,7 @@ export default class Tile {
   colour: string;
   destroyIncomingPushes: boolean;
   durability: number;
+  exit?: ExitType;
   glyph: string;
   hpCost: number;
   indestructible: boolean;
@@ -52,6 +56,7 @@ export default class Tile {
     colour = "white",
     destroyIncomingPushes = false,
     durability = Infinity,
+    exit = undefined,
     hpCost = 0,
     indestructible = false,
     name = glyph,
@@ -70,6 +75,7 @@ export default class Tile {
     this.colour = colour;
     this.destroyIncomingPushes = destroyIncomingPushes;
     this.durability = durability;
+    this.exit = exit;
     this.glyph = glyph;
     this.hpCost = hpCost;
     this.indestructible = indestructible;

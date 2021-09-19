@@ -19,7 +19,7 @@ const boss1 =
       "! ^  |   | @ !",
       "!!!!!|   |!!!!",
       "!    |   |   !",
-      "!    |H f|   !",
+      "! H  |   | f !",
       "!!!!!!!!!!!!!!",
     ]
   );
@@ -54,28 +54,6 @@ const boss3 =
       "! ^   4    ^ : < : ^        ^ !",
       "! ^        ^ ]]]]] ^   H f  ^ !",
       "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-    ]
-  );
-
-// TODO the blot
-const blotBoss =
-  new Vault(
-    "blot boss",
-    4,
-    [
-      "!!!!!!!!!!!!!!!!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!IIIIIIIIIIIIII!",
-      "!!!!!!!!!!!!!!!!",
     ]
   );
 

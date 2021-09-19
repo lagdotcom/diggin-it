@@ -1,62 +1,62 @@
 import { TileOptions } from "../Tile";
 
-export const border: Partial<TileOptions> = {
-  glyph: "Bedrock",
-  name: "",
-  article: "",
-  solid: true,
-  indestructible: true,
+const bedrock = { name: "", article: "", solid: true, indestructible: true };
+export const border: Partial<TileOptions> = { ...bedrock, glyph: "Bedrock" };
+export const borderFinal: Partial<TileOptions> = {
+  ...bedrock,
+  glyph: "BedrockF",
 };
+
+const dirt = { name: "dirt", article: "", solid: true, durability: 1 };
 export const dirtShallow: Partial<TileOptions> = {
+  ...dirt,
   glyph: "DirtS",
   colour: "brown",
-  name: "dirt",
-  article: "",
-  solid: true,
-  durability: 1,
 };
 export const dirtMiddle: Partial<TileOptions> = {
+  ...dirt,
   glyph: "DirtM",
   colour: "green",
-  name: "dirt",
-  article: "",
-  solid: true,
-  durability: 1,
 };
 export const dirtDeep: Partial<TileOptions> = {
+  ...dirt,
   glyph: "DirtD",
   colour: "purple",
   name: "dirt",
+};
+export const dirtFinal: Partial<TileOptions> = {
+  ...dirt,
+  glyph: "DirtF",
+  colour: "red",
+  name: "dirt",
+};
+
+const sand = {
+  name: "sand",
   article: "",
   solid: true,
   durability: 1,
+  collapses: true,
 };
 export const sandShallow: Partial<TileOptions> = {
+  ...sand,
   glyph: "SandS",
   colour: "yellow",
-  name: "sand",
-  article: "",
-  solid: true,
-  durability: 1,
-  collapses: true,
 };
 export const sandMiddle: Partial<TileOptions> = {
+  ...sand,
   glyph: "SandM",
   colour: "blue",
-  name: "sand",
-  article: "",
-  solid: true,
-  durability: 1,
-  collapses: true,
 };
 export const sandDeep: Partial<TileOptions> = {
+  ...sand,
   glyph: "SandD",
   colour: "red",
-  name: "sand",
-  article: "",
-  solid: true,
-  durability: 1,
-  collapses: true,
+};
+export const sandFinal: Partial<TileOptions> = {
+  ...sand,
+  glyph: "SandF",
+  colour: "purple",
 };
 
 export const brick: Partial<TileOptions> = {
@@ -107,12 +107,14 @@ export const exit: Partial<TileOptions> = {
   name: "exit",
   article: "an",
   destroyIncomingPushes: true,
+  exit: "normal",
 };
 export const vaultExit: Partial<TileOptions> = {
   glyph: "SideExit",
   name: "exit",
   article: "an",
   destroyIncomingPushes: true,
+  exit: "side",
 };
 export const ladderTileTop: Partial<TileOptions> = {
   glyph: "LadderTileT",
@@ -144,6 +146,7 @@ export const ropeTileBottom: Partial<TileOptions> = {
   name: "rope",
   canClimb: true,
 };
+
 export const water: Partial<TileOptions> = {
   glyph: "Water",
   name: "water",
@@ -152,12 +155,27 @@ export const water: Partial<TileOptions> = {
   canSwimIn: true,
   airCost: 3,
 };
+export const darkWater = {
+  ...water,
+  glyph: "DarkWater",
+  colour: "black",
+  airCost: 1, // TODO dark water air cost
+};
 
 export const inkDoor: Partial<TileOptions> = {
   glyph: "InkDoor",
   name: "mysterious door",
   colour: "purple",
+  exit: "closed",
   destroyIncomingPushes: true,
+};
+
+export const hugeDoor: Partial<TileOptions> = {
+  glyph: "HugeDoor",
+  name: "huge door",
+  colour: "green",
+  exit: "slabs",
+  // turns into HugeDoorOpen# and gains exit: 'normal',
 };
 
 export const stapleTile: Partial<TileOptions> = {

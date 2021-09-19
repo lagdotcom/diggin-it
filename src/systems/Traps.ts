@@ -5,7 +5,7 @@ import { theName } from "../text";
 export default class Traps {
   constructor(public g: Game) {
     g.on("fell", ({ thing }) => {
-      if (thing._type === "Actor" && thing.obeysGravity)
+      if (thing._type === "Actor" && thing.obeysGravity && thing.alive)
         this.fallOntoCheck(thing);
     });
 
@@ -13,6 +13,7 @@ export default class Traps {
       if (
         thing._type === "Actor" &&
         thing.obeysGravity &&
+        thing.alive &&
         ["walk", "push", "crush", "climb"].includes(type)
       )
         this.walkOntoCheck(thing);
