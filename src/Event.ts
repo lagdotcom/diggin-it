@@ -1,5 +1,6 @@
 import Actor from "./Actor";
 import Thing from "./interfaces/Thing";
+import Zone from "./interfaces/Zone";
 import Item from "./Item";
 import Tile from "./Tile";
 
@@ -39,14 +40,14 @@ export interface EventMap {
   digged: { tile: Tile; x: number; y: number; type: DigType };
   dropped: { actor: Actor; item: Item };
   effect: { effect: Item; duration: number };
-  entered: { depth: number; zone: number; isSideArea: boolean };
+  entered: { depth: number; zone: Zone; isSideArea: boolean };
   equipped: { actor: Actor; equipped?: Item; removed?: Item };
   exploded: { item: Item };
   fell: { thing: Thing; distance: number };
   got: { actor: Actor; item: Item };
   infoOpened: NoData;
   infoClosed: NoData;
-  left: { depth: number; zone: number };
+  left: { depth: number; zone: Zone };
   litBomb: { item: Item };
   mapChanged: NoData;
   moved: {

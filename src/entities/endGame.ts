@@ -33,7 +33,26 @@ export const fakeHeart: Partial<ActorOptions> = {
   attackRange: 0,
 };
 
-// TODO real heart, eye, hands
+export const blotHeart: Partial<ActorOptions> = {
+  name: "blot",
+  article: "the",
+  colour: "blue",
+  special: "blotHeart",
+  ai: "wander",
+  obeysGravity: false,
+  maxHp: 385,
+  maxHpRange: 425,
+  sp: 50,
+  spRange: 53,
+  dp: 40,
+  dpRange: 44,
+  experience: 20000,
+  attackRange: 3,
+  poisonChance: 10,
+  bleedChance: 10,
+  stunChance: 10,
+  lore: heartLore,
+};
 
 const blotLore =
   '"Spilling out further than the mind can conceive, like an ever expanding blot of writhing visages that reflect countless potential selves trying to break free from their own shackles. I cannot tell if the self lies within, or if the abomination is simply what becomes of the self when left to anguish in lonesome solitude.\nI see only where my misplaced dreams have led me." \n - Jacques Splintertooth"';
@@ -59,4 +78,23 @@ export const blotHead: Partial<TileOptions> = {
   colour: "blue",
   opaque: false,
   lore: blotLore,
+};
+
+export const blotHand: Partial<ActorOptions> = {
+  name: "blot",
+  article: "the",
+  colour: "blue",
+  special: "blotHand",
+  ai: "fly",
+  aiData: { active: true },
+  obeysGravity: false,
+  maxHp: 260,
+  maxHpRange: 300,
+  sp: 55,
+  spRange: 60,
+  dp: 36,
+  dpRange: 41,
+  experience: 5000,
+  knockBackChance: 40,
+  lore: '"Violently do these hands reach and clasp into the abyss, clutching nothing and perhaps searching and feeling for an exit they are unable to reach. I cannot help but fathom I have been similarly trapped here, lured into a blotted existence by my own machinations."\n - Jacques Splintertooth',
 };

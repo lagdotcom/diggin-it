@@ -18,6 +18,7 @@ import {
   squimpyChampion,
   teldenChampion,
 } from "../entities/champions";
+import { doppelganger } from "../entities/endGame";
 import { floater, popper } from "../entities/enemies";
 import { empty } from "../entities/tiles";
 import Game from "../Game";
@@ -27,6 +28,7 @@ import { loadMap } from "../maps";
 import { addBlotHead } from "../prefabs";
 import { ctheName } from "../text";
 import Tile from "../Tile";
+import { manhattan } from "../utils";
 
 const DoppelgangerWait = 5;
 const EyeSpawnWait = 15;
@@ -81,6 +83,8 @@ export default class TheBlot {
 
         // TODO load heart, hands
         this.blotTiles = addBlotHead(g, 1, 1);
+
+        g.emit("entered", { depth: 11, zone: 3, isSideArea: true });
       }
     });
 
@@ -106,7 +110,11 @@ export default class TheBlot {
       this.eyeTimer--;
 
       if (this.doppelgangerTimer <= 0) {
-        // TODO spawn doppelganger
+        const [x, y] = this.getDoppelgangerSpawn();
+        const enemy = new Actor(x, y, doppelganger);
+        g.add(enemy);
+
+        this.doppelgangerTimer = Infinity;
         g.emit("mapChanged", {});
       }
 
@@ -129,7 +137,27 @@ export default class TheBlot {
     });
   }
 
-  private removeHead() {
+  private getDoppelgangerSpawn(): XY {
+    const { actors, map, player } = this.g;
+    let trying = true,
+      x = 0,
+      y = 0;
+
+    while (trying) {
+      x = RNG.getUniformInt(1, map.width - 1);
+      y = RNG.getUniformInt(1, map.height - 1);
+
+      const distance = manhattan(x, y, player.x, player.y);
+      if (distance < 5) continue;
+      if (distance > 10) continue;
+
+      if (!actors.get(x, y)) trying = false;
+    }
+
+    return [x, y];
+  }
+
+  private removeHead(): void {
     const blank = new Tile({ ...empty });
 
     this.eyeTimer = Infinity;

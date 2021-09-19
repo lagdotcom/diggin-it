@@ -10,7 +10,7 @@ import XY from "../interfaces/XY";
 import Item from "../Item";
 import { enemies } from "../tables";
 import { cname } from "../text";
-import { traceline } from "../utils";
+import { manhattan, traceline } from "../utils";
 import Bombs from "./Bombs";
 import Combat from "./Combat";
 import Vision from "./Vision";
@@ -45,6 +45,11 @@ export default class AI {
 
   canAttack(actor: Actor, victim: Actor): boolean {
     if (!victim.alive) return false;
+
+    if (!actor.obeysTiles)
+      return (
+        manhattan(actor.x, actor.y, victim.x, victim.y) <= actor.attackRange
+      );
 
     const reach = this.g.map.diamond(actor.x, actor.y, actor.attackRange);
     if (!reach.find(([x, y]) => x === victim.x && y === victim.y)) return false;
