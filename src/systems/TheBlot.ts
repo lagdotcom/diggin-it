@@ -61,8 +61,9 @@ export default class TheBlot {
     this.doppelgangerTimer = Infinity;
     this.eyeTimer = Infinity;
 
-    g.on("entered", ({ depth }) => {
-      if (depth === 11) this.doppelgangerTimer = DoppelgangerWait;
+    g.on("entered", ({ depth, isSideArea }) => {
+      if (depth === 11 && !isSideArea)
+        this.doppelgangerTimer = DoppelgangerWait;
     });
 
     g.on("damaged", ({ victim }) => {

@@ -77,6 +77,7 @@ export const blotHead: Partial<TileOptions> = {
   article: "the",
   colour: "blue",
   opaque: false,
+  xrayOpaque: false,
   lore: blotLore,
 };
 
