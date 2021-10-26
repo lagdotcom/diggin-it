@@ -11,6 +11,8 @@ export type DamageType =
   | "combat"
   | "crush"
   | "fall"
+  | "finalScream"
+  | "gasExplosion"
   | "status"
   | "suffocation"
   | "trap";

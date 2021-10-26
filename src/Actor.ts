@@ -10,7 +10,7 @@ export type ActorAI = "wander" | "fly" | "ink";
 export type AIData = { active?: boolean; dir?: number; spawn?: number };
 export type PlayerData = { stats: number };
 
-type ScreamTarget = "" | "tier" | EnemyName;
+type ScreamTarget = "tier" | EnemyName;
 type InkSpawnLocation = "player" | "random";
 type InkTeleportType = "fire";
 type ActorSpecialType =
@@ -78,8 +78,8 @@ export interface ActorOptions {
   knockBackChance: number; // TODO knockBackChance
   destroyChance: number; // TODO destroyChance
   finalBombChance: number;
-  finalGasChance: number; // TODO finalGasChance
-  finalScreamChance: number; // TODO finalScreamChance
+  finalGasChance: number;
+  finalScreamChance: number;
   finalScreamTarget: ScreamTarget;
   finalScreamCount: [min: number, max: number];
 }
@@ -207,7 +207,7 @@ export default class Actor {
       finalBombChance = 0,
       finalGasChance = 0,
       finalScreamChance = 0,
-      finalScreamTarget = "",
+      finalScreamTarget = undefined,
       finalScreamCount = [0, 0],
       dropChance = 0,
       drops = {},
