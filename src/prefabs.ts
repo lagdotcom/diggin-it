@@ -1,5 +1,5 @@
 import Actor from "./Actor";
-import { blotEye, blotHead, fakeHeart } from "./entities/endGame";
+import { blotEye, blotHand, blotHead, fakeHeart } from "./entities/endGame";
 import { theGreenInk, theInk, theRedInk } from "./entities/enemies";
 import {
   airTank,
@@ -136,4 +136,26 @@ export function addBlotHead(g: Game, sx: number, sy: number): XY[] {
   }
 
   return positions;
+}
+
+export function addBlotHand(
+  g: Game,
+  x: number,
+  y: number,
+  prefix: string
+): void {
+  const tl = new Actor(x, y, { ...blotHand, ai: "ink", glyph: prefix + "1" });
+  const tr = new Actor(x + 1, y, { ...blotHand, glyph: prefix + "2" });
+  const bl = new Actor(x, y + 1, { ...blotHand, glyph: prefix + "3" });
+  const br = new Actor(x + 1, y + 1, { ...blotHand, glyph: prefix + "4" });
+
+  tl.parts = [tr, bl, br];
+  tr.parts = [tl, bl, br];
+  bl.parts = [tl, tr, br];
+  br.parts = [tl, tr, bl];
+
+  g.add(tl);
+  g.add(tr);
+  g.add(bl);
+  g.add(br);
 }

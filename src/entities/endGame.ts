@@ -86,7 +86,6 @@ export const blotHand: Partial<ActorOptions> = {
   article: "the",
   colour: "blue",
   special: "blotHand",
-  ai: "fly",
   aiData: { active: true },
   obeysGravity: false,
   maxHp: 260,

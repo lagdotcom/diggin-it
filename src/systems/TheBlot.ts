@@ -25,7 +25,7 @@ import Game from "../Game";
 import XY from "../interfaces/XY";
 import { generateBlotMap } from "../mapgen";
 import { loadMap } from "../maps";
-import { addBlotHead } from "../prefabs";
+import { addBlotHand, addBlotHead } from "../prefabs";
 import { ctheName } from "../text";
 import Tile from "../Tile";
 import { manhattan } from "../utils";
@@ -82,8 +82,10 @@ export default class TheBlot {
         const py = Math.floor(g.map.height / 2);
         g.move(g.player, px, py, "teleport");
 
-        // TODO load heart, hands
+        // TODO load heart
         this.blotTiles = addBlotHead(g, 1, 1);
+        addBlotHand(g, 13, 1, "BlotHandA");
+        addBlotHand(g, 13, 10, "BlotHandB");
 
         g.emit("entered", { depth: 11, zone: 3, isSideArea: true });
       }
@@ -102,6 +104,10 @@ export default class TheBlot {
         case "blotHeart":
           // TODO remove all enemies, spawn door at bottom
           this.removeHead();
+          break;
+
+        case "blotHand":
+          victim.parts.forEach((part) => g.remove(part));
           break;
       }
     });
