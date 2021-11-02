@@ -154,9 +154,15 @@ export default class AI {
 
   flyPassable(x: number, y: number, ignore: Actor[] = []): boolean {
     const { actor, tile } = this.g.contents(x, y);
-    if (ignore.includes(actor)) return true;
-    if (actor || tile.solid) return false;
-    return true;
+    if (tile.solid) return false;
+    if (actor && !ignore.includes(actor)) return false;
+    return this.g.map.contains(x, y);
+  }
+
+  ghostPassable(x: number, y: number, ignore: Actor[] = []): boolean {
+    const { actor } = this.g.contents(x, y);
+    if (actor && !ignore.includes(actor)) return false;
+    return this.g.map.contains(x, y);
   }
 
   flyingAi(actor: Actor, data: AIData): void {
@@ -185,7 +191,7 @@ export default class AI {
             this.g.mapFluid.get(x, y).canSwimIn &&
             this.flyPassable(x, y, [player, actor])
         : (x, y) => this.flyPassable(x, y, [player, actor])
-      : (x, y) => this.g.map.contains(x, y);
+      : (x, y) => this.ghostPassable(x, y, [player, actor]);
 
     const aStar = new AStar(player.x, player.y, passable, { topology: 4 });
     const path: XY[] = [];

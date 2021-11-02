@@ -70,15 +70,15 @@ export default class Gravity {
     while (y < map.height) {
       const { actor, tile, fluid } = this.g.contents(x, y + 1);
 
-      // hit something
-      if (actor) {
-        victim = actor;
-        break;
-      }
-
       // landed
       if (tile.solid) {
         victim = tile;
+        break;
+      }
+
+      // hit something
+      if (actor) {
+        victim = actor;
         break;
       }
 
