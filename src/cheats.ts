@@ -1,4 +1,6 @@
 import Actor from "./Actor";
+import BadEndingScreen from "./contexts/BadEndingScreen";
+import GoodEndingScreen from "./contexts/GoodEndingScreen";
 import ShopScreen from "./contexts/ShopScreen";
 import { fakeHeart } from "./entities/endGame";
 import {
@@ -152,6 +154,22 @@ function gotoShop() {
   g.contexts.top.render();
 }
 
+function gotoScene(scene: string) {
+  const g = Game.INSTANCE;
+
+  switch (scene) {
+    case "good":
+      g.contexts.clear();
+      g.contexts.push(new GoodEndingScreen(g));
+      break;
+
+    case "bad":
+      g.contexts.clear();
+      g.contexts.push(new BadEndingScreen(g));
+      break;
+  }
+}
+
 export function initCheats(): void {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   (window as any).g = Game.INSTANCE;
@@ -162,5 +180,6 @@ export function initCheats(): void {
   (window as any).gather = gatherAllStats;
   (window as any).gimme = spawnItem;
   (window as any).spendmoremoney = gotoShop;
+  (window as any).showme = gotoScene;
   /* eslint-enable @typescript-eslint/no-explicit-any */
 }
