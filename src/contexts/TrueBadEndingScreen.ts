@@ -104,7 +104,7 @@ export default class TrueBadEndingScreen implements Context {
         chars.drawText(
           1,
           1,
-          '"Begone from me, leave!" Jacques cries, falling to his knees."',
+          '"Begone from me, leave!" Jacques cries, falling to his knees.',
           38
         );
         break;
@@ -114,7 +114,7 @@ export default class TrueBadEndingScreen implements Context {
         chars.drawText(
           1,
           1,
-          "They do not, Jacques shakily claws his way out from the pit, finding himself standing before the Wisher's Fragment he so foolishly left behind.",
+          'They do not, Jacques shakily claws his way out from the pit, finding himself standing before the Wisher\'s Fragment he so foolishly left behind.',
           38
         );
         break;
