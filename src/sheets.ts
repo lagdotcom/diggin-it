@@ -6,6 +6,8 @@ import charsUrl from "../res/8x8.png";
 import charsSheet from "../res/8x8.sheet.json";
 import badEndUrl from "../res/ending1.png";
 import goodEndUrl from "../res/ending2.png";
+import trueBadEndUrl from "../res/ending3.png";
+import trueGoodEndUrl from "../res/ending4.png";
 import titleUrl from "../res/title.png";
 import GraphicsDisplay, { GraphicsName } from "./interfaces/GraphicsDisplay";
 
@@ -117,18 +119,6 @@ export function loadCharsAscii(
   };
 }
 
-export function loadTitleGraphics(): Promise<HTMLImageElement> {
-  return fetchImage(titleUrl);
-}
-
-export function loadBadEndGraphics(): Promise<HTMLImageElement> {
-  return fetchImage(badEndUrl);
-}
-
-export function loadGoodEndGraphics(): Promise<HTMLImageElement> {
-  return fetchImage(goodEndUrl);
-}
-
 class Graphics implements GraphicsDisplay {
   private width: number;
   private height: number;
@@ -152,20 +142,28 @@ class Graphics implements GraphicsDisplay {
   }
 }
 
-export default async function getGraphicsDisplay(
-  ctx: CanvasRenderingContext2D
-): Promise<GraphicsDisplay> {
-  const title = await loadTitleGraphics();
-  const badEnd = await loadBadEndGraphics();
-  const goodEnd = await loadGoodEndGraphics();
-
-  return new Graphics(ctx, { title, badEnd, goodEnd });
-}
-
 export function loadAllGraphics(): [
   title: Promise<HTMLImageElement>,
   good: Promise<HTMLImageElement>,
-  bad: Promise<HTMLImageElement>
+  bad: Promise<HTMLImageElement>,
+  trueGood: Promise<HTMLImageElement>,
+  trueBad: Promise<HTMLImageElement>
 ] {
-  return [loadTitleGraphics(), loadGoodEndGraphics(), loadBadEndGraphics()];
+  return [
+    fetchImage(titleUrl),
+    fetchImage(goodEndUrl),
+    fetchImage(badEndUrl),
+    fetchImage(trueGoodEndUrl),
+    fetchImage(trueBadEndUrl),
+  ];
+}
+
+export default async function getGraphicsDisplay(
+  ctx: CanvasRenderingContext2D
+): Promise<GraphicsDisplay> {
+  const [title, goodEnd, badEnd, trueGoodEnd, trueBadEnd] = await Promise.all(
+    loadAllGraphics()
+  );
+
+  return new Graphics(ctx, { title, goodEnd, badEnd, trueGoodEnd, trueBadEnd });
 }
