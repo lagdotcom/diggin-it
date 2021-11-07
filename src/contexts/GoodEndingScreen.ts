@@ -1,56 +1,6 @@
-import Game from "../Game";
-import Cmd from "../interfaces/Cmd";
-import Context from "../interfaces/Context";
-import ScenarioScreen from "./ScenarioScreen";
+import EndingScreen from "./EndingScreen";
 
-export default class GoodEndingScreen implements Context {
-  stage: number;
-
-  constructor(public g: Game) {
-    this.stage = 0;
-    requestAnimationFrame(() => this.render());
-  }
-
-  next(): void {
-    this.stage++;
-    this.render();
-  }
-
-  exit(): void {
-    this.g.contexts.clear();
-    this.g.contexts.push(new ScenarioScreen(this.g));
-  }
-
-  handle(cmd: Cmd): void {
-    switch (cmd.type) {
-      case "start":
-        return this.next();
-
-      case "cancel":
-        return this.exit();
-    }
-  }
-
-  onKey(e: KeyboardEvent): Cmd {
-    switch (e.key) {
-      case "Escape":
-      case "Backspace":
-      case "n":
-      case "N":
-        return { type: "cancel" };
-
-      default:
-        return { type: "start" };
-    }
-  }
-  onMouse(e: MouseEvent): Cmd {
-    if (e.button === 2) {
-      e.preventDefault();
-      return { type: "cancel" };
-    }
-    if (e.type !== "mousemove") return { type: "start" };
-  }
-
+export default class GoodEndingScreen extends EndingScreen {
   render(): void {
     const { chars, graphics, tiles } = this.g;
 
