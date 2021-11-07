@@ -153,6 +153,7 @@ export default class Gravity {
     x: number,
     y: number
   ): boolean {
+    // NOTE doesn't check for victim.parent
     this.g.move(victim, x, y, "fall");
     this.g.emit("fell", { thing: victim, distance });
     if (!victim.alive || victim.inky || this.silent) return true;
@@ -181,9 +182,10 @@ export default class Gravity {
   fallOntoActor(attacker: Actor, victim: Actor, distance: number): boolean {
     let escape = undefined;
 
-    const x = victim.x;
-    let y = victim.y;
-    if (!victim.alive || (victim.inky && attacker.inky) || this.silent)
+    const parent = victim.parent || victim;
+    const x = parent.x;
+    let y = parent.y;
+    if (!parent.alive || (parent.inky && attacker.inky) || this.silent)
       return this.fallOntoTile(
         attacker,
         this.g.map.get(x, y - 1),
@@ -192,27 +194,32 @@ export default class Gravity {
         y - 1
       );
 
-    const multiplier = 1 - victim.get("crushResistance");
+    const multiplier = 1 - parent.get("crushResistance");
     let amount = Math.round(multiplier * distance * 5);
     if (attacker.heavy) {
-      escape = this.findPushTile(victim);
-      if (!escape) amount = victim.hp;
+      escape = this.findPushTile(parent);
+      if (!escape) amount = parent.hp;
     }
 
     if (amount > 0) {
-      victim.hp -= amount;
-      if (attacker.player) this.g.log.add(`You fall onto ${cname(victim)}!`);
-      else if (victim.player)
+      parent.hp -= amount;
+      if (attacker.player) this.g.log.add(`You fall onto ${cname(parent)}!`);
+      else if (parent.player)
         this.g.log.add(`${cname(attacker, true)} falls onto you!`);
-      else this.g.log.add(`${cname(victim, true)} is crushed!`);
+      else this.g.log.add(`${cname(parent, true)} is crushed!`);
 
-      this.g.emit("damaged", { attacker, victim, amount, type: "crush" });
+      this.g.emit("damaged", {
+        attacker,
+        victim: parent,
+        amount,
+        type: "crush",
+      });
     }
-    if (victim.alive) {
+    if (parent.alive) {
       y--;
       distance--;
-      if (escape) this.g.move(victim, escape[0], escape[1], "crush", attacker);
-      victim.reeling = true;
+      if (escape) this.g.move(parent, escape[0], escape[1], "crush", attacker);
+      parent.reeling = true;
     }
 
     this.g.move(attacker, x, y, "fall");

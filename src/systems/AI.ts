@@ -1,10 +1,10 @@
 import { RNG } from "rot-js";
 import AStar from "rot-js/lib/path/astar";
-import { PassableCallback } from "rot-js/lib/path/path";
 
-import Actor, { ActorAI, AIData } from "../Actor";
+import Actor, { ActorAI } from "../Actor";
 import Movement from "../commands/Movement";
 import { fire } from "../entities/temps";
+import { MoveType } from "../Event";
 import Game from "../Game";
 import XY from "../interfaces/XY";
 import Item from "../Item";
@@ -15,21 +15,46 @@ import Bombs from "./Bombs";
 import Combat from "./Combat";
 import Vision from "./Vision";
 
-export default class AI {
-  functions: Record<ActorAI, (actor: Actor, data: AIData) => void>;
+type AIStep =
+  | "reeling"
+  | "stunned"
+  | "explodes"
+  | "attack"
+  | "wander"
+  | "notice"
+  | "approach"
+  | "deactivate"
+  | "spawn"
+  | "teleport";
+const aiSteps: Record<ActorAI, AIStep[]> = {
+  wander: ["reeling", "stunned", "explodes", "attack", "wander"],
+  fly: [
+    "reeling",
+    "stunned",
+    "explodes",
+    "notice",
+    "attack",
+    "approach",
+    "deactivate",
+  ],
+  ink: [
+    "reeling",
+    "stunned",
+    "notice",
+    "spawn",
+    "teleport",
+    "attack",
+    "approach",
+  ],
+};
 
+export default class AI {
   constructor(
     public g: Game,
     public bombs: Bombs,
     public combat: Combat,
     public vision: Vision
   ) {
-    this.functions = {
-      wander: this.wanderAi.bind(this),
-      fly: this.flyingAi.bind(this),
-      ink: this.inkAi.bind(this),
-    };
-
     g.on("tick", () => this.run());
   }
 
@@ -37,29 +62,84 @@ export default class AI {
     this.g.allActors.forEach((actor) => {
       if (!actor.ai) return;
 
-      if (this.functions[actor.ai])
-        this.functions[actor.ai](actor, actor.aiData);
-      else throw Error("Invalid AI name: " + actor.ai);
+      for (const step of aiSteps[actor.ai]) {
+        const result = this[step](actor);
+        if (result) return;
+      }
     });
   }
 
-  canAttack(actor: Actor, victim: Actor): boolean {
-    if (!victim.alive) return false;
-
-    if (!actor.obeysTiles)
-      return (
-        manhattan(actor.x, actor.y, victim.x, victim.y) <= actor.attackRange
-      );
-
-    const reach = this.g.map.diamond(actor.x, actor.y, actor.attackRange);
-    if (!reach.find(([x, y]) => x === victim.x && y === victim.y)) return false;
-
-    return (
-      traceline(this.g, actor.x, actor.y, victim.x, victim.y, actor) === victim
-    );
+  private reeling(actor: Actor) {
+    if (actor.reeling) {
+      actor.reeling = false;
+      return true;
+    }
   }
 
-  doesExplode(actor: Actor): boolean {
+  private stunned(actor: Actor) {
+    return actor.stunTimer > 0;
+  }
+
+  private spawn(actor: Actor) {
+    const { log, map, player } = this.g;
+    let spawn = actor.aiData.spawn || 0;
+
+    spawn++;
+    if (spawn >= actor.inkSpawnTimer) {
+      const amount = RNG.getUniformInt(...actor.inkSpawnAmount);
+
+      for (let i = 0; i < amount; i++) {
+        const prefer =
+          actor.inkSpawnLocation === "player"
+            ? map.diamond(player.x, player.y, 4)
+            : map.positions();
+
+        const destinations = prefer.filter(([x, y]) => this.flyPassable(x, y));
+        if (destinations.length) {
+          actor.aiData.spawn = 0;
+          const [x, y] = RNG.getItem(destinations);
+          const babyType = RNG.getItem(actor.inkSpawn);
+          const baby = new Actor(x, y, enemies[babyType]);
+          this.g.add(baby);
+          log.add(`${cname(baby, true)} splits from the ink!`);
+          this.g.emit("mapChanged", {});
+          return true;
+        }
+      }
+    }
+
+    actor.aiData.spawn = spawn;
+  }
+
+  private teleport(actor: Actor) {
+    if (actor.teleportTracking > actor.teleportThreshold) {
+      const passable = this.getPassableFunction(actor, this.g.player);
+      const destinations = this.g.map
+        .positions()
+        .filter(([x, y]) => passable(x, y));
+      if (destinations.length) {
+        if (actor.inkTeleportType === "fire") {
+          this.g.log.add(`The ink emits a wave of fire.`);
+          const fire1 = new Item(actor.x, actor.y, fire);
+          const fire2 = new Item(actor.x + 1, actor.y, fire);
+
+          this.g.emit("effect", { effect: fire1, duration: 10 });
+          this.g.addItem(fire1);
+          this.g.emit("effect", { effect: fire2, duration: 10 });
+          this.g.addItem(fire2);
+        }
+
+        actor.teleportTracking = 0;
+        const [x, y] = RNG.getItem(destinations);
+        this.doMove(actor, x, y, "teleport");
+        this.g.log.add(`The ink suddenly vanishes!`);
+        this.g.sfx.play("inkTeleport");
+        return true;
+      }
+    }
+  }
+
+  private explodes(actor: Actor) {
     actor.explodeTimer--;
     if (actor.explodeTimer < 1) {
       const { x, y } = actor;
@@ -67,34 +147,97 @@ export default class AI {
       this.g.remove(actor);
       this.g.sfx.play("explode");
 
-      const [xm, ym, w, h, dmg] = [-1, -1, 3, 3, 30];
+      const [xm, ym, w, h, dmg] = [
+        -1,
+        -1,
+        actor.width + 2,
+        actor.height + 2,
+        30,
+      ];
       this.bombs.runExplosion(x, y, xm, ym, w, h, dmg, !actor.inky);
 
       return true;
     }
   }
 
-  wanderAi(actor: Actor, data: AIData): void {
-    if (actor.reeling) {
-      actor.reeling = false;
-      return;
+  private notice(actor: Actor): boolean {
+    if (!actor.aiData.active) {
+      if (this.vision.visible(actor.x, actor.y)) {
+        actor.aiData.active = true;
+        this.g.emit("noticed", { actor });
+        return;
+      }
+
+      return true;
+    }
+  }
+
+  private attack(actor: Actor) {
+    const victim = this.g.player;
+    if (!victim.alive) return;
+
+    let inRange = false;
+    const parts = [actor].concat(...(actor.parts || []));
+    for (const part of parts) {
+      if (
+        !actor.obeysTiles &&
+        manhattan(part.x, part.y, victim.x, victim.y) <= actor.attackRange
+      ) {
+        inRange = true;
+        break;
+      }
+
+      const reach = this.g.map.diamond(part.x, part.y, actor.attackRange);
+      if (
+        reach.find(([x, y]) => x === victim.x && y === victim.y) &&
+        traceline(this.g, part.x, part.y, victim.x, victim.y, ...parts) ===
+          victim
+      ) {
+        inRange = true;
+        break;
+      }
     }
 
-    if (actor.stunTimer > 0) return;
-    if (this.doesExplode(actor)) return;
+    if (inRange) {
+      this.combat.attack(actor, victim);
+      return true;
+    }
+  }
 
-    let { dir } = data;
-    if (!dir) dir = RNG.getItem([-1, 1]);
+  private approach(actor: Actor) {
+    const victim = this.g.player;
+    if (!victim.alive) return;
 
-    const { player } = this.g;
-    if (this.canAttack(actor, player)) return this.combat.attack(actor, player);
+    const aStar = new AStar(
+      victim.x,
+      victim.y,
+      this.getPassableFunction(actor, victim),
+      { topology: 4 }
+    );
+    const path: XY[] = [];
+    aStar.compute(actor.x, actor.y, (x, y) => path.push([x, y]));
+
+    if (path.length) {
+      const [x, y] = path[1];
+      this.doMove(actor, x, y, "walk");
+      return true;
+    }
+  }
+
+  private deactivate(actor: Actor) {
+    actor.aiData.active = false;
+    return true;
+  }
+
+  private wander(actor: Actor) {
+    let dir = actor.aiData.dir || RNG.getItem([-1, 1]);
 
     let success = false;
     const move = this.canMoveDir(actor, dir);
     if (move) {
       const [mx, my] = move;
       if (this.isSafeMove(actor, mx, my)) {
-        this.g.move(actor, actor.x + mx, actor.y + my, "walk");
+        this.doMove(actor, actor.x + mx, actor.y + my, "walk");
         success = true;
       }
     }
@@ -106,15 +249,24 @@ export default class AI {
       if (move2) {
         const [mx, my] = move2;
         if (this.isSafeMove(actor, mx, my)) {
-          this.g.move(actor, actor.x + mx, actor.y + my, "walk");
+          this.doMove(actor, actor.x + mx, actor.y + my, "walk");
+          success = true;
         }
       }
     }
 
-    actor.aiData = { dir };
+    actor.aiData.dir = dir;
+    return success;
   }
 
   canMoveDir(actor: Actor, mx: number): XY {
+    if (actor.parts) {
+      // not a mistake
+      const passable = this.getPassableFunction(actor, actor);
+      if (passable(actor.x + mx, actor.y)) return [mx, 0];
+      return;
+    }
+
     const my = 0;
     const side = this.g.contents(actor.x + mx, actor.y);
 
@@ -139,7 +291,9 @@ export default class AI {
     return [mx, my];
   }
 
-  isSafeMove(actor: Actor, mx: number, my: number): boolean {
+  private isSafeMove(actor: Actor, mx: number, my: number) {
+    if (!actor.obeysGravity) return true;
+
     const below = this.g.contents(actor.x + mx, actor.y + my + 1);
     if (below.tile.solid) return true;
     if (below.actor?.pushable) return true;
@@ -152,196 +306,64 @@ export default class AI {
     return false;
   }
 
-  flyPassable(x: number, y: number, ignore: Actor[] = []): boolean {
+  private getPassableFunction(actor: Actor, victim: Actor) {
+    if (!actor.parts)
+      return this.getSinglePassableFunction(actor, [actor, victim]);
+
+    const [parts, offsets] = this.getPartsAndOffsets(actor);
+    const passable = this.getSinglePassableFunction(
+      actor,
+      parts.concat(victim)
+    );
+
+    return (x: number, y: number) => {
+      for (let i = 0; i < parts.length; i++) {
+        const [ox, oy] = offsets[i];
+        if (!passable(x + ox, y + oy)) return false;
+      }
+
+      return true;
+    };
+  }
+
+  private getSinglePassableFunction(actor: Actor, parts: Actor[]) {
+    return actor.obeysTiles
+      ? actor.needsWater
+        ? (x: number, y: number) =>
+            this.g.mapFluid.get(x, y).canSwimIn && this.flyPassable(x, y, parts)
+        : (x: number, y: number) => this.flyPassable(x, y, parts)
+      : (x: number, y: number) => this.ghostPassable(x, y, parts);
+  }
+
+  private flyPassable(x: number, y: number, ignore: Actor[] = []) {
     const { actor, tile } = this.g.contents(x, y);
     if (tile.solid) return false;
     if (actor && !ignore.includes(actor)) return false;
     return this.g.map.contains(x, y);
   }
 
-  ghostPassable(x: number, y: number, ignore: Actor[] = []): boolean {
+  private ghostPassable(x: number, y: number, ignore: Actor[] = []) {
     const { actor } = this.g.contents(x, y);
     if (actor && !ignore.includes(actor)) return false;
     return this.g.map.contains(x, y);
   }
 
-  flyingAi(actor: Actor, data: AIData): void {
-    if (actor.reeling) {
-      actor.reeling = false;
-      return;
-    }
-
-    if (actor.stunTimer > 0) return;
-    if (this.doesExplode(actor)) return;
-
-    let { active } = data;
-    if (!active) {
-      if (this.vision.visible(actor.x, actor.y)) {
-        active = true;
-        this.g.emit("noticed", { actor });
-      } else return;
-    }
-
-    const { player } = this.g;
-    if (this.canAttack(actor, player)) return this.combat.attack(actor, player);
-
-    const passable: PassableCallback = actor.obeysTiles
-      ? actor.needsWater
-        ? (x, y) =>
-            this.g.mapFluid.get(x, y).canSwimIn &&
-            this.flyPassable(x, y, [player, actor])
-        : (x, y) => this.flyPassable(x, y, [player, actor])
-      : (x, y) => this.ghostPassable(x, y, [player, actor]);
-
-    const aStar = new AStar(player.x, player.y, passable, { topology: 4 });
-    const path: XY[] = [];
-    aStar.compute(actor.x, actor.y, (x, y) => path.push([x, y]));
-
-    if (path.length) {
-      const [x, y] = path[1];
-      this.g.move(actor, x, y, "walk");
-    } else active = false;
-
-    actor.aiData = { active };
-  }
-
-  inkAi(a: Actor, data: AIData): void {
-    let { active, spawn } = data;
-    if (!active) {
-      if (this.vision.visible(a.x, a.y)) {
-        active = true;
-        this.g.emit("noticed", { actor: a });
-      } else return;
-    }
-    if (!spawn) spawn = 0;
-
-    const [b, c, d] = a.parts;
-    const allInk = [a, b, c, d];
-    const { player } = this.g;
-
-    if (a.reeling || b.reeling || c.reeling || d.reeling) {
-      a.reeling = false;
-      b.reeling = false;
-      c.reeling = false;
-      d.reeling = false;
-      return;
-    }
-
-    if (
-      a.stunTimer > 0 ||
-      b.stunTimer > 0 ||
-      c.stunTimer > 0 ||
-      d.stunTimer > 0
-    )
-      return;
-
-    spawn++;
-    if (spawn >= a.inkSpawnTimer) {
-      const amount = RNG.getUniformInt(...a.inkSpawnAmount);
-
-      for (let i = 0; i < amount; i++) {
-        const prefer =
-          a.inkSpawnLocation === "player"
-            ? this.g.map.diamond(player.x, player.y, 4)
-            : this.g.map.positions();
-
-        const destinations = prefer.filter(([x, y]) => this.flyPassable(x, y));
-        if (destinations.length) {
-          spawn = 0;
-          const [x, y] = RNG.getItem(destinations);
-          const babyType = RNG.getItem(a.inkSpawn);
-          const baby = new Actor(x, y, enemies[babyType]);
-          this.g.add(baby);
-          this.g.log.add(`${cname(baby, true)} splits from the ink!`);
-          this.g.emit("mapChanged", {});
-        }
-      }
-    }
-
-    a.aiData = { active, spawn };
-
-    if (a.teleportTracking > a.teleportThreshold) {
-      const destinations = this.g.map
-        .positions()
-        .filter(([x, y]) => this.inkCanMoveHere(x, y, allInk));
-      if (destinations.length) {
-        if (a.inkTeleportType === "fire") {
-          this.g.log.add(`The ink emits a wave of fire.`);
-          const fire1 = new Item(a.x, a.y, fire);
-          const fire2 = new Item(a.x + 1, a.y, fire);
-
-          this.g.emit("effect", { effect: fire1, duration: 10 });
-          this.g.addItem(fire1);
-          this.g.emit("effect", { effect: fire2, duration: 10 });
-          this.g.addItem(fire2);
-        }
-
-        a.teleportTracking = 0;
-        const [x, y] = RNG.getItem(destinations);
-        this.moveInk(x, y, a, b, c, d);
-        this.g.log.add(`The ink suddenly vanishes!`);
-        this.g.sfx.play("inkTeleport");
-        return;
-      }
-    }
-
-    if (
-      player.alive &&
-      (this.canAttack(a, player) ||
-        this.canAttack(b, player) ||
-        this.canAttack(c, player) ||
-        this.canAttack(d, player))
-    ) {
-      return this.combat.attack(a, player);
-    }
-
-    const moves = [
-      this.getInkMove(player, a, 0, 0),
-      this.getInkMove(player, b, 1, 0),
-      this.getInkMove(player, c, 0, 1),
-      this.getInkMove(player, d, 1, 1),
-    ].filter((m) => m);
-    if (moves.length) {
-      const [x, y] = RNG.getItem(moves);
-      this.moveInk(x, y, a, b, c, d);
+  private doMove(actor: Actor, x: number, y: number, type: MoveType) {
+    const [parts, offsets] = this.getPartsAndOffsets(actor);
+    for (let i = 0; i < parts.length; i++) {
+      const [ox, oy] = offsets[i];
+      this.g.move(parts[i], x + ox, y + oy, type);
     }
   }
 
-  private getInkMove(player: Actor, part: Actor, ox: number, oy: number) {
-    const ignore = [player, part, ...part.parts];
+  private getPartsAndOffsets(actor: Actor): [parts: Actor[], offsets: XY[]] {
+    const parts = [actor];
+    const offsets: XY[] = [[0, 0]];
+    if (actor.parts && actor.partOffsets) {
+      parts.push(...actor.parts);
+      offsets.push(...actor.partOffsets);
+    }
 
-    const astar = new AStar(
-      player.x,
-      player.y,
-      (x, y) => this.inkCanMoveHere(x - ox, y - oy, ignore),
-      { topology: 4 }
-    );
-
-    const path: XY[] = [];
-    astar.compute(part.x, part.y, (x, y) => path.push([x - ox, y - oy]));
-    if (path.length) return path[1];
-  }
-
-  private moveInk(
-    x: number,
-    y: number,
-    a: Actor,
-    b: Actor,
-    c: Actor,
-    d: Actor
-  ) {
-    this.g.move(a, x, y, "walk");
-    this.g.move(b, x + 1, y, "walk");
-    this.g.move(c, x, y + 1, "walk");
-    this.g.move(d, x + 1, y + 1, "walk");
-  }
-
-  private inkCanMoveHere(x: number, y: number, ignore: Actor[]) {
-    return (
-      this.flyPassable(x, y, ignore) &&
-      this.flyPassable(x + 1, y, ignore) &&
-      this.flyPassable(x, y + 1, ignore) &&
-      this.flyPassable(x + 1, y + 1, ignore)
-    );
+    return [parts, offsets];
   }
 }

@@ -6,6 +6,8 @@ import AuthorScreen from "./contexts/AuthorScreen";
 import BadEndingScreen from "./contexts/BadEndingScreen";
 import Dungeon from "./contexts/Dungeon";
 import GoodEndingScreen from "./contexts/GoodEndingScreen";
+import TrueBadEndingScreen from "./contexts/TrueBadEndingScreen";
+import TrueGoodEndingScreen from "./contexts/TrueGoodEndingScreen";
 import MessageLog from "./display/MessageLog";
 import { unset } from "./entities/tiles";
 import { EventMap, MoveType } from "./Event";
@@ -94,6 +96,13 @@ export default class Game extends EventHandler {
     this.contexts.clear();
     this.contexts.push(
       good ? new GoodEndingScreen(this) : new BadEndingScreen(this)
+    );
+  }
+
+  showTrueEnding(good: boolean): void {
+    this.contexts.clear();
+    this.contexts.push(
+      good ? new TrueGoodEndingScreen(this) : new TrueBadEndingScreen(this)
     );
   }
 

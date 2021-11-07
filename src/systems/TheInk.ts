@@ -5,18 +5,17 @@ import Item from "../Item";
 export default class TheInk {
   constructor(public g: Game) {
     g.on("damaged", ({ amount, victim }) => {
-      victim.teleportTracking += amount;
+      const parent = victim.parent || victim;
 
-      if (victim.parts)
-        victim.parts.forEach((part) => {
-          part.hp -= amount;
-          part.teleportTracking += amount;
-        });
+      parent.hp -= amount;
+      parent.teleportTracking += amount;
     });
 
     g.on("died", ({ victim }) => {
-      if (victim.special === "ink") {
-        victim.parts.forEach((part) => g.remove(part));
+      const parent = victim.parent || victim;
+
+      if (parent.special === "ink") {
+        parent.parts.forEach((part) => g.remove(part));
         g.music.fadeOut();
         g.sfx.play("inkDead");
 

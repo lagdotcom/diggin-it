@@ -56,10 +56,11 @@ export default class Bombs {
 
     const { actor, items, tile } = this.g.contents(x, y);
     if (actor?.alive && (hitsInk || !actor.inky)) {
-      actor.hp -= dmg;
+      const parent = actor.parent || actor;
+      parent.hp -= dmg;
       this.g.emit("damaged", {
         attacker: player,
-        victim: actor,
+        victim: parent,
         amount: dmg,
         type: "bomb",
       });

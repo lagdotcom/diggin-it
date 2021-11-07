@@ -16,37 +16,38 @@ export default class StatusEffects {
 
   applyStatus(status: StatusType, victim: Actor): void {
     const { log } = this.g;
+    const parent = victim.parent || victim;
 
     switch (status) {
       case "poison":
-        if (!victim.poisoned) {
-          victim.poisoned = true;
+        if (!parent.poisoned) {
+          parent.poisoned = true;
           log.add(
-            victim.player
+            parent.player
               ? warning + "You feel very ill."
-              : `${theName(victim, true)} looks ill.`
+              : `${theName(parent, true)} looks ill.`
           );
         }
         return;
 
       case "stun":
-        if (!victim.stunTimer)
+        if (!parent.stunTimer)
           log.add(
-            victim.player
+            parent.player
               ? warning + "You're rooted in place."
-              : `${theName(victim, true)} is rooted in place.`
+              : `${theName(parent, true)} is rooted in place.`
           );
         else
           log.add(
-            victim.player
+            parent.player
               ? warning + "Your legs stiffen further."
-              : `${theName(victim, true)} looks even stiffer.`
+              : `${theName(parent, true)} looks even stiffer.`
           );
-        victim.stunTimer += RNG.getUniformInt(3, 6);
+        parent.stunTimer += RNG.getUniformInt(3, 6);
         return;
 
       case "bleed":
-        this.worsenBleeding(victim);
+        this.worsenBleeding(parent);
         return;
     }
   }
@@ -97,32 +98,34 @@ export default class StatusEffects {
     const { allActors, log } = this.g;
 
     allActors.forEach((victim) => {
-      if (victim.alive && victim.poisoned) {
+      const parent = victim.parent || victim;
+
+      if (parent.alive && parent.poisoned) {
         const amount = 1;
-        victim.hp -= amount;
-        this.g.emit("damaged", { victim, amount, type: "status" });
+        parent.hp -= amount;
+        this.g.emit("damaged", { victim: parent, amount, type: "status" });
       }
 
-      if (victim.alive && victim.stunTimer > 0) {
-        victim.stunTimer--;
-        if (!victim.stunTimer) {
-          this.g.emit("statusRemoved", { actor: victim, type: "stun" });
+      if (parent.alive && parent.stunTimer > 0) {
+        parent.stunTimer--;
+        if (!parent.stunTimer) {
+          this.g.emit("statusRemoved", { actor: parent, type: "stun" });
           log.add(
-            victim.player
+            parent.player
               ? "You can move again."
-              : `${theName(victim, true)} can move again.`
+              : `${theName(parent, true)} can move again.`
           );
         }
       }
 
-      if (victim.alive && victim.bleedAmount) {
-        victim.bleedTimer--;
-        if (victim.bleedTimer < 0)
-          this.g.emit("statusApplied", { victim, type: "bleed" });
+      if (parent.alive && parent.bleedAmount) {
+        parent.bleedTimer--;
+        if (parent.bleedTimer < 0)
+          this.g.emit("statusApplied", { victim: parent, type: "bleed" });
 
-        const amount = victim.bleedAmount;
-        victim.hp -= amount;
-        this.g.emit("damaged", { victim, amount, type: "status" });
+        const amount = parent.bleedAmount;
+        parent.hp -= amount;
+        this.g.emit("damaged", { victim: parent, amount, type: "status" });
       }
     });
   }

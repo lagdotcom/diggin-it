@@ -48,6 +48,7 @@ import TheInk from "../systems/TheInk";
 import Traps from "../systems/Traps";
 import Vision from "../systems/Vision";
 import { ctheName, it } from "../text";
+import { stillHasMemento } from "../utils";
 import ExamineScreen from "./ExamineScreen";
 import ExpandedLog from "./ExpandedLog";
 import HelpScreen from "./HelpScreen";
@@ -404,6 +405,8 @@ export default class Dungeon implements Context {
       const msg = this.slabDoor.tryOpen();
       if (msg) log.add(msg);
       return this.render();
+    } else if (tile.exit === "final") {
+      this.g.showTrueEnding(stillHasMemento(player));
     } else {
       log.add("There's no exit here.");
       return this.render();

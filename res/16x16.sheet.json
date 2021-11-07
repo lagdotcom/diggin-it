@@ -191,6 +191,8 @@
     "BlotHeart": { "row": 16, "col": 0, "width": 2, "height": 3 },
     "DirtF": { "row": 16, "col": 11 },
     "SideExit": { "row": 16, "col": 15 },
+    "FinalDoor": { "row": 16, "col": 16 },
+    "FinalDoorOpen": { "row": 16, "col": 17 },
     "HugeDoorOpen": { "row": 16, "col": 21, "width": 2, "height": 2 },
 
     "Bedrock": { "row": 17, "col": 11 },

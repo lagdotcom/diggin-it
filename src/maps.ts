@@ -15,6 +15,7 @@ import {
   empty,
   entrance,
   exit,
+  finalDoor,
   gas,
   inkDoor,
   ladderTile,
@@ -99,6 +100,7 @@ const tileTypes: Record<string, Partial<TileOptions> | Picker<TileOptions>> = {
   ">": exit,
   v: vaultExit,
   f: inkDoor,
+  g: finalDoor,
   C: coral,
 };
 

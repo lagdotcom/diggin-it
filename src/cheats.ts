@@ -1,9 +1,5 @@
 import Actor from "./Actor";
-import BadEndingScreen from "./contexts/BadEndingScreen";
-import GoodEndingScreen from "./contexts/GoodEndingScreen";
 import ShopScreen from "./contexts/ShopScreen";
-import TrueBadEndingScreen from "./contexts/TrueBadEndingScreen";
-import TrueGoodEndingScreen from "./contexts/TrueGoodEndingScreen";
 import { fakeHeart } from "./entities/endGame";
 import {
   artifact,
@@ -161,24 +157,13 @@ function gotoScene(scene: string) {
 
   switch (scene) {
     case "good":
-      g.contexts.clear();
-      g.contexts.push(new GoodEndingScreen(g));
-      break;
-
+      return g.showEnding(true);
     case "bad":
-      g.contexts.clear();
-      g.contexts.push(new BadEndingScreen(g));
-      break;
-
+      return g.showEnding(false);
     case "trueGood":
-      g.contexts.clear();
-      g.contexts.push(new TrueGoodEndingScreen(g));
-      break;
-
+      return g.showTrueEnding(true);
     case "trueBad":
-      g.contexts.clear();
-      g.contexts.push(new TrueBadEndingScreen(g));
-      break;
+      return g.showTrueEnding(false);
   }
 }
 

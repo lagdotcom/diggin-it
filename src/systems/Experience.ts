@@ -1,5 +1,6 @@
 import Game from "../Game";
 import { ctheName } from "../text";
+import { stillHasMemento } from "../utils";
 
 export default class Experience {
   constructor(public g: Game) {
@@ -30,11 +31,7 @@ export default class Experience {
 
         if (i.glyph === "Fragment") {
           this.g.music.play("shiny");
-          let good = false;
-          player.inventory.forEach((item) => {
-            if (item?.use === "memento") good = true;
-          });
-          this.g.showEnding(good);
+          this.g.showEnding(stillHasMemento(player));
         } else found = true;
       });
 

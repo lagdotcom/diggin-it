@@ -1,4 +1,4 @@
-type ExitType = "normal" | "side" | "closed" | "slabs";
+type ExitType = "normal" | "side" | "closed" | "slabs" | "final";
 
 export interface TileOptions {
   airCost: number;

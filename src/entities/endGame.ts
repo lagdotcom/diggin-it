@@ -38,7 +38,6 @@ export const blotHeart: Partial<ActorOptions> = {
   article: "the",
   colour: "blue",
   special: "blotHeart",
-  ai: "wander",
   obeysGravity: false,
   maxHp: 385,
   maxHpRange: 425,

@@ -26,11 +26,13 @@ export default class Traps {
     const tile = map.get(victim.x, victim.y + 1);
     const amount = tile.fallOntoDamage;
     if (amount) {
-      if (victim.player) log.add(`${theName(tile, true)} cuts you apart!`);
-      else log.add(`${theName(tile, true)} cuts ${theName(victim)} apart!`);
+      const parent = victim.parent || victim;
 
-      victim.hp -= amount;
-      this.g.emit("damaged", { victim, amount, type: "trap" });
+      if (parent.player) log.add(`${theName(tile, true)} cuts you apart!`);
+      else log.add(`${theName(tile, true)} cuts ${theName(parent)} apart!`);
+
+      parent.hp -= amount;
+      this.g.emit("damaged", { victim: parent, amount, type: "trap" });
     }
   }
 
@@ -43,11 +45,13 @@ export default class Traps {
     const tile = map.get(victim.x, victim.y + 1);
     const amount = tile.walkOntoDamage;
     if (amount) {
-      if (victim.player) log.add(`${theName(tile, true)} cuts your feet!`);
-      else log.add(`${theName(tile, true)} cuts ${theName(victim)}!`);
+      const parent = victim.parent || victim;
 
-      victim.hp -= amount;
-      this.g.emit("damaged", { victim, amount, type: "trap" });
+      if (parent.player) log.add(`${theName(tile, true)} cuts your feet!`);
+      else log.add(`${theName(tile, true)} cuts ${theName(parent)}!`);
+
+      parent.hp -= amount;
+      this.g.emit("damaged", { victim: parent, amount, type: "trap" });
     }
   }
 }

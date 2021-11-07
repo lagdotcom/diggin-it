@@ -202,3 +202,12 @@ export const coral: Partial<TileOptions> = {
   durability: 3,
   lore: "A simple coral structure, somehow this hardy specimen has adapted from the ocean floor and taken root in these underground corridors and caverns. ",
 };
+
+export const finalDoor: Partial<TileOptions> = {
+  glyph: "FinalDoor",
+  name: "mysterious door",
+  colour: "green",
+  exit: "closed",
+  // turns into FinalDoorOpen and gains exit: 'final',
+  destroyIncomingPushes: true,
+};

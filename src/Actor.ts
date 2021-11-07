@@ -1,5 +1,6 @@
 import { RNG } from "rot-js";
 
+import XY from "./interfaces/XY";
 import { Distribution } from "./utils";
 
 import type Slot from "./interfaces/Slot";
@@ -82,6 +83,7 @@ export interface ActorOptions {
   finalScreamChance: number;
   finalScreamTarget: ScreamTarget;
   finalScreamCount: [min: number, max: number];
+  parent: Actor;
 }
 
 export default class Actor {
@@ -103,6 +105,10 @@ export default class Actor {
   heavy: boolean;
   special?: ActorSpecialType;
   parts?: Actor[];
+  partOffsets?: XY[];
+  parent?: Actor;
+  width: number;
+  height: number;
   inky: boolean;
   inkSpawn: EnemyName[];
   inkSpawnAmount: [number, number];
@@ -212,6 +218,7 @@ export default class Actor {
       dropChance = 0,
       drops = {},
       dropQty = {},
+      parent = undefined,
     }: Partial<ActorOptions> = {}
   ) {
     this._type = "Actor";
@@ -274,6 +281,9 @@ export default class Actor {
     this.dropChance = dropChance;
     this.drops = drops;
     this.dropQty = dropQty;
+    this.parent = parent;
+    this.width = 1;
+    this.height = 1;
   }
 
   get(st: Stat): number {
@@ -293,5 +303,22 @@ export default class Actor {
     this.hp = this.get("maxHp");
     this.ap = this.get("maxAp");
     this.alive = true;
+  }
+
+  setParts(...parts: Actor[]): void {
+    const offsets: XY[] = [];
+
+    let highestX = 0;
+    let highestY = 0;
+    parts.forEach((p) => {
+      offsets.push([p.x - this.x, p.y - this.y]);
+      if (p.x > highestX) highestX = p.x;
+      if (p.y > highestY) highestY = p.y;
+    });
+
+    this.parts = parts;
+    this.partOffsets = offsets;
+    this.width = highestX + 1;
+    this.height = highestY + 1;
   }
 }

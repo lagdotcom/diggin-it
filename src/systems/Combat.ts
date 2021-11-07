@@ -11,15 +11,22 @@ export default class Combat {
   }
 
   attack(attacker: Actor, victim: Actor, item?: Item): void {
-    const amount = Math.max(1, attacker.get("sp") - victim.get("dp"));
+    const parent = victim.parent || victim;
+
+    const amount = Math.max(1, attacker.get("sp") - parent.get("dp"));
     const aname = ctheName(attacker, true);
-    const vname = ctheName(victim);
+    const vname = ctheName(parent);
     const s = attacker.player ? "" : "s";
 
     this.g.log.add(`${aname} hit${s} ${vname} for ${amount} damage.`);
-    victim.hp -= amount;
-    this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
-    this.g.emit("attacked", { attacker, victim, item });
+    parent.hp -= amount;
+    this.g.emit("damaged", {
+      attacker,
+      victim: parent,
+      amount,
+      type: "combat",
+    });
+    this.g.emit("attacked", { attacker, victim: parent, item });
   }
 
   attackEffects({

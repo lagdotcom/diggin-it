@@ -25,7 +25,7 @@ import Game from "../Game";
 import XY from "../interfaces/XY";
 import { generateBlotMap } from "../mapgen";
 import { loadMap } from "../maps";
-import { addBlotHand, addBlotHead } from "../prefabs";
+import { addBlotHand, addBlotHead, addBlotHeart } from "../prefabs";
 import { ctheName } from "../text";
 import Tile from "../Tile";
 import { manhattan } from "../utils";
@@ -82,10 +82,10 @@ export default class TheBlot {
         const py = Math.floor(g.map.height / 2);
         g.move(g.player, px, py, "teleport");
 
-        // TODO load heart
         this.blotTiles = addBlotHead(g, 1, 1);
         addBlotHand(g, 13, 1, "BlotHandA");
         addBlotHand(g, 13, 10, "BlotHandB");
+        addBlotHeart(g, 6, 1);
 
         g.emit("entered", { depth: 11, zone: 3, isSideArea: true });
       }
@@ -102,8 +102,9 @@ export default class TheBlot {
           break;
 
         case "blotHeart":
-          // TODO remove all enemies, spawn door at bottom
+          this.removeAllEnemies();
           this.removeHead();
+          this.openTheDoor();
           break;
 
         case "blotHand":
@@ -172,5 +173,28 @@ export default class TheBlot {
     this.g.emit("mapChanged", {});
 
     this.blotTiles = [];
+  }
+
+  private removeAllEnemies(): void {
+    this.g.allActors.forEach((a) => {
+      if (!a.player && a.maxHp) this.g.remove(a);
+    });
+
+    this.g.log.add("Everything falls still.");
+  }
+
+  private openTheDoor(): void {
+    const { map } = this.g;
+
+    for (let y = 0; y < map.height; y++)
+      for (let x = 0; x < map.width; x++) {
+        const tile = map.get(x, y);
+        if (tile.exit === "closed") {
+          tile.glyph = "FinalDoorOpen";
+          tile.exit = "final";
+        }
+      }
+
+    this.g.log.add("You hear a door creak open.");
   }
 }

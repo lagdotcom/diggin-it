@@ -87,3 +87,11 @@ export function traceline(
     if (actor && actor.alive && !ignore.includes(actor)) return actor;
   }
 }
+
+export function stillHasMemento(a: Actor): boolean {
+  for (const item of a.inventory) {
+    if (item?.use === "memento") return true;
+  }
+
+  return false;
+}

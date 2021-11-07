@@ -315,16 +315,22 @@ export default class UsableItems {
     const { actors, player: attacker } = this.g;
 
     const victim = actors.get(x, y);
+    const parent = victim.parent || victim;
     const amount = Math.floor(
-      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"))
+      attacker.get("sp") / 2 + Math.max(1, damage - parent.get("dp"))
     );
     const iname = cname(item, false, true);
-    const vname = ctheName(victim);
+    const vname = ctheName(parent);
 
     this.g.log.add(`You throw ${iname} at ${vname} for ${amount} damage.`);
-    victim.hp -= amount;
-    this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
-    this.g.emit("attacked", { attacker, victim, item });
+    parent.hp -= amount;
+    this.g.emit("damaged", {
+      attacker,
+      victim: parent,
+      amount,
+      type: "combat",
+    });
+    this.g.emit("attacked", { attacker, victim: parent, item });
 
     this.g.emit("used", { actor: attacker, item });
     item.charges--;
@@ -432,16 +438,22 @@ export default class UsableItems {
     const ammo = attacker.inventory.find((i) => i?.glyph === item.useAmmo);
 
     const victim = actors.get(x, y);
+    const parent = victim.parent || victim;
     const amount = Math.floor(
-      attacker.get("sp") / 2 + Math.max(1, damage - victim.get("dp"))
+      attacker.get("sp") / 2 + Math.max(1, damage - parent.get("dp"))
     );
     const iname = cname(ammo, false, true);
-    const vname = ctheName(victim);
+    const vname = ctheName(parent);
 
     this.g.log.add(`You fire ${iname} at ${vname} for ${amount} damage.`);
-    victim.hp -= amount;
-    this.g.emit("damaged", { attacker, victim, amount, type: "combat" });
-    this.g.emit("attacked", { attacker, victim, item }); // TODO ammo properties?
+    parent.hp -= amount;
+    this.g.emit("damaged", {
+      attacker,
+      victim: parent,
+      amount,
+      type: "combat",
+    });
+    this.g.emit("attacked", { attacker, victim: parent, item }); // TODO ammo properties?
 
     this.g.emit("used", { actor: attacker, item });
     ammo.charges--;

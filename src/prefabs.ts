@@ -1,5 +1,11 @@
 import Actor from "./Actor";
-import { blotEye, blotHand, blotHead, fakeHeart } from "./entities/endGame";
+import {
+  blotEye,
+  blotHand,
+  blotHead,
+  blotHeart,
+  fakeHeart,
+} from "./entities/endGame";
 import { theGreenInk, theInk, theRedInk } from "./entities/enemies";
 import {
   airTank,
@@ -35,51 +41,58 @@ export function getNewPlayer(): Actor {
 }
 
 export function addTheInk(g: Game, x: number, y: number): void {
-  const tl = new Actor(x, y, { ...theInk, ai: "ink" });
-  const tr = new Actor(x + 1, y, { ...theInk, glyph: "Ink2" });
-  const bl = new Actor(x, y + 1, { ...theInk, glyph: "Ink3" });
-  const br = new Actor(x + 1, y + 1, { ...theInk, glyph: "Ink4" });
+  const parent = new Actor(x, y, { ...theInk, ai: "ink" });
+  const tr = new Actor(x + 1, y, { ...theInk, parent, glyph: "Ink2" });
+  const bl = new Actor(x, y + 1, { ...theInk, parent, glyph: "Ink3" });
+  const br = new Actor(x + 1, y + 1, { ...theInk, parent, glyph: "Ink4" });
 
-  tl.parts = [tr, bl, br];
-  tr.parts = [tl, bl, br];
-  bl.parts = [tl, tr, br];
-  br.parts = [tl, tr, bl];
+  parent.setParts(tr, bl, br);
 
-  g.add(tl);
+  g.add(parent);
   g.add(tr);
   g.add(bl);
   g.add(br);
 }
 
 export function addTheGreenInk(g: Game, x: number, y: number): void {
-  const tl = new Actor(x, y, { ...theGreenInk, ai: "ink" });
-  const tr = new Actor(x + 1, y, { ...theGreenInk, glyph: "GreenInk2" });
-  const bl = new Actor(x, y + 1, { ...theGreenInk, glyph: "GreenInk3" });
-  const br = new Actor(x + 1, y + 1, { ...theGreenInk, glyph: "GreenInk4" });
+  const parent = new Actor(x, y, { ...theGreenInk, ai: "ink" });
+  const tr = new Actor(x + 1, y, {
+    ...theGreenInk,
+    parent,
+    glyph: "GreenInk2",
+  });
+  const bl = new Actor(x, y + 1, {
+    ...theGreenInk,
+    parent,
+    glyph: "GreenInk3",
+  });
+  const br = new Actor(x + 1, y + 1, {
+    ...theGreenInk,
+    parent,
+    glyph: "GreenInk4",
+  });
 
-  tl.parts = [tr, bl, br];
-  tr.parts = [tl, bl, br];
-  bl.parts = [tl, tr, br];
-  br.parts = [tl, tr, bl];
+  parent.setParts(tr, bl, br);
 
-  g.add(tl);
+  g.add(parent);
   g.add(tr);
   g.add(bl);
   g.add(br);
 }
 
 export function addTheRedInk(g: Game, x: number, y: number): void {
-  const tl = new Actor(x, y, { ...theRedInk, ai: "ink" });
-  const tr = new Actor(x + 1, y, { ...theRedInk, glyph: "RedInk2" });
-  const bl = new Actor(x, y + 1, { ...theRedInk, glyph: "RedInk3" });
-  const br = new Actor(x + 1, y + 1, { ...theRedInk, glyph: "RedInk4" });
+  const parent = new Actor(x, y, { ...theRedInk, ai: "ink" });
+  const tr = new Actor(x + 1, y, { ...theRedInk, parent, glyph: "RedInk2" });
+  const bl = new Actor(x, y + 1, { ...theRedInk, parent, glyph: "RedInk3" });
+  const br = new Actor(x + 1, y + 1, {
+    ...theRedInk,
+    parent,
+    glyph: "RedInk4",
+  });
 
-  tl.parts = [tr, bl, br];
-  tr.parts = [tl, bl, br];
-  bl.parts = [tl, tr, br];
-  br.parts = [tl, tr, bl];
+  parent.setParts(tr, bl, br);
 
-  g.add(tl);
+  g.add(parent);
   g.add(tr);
   g.add(bl);
   g.add(br);
@@ -107,6 +120,36 @@ export function addFakeHeart(g: Game, x: number, y: number): void {
   const br = new Actor(x + 1, y + 2, { ...fakeHeart, glyph: "BlotHeart6" });
 
   g.add(tl);
+  g.add(tr);
+  g.add(ml);
+  g.add(mr);
+  g.add(bl);
+  g.add(br);
+}
+
+export function addBlotHeart(g: Game, x: number, y: number): void {
+  const parent = new Actor(x, y, {
+    ...blotHeart,
+    ai: "wander",
+    glyph: "BlotHeart1",
+  });
+  const tr = new Actor(x + 1, y, { ...blotHeart, parent, glyph: "BlotHeart2" });
+  const ml = new Actor(x, y + 1, { ...blotHeart, parent, glyph: "BlotHeart3" });
+  const mr = new Actor(x + 1, y + 1, {
+    ...blotHeart,
+    parent,
+    glyph: "BlotHeart4",
+  });
+  const bl = new Actor(x, y + 2, { ...blotHeart, parent, glyph: "BlotHeart5" });
+  const br = new Actor(x + 1, y + 2, {
+    ...blotHeart,
+    parent,
+    glyph: "BlotHeart6",
+  });
+
+  parent.setParts(tr, ml, mr, bl, br);
+
+  g.add(parent);
   g.add(tr);
   g.add(ml);
   g.add(mr);
@@ -144,17 +187,22 @@ export function addBlotHand(
   y: number,
   prefix: string
 ): void {
-  const tl = new Actor(x, y, { ...blotHand, ai: "ink", glyph: prefix + "1" });
-  const tr = new Actor(x + 1, y, { ...blotHand, glyph: prefix + "2" });
-  const bl = new Actor(x, y + 1, { ...blotHand, glyph: prefix + "3" });
-  const br = new Actor(x + 1, y + 1, { ...blotHand, glyph: prefix + "4" });
+  const parent = new Actor(x, y, {
+    ...blotHand,
+    ai: "ink",
+    glyph: prefix + "1",
+  });
+  const tr = new Actor(x + 1, y, { ...blotHand, parent, glyph: prefix + "2" });
+  const bl = new Actor(x, y + 1, { ...blotHand, parent, glyph: prefix + "3" });
+  const br = new Actor(x + 1, y + 1, {
+    ...blotHand,
+    parent,
+    glyph: prefix + "4",
+  });
 
-  tl.parts = [tr, bl, br];
-  tr.parts = [tl, bl, br];
-  bl.parts = [tl, tr, br];
-  br.parts = [tl, tr, bl];
+  parent.setParts(tr, bl, br);
 
-  g.add(tl);
+  g.add(parent);
   g.add(tr);
   g.add(bl);
   g.add(br);
