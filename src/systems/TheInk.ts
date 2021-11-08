@@ -6,8 +6,6 @@ export default class TheInk {
   constructor(public g: Game) {
     g.on("damaged", ({ amount, victim }) => {
       const parent = victim.parent || victim;
-
-      parent.hp -= amount;
       parent.teleportTracking += amount;
     });
 
