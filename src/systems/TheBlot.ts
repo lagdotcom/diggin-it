@@ -83,9 +83,9 @@ export default class TheBlot {
         g.move(g.player, px, py, "teleport");
 
         this.blotTiles = addBlotHead(g, 1, 1);
-        addBlotHand(g, 13, 1, "BlotHandA");
-        addBlotHand(g, 13, 10, "BlotHandB");
-        addBlotHeart(g, 6, 1);
+        addBlotHand(g, 10, 2, "BlotHandA");
+        addBlotHand(g, 6, 2, "BlotHandB");
+        addBlotHeart(g, 8, 1);
 
         g.emit("entered", { depth: 11, zone: 3, isSideArea: true });
       }
