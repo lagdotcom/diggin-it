@@ -113,7 +113,8 @@ export default class AI {
 
   private teleport(actor: Actor) {
     if (actor.teleportTracking > actor.teleportThreshold) {
-      const passable = this.getPassableFunction(actor, this.g.player);
+      // not a mistake
+      const passable = this.getPassableFunction(actor, actor);
       const destinations = this.g.map
         .positions()
         .filter(([x, y]) => passable(x, y));

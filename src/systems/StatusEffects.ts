@@ -8,51 +8,57 @@ import { theName } from "../text";
 
 const warning = bg(darkRed);
 
+type StatusFn = (victim: Actor) => void;
+
 export default class StatusEffects {
+  mapping: Record<StatusType, StatusFn>;
+
   constructor(public g: Game) {
     g.on("statusApplied", ({ victim, type }) => this.applyStatus(type, victim));
     g.on("tick", this.tick.bind(this));
+
+    this.mapping = {
+      poison: this.poisonApply.bind(this),
+      stun: this.stunApply.bind(this),
+      bleed: this.bleedApply.bind(this),
+    };
   }
 
   applyStatus(status: StatusType, victim: Actor): void {
-    const { log } = this.g;
     const parent = victim.parent || victim;
+    this.mapping[status](parent);
+  }
 
-    switch (status) {
-      case "poison":
-        if (!parent.poisoned) {
-          parent.poisoned = true;
-          log.add(
-            parent.player
-              ? warning + "You feel very ill."
-              : `${theName(parent, true)} looks ill.`
-          );
-        }
-        return;
-
-      case "stun":
-        if (!parent.stunTimer)
-          log.add(
-            parent.player
-              ? warning + "You're rooted in place."
-              : `${theName(parent, true)} is rooted in place.`
-          );
-        else
-          log.add(
-            parent.player
-              ? warning + "Your legs stiffen further."
-              : `${theName(parent, true)} looks even stiffer.`
-          );
-        parent.stunTimer += RNG.getUniformInt(3, 6);
-        return;
-
-      case "bleed":
-        this.worsenBleeding(parent);
-        return;
+  poisonApply(victim: Actor): void {
+    if (!victim.poisoned) {
+      victim.poisoned = true;
+      this.g.log.add(
+        victim.player
+          ? warning + "You feel very ill."
+          : `${theName(victim, true)} looks ill.`
+      );
     }
   }
 
-  worsenBleeding(victim: Actor): void {
+  stunApply(victim: Actor): void {
+    const { log } = this.g;
+
+    if (!victim.stunTimer)
+      log.add(
+        victim.player
+          ? warning + "You're rooted in place."
+          : `${theName(victim, true)} is rooted in place.`
+      );
+    else
+      log.add(
+        victim.player
+          ? warning + "Your legs stiffen further."
+          : `${theName(victim, true)} looks even stiffer.`
+      );
+    victim.stunTimer = Math.min(10, victim.stunTimer + RNG.getUniformInt(3, 6));
+  }
+
+  bleedApply(victim: Actor): void {
     const { log } = this.g;
 
     victim.bleedTimer = RNG.getUniformInt(20, 30);
@@ -98,34 +104,35 @@ export default class StatusEffects {
     const { allActors, log } = this.g;
 
     allActors.forEach((victim) => {
-      const parent = victim.parent || victim;
+      // don't process statuses multiple times
+      if (victim.parent) return;
 
-      if (parent.alive && parent.poisoned) {
+      if (victim.alive && victim.poisoned) {
         const amount = 1;
-        parent.hp -= amount;
-        this.g.emit("damaged", { victim: parent, amount, type: "status" });
+        victim.hp -= amount;
+        this.g.emit("damaged", { victim: victim, amount, type: "status" });
       }
 
-      if (parent.alive && parent.stunTimer > 0) {
-        parent.stunTimer--;
-        if (!parent.stunTimer) {
-          this.g.emit("statusRemoved", { actor: parent, type: "stun" });
+      if (victim.alive && victim.stunTimer > 0) {
+        victim.stunTimer--;
+        if (!victim.stunTimer) {
+          this.g.emit("statusRemoved", { actor: victim, type: "stun" });
           log.add(
-            parent.player
+            victim.player
               ? "You can move again."
-              : `${theName(parent, true)} can move again.`
+              : `${theName(victim, true)} can move again.`
           );
         }
       }
 
-      if (parent.alive && parent.bleedAmount) {
-        parent.bleedTimer--;
-        if (parent.bleedTimer < 0)
-          this.g.emit("statusApplied", { victim: parent, type: "bleed" });
+      if (victim.alive && victim.bleedAmount) {
+        victim.bleedTimer--;
+        if (victim.bleedTimer < 0)
+          this.g.emit("statusApplied", { victim: victim, type: "bleed" });
 
-        const amount = parent.bleedAmount;
-        parent.hp -= amount;
-        this.g.emit("damaged", { victim: parent, amount, type: "status" });
+        const amount = victim.bleedAmount;
+        victim.hp -= amount;
+        this.g.emit("damaged", { victim: victim, amount, type: "status" });
       }
     });
   }
