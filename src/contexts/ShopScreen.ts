@@ -11,6 +11,7 @@ import Context from "../interfaces/Context";
 import Item from "../Item";
 import Soon from "../Soon";
 import { ItemName, items } from "../tables";
+import ExamineScreen from "./ExamineScreen";
 
 type SpecialItem = "hp" | "sp" | "dp" | "repair";
 const statItems = ["hp", "sp", "dp"];
@@ -267,13 +268,38 @@ export default class ShopScreen implements Context {
     this.costs["dp"] = cost;
   }
 
+  private getSelectedItem() {
+    for (const s of this.sections) {
+      if (s.highlighted === ixNone) continue;
+
+      const item = s.selectedItem;
+      if (item) return item;
+    }
+  }
+
+  private forceRedraw() {
+    this.firstRender = true;
+    this.sections.forEach((s) => (s.dirty = true));
+  }
+
   handle(cmd: Cmd): void {
-    const { player } = this.g;
+    const { player, sfx } = this.g;
 
     if (cmd.type === "cancel") {
       this.rerender.stop();
       this.g.depth++;
       this.g.nextMap();
+      return;
+    }
+
+    if (cmd.type === "examine") {
+      const item = this.getSelectedItem();
+      if (item) {
+        const instance = new Item(0, 0, items[item.item as ItemName]);
+        this.rerender.stop();
+        this.g.contexts.push(new ExamineScreen(this.g, instance));
+        this.forceRedraw();
+      }
       return;
     }
 
@@ -288,6 +314,7 @@ export default class ShopScreen implements Context {
 
         this.statsSection.removeItem(this.repairItem);
         this.statsSection.renderPanel();
+        sfx.play("itemSelect");
       } else if (isStat) {
         player.player.stats++;
         if (cmd.name === "hp") {
@@ -300,10 +327,12 @@ export default class ShopScreen implements Context {
         }
 
         this.updateStatCosts();
+        sfx.play("itemSelect");
       } else {
         const item = new Item(0, 0, items[cmd.name as ItemName]);
         if (!PickingUp.addToInventory(this.g, player, item, true)) return;
         if (item.slot) player.equipment[item.slot] = item;
+        sfx.play("itemSelect");
       }
 
       player.experience -= cost;
@@ -313,12 +342,16 @@ export default class ShopScreen implements Context {
   }
 
   onKey(e: KeyboardEvent): Cmd {
-    switch (e.code) {
+    switch (e.key) {
       case "Escape":
       case "Backspace":
       case "n":
       case "N":
         return { type: "cancel" };
+
+      case "x":
+      case "X":
+        return { type: "examine" };
     }
   }
 
