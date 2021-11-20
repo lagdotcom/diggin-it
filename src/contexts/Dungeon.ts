@@ -201,6 +201,8 @@ export default class Dungeon implements Context {
       case "Return":
         return { type: "exit" };
 
+      case "h":
+      case "H":
       case "?":
         return { type: "help" };
 
