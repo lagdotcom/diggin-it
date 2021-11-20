@@ -351,7 +351,7 @@ export default class Dungeon implements Context {
   }
 
   handleEquip({ index }: EquipCmd): void {
-    const { log, player } = this.g;
+    const { log, player, sfx } = this.g;
 
     let equipped: Item = undefined;
 
@@ -374,6 +374,7 @@ export default class Dungeon implements Context {
         this.g.spent++;
       }
 
+      sfx.play("itemSelect");
       this.g.emit("equipped", { actor: player, equipped, removed });
     }
 

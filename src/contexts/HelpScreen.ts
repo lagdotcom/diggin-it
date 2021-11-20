@@ -4,7 +4,7 @@ import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 
-export default class ExamineScreen implements Context {
+export default class HelpScreen implements Context {
   constructor(public g: Game) {
     requestAnimationFrame(() => this.render());
   }

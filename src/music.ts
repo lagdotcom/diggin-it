@@ -10,7 +10,7 @@ import vaultUrl from "../res/youve-strayed.mp3";
 import MusicLibrary, { MusicName } from "./interfaces/MusicLibrary";
 import { fetchAudio } from "./utils";
 
-class Player implements MusicLibrary {
+class DJ implements MusicLibrary {
   playing?: MusicName;
 
   constructor(private tracks: Record<MusicName, HTMLAudioElement>) {}
@@ -77,7 +77,7 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     fetchAudio(vaultCompleteUrl),
   ]);
 
-  return new Player({
+  return new DJ({
     shallow,
     medium,
     deep,

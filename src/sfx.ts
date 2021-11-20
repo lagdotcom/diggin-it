@@ -41,18 +41,18 @@ class SoundBank implements SfxLibrary {
 export default async function getSoundBank(): Promise<SoundBank> {
   const [
     airWarn,
-    championSight,
+    championSight, // TODO unused
     chip,
-    damageImpact,
-    damageShock,
-    damageTaser,
+    damageImpact, // TODO unused
+    damageShock, // TODO unused
+    damageTaser, // TODO unused
     dead,
     digDirt,
     digSand,
     explode,
-    growlSight,
+    growlSight, // TODO unused
     gulp,
-    heartbeat,
+    heartbeat, // TODO unused
     hurt,
     inkDead,
     inkTeleport,
