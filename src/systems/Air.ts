@@ -4,15 +4,27 @@ import Game from "../Game";
 const warning = bg(lightRed);
 
 export default class Air {
+  private warningCount: number;
+  private warningTimer?: ReturnType<typeof setInterval>;
+
   constructor(public g: Game) {
     g.on("tick", () => this.run());
+
+    this.airWarning = this.airWarning.bind(this);
   }
 
   run(): void {
-    const { log, player } = this.g;
+    const { log, player, sfx } = this.g;
     const { items, fluid } = this.g.contents(player.x, player.y);
 
+    const old = player.ap;
     player.ap -= fluid.airCost;
+
+    if (player.ap < 20 && old >= 20) {
+      sfx.play("airWarn");
+      this.warningCount = 2;
+      this.warningTimer = setInterval(this.airWarning, 1000);
+    }
 
     if (player.ap < 1) {
       player.ap = 0;
@@ -40,5 +52,16 @@ export default class Air {
         type: "burning",
       });
     }
+  }
+
+  private airWarning() {
+    if (this.g.player.ap >= 20 || this.warningCount <= 0) {
+      clearInterval(this.warningTimer);
+      this.warningTimer = undefined;
+      return;
+    }
+
+    this.g.sfx.play("airWarn");
+    this.warningCount--;
   }
 }
