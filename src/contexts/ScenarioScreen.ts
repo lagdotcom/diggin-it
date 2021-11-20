@@ -3,6 +3,7 @@ import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 import CreditsScreen from "./CreditsScreen";
+import HelpScreen from "./HelpScreen";
 
 export default class ScenarioScreen implements Context {
   constructor(public g: Game) {
@@ -15,9 +16,13 @@ export default class ScenarioScreen implements Context {
       case "start":
         return this.g.start();
 
+      case "help":
+        this.g.contexts.push(new HelpScreen(this.g));
+        break;
+
       case "credits":
         this.g.contexts.push(new CreditsScreen(this.g));
-        return;
+        break;
     }
   }
 
@@ -34,6 +39,11 @@ export default class ScenarioScreen implements Context {
       case "c":
       case "C":
         return { type: "credits" };
+
+      case "?":
+      case "h":
+      case "H":
+        return { type: "help" };
     }
   }
   onMouse(): Cmd {
@@ -51,7 +61,8 @@ export default class ScenarioScreen implements Context {
       charsWidth - 2
     );
 
-    chars.drawText(1, charsHeight - 3, "[S]tart");
+    chars.drawText(1, charsHeight - 4, "[S]tart");
+    chars.drawText(1, charsHeight - 3, "[H]elp");
     chars.drawText(1, charsHeight - 2, "[C]redits");
 
     const version = pkg.version;
