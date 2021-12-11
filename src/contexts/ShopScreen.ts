@@ -409,7 +409,9 @@ export default class ShopScreen implements Context {
 
       case "Enter":
       case "Return":
-        return { type: "buy", name: this.getSelectedItem().item };
+        const item = this.getSelectedItem();
+        if (item) return { type: "buy", name: item.item };
+        break;
     }
   }
 
