@@ -81,13 +81,14 @@ export default class Inventory {
       y = 13;
     for (let i = 0; i < player.inventorySize; i++) {
       const item = player.inventory[i];
+      const selected = this.selected === i;
 
       if (!item) {
         // TODO: this sucks
-        drawPanel(chars, x, y, 2, 2);
+        const tileBg = selected ? colourSel : undefined;
+        drawPanel(chars, x, y, 2, 2, undefined, tileBg);
       } else {
         const equipped = item.slot && player.equipment[item.slot] === item;
-        const selected = this.selected === i;
         const tileBg = equipped
           ? selected
             ? colourEqSel
