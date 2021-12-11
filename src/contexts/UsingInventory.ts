@@ -1,23 +1,33 @@
 import Game from "../Game";
 import Cmd, { DropCmd, UseCmd } from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
+import Item from "../Item";
+import Soon from "../Soon";
 import { wrap } from "../utils";
 import Dungeon from "./Dungeon";
+import ExamineScreen from "./ExamineScreen";
 
 export default class UsingInventory implements Context {
+  current?: Item;
+  rerender: Soon;
+
   constructor(public g: Game, public parent: Dungeon) {
+    this.rerender = new Soon(this.render.bind(this));
     this.highlight(0);
   }
 
   exit(): void {
     this.highlight();
+    this.parent.info.clear();
     this.g.contexts.pop();
   }
 
   highlight(index?: number): void {
     this.parent.inventory.selected = index;
     this.g.emit("inventoryChanged", {});
-    this.parent.rerender.start();
+    this.rerender.start();
+
+    this.current = this.g.player.inventory[index];
   }
 
   destination(mx: number, my: number): number {
@@ -51,6 +61,9 @@ export default class UsingInventory implements Context {
       case "N":
         e.preventDefault();
         return { type: "cancel" };
+
+      case "x":
+        return { type: "examine" };
     }
   }
 
@@ -72,21 +85,16 @@ export default class UsingInventory implements Context {
   handle(cmd: Cmd): void {
     switch (cmd.type) {
       case "cancel":
-        this.exit();
         this.parent.rerender.start();
-        break;
-
+        return this.exit();
       case "move":
-        this.highlight(this.destination(cmd.x, cmd.y));
-        break;
-
+        return this.highlight(this.destination(cmd.x, cmd.y));
       case "use":
-        this.handleUse(cmd);
-        break;
-
+        return this.handleUse(cmd);
       case "drop":
-        this.handleDrop(cmd);
-        break;
+        return this.handleDrop(cmd);
+      case "examine":
+        return this.handleExamine();
     }
   }
 
@@ -105,7 +113,17 @@ export default class UsingInventory implements Context {
     }
   }
 
+  handleExamine(): void {
+    const item = this.g.player.inventory[this.parent.inventory.selected];
+    if (item) this.g.contexts.push(new ExamineScreen(this.g, item));
+  }
+
   render(): void {
     this.parent.render();
+
+    if (this.current) {
+      this.parent.info.useItem(this.current);
+      this.parent.info.render();
+    }
   }
 }
