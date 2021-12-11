@@ -95,3 +95,9 @@ export function stillHasMemento(a: Actor): boolean {
 
   return false;
 }
+
+export function wrap(value: number, count: number): number {
+  while (value < 0) value += count;
+  while (value >= count) value -= count;
+  return value;
+}

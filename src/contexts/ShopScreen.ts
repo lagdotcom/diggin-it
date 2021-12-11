@@ -11,6 +11,7 @@ import Context from "../interfaces/Context";
 import Item from "../Item";
 import Soon from "../Soon";
 import { ItemName, items } from "../tables";
+import { wrap } from "../utils";
 import ExamineScreen from "./ExamineScreen";
 
 type SpecialItem = "hp" | "sp" | "dp" | "repair";
@@ -106,6 +107,21 @@ class ShopSection {
 
     this.dirty = true;
   }
+  scrollIntoView(index: number) {
+    const min = this.offset;
+    const max = this.offset + 4;
+
+    if (index < min) {
+      this.offset = index;
+      this.dirty = true;
+      return;
+    }
+
+    if (index > max) {
+      this.offset = index - 4;
+      this.dirty = true;
+    }
+  }
 
   renderPanel() {
     const { x } = this;
@@ -184,6 +200,8 @@ export default class ShopScreen implements Context {
   costs: Record<string, number>;
   exit: [x: number, y: number, w: number, h: number];
   hotspots: Hotspots<string>;
+  column: number;
+  row: number;
 
   constructor(public g: Game) {
     this.costs = {};
@@ -253,6 +271,9 @@ export default class ShopScreen implements Context {
     this.stats = new Stats(g);
     this.inventory = new Inventory(g);
     this.sections = [this.statsSection, this.useSection, this.equipSection];
+    this.column = 0;
+    this.row = 0;
+    this.statsSection.highlighted = 0;
   }
 
   getStatCost(): number {
@@ -284,6 +305,30 @@ export default class ShopScreen implements Context {
 
   handle(cmd: Cmd): void {
     const { player, sfx } = this.g;
+
+    if (cmd.type === "move") {
+      const current = this.sections[this.column];
+
+      if (cmd.x) {
+        const yo = current.highlighted - current.offset;
+        current.highlighted = ixNone;
+
+        this.column = wrap(this.column + cmd.x, this.sections.length);
+        const moved = this.sections[this.column];
+
+        moved.highlighted = moved.offset + yo;
+        if (moved.highlighted >= moved.items.length)
+          moved.highlighted = moved.items.length - 1;
+        this.row = moved.highlighted;
+      } else {
+        this.row = wrap(this.row + cmd.y, current.items.length);
+        current.highlighted = this.row;
+        current.scrollIntoView(this.row);
+      }
+
+      this.rerender.start();
+      return;
+    }
 
     if (cmd.type === "cancel") {
       this.rerender.stop();
@@ -352,6 +397,19 @@ export default class ShopScreen implements Context {
       case "x":
       case "X":
         return { type: "examine" };
+
+      case "ArrowLeft":
+        return { type: "move", x: -1, y: 0 };
+      case "ArrowRight":
+        return { type: "move", x: 1, y: 0 };
+      case "ArrowUp":
+        return { type: "move", x: 0, y: -1 };
+      case "ArrowDown":
+        return { type: "move", x: 0, y: 1 };
+
+      case "Enter":
+      case "Return":
+        return { type: "buy", name: this.getSelectedItem().item };
     }
   }
 
@@ -378,11 +436,17 @@ export default class ShopScreen implements Context {
       }
     }
 
+    let col = 0;
     for (const s of this.sections) {
       const h = s.hotspots;
       const i = h.resolve(...pos);
-      if (i) s.highlighted = i[0];
-      else s.highlighted = ixNone;
+      if (i) {
+        s.highlighted = i[0];
+        this.column = col;
+        this.row = s.highlighted;
+      } else s.highlighted = ixNone;
+
+      col++;
     }
     this.rerender.start();
   }
