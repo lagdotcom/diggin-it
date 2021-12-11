@@ -55,6 +55,8 @@ export default class UsingInventory implements Context {
         return { type: "drop", index: this.parent.inventory.selected };
 
       case "Tab":
+      case "i":
+      case "I":
       case "Escape":
       case "Backspace":
       case "n":

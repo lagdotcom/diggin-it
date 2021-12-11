@@ -1,13 +1,10 @@
+import { colourEq, colourEqSel, colourSel } from "../colours";
 import { drawPanel } from "../drawing";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
 import XY from "../interfaces/XY";
 import { hasAmount } from "../text";
 import RangeOverlay from "./RangeOverlay";
-
-const colourEq = "rgba(255,255,0,0.1)";
-const colourSel = "rgba(255,255,255,0.2)";
-const colourEqSel = "rgba(255,255,0,0.3)";
 
 export default class Inventory {
   dirty: boolean;

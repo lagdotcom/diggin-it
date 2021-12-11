@@ -211,6 +211,8 @@ export default class Dungeon implements Context {
         return { type: "query" };
 
       case "Tab":
+      case "i":
+      case "I":
         e.preventDefault();
         return { type: "inventory" };
     }

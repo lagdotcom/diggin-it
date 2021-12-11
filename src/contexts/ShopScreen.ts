@@ -1,4 +1,4 @@
-import { fg, targetColour } from "../colours";
+import { colourEqSel, fg } from "../colours";
 import PickingUp from "../commands/PickingUp";
 import Inventory from "../display/Inventory";
 import Stats from "../display/Stats";
@@ -147,7 +147,7 @@ class ShopSection {
       if (!item) break;
 
       const highlighted = index === this.highlighted;
-      const colour = highlighted ? fg(targetColour) : "";
+      const colour = highlighted ? fg(colourEqSel) : "";
 
       drawMulti(
         chars,
@@ -156,7 +156,7 @@ class ShopSection {
         2,
         2,
         item.glyph,
-        highlighted ? targetColour : undefined
+        highlighted ? colourEqSel : undefined
       );
       if (item.name) chars.drawText(x + 3, y, colour + item.name);
 
@@ -171,14 +171,14 @@ class ShopSection {
         x + 1,
         21,
         "ScrollUp",
-        this.highlighted === ixScrollUp ? targetColour : "transparent"
+        this.highlighted === ixScrollUp ? colourEqSel : "transparent"
       );
     if (this.canScrollDown)
       chars.draw(
         x + 6,
         21,
         "ScrollDown",
-        this.highlighted === ixScrollDown ? targetColour : "transparent"
+        this.highlighted === ixScrollDown ? colourEqSel : "transparent"
       );
   }
 }

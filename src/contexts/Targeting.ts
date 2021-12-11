@@ -1,4 +1,4 @@
-import { targetColour } from "../colours";
+import { colourEqSel } from "../colours";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
 import Cmd, { TargetCmd } from "../interfaces/Cmd";
@@ -29,10 +29,22 @@ export default class Targeting implements Context {
     this.rerender.start();
   }
 
-  onKey(e: KeyboardEvent): Cmd {
-    // TODO: keyboard selection
+  exit(): void {
+    this.g.contexts.pop();
+    this.parent.rerender.start();
+  }
 
+  onKey(e: KeyboardEvent): Cmd {
     switch (e.key) {
+      case "ArrowLeft":
+        return { type: "move", x: -1, y: 0 };
+      case "ArrowRight":
+        return { type: "move", x: 1, y: 0 };
+      case "ArrowUp":
+        return { type: "move", x: 0, y: -1 };
+      case "ArrowDown":
+        return { type: "move", x: 0, y: 1 };
+
       case "Escape":
       case "Backspace":
       case "n":
@@ -52,13 +64,12 @@ export default class Targeting implements Context {
 
     if (e.type === "click") {
       const [ex, ey] = this.mouse;
-      const [xmod, ymod] = this.parent.display.getOffset();
-      const x = ex - xmod,
-        y = ey - ymod;
+      const [ox, oy] = this.parent.display.getOffset();
+      const x = ex - ox,
+        y = ey - oy;
       const spot = this.hotspots.resolve(x, y);
       if (spot) {
-        this.g.contexts.pop();
-        this.parent.rerender.start();
+        this.exit();
         this.parent.handle(this.cmd.callback([x, y]));
         return;
       }
@@ -74,8 +85,11 @@ export default class Targeting implements Context {
       // TODO: this isn't fully needed
       this.g.emit("refreshed", {});
 
-      this.g.contexts.pop();
-      this.parent.rerender.start();
+      return this.exit();
+    }
+
+    if (cmd.type === "move") {
+      // TODO oh god
     }
   }
 
@@ -83,7 +97,7 @@ export default class Targeting implements Context {
     this.parent.render((data) => {
       if (this.hotspots.resolve(data.x, data.y)) {
         data.glyphs.unshift(targetTile);
-        data.fg = targetColour;
+        data.fg = colourEqSel;
       }
       return data;
     });
