@@ -28,6 +28,7 @@ export default class Inventory {
     g.on("dropped", dirty);
     g.on("equipped", dirty);
     g.on("got", dirty);
+    g.on("inventoryChanged", dirty);
     g.on("refreshed", dirty);
     g.on("used", dirty);
 

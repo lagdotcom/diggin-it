@@ -49,6 +49,7 @@ export interface EventMap {
   got: { actor: Actor; item: Item };
   infoOpened: NoData;
   infoClosed: NoData;
+  inventoryChanged: NoData;
   left: { depth: number; zone: Zone };
   litBomb: { item: Item };
   mapChanged: NoData;

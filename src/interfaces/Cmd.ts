@@ -61,6 +61,10 @@ export interface HelpCmd {
   type: "help";
 }
 
+export interface InventoryCmd {
+  type: "inventory";
+}
+
 export interface MoveCmd {
   type: "move";
   x: number;
@@ -117,6 +121,7 @@ type Cmd =
   | ExpandLogCmd
   | GetCmd
   | HelpCmd
+  | InventoryCmd
   | MoveCmd
   | PushCmd
   | QueryCmd

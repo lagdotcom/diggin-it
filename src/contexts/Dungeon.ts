@@ -55,6 +55,7 @@ import HelpScreen from "./HelpScreen";
 import ScenarioScreen from "./ScenarioScreen";
 import ShopScreen from "./ShopScreen";
 import Targeting from "./Targeting";
+import UsingInventory from "./UsingInventory";
 
 export default class Dungeon implements Context {
   ai: AI;
@@ -208,6 +209,10 @@ export default class Dungeon implements Context {
 
       case "@":
         return { type: "query" };
+
+      case "Tab":
+        e.preventDefault();
+        return { type: "inventory" };
     }
   }
 
@@ -237,24 +242,21 @@ export default class Dungeon implements Context {
 
         if (item) {
           e.preventDefault();
-          if (e.button === 0) {
-            // allow bows to be used when equipped
-            if (
-              item.slot &&
-              item.use &&
-              this.g.player.equipment[item.slot] === item
-            )
-              return { type: "use", index };
-
-            if (item.slot) return { type: "equip", index };
-            else return { type: "use", index };
-          }
+          if (e.button === 0) return this.getInventoryUseCmd(item, index);
           if (e.button === 2) return { type: "drop", index };
         }
       }
 
       if (spot[0] === "log") return { type: "expandlog" };
     }
+  }
+
+  getInventoryUseCmd(item: Item, index: number): Cmd | undefined {
+    if (item.slot && item.use && this.g.player.equipment[item.slot] === item)
+      return { type: "use", index };
+
+    if (item.slot) return { type: "equip", index };
+    else return { type: "use", index };
   }
 
   // TODO: targeting
@@ -280,6 +282,8 @@ export default class Dungeon implements Context {
         return this.handleGet();
       case "help":
         return this.handleHelp();
+      case "inventory":
+        return this.handleInventory();
       case "move":
         return this.handleMove(cmd);
       case "push":
@@ -443,6 +447,10 @@ export default class Dungeon implements Context {
   handleHelp(): void {
     this.g.contexts.push(new HelpScreen(this.g));
     this.rerender.stop();
+  }
+
+  handleInventory(): void {
+    this.g.contexts.push(new UsingInventory(this.g, this));
   }
 
   handleMove({ x, y }: MoveCmd): void {
