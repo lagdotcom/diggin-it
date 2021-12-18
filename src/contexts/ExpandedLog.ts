@@ -8,7 +8,7 @@ export default class ExpandedLog implements Context {
 
   constructor(public g: Game) {
     g.log.expand(true);
-    this.rerender = new Soon(() => this.render());
+    this.rerender = new Soon("ExpandedLog", () => this.render());
     this.rerender.start();
   }
 

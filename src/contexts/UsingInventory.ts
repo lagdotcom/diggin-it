@@ -12,7 +12,8 @@ export default class UsingInventory implements Context {
   rerender: Soon;
 
   constructor(public g: Game, public parent: Dungeon) {
-    this.rerender = new Soon(this.render.bind(this));
+    this.rerender = new Soon("UsingInventory", this.render.bind(this));
+    g.log.add("Selecting... (ESC/r-click to cancel)");
     this.highlight(0);
   }
 
@@ -112,6 +113,7 @@ export default class UsingInventory implements Context {
     if (item) {
       this.exit();
       this.parent.handle(this.parent.getInventoryUseCmd(item, index));
+      this.rerender.stop();
     }
   }
 

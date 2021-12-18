@@ -1,4 +1,4 @@
-import { colourEqSel } from "../colours";
+import { colourEq, colourEqSel, colourSel } from "../colours";
 import Game from "../Game";
 import Hotspots from "../Hotspots";
 import Cmd, { TargetCmd } from "../interfaces/Cmd";
@@ -20,18 +20,36 @@ export default class Targeting implements Context {
       this.hotspots.register(i, x, y, 1, 1)
     );
 
-    this.rerender = new Soon(() => this.render());
+    this.rerender = new Soon("Targeting", () => this.render());
 
-    this.mouse = [-1, -1];
-    parent.rerender.stop();
+    this.mouse = cmd.possibilities[0];
     g.log.add("Targeting... (ESC/r-click to cancel)");
-    g.emit("refreshed", {});
-    this.rerender.start();
+    this.draw();
   }
 
   exit(): void {
     this.g.contexts.pop();
     this.parent.rerender.start();
+  }
+
+  draw(): void {
+    this.g.emit("refreshed", {});
+    this.parent.rerender.stop();
+    this.rerender.start();
+  }
+
+  offset([x, y]: XY, mul = 1): XY {
+    const [ox, oy] = this.parent.display.getOffset();
+    return [x + ox * mul, y + oy * mul];
+  }
+
+  select(): void {
+    const [x, y] = this.mouse;
+    const spot = this.hotspots.resolve(x, y);
+    if (spot) {
+      this.exit();
+      this.parent.handle(this.cmd.callback([x, y]));
+    }
   }
 
   onKey(e: KeyboardEvent): Cmd {
@@ -50,11 +68,15 @@ export default class Targeting implements Context {
       case "n":
       case "N":
         return { type: "cancel" };
+
+      case "Enter":
+      case "Return":
+        return { type: "use", index: NaN };
     }
   }
 
   onMouse(e: MouseEvent): Cmd {
-    this.mouse = this.g.tiles.eventToPosition(e);
+    this.mouse = this.offset(this.g.tiles.eventToPosition(e), -1);
     this.parent.mouse = this.g.chars.eventToPosition(e);
 
     if (e.type === "contextmenu") {
@@ -62,20 +84,9 @@ export default class Targeting implements Context {
       return { type: "cancel" };
     }
 
-    if (e.type === "click") {
-      const [ex, ey] = this.mouse;
-      const [ox, oy] = this.parent.display.getOffset();
-      const x = ex - ox,
-        y = ey - oy;
-      const spot = this.hotspots.resolve(x, y);
-      if (spot) {
-        this.exit();
-        this.parent.handle(this.cmd.callback([x, y]));
-        return;
-      }
-    }
+    if (e.type === "click") return { type: "use", index: NaN };
 
-    this.rerender.start();
+    this.draw();
   }
 
   handle(cmd: Cmd): void {
@@ -89,15 +100,35 @@ export default class Targeting implements Context {
     }
 
     if (cmd.type === "move") {
-      // TODO oh god
+      const [mx, my] = this.mouse;
+      const { x, y } = cmd;
+      this.mouse = [mx + x, my + y];
+      return this.draw();
+    }
+
+    if (cmd.type === "use") {
+      return this.select();
     }
   }
 
   render(): void {
+    const [mx, my] = this.mouse;
+
     this.parent.render((data) => {
-      if (this.hotspots.resolve(data.x, data.y)) {
+      const { x, y } = data;
+      const possible = this.hotspots.resolve(x, y);
+      const highlight = mx === x && my === y;
+
+      const colour = possible
+        ? highlight
+          ? colourEqSel
+          : colourEq
+        : highlight
+        ? colourSel
+        : "";
+      if (colour) {
         data.glyphs.unshift(targetTile);
-        data.fg = colourEqSel;
+        data.fg = colour;
       }
       return data;
     });

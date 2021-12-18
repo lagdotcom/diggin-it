@@ -1,7 +1,11 @@
 export default class Soon {
   handle: number;
 
-  constructor(public callback: () => void, started = false) {
+  constructor(
+    public name: string,
+    public callback: () => void,
+    started = false
+  ) {
     this.handle = 0;
     if (started) this.start();
   }

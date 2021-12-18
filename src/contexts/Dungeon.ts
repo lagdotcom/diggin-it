@@ -131,7 +131,7 @@ export default class Dungeon implements Context {
     this.hotspots.register("inventory", 29, 13, 10, 8);
     this.hotspots.register("log", 0, height - 6, width, 6);
     this.mouse = [-1, -1];
-    this.rerender = new Soon(() => this.render());
+    this.rerender = new Soon("Dungeon", () => this.render());
   }
 
   get canMove(): boolean {

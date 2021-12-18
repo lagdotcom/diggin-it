@@ -206,7 +206,7 @@ export default class ShopScreen implements Context {
   constructor(public g: Game) {
     this.costs = {};
     this.firstRender = true;
-    this.rerender = new Soon(() => this.render(), true);
+    this.rerender = new Soon("ShopScreen", () => this.render(), true);
 
     this.exit = [17, g.charsHeight - 3, 6, 3];
     this.hotspots = new Hotspots();
