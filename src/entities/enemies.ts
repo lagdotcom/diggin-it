@@ -366,6 +366,6 @@ export const theRedInk: Partial<ActorOptions> = {
   knockBackChance: 5,
   experience: 3000,
   teleportThreshold: 30,
-  // TODO: leaves fire when teleporting
+  // leaves fire when teleporting
   lore: "\"Whatever this hideous creature is, it's far from cognizant of what's occurring around it. Extreme heat emanates all around this flying yolk of terror, all while it parades a legion of faces that sag like ink saturated paper. I must report this finding, I must know why it is here, and I know I must be closer than ever to the Wisher's Fragment.\" - Jacques Splintertooth",
 };

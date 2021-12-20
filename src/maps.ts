@@ -118,7 +118,7 @@ const actorTypes: Record<string, Partial<ActorOptions> | Picker<ActorOptions>> =
     "2": getRandomEnemy,
     "3": higherOfTwo(getRandomEnemy, (e) => e.maxHp),
     // "4": theInk,
-    // TODO "5": theBlot,
+    // "5": theBlot,
     "8": getRandomChampion,
 
     O: boulder,

@@ -261,7 +261,6 @@ export default class Dungeon implements Context {
     else return { type: "use", index };
   }
 
-  // TODO: targeting
   handle(cmd: Cmd): void {
     switch (cmd.type) {
       case "attack":
