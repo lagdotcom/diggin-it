@@ -3,9 +3,12 @@ export type MusicName =
   | "medium"
   | "deep"
   | "ink"
+  | "eleven"
+  | "blot"
   | "mystery"
   | "shiny"
   | "consolation"
+  | "winner"
   | "vault"
   | "vaultComplete";
 

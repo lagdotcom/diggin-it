@@ -1,3 +1,4 @@
+import blotUrl from "../res/cherry-pit.mp3";
 import consolationUrl from "../res/consolation-sting.mp3";
 import mediumUrl from "../res/flowstone-flood.mp3";
 import deepUrl from "../res/grumbles.mp3";
@@ -6,6 +7,8 @@ import mysteryUrl from "../res/mystery-sting.mp3";
 import inkUrl from "../res/sealed-in-ink.mp3";
 import shinyUrl from "../res/shiny-sting.mp3";
 import vaultCompleteUrl from "../res/slab-plus.mp3";
+import winnerUrl from "../res/tunntop.mp3";
+import elevenUrl from "../res/unknown-coordinates.mp3";
 import vaultUrl from "../res/youve-strayed.mp3";
 import MusicLibrary, { MusicName } from "./interfaces/MusicLibrary";
 import { fetchAudio } from "./utils";
@@ -65,6 +68,9 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     consolation,
     vault,
     vaultComplete,
+    eleven,
+    blot,
+    winner,
   ] = await Promise.all([
     fetchAudio(shallowUrl, true),
     fetchAudio(mediumUrl, true),
@@ -75,6 +81,9 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     fetchAudio(consolationUrl),
     fetchAudio(vaultUrl, true),
     fetchAudio(vaultCompleteUrl),
+    fetchAudio(elevenUrl, true),
+    fetchAudio(blotUrl, true),
+    fetchAudio(winnerUrl, true),
   ]);
 
   return new DJ({
@@ -87,5 +96,8 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     consolation,
     vault,
     vaultComplete,
+    eleven,
+    blot,
+    winner,
   });
 }

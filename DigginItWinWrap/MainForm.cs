@@ -15,6 +15,7 @@ namespace DigginItWinWrap
             { "bundle.min.js", Properties.Resources.bundle_min_js },
             { "favicon.ico", Properties.Resources.favicon_ico },
 
+            { "cherry-pit.mp3", Properties.Resources.cherry_pit_mp3 },
             { "consolation-sting.mp3", Properties.Resources.consolation_sting_mp3 },
             { "flowstone-flood.mp3", Properties.Resources.flowstone_flood_mp3 },
             { "grumbles.mp3", Properties.Resources.grumbles_mp3 },
@@ -23,6 +24,8 @@ namespace DigginItWinWrap
             { "sealed-in-ink.mp3", Properties.Resources.sealed_in_ink_mp3 },
             { "shiny-sting.mp3", Properties.Resources.shiny_sting_mp3 },
             { "slab-plus.mp3", Properties.Resources.slab_plus_mp3 },
+            { "tunntop.mp3", Properties.Resources.tunntop_mp3 },
+            { "unknown-coordinates.mp3", Properties.Resources.unknown_coordinates_mp3 },
             { "youve-strayed.mp3", Properties.Resources.youve_strayed_mp3 },
 
             { "airWarn.mp3", Properties.Resources.airWarn_mp3 },

@@ -9,6 +9,8 @@ export default abstract class EndingScreen implements Context {
   constructor(public g: Game) {
     this.stage = 0;
     requestAnimationFrame(() => this.render());
+
+    g.music.play("winner");
   }
 
   next(): void {

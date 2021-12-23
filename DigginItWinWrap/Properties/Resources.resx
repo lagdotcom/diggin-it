@@ -127,6 +127,9 @@
   <data name="championSight.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\championSight.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="cherry_pit.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\cherry-pit.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="chip.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\chip.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -220,8 +223,14 @@
   <data name="smash.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\smash.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="tunntop.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\tunntop.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="unknown_coordinates.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\unknown-coordinates.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Version" xml:space="preserve">
-    <value>1.0.24</value>
+    <value>1.0.25</value>
   </data>
   <data name="youve_strayed.mp3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\youve-strayed.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

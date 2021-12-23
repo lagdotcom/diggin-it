@@ -118,39 +118,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bundle.min.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\consolation-sting.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\flowstone-flood.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\grumbles.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\index.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\lost-in-lessonus.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\mystery-sting.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\sealed-in-ink.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\shiny-sting.mp3" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\airWarn.mp3" />
+    <Content Include="Resources\bundle.min.js" />
     <Content Include="Resources\championSight.mp3" />
+    <Content Include="Resources\cherry-pit.mp3" />
     <Content Include="Resources\chip.mp3" />
+    <Content Include="Resources\consolation-sting.mp3" />
     <Content Include="Resources\damageImpact.mp3" />
     <Content Include="Resources\damageShock.mp3" />
     <Content Include="Resources\damageTaser.mp3" />
@@ -158,20 +131,30 @@
     <Content Include="Resources\digDirt.mp3" />
     <Content Include="Resources\digSand.mp3" />
     <Content Include="Resources\explode.mp3" />
+    <Content Include="Resources\favicon.ico" />
+    <Content Include="Resources\flowstone-flood.mp3" />
     <Content Include="Resources\growlSight.mp3" />
+    <Content Include="Resources\grumbles.mp3" />
     <Content Include="Resources\gulp.mp3" />
     <Content Include="Resources\heartbeat.mp3" />
     <Content Include="Resources\hurt.mp3" />
+    <Content Include="Resources\index.html" />
     <Content Include="Resources\inkDead.mp3" />
     <Content Include="Resources\inkTeleport.mp3" />
     <Content Include="Resources\itemGet.mp3" />
     <Content Include="Resources\itemSelect.mp3" />
+    <Content Include="Resources\lost-in-lessonus.mp3" />
     <Content Include="Resources\money.mp3" />
+    <Content Include="Resources\mystery-sting.mp3" />
     <Content Include="Resources\projectile.mp3" />
     <Content Include="Resources\rockSmash.mp3" />
+    <Content Include="Resources\sealed-in-ink.mp3" />
+    <Content Include="Resources\shiny-sting.mp3" />
     <Content Include="Resources\slab-plus.mp3" />
     <Content Include="Resources\smallDead.mp3" />
     <Content Include="Resources\smash.mp3" />
+    <Content Include="Resources\tunntop.mp3" />
+    <Content Include="Resources\unknown-coordinates.mp3" />
     <Content Include="Resources\youve-strayed.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

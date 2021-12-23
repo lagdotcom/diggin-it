@@ -5,9 +5,12 @@ const zoneTracks: MusicName[] = ["shallow", "medium", "deep"];
 
 export default class Music {
   constructor(public g: Game) {
-    g.on("entered", ({ depth, zone }) => {
+    g.on("entered", ({ depth, zone, isSideArea }) => {
       if (depth < 10) g.music.play(zoneTracks[zone]);
-      else g.music.stop();
+      else if (depth === 11) {
+        if (isSideArea) g.music.play("blot");
+        else g.music.play("eleven");
+      } else g.music.stop();
     });
 
     g.on("noticed", ({ actor }) => {

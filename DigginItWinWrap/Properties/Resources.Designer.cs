@@ -93,6 +93,16 @@ namespace DigginItWinWrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] cherry_pit_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("cherry_pit.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] chip_mp3 {
             get {
                 object obj = ResourceManager.GetObject("chip.mp3", resourceCulture);
@@ -401,7 +411,27 @@ namespace DigginItWinWrap.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1.0.16.
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] tunntop_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("tunntop.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] unknown_coordinates_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("unknown_coordinates.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.0.25.
         /// </summary>
         internal static string Version {
             get {
