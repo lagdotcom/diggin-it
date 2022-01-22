@@ -9,8 +9,9 @@
 /node_modules
 /redbean.com
 
-/DigginItWinWrap/bin
-/DigginItWinWrap/obj
-/DigginItWinWrap/packages
-/DigginItWinWrap/Resources
-*.suo
+/DigginItWrapper/.vs
+/DigginItWrapper/bin
+/DigginItWrapper/obj
+/DigginItWrapper/packages
+/DigginItWrapper/Resources
+/DigginItWrapper/resources.zip

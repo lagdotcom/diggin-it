@@ -47,12 +47,19 @@ export type Distribution<T extends string> = Partial<Record<T, number>>;
 export const pickByWeight = <T extends string>(weights: Distribution<T>): T =>
   RNG.getWeightedValue(weights) as T;
 
-export function fetchAudio(
-  url: string,
-  loop = false
-): Promise<HTMLAudioElement> {
-  return new Promise((resolve, reject) => {
+export function fetchAudio(url: string, loop = false) {
+  return new Promise<HTMLAudioElement>((resolve, reject) => {
     const aud = document.createElement("audio");
+    aud.loop = loop;
+    aud.preload = "auto";
+
+    const src = document.createElement("source");
+    src.src = url;
+    aud.append(src);
+
+    log("started fetching:", url);
+    aud.load();
+
     aud.addEventListener("canplay", () => {
       log("partially loaded:", url);
       resolve(aud);
@@ -61,12 +68,9 @@ export function fetchAudio(
       log("fully loaded:", url);
     });
     aud.addEventListener("error", () => {
-      log("couldn't load:", url);
+      log("couldn't load:", url, aud.error);
       reject(aud);
     });
-    aud.loop = loop;
-    aud.src = url;
-    log("started fetching:", url);
   });
 }
 
