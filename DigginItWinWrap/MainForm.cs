@@ -21,6 +21,7 @@ namespace DigginItWinWrap
             { "grumbles.mp3", Properties.Resources.grumbles_mp3 },
             { "lost-in-lessonus.mp3", Properties.Resources.lost_in_lessonus_mp3 },
             { "mystery-sting.mp3", Properties.Resources.mystery_sting_mp3 },
+            { "otmt.mp3", Properties.Resources.otmt_mp3 },
             { "sealed-in-ink.mp3", Properties.Resources.sealed_in_ink_mp3 },
             { "shiny-sting.mp3", Properties.Resources.shiny_sting_mp3 },
             { "slab-plus.mp3", Properties.Resources.slab_plus_mp3 },

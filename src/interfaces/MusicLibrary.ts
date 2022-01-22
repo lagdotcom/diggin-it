@@ -9,6 +9,7 @@ export type MusicName =
   | "shiny"
   | "consolation"
   | "winner"
+  | "badWinner"
   | "vault"
   | "vaultComplete";
 

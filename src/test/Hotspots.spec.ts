@@ -1,6 +1,3 @@
-import { strict as assert } from "assert";
-import { describe, it } from "mocha";
-
 import Hotspots from "../Hotspots";
 
 describe("Hotspots", () => {
@@ -9,18 +6,18 @@ describe("Hotspots", () => {
     h.register("one", 0, 0, 5, 5);
     h.register("two", 10, 10, 5, 5);
 
-    assert.deepEqual(h.resolve(2, 2), ["one", 1, 1]);
-    assert.deepEqual(h.resolve(10, 10), ["two", 0, 0]);
-    assert.deepEqual(h.resolve(14, 14), ["two", 2, 2]);
-    assert.deepEqual(h.resolve(15, 15), undefined);
+    expect(h.resolve(2, 2)).toStrictEqual(["one", 1, 1]);
+    expect(h.resolve(10, 10)).toStrictEqual(["two", 0, 0]);
+    expect(h.resolve(14, 14)).toStrictEqual(["two", 2, 2]);
+    expect(h.resolve(15, 15)).toBeUndefined();
   });
 
   it("resolves overlaps", () => {
     const h = new Hotspots();
     h.register("brood hall entrance", 5, 21, 13, 6);
 
-    assert.equal(h.overlap(5, 16, 5, 5), false);
-    assert.equal(h.overlap(13, 26, 7, 3), true);
-    assert.equal(h.overlap(13, 27, 7, 3), false);
+    expect(h.overlap(5, 16, 5, 5)).toBeFalsy();
+    expect(h.overlap(13, 26, 7, 3)).toBeTruthy();
+    expect(h.overlap(13, 27, 7, 3)).toBeFalsy();
   });
 });

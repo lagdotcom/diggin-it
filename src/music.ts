@@ -4,6 +4,7 @@ import mediumUrl from "../res/flowstone-flood.mp3";
 import deepUrl from "../res/grumbles.mp3";
 import shallowUrl from "../res/lost-in-lessonus.mp3";
 import mysteryUrl from "../res/mystery-sting.mp3";
+import badWinnerUrl from "../res/otmt.mp3";
 import inkUrl from "../res/sealed-in-ink.mp3";
 import shinyUrl from "../res/shiny-sting.mp3";
 import vaultCompleteUrl from "../res/slab-plus.mp3";
@@ -71,6 +72,7 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     eleven,
     blot,
     winner,
+    badWinner,
   ] = await Promise.all([
     fetchAudio(shallowUrl, true),
     fetchAudio(mediumUrl, true),
@@ -84,6 +86,7 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     fetchAudio(elevenUrl, true),
     fetchAudio(blotUrl, true),
     fetchAudio(winnerUrl, true),
+    fetchAudio(badWinnerUrl, true),
   ]);
 
   return new DJ({
@@ -99,5 +102,6 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     eleven,
     blot,
     winner,
+    badWinner,
   });
 }

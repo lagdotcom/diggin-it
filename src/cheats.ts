@@ -168,15 +168,16 @@ function gotoScene(scene: string) {
 }
 
 export function initCheats(): void {
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  (window as any).g = Game.INSTANCE;
-  (window as any).idclvl = testChangeLevel;
-  (window as any).keepyourselfalive = testGodMode;
-  (window as any).theboss = testTheInk;
-  (window as any).thenewboss = testTheBlot;
-  (window as any).gather = gatherAllStats;
-  (window as any).gimme = spawnItem;
-  (window as any).spendmoremoney = gotoShop;
-  (window as any).showme = gotoScene;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const bigTruck = window as any;
+
+  bigTruck.g = Game.INSTANCE;
+  bigTruck.idclvl = testChangeLevel;
+  bigTruck.keepyourselfalive = testGodMode;
+  bigTruck.theboss = testTheInk;
+  bigTruck.thenewboss = testTheBlot;
+  bigTruck.gather = gatherAllStats;
+  bigTruck.gimme = spawnItem;
+  bigTruck.spendmoremoney = gotoShop;
+  bigTruck.showme = gotoScene;
 }

@@ -1,16 +1,17 @@
 import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
+import { MusicName } from "../interfaces/MusicLibrary";
 import ScenarioScreen from "./ScenarioScreen";
 
 export default abstract class EndingScreen implements Context {
   stage: number;
 
-  constructor(public g: Game) {
+  constructor(public g: Game, track: MusicName = "winner") {
     this.stage = 0;
     requestAnimationFrame(() => this.render());
 
-    g.music.play("winner");
+    g.music.play(track);
   }
 
   next(): void {

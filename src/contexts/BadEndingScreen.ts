@@ -1,6 +1,11 @@
+import Game from "../Game";
 import EndingScreen from "./EndingScreen";
 
 export default class BadEndingScreen extends EndingScreen {
+  constructor(g: Game) {
+    super(g, "badWinner");
+  }
+
   render(): void {
     const { chars, graphics, tiles } = this.g;
 

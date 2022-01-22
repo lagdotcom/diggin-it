@@ -343,6 +343,16 @@ namespace DigginItWinWrap.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] otmt_mp3 {
+            get {
+                object obj = ResourceManager.GetObject("otmt.mp3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] projectile_mp3 {
             get {
                 object obj = ResourceManager.GetObject("projectile.mp3", resourceCulture);

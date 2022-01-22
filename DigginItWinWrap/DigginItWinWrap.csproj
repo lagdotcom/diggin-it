@@ -146,6 +146,7 @@
     <Content Include="Resources\lost-in-lessonus.mp3" />
     <Content Include="Resources\money.mp3" />
     <Content Include="Resources\mystery-sting.mp3" />
+    <Content Include="Resources\otmt.mp3" />
     <Content Include="Resources\projectile.mp3" />
     <Content Include="Resources\rockSmash.mp3" />
     <Content Include="Resources\sealed-in-ink.mp3" />
