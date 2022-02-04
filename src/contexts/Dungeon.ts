@@ -247,9 +247,34 @@ export default class Dungeon implements Context {
           if (e.button === 0) return this.getInventoryUseCmd(item, index);
           if (e.button === 2) return { type: "drop", index };
         }
-      }
+      } else if (spot[0] === "log") return { type: "expandlog" };
+      else if (spot[0] === "display") {
+        e.preventDefault();
 
-      if (spot[0] === "log") return { type: "expandlog" };
+        const { x, y } = this.g.player;
+        const [ex, ey] = this.g.tiles.eventToPosition(e);
+        const [ox, oy] = this.display.getOffset();
+        const mx = ex - ox;
+        const my = ey - oy;
+        const xd = mx - x;
+        const yd = my - y;
+
+        // don't allow far/diagonal clicks
+        if (Math.abs(xd) + Math.abs(yd) > 1) return;
+
+        // click self: wait/get/enter
+        if (x === mx && y === my) {
+          if (e.button > 0) return { type: "get" };
+
+          const tile = this.g.map.get(this.g.player.x, this.g.player.y);
+          if (tile.exit) return { type: "exit" };
+          return { type: "wait" };
+        }
+
+        // click nearby: move/dig
+        if (e.button > 0) return { type: "dig", x: mx, y: my };
+        return { type: "move", x: xd, y: yd };
+      }
     }
   }
 

@@ -86,7 +86,7 @@ export default async function getMusicLibrary(): Promise<MusicLibrary> {
     fetchAudio(elevenUrl, true),
     fetchAudio(blotUrl, true),
     fetchAudio(winnerUrl, true),
-    fetchAudio(badWinnerUrl, true),
+    fetchAudio(badWinnerUrl),
   ]);
 
   return new DJ({

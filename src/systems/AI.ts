@@ -297,6 +297,7 @@ export default class AI {
     const below = this.g.contents(actor.x + mx, actor.y + my + 1);
     if (below.tile.solid) return true;
     if (below.actor?.pushable) return true;
+    if (below.tile.walkOntoDamage) return false;
 
     // falling one step is acceptable - can get back up
     const further = this.g.contents(actor.x + mx, actor.y + my + 2);

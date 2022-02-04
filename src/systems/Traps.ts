@@ -25,7 +25,7 @@ export default class Traps {
 
     const tile = map.get(victim.x, victim.y + 1);
     const amount = tile.fallOntoDamage;
-    if (amount) {
+    if (amount && !victim.pushable) {
       const parent = victim.parent || victim;
 
       if (parent.player) log.add(`${theName(tile, true)} cuts you apart!`);
@@ -44,7 +44,7 @@ export default class Traps {
 
     const tile = map.get(victim.x, victim.y + 1);
     const amount = tile.walkOntoDamage;
-    if (amount) {
+    if (amount && !victim.pushable) {
       const parent = victim.parent || victim;
 
       if (parent.player) log.add(`${theName(tile, true)} cuts your feet!`);
