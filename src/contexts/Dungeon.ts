@@ -162,22 +162,35 @@ export default class Dungeon implements Context {
       //   this.g.nextMap();
       //   return;
 
+      case "a":
+      case "A":
+      case "4":
       case "ArrowLeft":
         e.preventDefault();
         if (shift) return { type: "dig", x: x - 1, y: y };
         return { type: "move", x: -1, y: 0 };
+      case "w":
+      case "W":
+      case "8":
       case "ArrowUp":
         e.preventDefault();
         if (shift) return { type: "dig", x: x, y: y - 1 };
         return { type: "move", x: 0, y: -1 };
+      case "d":
+      case "D":
+      case "6":
       case "ArrowRight":
         e.preventDefault();
         if (shift) return { type: "dig", x: x + 1, y: y };
         return { type: "move", x: 1, y: 0 };
+      case "s":
+      case "S":
+      case "2":
       case "ArrowDown":
         e.preventDefault();
         if (shift) return { type: "dig", x: x, y: y + 1 };
         return { type: "move", x: 0, y: 1 };
+
       case "g":
       case "G":
       case ",":

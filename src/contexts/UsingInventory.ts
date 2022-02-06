@@ -38,12 +38,24 @@ export default class UsingInventory implements Context {
 
   onKey(e: KeyboardEvent): Cmd {
     switch (e.key) {
+      case "a":
+      case "A":
+      case "4":
       case "ArrowLeft":
         return { type: "move", x: -1, y: 0 };
+      case "d":
+      case "D":
+      case "6":
       case "ArrowRight":
         return { type: "move", x: 1, y: 0 };
+      case "w":
+      case "W":
+      case "8":
       case "ArrowUp":
         return { type: "move", x: 0, y: -1 };
+      case "s":
+      case "S":
+      case "2":
       case "ArrowDown":
         return { type: "move", x: 0, y: 1 };
 
@@ -51,8 +63,11 @@ export default class UsingInventory implements Context {
       case "Return":
         return { type: "use", index: this.parent.inventory.selected };
 
-      case "d":
-      case "D":
+      case "l":
+      case "L":
+      case "r":
+      case "R":
+      case "Delete":
         return { type: "drop", index: this.parent.inventory.selected };
 
       case "Tab":
@@ -66,6 +81,7 @@ export default class UsingInventory implements Context {
         return { type: "cancel" };
 
       case "x":
+      case "X":
         return { type: "examine" };
     }
   }

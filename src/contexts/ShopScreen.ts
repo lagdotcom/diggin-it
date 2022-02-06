@@ -398,12 +398,24 @@ export default class ShopScreen implements Context {
       case "X":
         return { type: "examine" };
 
+      case "a":
+      case "A":
+      case "4":
       case "ArrowLeft":
         return { type: "move", x: -1, y: 0 };
+      case "d":
+      case "D":
+      case "6":
       case "ArrowRight":
         return { type: "move", x: 1, y: 0 };
+      case "w":
+      case "W":
+      case "8":
       case "ArrowUp":
         return { type: "move", x: 0, y: -1 };
+      case "s":
+      case "S":
+      case "2":
       case "ArrowDown":
         return { type: "move", x: 0, y: 1 };
 
