@@ -42,10 +42,17 @@ export default class Movement {
   }
 
   static canClimb(g: Game, sx: number, sy: number, mx: number): boolean {
+    const step = g.contents(sx + mx, sy);
     const thru = g.contents(sx, sy - 1);
     const above = g.contents(sx + mx, sy - 1);
 
-    return !thru.actor && !thru.tile.solid && !above.actor && !above.tile.solid;
+    return (
+      (step.actor?.pushable || step.tile.solid) &&
+      !thru.actor &&
+      !thru.tile.solid &&
+      !above.actor &&
+      !above.tile.solid
+    );
   }
 
   apply(mx: number, my: number): void {

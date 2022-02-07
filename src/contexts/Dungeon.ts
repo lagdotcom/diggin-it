@@ -190,6 +190,20 @@ export default class Dungeon implements Context {
         if (shift) return { type: "dig", x: x, y: y + 1 };
         return { type: "move", x: 0, y: 1 };
 
+      case "q":
+      case "Q":
+      case "7":
+      case "Home":
+        e.preventDefault();
+        return { type: "climb", x: x - 1, y: y - 1 };
+
+      case "e":
+      case "E":
+      case "9":
+      case "PageUp":
+        e.preventDefault();
+        return { type: "climb", x: x + 1, y: y - 1 };
+
       case "g":
       case "G":
       case ",":
@@ -271,6 +285,14 @@ export default class Dungeon implements Context {
         const xd = mx - x;
         const yd = my - y;
 
+        // is it an attempted climb?
+        if (
+          Math.abs(xd) === 1 &&
+          yd === -1 &&
+          Movement.canClimb(this.g, x, y, xd)
+        )
+          return { type: "climb", x: mx, y: my };
+
         // don't allow far/diagonal clicks
         if (Math.abs(xd) + Math.abs(yd) > 1) return;
 
@@ -349,6 +371,11 @@ export default class Dungeon implements Context {
 
   handleClimb({ x, y }: ClimbCmd): void {
     const { player } = this.g;
+
+    if (!Movement.canClimb(this.g, player.x, player.y, x - player.x)) {
+      this.g.log.add("It's blocked.");
+      return this.render();
+    }
 
     if (player.stunTimer > 0) {
       this.g.log.add("You're stunned.");

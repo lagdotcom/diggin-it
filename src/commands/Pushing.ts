@@ -20,7 +20,7 @@ export default class Pushing {
 
     // TODO: squashing?
     if (actor || tile.solid) {
-      if (my == 0 && Movement.canClimb(this.g, pusher.x, pusher.y, mx))
+      if (my === 0 && Movement.canClimb(this.g, pusher.x, pusher.y, mx))
         return { type: "climb", x: thing.x, y: thing.y - 1 };
 
       return "There's something in the way.";
