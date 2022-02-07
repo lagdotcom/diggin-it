@@ -24,7 +24,7 @@ import TileDisplay from "./interfaces/TileDisplay";
 import { getZone } from "./interfaces/Zone";
 import Item from "./Item";
 import LinearGrid from "./LinearGrid";
-import { generateMap } from "./mapgen";
+import { generateMap, generateSideArea } from "./mapgen";
 import { loadMap } from "./maps";
 import { getNewPlayer } from "./prefabs";
 import Tile from "./Tile";
@@ -112,6 +112,13 @@ export default class Game extends EventHandler {
     this.player = getNewPlayer();
     this.player.fullHeal();
     this.nextMap();
+  }
+
+  enterSideArea(sideArea: string) {
+    const [map, fluid, side, vaults] = generateSideArea(sideArea);
+    this.visitedAreas.push(sideArea);
+    this.useMap(map, fluid, true, side, vaults);
+    this.music.play("vault");
   }
 
   nextMap(seed?: number): void {

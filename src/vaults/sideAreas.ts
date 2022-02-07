@@ -1,4 +1,3 @@
-/* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 import { zanq } from "./zan";
 
@@ -499,4 +498,3 @@ export const areas =
     [hellfireEntrance.name]:
       hellfire,
   };
-/* eslint-enable radar/no-duplicate-string */

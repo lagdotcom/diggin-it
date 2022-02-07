@@ -1,4 +1,3 @@
-/* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 
 const boss1 =
@@ -62,4 +61,3 @@ export default [
   boss2,
   boss3,
 ];
-/* eslint-enable radar/no-duplicate-string */

@@ -1,4 +1,3 @@
-/* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 
 export const artery =
@@ -53,4 +52,3 @@ export const finalArena =
       "                ",
     ]
   );
-/* eslint-enable radar/no-duplicate-string */

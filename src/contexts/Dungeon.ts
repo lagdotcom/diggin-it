@@ -27,7 +27,6 @@ import Context from "../interfaces/Context";
 import XY from "../interfaces/XY";
 import { getZone } from "../interfaces/Zone";
 import Item from "../Item";
-import { generateSideArea } from "../mapgen";
 import Soon from "../Soon";
 import AI from "../systems/AI";
 import Air from "../systems/Air";
@@ -432,18 +431,14 @@ export default class Dungeon implements Context {
   }
 
   handleExit(): void {
-    const { log, map, music, player, sideArea } = this.g;
+    const { log, map, player, sideArea } = this.g;
     const tile = map.get(player.x, player.y);
 
     if (tile.exit === "normal") {
       this.leaveArea();
     } else if (tile.exit === "side" && sideArea) {
       log.add(`You enter the strange doorway...`);
-
-      const [map, fluid, side, vaults] = generateSideArea(sideArea);
-      this.g.visitedAreas.push(sideArea);
-      this.g.useMap(map, fluid, true, side, vaults);
-      music.play("vault");
+      return this.g.enterSideArea(sideArea);
     } else if (tile.exit === "closed") {
       log.add("It's sealed shut.");
       return this.render();

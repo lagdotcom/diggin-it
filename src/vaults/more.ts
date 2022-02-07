@@ -1,4 +1,3 @@
-/* eslint-disable radar/no-duplicate-string */
 import Vault from "../Vault";
 import { zanq } from "./zan";
 
@@ -213,4 +212,3 @@ export default [
   egg,
   slasher,
 ];
-/* eslint-enable radar/no-duplicate-string */

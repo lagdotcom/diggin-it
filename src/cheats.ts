@@ -167,6 +167,13 @@ function gotoScene(scene: string) {
   }
 }
 
+function gotoSide(area: string) {
+  const g = Game.INSTANCE;
+
+  g.log.add("You fall into a black hole!");
+  g.enterSideArea(area);
+}
+
 export function initCheats(): void {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bigTruck = window as any;
@@ -180,4 +187,5 @@ export function initCheats(): void {
   bigTruck.gimme = spawnItem;
   bigTruck.spendmoremoney = gotoShop;
   bigTruck.showme = gotoScene;
+  bigTruck.keenwalksinto = gotoSide;
 }
