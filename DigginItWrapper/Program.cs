@@ -32,7 +32,9 @@ namespace DigginItWrapper
 
             string addr = $"http://{server.LocalEndpoint}/";
             Console.WriteLine($"Listening on {addr}");
+
             OpenBrowser(addr);
+            Console.WriteLine("Browser opening...");
 
             th = new Thread(new ThreadStart(Listen));
             th.Start();
@@ -134,7 +136,7 @@ namespace DigginItWrapper
                 }
 
                 try
-                { 
+                {
                     conn.Close();
                 }
                 catch (Exception e)
