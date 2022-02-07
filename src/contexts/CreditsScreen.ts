@@ -60,6 +60,11 @@ export default class CreditsScreen implements Context {
     chars.drawText(2, y++, "Jacob J. Ritz");
     chars.drawText(2, y++, "Zan-zan-zawa-veia");
 
+    y++;
+    chars.drawText(1, y++, "Testing:");
+    chars.drawText(2, y++, "Nicholas Houser");
+    chars.drawText(2, y++, "Cloud8745");
+
     chars.drawText(1, charsHeight - 2, "[ESC] to go back");
   }
 }
