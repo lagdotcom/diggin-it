@@ -12,6 +12,7 @@ export default class Digging {
 
     if (actor) {
       if (actor.durability < Infinity) return undefined;
+      if (actor.alive) return { type: "attack", x, y };
 
       return "It's too tough to dig.";
     }
