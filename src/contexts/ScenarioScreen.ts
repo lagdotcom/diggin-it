@@ -1,17 +1,35 @@
 import pkg from "../../package.json";
+import { colourEq, fg, lightRed } from "../colours";
 import Game from "../Game";
+import Hotspots from "../Hotspots";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
+import Soon from "../Soon";
 import CreditsScreen from "./CreditsScreen";
 import HelpScreen from "./HelpScreen";
 
+type MenuItem = "start" | "help" | "credits";
+
 export default class ScenarioScreen implements Context {
+  hotspots: Hotspots<MenuItem>;
+  hover?: string;
+  rerender: Soon;
+
   constructor(public g: Game) {
+    const { charsHeight } = g;
+    this.hotspots = new Hotspots();
+    this.hotspots.register("start", 1, charsHeight - 4, 7, 1);
+    this.hotspots.register("help", 1, charsHeight - 3, 6, 1);
+    this.hotspots.register("credits", 1, charsHeight - 2, 9, 1);
+
     g.log.clear();
+    this.rerender = new Soon("ScenarioScreen", () => this.render());
     this.render();
   }
 
   handle(cmd: Cmd): void {
+    this.rerender.stop();
+
     switch (cmd.type) {
       case "start":
         return this.g.start();
@@ -46,8 +64,33 @@ export default class ScenarioScreen implements Context {
         return { type: "help" };
     }
   }
-  onMouse(): Cmd {
-    return undefined;
+  onMouse(e: MouseEvent): Cmd {
+    const [mx, my] = this.g.chars.eventToPosition(e);
+    const spot = this.hotspots.resolve(mx, my);
+
+    if (spot) {
+      const [type] = spot;
+      if (e.type === "click") return { type };
+
+      if (this.hover !== type) {
+        this.hover = type;
+        this.rerender.start();
+      }
+    } else if (this.hover) {
+      this.hover = undefined;
+      this.rerender.start();
+    }
+  }
+
+  renderMenu(): void {
+    const { chars, charsHeight } = this.g;
+
+    const sel = (item: MenuItem, label: string) =>
+      this.hover === item ? fg(colourEq) + label : label;
+
+    chars.drawText(1, charsHeight - 4, sel("start", "[S]tart"));
+    chars.drawText(1, charsHeight - 3, sel("help", "[H]elp"));
+    chars.drawText(1, charsHeight - 2, sel("credits", "[C]redits"));
   }
 
   render(): void {
@@ -61,15 +104,13 @@ export default class ScenarioScreen implements Context {
       charsWidth - 2
     );
 
-    chars.drawText(1, charsHeight - 4, "[S]tart");
-    chars.drawText(1, charsHeight - 3, "[H]elp");
-    chars.drawText(1, charsHeight - 2, "[C]redits");
+    this.renderMenu();
 
     const version = pkg.version;
     chars.drawText(
       charsWidth - version.length - 2,
       charsHeight - 2,
-      "v" + version
+      fg(lightRed) + "v" + version
     );
   }
 }
