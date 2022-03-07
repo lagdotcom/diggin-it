@@ -1,4 +1,4 @@
-import EndingScreen from "./EndingScreen";
+import EndingScreen from "./base/EndingScreen";
 
 export default class GoodEndingScreen extends EndingScreen {
   render(): void {

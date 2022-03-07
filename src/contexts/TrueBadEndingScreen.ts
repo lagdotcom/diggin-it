@@ -1,5 +1,5 @@
 import Game from "../Game";
-import EndingScreen from "./EndingScreen";
+import EndingScreen from "./base/EndingScreen";
 
 export default class TrueBadEndingScreen extends EndingScreen {
   constructor(g: Game) {

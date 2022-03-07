@@ -2,7 +2,16 @@ import Game from "../Game";
 import Cmd from "../interfaces/Cmd";
 import Context from "../interfaces/Context";
 
+const lag = "Paul Davies";
+const j = "Jacob J. Ritz";
+const zan = "Zan-zan-zawa-veia";
+
+const twitter = (name: string, tag: string) => `${name} (@${tag})`;
+
 export default class CreditsScreen implements Context {
+  x: number;
+  y: number;
+
   constructor(public g: Game) {
     this.render();
   }
@@ -30,41 +39,33 @@ export default class CreditsScreen implements Context {
     }
   }
 
+  drawSection(header: string, ...credits: string[]) {
+    this.y++;
+    this.g.chars.drawText(this.x, this.y++, header);
+    for (const credit of credits)
+      this.g.chars.drawText(this.x + 1, this.y++, credit);
+  }
+
   render(): void {
     const { chars, charsHeight, tiles } = this.g;
     tiles.clear();
 
-    let y = 1;
-    chars.drawText(1, y++, "CREDITS");
+    this.x = 1;
+    this.y = 0;
+    this.drawSection("CREDITS");
+    this.drawSection("Written & Directed by:", twitter(j, "ultrajdude"));
+    this.drawSection("Planning:", twitter(lag, "lagdotcom"), j);
+    this.drawSection("Programming:", lag);
+    this.drawSection("Art:", j);
+    this.drawSection("Music:", twitter(zan, "zanzanzawa"));
+    this.drawSection("Sound Effects:", j);
+    this.drawSection("Room Design:", lag, j, zan);
 
-    y++;
-    chars.drawText(1, y++, "Planning:");
-    chars.drawText(2, y++, "Paul Davies (@lagdotcom)");
-    chars.drawText(2, y++, "Jacob J. Ritz (@UltraJDude)");
+    this.x = 20;
+    this.y = 18;
+    this.drawSection("Additional Testing:", "Nicholas Houser", "Cloud8745");
+    this.drawSection("Trailer Assistance:", "Craig LeBarron");
 
-    y++;
-    chars.drawText(1, y++, "Programming:");
-    chars.drawText(2, y++, "Paul Davies");
-
-    y++;
-    chars.drawText(1, y++, "Art:");
-    chars.drawText(2, y++, "Jacob J. Ritz");
-
-    y++;
-    chars.drawText(1, y++, "Music:");
-    chars.drawText(2, y++, "Zan-zan-zawa-veia (@zanzanzawa)");
-
-    y++;
-    chars.drawText(1, y++, "Room Design:");
-    chars.drawText(2, y++, "Paul Davies");
-    chars.drawText(2, y++, "Jacob J. Ritz");
-    chars.drawText(2, y++, "Zan-zan-zawa-veia");
-
-    y++;
-    chars.drawText(1, y++, "Additional Testing:");
-    chars.drawText(2, y++, "Nicholas Houser");
-    chars.drawText(2, y++, "Cloud8745");
-
-    chars.drawText(1, charsHeight - 2, "[ESC] to go back");
+    chars.drawText(23, charsHeight - 2, "[ESC] to go back");
   }
 }

@@ -1,8 +1,8 @@
-import Game from "../Game";
-import Cmd from "../interfaces/Cmd";
-import Context from "../interfaces/Context";
-import { MusicName } from "../interfaces/MusicLibrary";
-import ScenarioScreen from "./ScenarioScreen";
+import Game from "../../Game";
+import Cmd from "../../interfaces/Cmd";
+import Context from "../../interfaces/Context";
+import { MusicName } from "../../interfaces/MusicLibrary";
+import ScenarioScreen from "../ScenarioScreen";
 
 export default abstract class EndingScreen implements Context {
   stage: number;

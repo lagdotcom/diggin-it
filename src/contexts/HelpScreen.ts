@@ -1,50 +1,68 @@
 import pkg from "../../package.json";
-import { drawPanel } from "../drawing";
 import Game from "../Game";
-import Cmd from "../interfaces/Cmd";
-import Context from "../interfaces/Context";
+import ScrollingTextScreen from "./base/ScrollingTextScreen";
 
-export default class HelpScreen implements Context {
+const helpLines = [
+  `Diggin' It (v${pkg.version})`,
+  "",
+  "[Left Click]:",
+  "Move to adjacent tile/climb adjacent step",
+  "Attack adjacent enemy",
+  "Select target on play field (ranged",
+  " attacks and object placement)",
+  "Wait (click on Jacques)",
+  "Go through floor exits and doors",
+  "Equip or unequip inventory equipment",
+  "Use inventory items",
+  "Use shop interface",
+  "Check further action history",
+  "",
+  "[Right Click]:",
+  "Dig adjacent tile without moving",
+  "Grab item from play field (player must",
+  " be standing on the same tile)",
+  "Drop item from inventory",
+  "Restart game upon death",
+  "",
+  "[Arrow Keys]:",
+  "Move to adjacent tile",
+  "Climb adjacent step",
+  "",
+  "[Esc]:",
+  "Exit large screen menus",
+  "Restart game upon death",
+  "",
+  "[Enter or >]:",
+  "Go through floor exits and doors",
+  "",
+  "[Shift + Arrow Keys]:",
+  "Dig adjacent tile without moving",
+  "",
+  "[g]:",
+  "Grab item from play field (player must",
+  " be standing on the same tile)",
+  "",
+  "[x]:",
+  "Examine detailed item and",
+  " enemy descriptions",
+  "",
+  "[. or 5]:",
+  "Wait",
+  "",
+  "[?]:",
+  "Show controls in game",
+];
+
+export default class HelpScreen extends ScrollingTextScreen {
   constructor(public g: Game) {
-    requestAnimationFrame(() => this.render());
+    super(g, "HelpScreen", helpLines);
   }
 
-  handle(cmd: Cmd): void {
-    if (cmd.type === "cancel") {
-      this.g.emit("refreshed", {});
-      this.g.tiles.clear();
+  onCancel() {
+    this.g.emit("refreshed", {});
+    this.g.tiles.clear();
 
-      this.g.contexts.pop();
-      this.g.contexts.top.render();
-    }
-  }
-
-  onKey(e: KeyboardEvent): Cmd {
-    switch (e.key) {
-      case "Escape":
-      case "Backspace":
-      case "n":
-      case "N":
-        return { type: "cancel" };
-    }
-  }
-  onMouse(e: MouseEvent): Cmd {
-    if (e.type === "contextmenu") {
-      e.preventDefault();
-      return { type: "cancel" };
-    }
-  }
-
-  render(): void {
-    const { chars, tiles, charsWidth, charsHeight } = this.g;
-
-    tiles.clear();
-    drawPanel(chars, 0, 0, charsWidth, charsHeight);
-    chars.drawText(
-      1,
-      1,
-      `Diggin' It (v${pkg.version})\n\n\nControls:\n- Left click: Interact with inventory item, use shop interface, check further action history\n\n- Right click: Drop inventory item\n\n- arrow keys: move\n\n- esc: Exit large screen menus, restart game on death\n\n- shift + arrow keys: hold to dig in any direction without moving\n\n- g: grab item\n\n- x: examine detailed item and enemy descriptions\n\n- . or 5: wait\n\n- enter or >: go through exits`,
-      charsWidth - 2
-    );
+    this.g.contexts.pop();
+    this.g.contexts.top.render();
   }
 }
