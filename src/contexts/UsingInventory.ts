@@ -77,6 +77,8 @@ export default class UsingInventory implements Context {
       case "Backspace":
       case "n":
       case "N":
+      case "q":
+      case "Q":
         e.preventDefault();
         return { type: "cancel" };
 

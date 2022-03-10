@@ -7,8 +7,9 @@ import Context from "../interfaces/Context";
 import Soon from "../Soon";
 import CreditsScreen from "./CreditsScreen";
 import HelpScreen from "./HelpScreen";
+import StoryScreen from "./StoryScreen";
 
-type MenuItem = "start" | "help" | "credits";
+type MenuItem = "start" | "help" | "story" | "credits";
 
 export default class ScenarioScreen implements Context {
   hotspots: Hotspots<MenuItem>;
@@ -18,8 +19,9 @@ export default class ScenarioScreen implements Context {
   constructor(public g: Game) {
     const { charsHeight } = g;
     this.hotspots = new Hotspots();
-    this.hotspots.register("start", 1, charsHeight - 4, 7, 1);
-    this.hotspots.register("help", 1, charsHeight - 3, 6, 1);
+    this.hotspots.register("start", 1, charsHeight - 5, 7, 1);
+    this.hotspots.register("help", 1, charsHeight - 4, 6, 1);
+    this.hotspots.register("story", 1, charsHeight - 3, 12, 1);
     this.hotspots.register("credits", 1, charsHeight - 2, 9, 1);
 
     g.log.clear();
@@ -36,6 +38,10 @@ export default class ScenarioScreen implements Context {
 
       case "help":
         this.g.contexts.push(new HelpScreen(this.g));
+        break;
+
+      case "story":
+        this.g.contexts.push(new StoryScreen(this.g));
         break;
 
       case "credits":
@@ -62,6 +68,10 @@ export default class ScenarioScreen implements Context {
       case "h":
       case "H":
         return { type: "help" };
+
+      case "r":
+      case "R":
+        return { type: "story" };
     }
   }
   onMouse(e: MouseEvent): Cmd {
@@ -88,8 +98,9 @@ export default class ScenarioScreen implements Context {
     const sel = (item: MenuItem, label: string) =>
       this.hover === item ? fg(colourEq) + label : label;
 
-    chars.drawText(1, charsHeight - 4, sel("start", "[S]tart"));
-    chars.drawText(1, charsHeight - 3, sel("help", "[H]elp"));
+    chars.drawText(1, charsHeight - 5, sel("start", "[S]tart"));
+    chars.drawText(1, charsHeight - 4, sel("help", "[H]elp"));
+    chars.drawText(1, charsHeight - 3, sel("story", "[R]ead Story"));
     chars.drawText(1, charsHeight - 2, sel("credits", "[C]redits"));
   }
 

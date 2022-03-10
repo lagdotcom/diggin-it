@@ -40,6 +40,8 @@ export default abstract class EndingScreen implements Context {
       case "Backspace":
       case "n":
       case "N":
+      case "q":
+      case "Q":
         return { type: "cancel" };
 
       // ignore some boring keys

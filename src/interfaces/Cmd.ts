@@ -87,6 +87,10 @@ export interface StartGameCmd {
   type: "start";
 }
 
+export interface StoryCmd {
+  type: "story";
+}
+
 export interface TargetCmd {
   type: "target";
   possibilities: XY[];
@@ -126,6 +130,7 @@ type Cmd =
   | PushCmd
   | QueryCmd
   | StartGameCmd
+  | StoryCmd
   | TargetCmd
   | TitleCmd
   | UseCmd

@@ -54,15 +54,7 @@ const helpLines = [
 ];
 
 export default class HelpScreen extends ScrollingTextScreen {
-  constructor(public g: Game) {
+  constructor(g: Game) {
     super(g, "HelpScreen", helpLines);
-  }
-
-  onCancel() {
-    this.g.emit("refreshed", {});
-    this.g.tiles.clear();
-
-    this.g.contexts.pop();
-    this.g.contexts.top.render();
   }
 }

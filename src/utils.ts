@@ -1,5 +1,6 @@
 import bresenham from "bresenham";
 import { RNG } from "rot-js";
+import { tokenize } from "rot-js/lib/text";
 
 import Actor from "./Actor";
 import Game from "./Game";
@@ -104,4 +105,15 @@ export function wrap(value: number, count: number): number {
   while (value < 0) value += count;
   while (value >= count) value -= count;
   return value;
+}
+
+export function wordWrap(text: string, length: number): string[] {
+  return tokenize(text, length)
+    .reduce((total, item) => {
+      if (item.type === 0) return total + item.value;
+      else if (item.type === 1) return total + "\n";
+      return total;
+    }, "")
+    .trim()
+    .split("\n");
 }

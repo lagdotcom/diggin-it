@@ -79,6 +79,8 @@ export default class Targeting implements Context {
       case "Backspace":
       case "n":
       case "N":
+      case "q":
+      case "Q":
         return { type: "cancel" };
 
       case "Enter":

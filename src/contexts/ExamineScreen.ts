@@ -27,6 +27,8 @@ export default class ExamineScreen implements Context {
       case "Backspace":
       case "n":
       case "N":
+      case "q":
+      case "Q":
         return { type: "cancel" };
     }
   }

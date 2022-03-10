@@ -28,6 +28,8 @@ export default class ExpandedLog implements Context {
       case "Backspace":
       case "n":
       case "N":
+      case "q":
+      case "Q":
         return { type: "cancel" };
     }
   }

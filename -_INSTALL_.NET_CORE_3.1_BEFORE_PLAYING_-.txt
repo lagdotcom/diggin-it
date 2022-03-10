@@ -1,0 +1,2 @@
+This game requires .NET Core 3.1 for your operating system in order for the executable of this game to load, you can install it at the following link:
+https://dotnet.microsoft.com/en-us/download/dotnet/3.1

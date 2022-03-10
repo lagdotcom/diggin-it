@@ -16,7 +16,13 @@ export default abstract class ScrollingTextScreen implements Context {
     this.rerender = new Soon(name, () => this.render(), true);
   }
 
-  abstract onCancel(): void;
+  onCancel() {
+    this.g.emit("refreshed", {});
+    this.g.tiles.clear();
+
+    this.g.contexts.pop();
+    this.g.contexts.top.render();
+  }
 
   handle(cmd: Cmd): void {
     if (cmd.type === "cancel") {
@@ -32,6 +38,8 @@ export default abstract class ScrollingTextScreen implements Context {
       case "Backspace":
       case "n":
       case "N":
+      case "q":
+      case "Q":
         return { type: "cancel" };
 
       case "s":

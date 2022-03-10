@@ -144,6 +144,8 @@ export default class Dungeon implements Context {
         case "Backspace":
         case "n":
         case "N":
+        case "q":
+        case "Q":
           return { type: "title" };
       }
 
