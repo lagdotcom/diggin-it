@@ -40,24 +40,29 @@ export default abstract class ScrollingTextScreen implements Context {
       case "N":
       case "q":
       case "Q":
+        e.preventDefault();
         return { type: "cancel" };
 
       case "s":
       case "S":
       case "2":
       case "ArrowDown":
+        e.preventDefault();
         return { type: "move", x: 0, y: 1 };
 
       case "w":
       case "W":
       case "8":
       case "ArrowUp":
+        e.preventDefault();
         return { type: "move", x: 0, y: -1 };
 
       case "PageDown":
+        e.preventDefault();
         return { type: "move", x: 0, y: 10 };
 
       case "PageUp":
+        e.preventDefault();
         return { type: "move", x: 0, y: -10 };
     }
   }
