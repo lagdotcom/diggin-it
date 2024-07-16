@@ -33,7 +33,7 @@
     "rot-js": "https://github.com/lagdotcom/rot.js.git"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-url": "^7.0.0",
